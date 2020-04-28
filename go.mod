@@ -8,7 +8,6 @@ require (
 	github.com/btcsuite/btcd v0.0.0-20190824003749-130ea5bddde3 // indirect
 	github.com/elastic/gosigar v0.10.5 // indirect
 	github.com/ethereum/go-ethereum v1.9.8
-	github.com/google/addlicense v0.0.0-20200422172452-68a83edd47bc // indirect
 	github.com/hashicorp/golang-lru v0.5.3 // indirect
 	github.com/huin/goupnp v1.0.0 // indirect
 	github.com/onsi/ginkgo v1.10.2 // indirect
@@ -19,7 +18,6 @@ require (
 	github.com/rs/cors v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20190911031432-227b76d455e7 // indirect
 	golang.org/x/net v0.0.0-20190921015927-1a5e07d1ff72 // indirect
-	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a // indirect
 )
 
 replace github.com/celo-org/bls-zexe/go => ./external/bls-zexe/go
