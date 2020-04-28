@@ -85,7 +85,7 @@ func main() {
 		contractTrufflePath := path.Join(*monorepoPath, "packages/protocol/build/contracts/", contract+".json")
 		validatePathExists(contractTrufflePath)
 		build.MustRunCommand(abigen, "--truffle", contractTrufflePath,
-			"--pkg", "contract", "--type", contract,
+			"--pkg", "contracts", "--type", contract,
 			"--out", path.Join(contractsPath, "gen_"+strings.ToLower(contract)+".go"))
 	}
 }
