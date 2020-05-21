@@ -17,11 +17,12 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"os/exec"
 	"path"
+	"path/filepath"
 	"strings"
-
-	"github.com/celo-org/kliento/utils/build"
 )
 
 const contractsPath = "contracts"
@@ -71,9 +72,17 @@ func main() {
 	validatePathExists(*celoBlockchainPath)
 
 	if pathExists(contractsPath) {
-		if err := os.RemoveAll(contractsPath); err != nil {
-			exitMessage("Error removing "+contractsPath+" directory: %s\n", err)
+		files, err := filepath.Glob(filepath.Join(contractsPath, "gen_*.go"))
+		if err != nil {
+			exitMessage("Error running glob: %s", err)
 		}
+
+		for _, file := range files {
+			if err := os.Remove(file); err != nil {
+				exitMessage("Error removing "+file+" directory: %s\n", err)
+			}
+		}
+
 	}
 	if err := os.MkdirAll(contractsPath, os.ModePerm); err != nil {
 		exitMessage("Error creating "+contractsPath+" directory: %s\n", err)
@@ -84,7 +93,7 @@ func main() {
 	for _, contract := range contractsToGenerate {
 		contractTrufflePath := path.Join(*monorepoPath, "packages/protocol/build/contracts/", contract+".json")
 		validatePathExists(contractTrufflePath)
-		build.MustRunCommand(abigen, "--truffle", contractTrufflePath,
+		mustRunCommand(abigen, "--truffle", contractTrufflePath,
 			"--pkg", "contracts", "--type", contract,
 			"--out", path.Join(contractsPath, "gen_"+strings.ToLower(contract)+".go"))
 	}
@@ -114,4 +123,20 @@ func exitWithHelpMessage() {
 func exitMessage(msg string, a ...interface{}) {
 	fmt.Printf(msg, a...)
 	os.Exit(1)
+}
+
+// mustRun executes the given command and exits the host process for
+// any error.
+func mustRun(cmd *exec.Cmd) {
+	fmt.Println(">>>", strings.Join(cmd.Args, " "))
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	if err := cmd.Run(); err != nil {
+		log.Printf("Command failed \"%s\", err: \"%v\"", strings.Join(cmd.Args, " "), err)
+		log.Fatal(fmt.Sprintf("Command failed \"%s\", err: \"%v\"", strings.Join(cmd.Args, " "), err))
+	}
+}
+
+func mustRunCommand(cmd string, args ...string) {
+	mustRun(exec.Command(cmd, args...))
 }
