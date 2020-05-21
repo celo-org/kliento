@@ -12,41 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package wrappers
+package helpers
 
 import (
 	"fmt"
 
-	"github.com/celo-org/kliento/contracts"
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-type AccountsWrapper struct {
-	*contracts.Accounts
-}
-
-func NewAccounts(contract *contracts.Accounts) *AccountsWrapper {
-	return &AccountsWrapper{contract}
-}
-
-type EncodedSignature struct {
+type SignatureValues struct {
 	R [32]byte
 	S [32]byte
 	V uint8
 }
 
-func (w *AccountsWrapper) AuthorizeMetadata(popSignature []byte) (*EncodedSignature, error) {
-	if len(popSignature) != crypto.SignatureLength {
+func GetSignatureValues(signature []byte) (*SignatureValues, error) {
+	if len(signature) != crypto.SignatureLength {
 		return nil, fmt.Errorf("Invalid signature")
 	}
 
 	var r [32]byte
-	copy(r[:], popSignature[:32])
+	copy(r[:], signature[:32])
 	var s [32]byte
-	copy(s[:], popSignature[32:64])
-	v := popSignature[64]
+	copy(s[:], signature[32:64])
+	v := signature[64]
 
-	encodedSig := EncodedSignature{
+	encodedSig := SignatureValues{
 		R: r,
 		S: s,
 		V: v,

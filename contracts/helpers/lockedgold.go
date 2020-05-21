@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package wrappers
+package helpers
 
 import (
 	"math/big"
@@ -23,13 +23,8 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 )
 
-type LockedGoldWrapper struct {
-	*contracts.LockedGold
-}
-
-func NewLockedGold(contract *contracts.LockedGold) *LockedGoldWrapper {
-	return &LockedGoldWrapper{contract}
-}
+// LockedGold helper methods
+type LockedGold struct{ *contracts.LockedGold }
 
 type PendingWithdrawal struct {
 	Amount    *big.Int
@@ -41,8 +36,8 @@ type NonVotingLockedGold struct {
 	PendingWithdrawals []PendingWithdrawal
 }
 
-func (w *LockedGoldWrapper) GetTotalPendingWithdrawals(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
-	values, _, err := w.LockedGold.GetPendingWithdrawals(opts, account)
+func (lg *LockedGold) GetTotalPendingWithdrawals(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
+	values, _, err := lg.LockedGold.GetPendingWithdrawals(opts, account)
 	if err != nil {
 		return nil, err
 	}
@@ -50,8 +45,8 @@ func (w *LockedGoldWrapper) GetTotalPendingWithdrawals(opts *bind.CallOpts, acco
 	return bn.Sum(values...), nil
 }
 
-func (w *LockedGoldWrapper) GetPendingWithdrawals(opts *bind.CallOpts, account common.Address) ([]PendingWithdrawal, error) {
-	values, timestamps, err := w.LockedGold.GetPendingWithdrawals(opts, account)
+func (lg *LockedGold) GetPendingWithdrawals(opts *bind.CallOpts, account common.Address) ([]PendingWithdrawal, error) {
+	values, timestamps, err := lg.LockedGold.GetPendingWithdrawals(opts, account)
 	if err != nil {
 		return nil, err
 	}

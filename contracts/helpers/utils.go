@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package wrappers
+package helpers
 
 import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 )
 
-func CallOptsFromTxOpts(txOpts *bind.TransactOpts) *bind.CallOpts {
+func callOptsFromTxOpts(txOpts *bind.TransactOpts) *bind.CallOpts {
 	return &bind.CallOpts{
 		From:    txOpts.From,
 		Context: txOpts.Context,
