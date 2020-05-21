@@ -17,11 +17,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"os/exec"
 	"path"
 	"strings"
-
-	"github.com/celo-org/kliento/utils/build"
 )
 
 const contractsPath = "contracts"
@@ -84,7 +84,7 @@ func main() {
 	for _, contract := range contractsToGenerate {
 		contractTrufflePath := path.Join(*monorepoPath, "packages/protocol/build/contracts/", contract+".json")
 		validatePathExists(contractTrufflePath)
-		build.MustRunCommand(abigen, "--truffle", contractTrufflePath,
+		mustRunCommand(abigen, "--truffle", contractTrufflePath,
 			"--pkg", "contracts", "--type", contract,
 			"--out", path.Join(contractsPath, "gen_"+strings.ToLower(contract)+".go"))
 	}
@@ -114,4 +114,20 @@ func exitWithHelpMessage() {
 func exitMessage(msg string, a ...interface{}) {
 	fmt.Printf(msg, a...)
 	os.Exit(1)
+}
+
+// mustRun executes the given command and exits the host process for
+// any error.
+func mustRun(cmd *exec.Cmd) {
+	fmt.Println(">>>", strings.Join(cmd.Args, " "))
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	if err := cmd.Run(); err != nil {
+		log.Printf("Command failed \"%s\", err: \"%v\"", strings.Join(cmd.Args, " "), err)
+		log.Fatal(fmt.Sprintf("Command failed \"%s\", err: \"%v\"", strings.Join(cmd.Args, " "), err))
+	}
+}
+
+func mustRunCommand(cmd string, args ...string) {
+	mustRun(exec.Command(cmd, args...))
 }
