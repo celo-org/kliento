@@ -21,6 +21,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"path/filepath"
 	"strings"
 )
 
@@ -71,9 +72,17 @@ func main() {
 	validatePathExists(*celoBlockchainPath)
 
 	if pathExists(contractsPath) {
-		if err := os.RemoveAll(contractsPath); err != nil {
-			exitMessage("Error removing "+contractsPath+" directory: %s\n", err)
+		files, err := filepath.Glob(filepath.Join(contractsPath, "gen_*.go"))
+		if err != nil {
+			exitMessage("Error running glob: %s", err)
 		}
+
+		for _, file := range files {
+			if err := os.Remove(file); err != nil {
+				exitMessage("Error removing "+file+" directory: %s\n", err)
+			}
+		}
+
 	}
 	if err := os.MkdirAll(contractsPath, os.ModePerm); err != nil {
 		exitMessage("Error creating "+contractsPath+" directory: %s\n", err)
