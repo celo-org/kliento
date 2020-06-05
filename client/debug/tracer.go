@@ -25,6 +25,8 @@ import (
 	"github.com/ethereum/go-ethereum/eth"
 )
 
+var transferTracerTimeout = `50s`
+
 var transferTracer = `
 // Geth Tracer that outputs cGLD transfers.
 //
@@ -40,9 +42,13 @@ var transferTracer = `
     return this.callStack[this.callStack.length - 1];
   },
 
-  assertEqual(x, y) {
-    if (x != y) {
-      throw new Error("Expected " + x.toString() + "  == " + y.toString());
+  assertStackHeightEquals(expected, shouldThrow, info) {
+    const msg = "Unexpected stack height. Expected: " + expected + " Actual: " + this.callStack.length + " Additional info: " + info
+    if (this.callStack.length != expected) {
+      if (shouldThrow) { 
+        throw new Error(msg);
+      }
+      console.warn(msg);
     }
   },
 
@@ -59,7 +65,7 @@ var transferTracer = `
 
   // fault() is invoked when the actual execution of an opcode fails.
   fault(log, db) {
-    this.assertEqual(this.callStack.length, log.getDepth());
+    this.assertStackHeightEquals(log.getDepth(), true, "");
     this.topCall().reverted = true;
   },
 
@@ -67,7 +73,7 @@ var transferTracer = `
   step(log, db) {
     const depth = log.getDepth()
 
-    if (this.callStack.length - 1 == depth) {
+    if (this.callStack.length > depth) {
       const finishedCall = this.callStack.pop();
 
       // Find to address for nested contract create with value.
@@ -84,7 +90,7 @@ var transferTracer = `
                          finishedCall.reverted ? this.statusRevert : this.statusSuccess);
     }
 
-    this.assertEqual(this.callStack.length, depth);
+    this.assertStackHeightEquals(depth, true, "");
 
     // Capture any errors immediately.
     const error = log.getError();
@@ -179,7 +185,7 @@ var transferTracer = `
   // result() is invoked when all the opcodes have been iterated over and returns
   // the final result of the tracing.
   result(ctx, db) {
-    this.assertEqual(this.callStack.length, 1);
+    this.assertStackHeightEquals(1, true, "");
     const rootCall = this.topCall();
     const transfers = []
     this.pushTransfers(transfers, rootCall.transfers,
@@ -258,7 +264,7 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 }
 
 func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.Hash) ([]Transfer, error) {
-	tracerConfig := &eth.TraceConfig{Tracer: &transferTracer}
+	tracerConfig := &eth.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracer}
 	var response transferTracerResponse
 
 	err := dc.TraceTransaction(ctx, &response, txhash, tracerConfig)
