@@ -130,10 +130,10 @@ func (e *Election) VoteMetadata(opts *bind.CallOpts, group common.Address, value
 		return nil, err
 	}
 
-	var voteTotal *big.Int = value
+	var voteTotal *big.Int
 	for idx, currGroup := range votes.Groups {
 		if group == currGroup {
-			voteTotal = bn.Add(voteTotal, votes.Values[idx])
+			voteTotal = bn.Add(value, votes.Values[idx])
 			break
 		}
 	}
