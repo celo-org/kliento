@@ -13,7 +13,7 @@ GOLANGCI_exists := $(shell command -v golangci-lint 2> /dev/null)
 COMMIT_SHA=$(shell git rev-parse HEAD)
 
 build:
-	go build ./...
+	go build -ldflags "-extldflags -pthread" ./...
 
 gen-contracts:
 	go run internal/scripts/gen-contracts.go -gcelo $(CELO_BLOCKCHAIN_PATH) -monorepo $(CELO_MONOREPO_PATH)

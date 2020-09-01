@@ -12,7 +12,7 @@ import (
 var ctx = context.Background()
 
 func CeloClient() *client.CeloClient {
-	celo, err := client.Dial("https://rc0-forno.celo-testnet.org/")
+	celo, err := client.Dial("https://rc1-forno.celo-testnet.org/")
 	if err != nil {
 		panic(err)
 	}

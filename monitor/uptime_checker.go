@@ -13,7 +13,7 @@ import (
 
 const maxValsetSize = 100
 
-func initialValidators(ctx context.Context, cc *client.CeloClient) ([]common.Address, error) {
+func InitialValidators(ctx context.Context, cc *client.CeloClient) ([]common.Address, error) {
 	firstBlock, err := cc.Eth.HeaderByNumber(ctx, big.NewInt(0))
 	if err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func getCurrentEpoch(ctx context.Context, epochSize uint64, cc *client.CeloClien
 	return istanbul.GetEpochNumber(lastBlock.Number.Uint64(), epochSize), nil
 }
 
-func applyValidatorChanges(currentValset []common.Address, epochIstData *types.IstanbulExtra) (valset []common.Address, added int, removed int) {
+func ApplyValidatorChanges(currentValset []common.Address, epochIstData *types.IstanbulExtra) (valset []common.Address, added int, removed int) {
 	nextValidators := make([]common.Address, 0, maxValsetSize)
 
 	// Remove validators we don't need
@@ -57,7 +57,11 @@ func EpochValidators(ctx context.Context, epochSize uint64, cc *client.CeloClien
 	if err != nil {
 		return nil, err
 	}
-	genesisValidators, err := initialValidators(ctx, cc)
+	return EpochValidatorsAt(ctx, epochSize, currentEpoch, cc)
+}
+
+func EpochValidatorsAt(ctx context.Context, epochSize uint64, lastEpoch uint64, cc *client.CeloClient) ([][]common.Address, error) {
+	genesisValidators, err := InitialValidators(ctx, cc)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +70,7 @@ func EpochValidators(ctx context.Context, epochSize uint64, cc *client.CeloClien
 	epochValidators = append(epochValidators, genesisValidators)
 	fmt.Printf("Epoch %d #validators: %d\n", 1, len(genesisValidators))
 
-	for epoch := uint64(1); epoch < currentEpoch; epoch++ {
+	for epoch := uint64(1); epoch < lastEpoch; epoch++ {
 		lastBlockNumber := istanbul.GetEpochLastBlockNumber(epoch, epochSize)
 		lastBlockHeader, err := cc.Eth.HeaderByNumber(ctx, new(big.Int).SetUint64(lastBlockNumber))
 		if err != nil {
@@ -74,7 +78,7 @@ func EpochValidators(ctx context.Context, epochSize uint64, cc *client.CeloClien
 		}
 		istExtra, err := types.ExtractIstanbulExtra(lastBlockHeader)
 
-		nextValidators, removed, added := applyValidatorChanges(epochValidators[epoch-1], istExtra)
+		nextValidators, removed, added := ApplyValidatorChanges(epochValidators[epoch-1], istExtra)
 
 		fmt.Printf("Epoch %d #validators: %d new: %d removed: %d\n", epoch+1, len(nextValidators), added, removed)
 
@@ -85,7 +89,7 @@ func EpochValidators(ctx context.Context, epochSize uint64, cc *client.CeloClien
 }
 
 func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClient, lastBlock uint64) error {
-	currentValidators, err := initialValidators(ctx, cc)
+	currentValidators, err := InitialValidators(ctx, cc)
 	if err != nil {
 		return err
 	}
@@ -97,7 +101,6 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 	var missedBlocks map[common.Address]uint
 	missedBlocks = make(map[common.Address]uint)
 
-	fmt.Printf("Starting Epoch %d #validators: %d new: %d removed: %d\n", epoch+1, len(currentValidators))
 	for bn := uint64(2); bn <= lastBlock; bn++ {
 		header, err := cc.Eth.HeaderByNumber(ctx, new(big.Int).SetUint64(bn))
 		if err != nil {
@@ -114,7 +117,7 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 
 		if istanbul.IsLastBlockOfEpoch(bn, epochSize) {
 			epoch++
-			currentValidators, added, removed := applyValidatorChanges(currentValidators, istExtra)
+			currentValidators, added, removed := ApplyValidatorChanges(currentValidators, istExtra)
 			fmt.Printf("Starting Epoch %d #validators: %d new: %d removed: %d\n", epoch, len(currentValidators), added, removed)
 		}
 
