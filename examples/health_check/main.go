@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/big"
 	"os"
+	"time"
 
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/monitor"
@@ -18,8 +19,8 @@ import (
 var ctx = context.Background()
 
 func CeloClient() *client.CeloClient {
-//	celo, err := client.Dial("http://localhost:8545/")
-	celo, err := client.Dial("https://baklava-forno.celo-testnet.org/")
+	celo, err := client.Dial("http://localhost:8545/")
+//	celo, err := client.Dial("https://baklava-forno.celo-testnet.org/")
 	if err != nil {
 		panic(err)
 	}
@@ -51,10 +52,13 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 		return err
 	}
 
-	for bn := firstBlock; bn <= lastBlock; bn++ {
+	for bn := firstBlock; bn <= lastBlock;  {
 		header, err := cc.Eth.HeaderByNumber(ctx, new(big.Int).SetUint64(bn))
 		if err != nil {
-			return err
+			// log.Info("Err", "err", err)
+			// return err
+			time.Sleep(time.Second)
+			continue
 		}
 		istExtra, err := types.ExtractIstanbulExtra(header)
 
@@ -90,6 +94,7 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 		}
 
 		prevHeader = header
+		bn++
 
 	}
 	fmt.Printf("Average misses: %v\n", float64(totalMissed) / float64(totalSlots))
@@ -103,8 +108,8 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 func main() {
 	log.Root().SetHandler(log.LvlFilterHandler(log.LvlInfo, log.StreamHandler(os.Stderr, log.TerminalFormat(true))))
 
-	// epochSize := 10
-	epochSize := 17280
+	epochSize := 10
+	// epochSize := 17280
 
 	cc := CeloClient()
 
@@ -115,7 +120,7 @@ func main() {
 
 	log.Info("At block", "num", latest.Number)
 
-	if err := CheckSignatures(ctx, uint64(epochSize), cc, 20000, 20100); err != nil {
+	if err := CheckSignatures(ctx, uint64(epochSize), cc, 27520, 27550); err != nil {
 		log.Crit("Error Checking Uptime", "err", err)
 	}
 }
