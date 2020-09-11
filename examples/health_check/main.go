@@ -20,7 +20,7 @@ var ctx = context.Background()
 
 func CeloClient() *client.CeloClient {
 	celo, err := client.Dial("http://localhost:8545/")
-//	celo, err := client.Dial("https://baklava-forno.celo-testnet.org/")
+// 	celo, err := client.Dial("https://baklava-forno.celo-testnet.org/")
 	if err != nil {
 		panic(err)
 	}
@@ -28,6 +28,14 @@ func CeloClient() *client.CeloClient {
 }
 
 func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClient, firstBlock uint64, lastBlock uint64) error {
+	for {
+		_, err := cc.Eth.HeaderByNumber(ctx, new(big.Int).SetUint64(firstBlock))
+		if err != nil {
+			log.Info("Waiting for block", "num", firstBlock)
+			time.Sleep(time.Second)
+			continue
+		}
+	}
 	firstEpoch := istanbul.GetEpochNumber(firstBlock, epochSize)
 	epochValidators, err := monitor.EpochValidatorsAt(ctx, epochSize, firstEpoch, cc)
 	currentValidators := epochValidators[firstEpoch-1]
@@ -55,8 +63,6 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 	for bn := firstBlock; bn <= lastBlock;  {
 		header, err := cc.Eth.HeaderByNumber(ctx, new(big.Int).SetUint64(bn))
 		if err != nil {
-			// log.Info("Err", "err", err)
-			// return err
 			time.Sleep(time.Second)
 			continue
 		}
@@ -120,7 +126,7 @@ func main() {
 
 	log.Info("At block", "num", latest.Number)
 
-	if err := CheckSignatures(ctx, uint64(epochSize), cc, 27520, 27550); err != nil {
+	if err := CheckSignatures(ctx, uint64(epochSize), cc, 275200, 275500); err != nil {
 		log.Crit("Error Checking Uptime", "err", err)
 	}
 }
