@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"math/big"
 	"os"
@@ -18,9 +19,8 @@ import (
 
 var ctx = context.Background()
 
-func CeloClient() *client.CeloClient {
-	celo, err := client.Dial("http://localhost:8545/")
-// 	celo, err := client.Dial("https://baklava-forno.celo-testnet.org/")
+func CeloClient(rpcEndpoint string) *client.CeloClient {
+	celo, err := client.Dial(rpcEndpoint)
 	if err != nil {
 		panic(err)
 	}
@@ -34,6 +34,8 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 			log.Info("Waiting for block", "num", firstBlock)
 			time.Sleep(time.Second)
 			continue
+		} else {
+			break
 		}
 	}
 	firstEpoch := istanbul.GetEpochNumber(firstBlock, epochSize)
@@ -60,7 +62,7 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 		return err
 	}
 
-	for bn := firstBlock; bn <= lastBlock;  {
+	for bn := firstBlock; bn <= lastBlock; {
 		header, err := cc.Eth.HeaderByNumber(ctx, new(big.Int).SetUint64(bn))
 		if err != nil {
 			time.Sleep(time.Second)
@@ -103,8 +105,8 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 		bn++
 
 	}
-	fmt.Printf("Average misses: %v\n", float64(totalMissed) / float64(totalSlots))
-	fmt.Printf("Average block time: %v\n", float64(totalTime) / float64(lastBlock-firstBlock+1))
+	fmt.Printf("Average misses: %v\n", float64(totalMissed)/float64(totalSlots))
+	fmt.Printf("Average block time: %v\n", float64(totalTime)/float64(lastBlock-firstBlock+1))
 	fmt.Printf("Max misses by validator: %v\n", maxMissed)
 	fmt.Printf("Max sequential misses by validator: %v\n", maxSeqMissed)
 	fmt.Printf("Max block time: %v\n", maxTime)
@@ -114,10 +116,15 @@ func CheckSignatures(ctx context.Context, epochSize uint64, cc *client.CeloClien
 func main() {
 	log.Root().SetHandler(log.LvlFilterHandler(log.LvlInfo, log.StreamHandler(os.Stderr, log.TerminalFormat(true))))
 
-	epochSize := 10
-	// epochSize := 17280
+	rpcEndPoint := flag.String("rpc", "http://localhost:8545/", "RPC Endpoint for the celo node")
+	epochSize := flag.Int("epoch", 1000, "Epoch size in blocks")
+	firstBlock := flag.Int("first-block", 1, "First Block to check")
+	lastBlock := flag.Int("last-block", 1001, "Last Block to check")
+	flag.Parse()
 
-	cc := CeloClient()
+	// fmt.Println(*rpcEndPoint, *epochSize, *firstBlock, *lastBlock)
+
+	cc := CeloClient(*rpcEndPoint)
 
 	latest, err := cc.Eth.HeaderByNumber(ctx, nil)
 	if err != nil {
@@ -126,7 +133,7 @@ func main() {
 
 	log.Info("At block", "num", latest.Number)
 
-	if err := CheckSignatures(ctx, uint64(epochSize), cc, 275200, 275500); err != nil {
+	if err := CheckSignatures(ctx, uint64(*epochSize), cc, uint64(*firstBlock), uint64(*lastBlock)); err != nil {
 		log.Crit("Error Checking Uptime", "err", err)
 	}
 }
