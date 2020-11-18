@@ -16,7 +16,10 @@ build:
 	go build ./...
 
 gen-contracts:
-	go run internal/scripts/gen-contracts.go -gcelo $(CELO_BLOCKCHAIN_PATH) -monorepo $(CELO_MONOREPO_PATH)
+	go run contracts/internal/gen-contracts.go -gcelo $(CELO_BLOCKCHAIN_PATH) -monorepo $(CELO_MONOREPO_PATH)
+
+gen-registry:
+	go run registry/internal/gen-registry.go
 
 test: 
 	go test ./...
