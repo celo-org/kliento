@@ -37,12 +37,13 @@ var RegistryAddress = params.RegistrySmartContractAddress
 // Registry defines an interface to access all Celo core Contracts
 type Registry interface {
 	GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error)
-	GeneratedRegistry
+	generatedRegistry
 }
 
 type registryImpl struct {
-	cc       *client.CeloClient
-	contract *contracts.Registry
+	cc               *client.CeloClient
+	contract         *contracts.Registry
+	contractsBinding *boundRegistry
 }
 
 var (
@@ -56,8 +57,9 @@ func New(cc *client.CeloClient) (Registry, error) {
 	registry, err := contracts.NewRegistry(RegistryAddress, cc.Eth)
 	err = client.WrapRpcError(err)
 	return &registryImpl{
-		cc:       cc,
-		contract: registry,
+		cc:               cc,
+		contract:         registry,
+		contractsBinding: &boundRegistry{},
 	}, err
 }
 
@@ -66,13 +68,11 @@ func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, 
 
 	err = client.WrapRpcError(err)
 
-	if err != nil {
-		return common.ZeroAddress, err
-	} else if err == client.ErrContractNotDeployed {
+	if err == client.ErrContractNotDeployed {
 		return common.ZeroAddress, ErrRegistryNotDeployed
-	}
-
-	if address == common.ZeroAddress {
+	} else if err != nil {
+		return common.ZeroAddress, err
+	} else if address == common.ZeroAddress {
 		return common.ZeroAddress, client.ErrContractNotDeployed
 	}
 

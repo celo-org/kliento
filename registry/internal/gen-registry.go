@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"go/format"
 	"os"
 	"path"
 	"text/template"
@@ -16,32 +18,31 @@ var contractsToGenerate = []string{
 	"EpochRewards",
 	"Escrow",
 	"Exchange",
-	"FeeCurrencyWhitelist",
 	"GasPriceMinimum",
 	"GoldToken",
 	"Governance",
-	"GovernanceApproverMultiSig",
+	"GovernanceSlasher",
 	"LockedGold",
-	"MultiSig",
-	"Proxy",
 	"Random",
-	"Registry",
-	"ReleaseGold",
 	"Reserve",
-	"ReserveSpenderMultiSig",
 	"SortedOracles",
 	"StableToken",
 	"Validators",
 }
 
 var templateStr = `
+// Code generated - DO NOT EDIT.
+
 package registry
 
 import (
   "context"
 	"math/big"
 
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/celo-org/kliento/contracts"
+	"github.com/celo-org/kliento/contracts/helpers"
+	"github.com/celo-org/kliento/client"
 )
 
 {{range .}}
@@ -49,30 +50,90 @@ import (
 var {{.}}ContractID ContractID = "{{.}}"
 {{end}}
 
-type GeneratedRegistry interface {
-{{range .}}
-  Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error)
-{{end}}
+// RegisteredContractIDs are all (known) registered contract identifiers
+var RegisteredContractIDs = []ContractID{
+	{{range .}}
+	{{.}}ContractID,
+	{{end}}
+}
+
+type boundRegistry struct {
+	{{range .}}
+	{{.}}Contract *contracts.{{.}}
+	{{end}}
+}
+
+type generatedRegistry interface {
+	{{range .}}
+	Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error)
+	{{end}}
+	Hydrate(ctx context.Context, blockNumber *big.Int) (error)
 }
 
 {{range .}}
 func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error) {
-  address, err := r.GetAddressFor(ctx, blockNumber, {{.}}ContractID)
- 	if err != nil {
- 		return nil, err
- 	}
- 	return contracts.New{{.}}(address, r.cc.Eth)
+	address, err := r.GetAddressFor(ctx, blockNumber, {{.}}ContractID)
+	if err != nil {
+		return nil, err
+	}
+	return contracts.New{{.}}(address, r.cc.Eth)
 }
 {{end}}
+
+// Hydrate populates contractsBinding using the registry's mapping at the provided blockNumber 
+// for all known and deployed contracts
+func (r *registryImpl) Hydrate(ctx context.Context, blockNumber *big.Int) (error) {
+	check := func(err error) (bool) {
+		return err != nil && err != ErrRegistryNotDeployed && err != client.ErrContractNotDeployed
+	}
+
+	var err error
+	{{range .}}
+	r.contractsBinding.{{.}}Contract, err = r.Get{{.}}Contract(ctx, blockNumber)
+	if check(err) {
+		return err
+	}
+	{{end}}
+
+	return nil
+}
+
+// ParseLog parses an event log using a "hydrated" registry
+// Hydrate should be called at the desired block number prior to parsing
+func (r *registryImpl) ParseLog(eventLog *types.Log) ([]interface{}) {
+	buildSlice := func(contractName string, eventName string, event interface{}) []interface{} {
+		slice := []interface{}{"contract", contractName, "event", eventName}
+		eventSlice, _ := helpers.EventToSlice(event)
+		return append(slice, eventSlice)
+	}
+	{{range .}}
+	if (r.contractsBinding.{{.}}Contract != nil) {
+		eventName, event, ok, err := r.contractsBinding.{{.}}Contract.TryParseLog(*eventLog)
+		if ok && err != nil {
+			return buildSlice("{{.}}", eventName, event)
+		}
+	}
+	{{end}}
+	return nil
+}
 `
 
 func main() {
 	template := template.Must(template.New("registryTemplate").Parse(templateStr))
+
+	var buf bytes.Buffer
+
+	template.Execute(&buf, contractsToGenerate)
+	p, err := format.Source(buf.Bytes())
+	if err != nil {
+		panic(err)
+	}
 
 	f, err := os.Create(path.Join("registry/gen_registry.go"))
 	if err != nil {
 		panic(err)
 	}
 	defer f.Close()
-	template.Execute(f, contractsToGenerate)
+	f.Write(p)
+	// f.Write(buf.Bytes())
 }

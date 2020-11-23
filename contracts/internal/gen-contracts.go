@@ -42,6 +42,7 @@ var contractsToGenerate = []string{
 	"GasPriceMinimum",
 	"GoldToken",
 	"Governance",
+	"GovernanceSlasher",
 	"GovernanceApproverMultiSig",
 	"LockedGold",
 	"MultiSig",

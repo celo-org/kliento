@@ -15,10 +15,10 @@
 package helpers
 
 import (
+	"fmt"
 	"math/big"
 
 	"github.com/celo-org/kliento/contracts"
-	"github.com/celo-org/kliento/internal/utils"
 	"github.com/celo-org/kliento/utils/bn"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -169,6 +169,15 @@ type RevokeMetadata struct {
 	*AddressLesserGreater
 }
 
+func addressIndexOf(slice []common.Address, item common.Address) (*big.Int, error) {
+	for idx, currItem := range slice {
+		if currItem == item {
+			return big.NewInt(int64(idx)), nil
+		}
+	}
+	return nil, fmt.Errorf("Item not found in slice")
+}
+
 func (e *Election) RevokeMetadata(opts *bind.CallOpts, account common.Address, group common.Address, value *big.Int) (*RevokeMetadata, error) {
 	groups, err := e.GetGroupsVotedForByAccount(opts, account)
 	if err != nil {
@@ -180,7 +189,7 @@ func (e *Election) RevokeMetadata(opts *bind.CallOpts, account common.Address, g
 		return nil, err
 	}
 
-	idx, err := utils.AddressIndexOf(groups, group)
+	idx, err := addressIndexOf(groups, group)
 	if err != nil {
 		return nil, err
 	}
