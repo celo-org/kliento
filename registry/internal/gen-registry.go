@@ -36,7 +36,7 @@ var templateStr = `
 package registry
 
 import (
-  "context"
+  	"context"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/core/types"
@@ -46,7 +46,7 @@ import (
 )
 
 {{range .}}
-// {{.}}ContractID is the registry Id for '{{.}}' contract
+// {{.}}ContractID is the registry identifier for '{{.}}' contract
 var {{.}}ContractID ContractID = "{{.}}"
 {{end}}
 
@@ -67,7 +67,6 @@ type generatedRegistry interface {
 	{{range .}}
 	Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error)
 	{{end}}
-	Hydrate(ctx context.Context, blockNumber *big.Int) (error)
 }
 
 {{range .}}
@@ -76,11 +75,15 @@ func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.In
 	if err != nil {
 		return nil, err
 	}
-	return contracts.New{{.}}(address, r.cc.Eth)
+	contract, err := contracts.New{{.}}(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 {{end}}
 
-// Hydrate populates contractsBinding using the registry's mapping at the provided blockNumber 
+// Hydrate populates contract bindings using the registry's mapping at the provided blockNumber 
 // for all known and deployed contracts
 func (r *registryImpl) Hydrate(ctx context.Context, blockNumber *big.Int) (error) {
 	check := func(err error) (bool) {
@@ -89,26 +92,26 @@ func (r *registryImpl) Hydrate(ctx context.Context, blockNumber *big.Int) (error
 
 	var err error
 	{{range .}}
-	r.contractsBinding.{{.}}Contract, err = r.Get{{.}}Contract(ctx, blockNumber)
+	contract, err = r.Get{{.}}Contract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.{{.}}Contract = contract
 	{{end}}
-
 	return nil
 }
 
 // ParseLog parses an event log using a "hydrated" registry
 // Hydrate should be called at the desired block number prior to parsing
-func (r *registryImpl) ParseLog(eventLog *types.Log) ([]interface{}) {
+func (r *registryImpl) ParseLog(eventLog types.Log) ([]interface{}) {
 	buildSlice := func(contractName string, eventName string, event interface{}) []interface{} {
 		slice := []interface{}{"contract", contractName, "event", eventName}
 		eventSlice, _ := helpers.EventToSlice(event)
 		return append(slice, eventSlice)
 	}
 	{{range .}}
-	if (r.contractsBinding.{{.}}Contract != nil) {
-		eventName, event, ok, err := r.contractsBinding.{{.}}Contract.TryParseLog(*eventLog)
+	if (r.{{.}}Contract != nil) {
+		eventName, event, ok, err := r.{{.}}Contract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("{{.}}", eventName, event)
 		}
@@ -135,5 +138,4 @@ func main() {
 	}
 	defer f.Close()
 	f.Write(p)
-	// f.Write(buf.Bytes())
 }

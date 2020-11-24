@@ -12,61 +12,61 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
-// AccountsContractID is the registry Id for 'Accounts' contract
+// AccountsContractID is the registry identifier for 'Accounts' contract
 var AccountsContractID ContractID = "Accounts"
 
-// AttestationsContractID is the registry Id for 'Attestations' contract
+// AttestationsContractID is the registry identifier for 'Attestations' contract
 var AttestationsContractID ContractID = "Attestations"
 
-// BlockchainParametersContractID is the registry Id for 'BlockchainParameters' contract
+// BlockchainParametersContractID is the registry identifier for 'BlockchainParameters' contract
 var BlockchainParametersContractID ContractID = "BlockchainParameters"
 
-// DoubleSigningSlasherContractID is the registry Id for 'DoubleSigningSlasher' contract
+// DoubleSigningSlasherContractID is the registry identifier for 'DoubleSigningSlasher' contract
 var DoubleSigningSlasherContractID ContractID = "DoubleSigningSlasher"
 
-// DowntimeSlasherContractID is the registry Id for 'DowntimeSlasher' contract
+// DowntimeSlasherContractID is the registry identifier for 'DowntimeSlasher' contract
 var DowntimeSlasherContractID ContractID = "DowntimeSlasher"
 
-// ElectionContractID is the registry Id for 'Election' contract
+// ElectionContractID is the registry identifier for 'Election' contract
 var ElectionContractID ContractID = "Election"
 
-// EpochRewardsContractID is the registry Id for 'EpochRewards' contract
+// EpochRewardsContractID is the registry identifier for 'EpochRewards' contract
 var EpochRewardsContractID ContractID = "EpochRewards"
 
-// EscrowContractID is the registry Id for 'Escrow' contract
+// EscrowContractID is the registry identifier for 'Escrow' contract
 var EscrowContractID ContractID = "Escrow"
 
-// ExchangeContractID is the registry Id for 'Exchange' contract
+// ExchangeContractID is the registry identifier for 'Exchange' contract
 var ExchangeContractID ContractID = "Exchange"
 
-// GasPriceMinimumContractID is the registry Id for 'GasPriceMinimum' contract
+// GasPriceMinimumContractID is the registry identifier for 'GasPriceMinimum' contract
 var GasPriceMinimumContractID ContractID = "GasPriceMinimum"
 
-// GoldTokenContractID is the registry Id for 'GoldToken' contract
+// GoldTokenContractID is the registry identifier for 'GoldToken' contract
 var GoldTokenContractID ContractID = "GoldToken"
 
-// GovernanceContractID is the registry Id for 'Governance' contract
+// GovernanceContractID is the registry identifier for 'Governance' contract
 var GovernanceContractID ContractID = "Governance"
 
-// GovernanceSlasherContractID is the registry Id for 'GovernanceSlasher' contract
+// GovernanceSlasherContractID is the registry identifier for 'GovernanceSlasher' contract
 var GovernanceSlasherContractID ContractID = "GovernanceSlasher"
 
-// LockedGoldContractID is the registry Id for 'LockedGold' contract
+// LockedGoldContractID is the registry identifier for 'LockedGold' contract
 var LockedGoldContractID ContractID = "LockedGold"
 
-// RandomContractID is the registry Id for 'Random' contract
+// RandomContractID is the registry identifier for 'Random' contract
 var RandomContractID ContractID = "Random"
 
-// ReserveContractID is the registry Id for 'Reserve' contract
+// ReserveContractID is the registry identifier for 'Reserve' contract
 var ReserveContractID ContractID = "Reserve"
 
-// SortedOraclesContractID is the registry Id for 'SortedOracles' contract
+// SortedOraclesContractID is the registry identifier for 'SortedOracles' contract
 var SortedOraclesContractID ContractID = "SortedOracles"
 
-// StableTokenContractID is the registry Id for 'StableToken' contract
+// StableTokenContractID is the registry identifier for 'StableToken' contract
 var StableTokenContractID ContractID = "StableToken"
 
-// ValidatorsContractID is the registry Id for 'Validators' contract
+// ValidatorsContractID is the registry identifier for 'Validators' contract
 var ValidatorsContractID ContractID = "Validators"
 
 // RegisteredContractIDs are all (known) registered contract identifiers
@@ -189,8 +189,6 @@ type generatedRegistry interface {
 	GetStableTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.StableToken, error)
 
 	GetValidatorsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Validators, error)
-
-	Hydrate(ctx context.Context, blockNumber *big.Int) error
 }
 
 func (r *registryImpl) GetAccountsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Accounts, error) {
@@ -198,7 +196,11 @@ func (r *registryImpl) GetAccountsContract(ctx context.Context, blockNumber *big
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewAccounts(address, r.cc.Eth)
+	contract, err := contracts.NewAccounts(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetAttestationsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Attestations, error) {
@@ -206,7 +208,11 @@ func (r *registryImpl) GetAttestationsContract(ctx context.Context, blockNumber 
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewAttestations(address, r.cc.Eth)
+	contract, err := contracts.NewAttestations(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetBlockchainParametersContract(ctx context.Context, blockNumber *big.Int) (*contracts.BlockchainParameters, error) {
@@ -214,7 +220,11 @@ func (r *registryImpl) GetBlockchainParametersContract(ctx context.Context, bloc
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewBlockchainParameters(address, r.cc.Eth)
+	contract, err := contracts.NewBlockchainParameters(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetDoubleSigningSlasherContract(ctx context.Context, blockNumber *big.Int) (*contracts.DoubleSigningSlasher, error) {
@@ -222,7 +232,11 @@ func (r *registryImpl) GetDoubleSigningSlasherContract(ctx context.Context, bloc
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewDoubleSigningSlasher(address, r.cc.Eth)
+	contract, err := contracts.NewDoubleSigningSlasher(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetDowntimeSlasherContract(ctx context.Context, blockNumber *big.Int) (*contracts.DowntimeSlasher, error) {
@@ -230,7 +244,11 @@ func (r *registryImpl) GetDowntimeSlasherContract(ctx context.Context, blockNumb
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewDowntimeSlasher(address, r.cc.Eth)
+	contract, err := contracts.NewDowntimeSlasher(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetElectionContract(ctx context.Context, blockNumber *big.Int) (*contracts.Election, error) {
@@ -238,7 +256,11 @@ func (r *registryImpl) GetElectionContract(ctx context.Context, blockNumber *big
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewElection(address, r.cc.Eth)
+	contract, err := contracts.NewElection(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetEpochRewardsContract(ctx context.Context, blockNumber *big.Int) (*contracts.EpochRewards, error) {
@@ -246,7 +268,11 @@ func (r *registryImpl) GetEpochRewardsContract(ctx context.Context, blockNumber 
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewEpochRewards(address, r.cc.Eth)
+	contract, err := contracts.NewEpochRewards(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetEscrowContract(ctx context.Context, blockNumber *big.Int) (*contracts.Escrow, error) {
@@ -254,7 +280,11 @@ func (r *registryImpl) GetEscrowContract(ctx context.Context, blockNumber *big.I
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewEscrow(address, r.cc.Eth)
+	contract, err := contracts.NewEscrow(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetExchangeContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error) {
@@ -262,7 +292,11 @@ func (r *registryImpl) GetExchangeContract(ctx context.Context, blockNumber *big
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewExchange(address, r.cc.Eth)
+	contract, err := contracts.NewExchange(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetGasPriceMinimumContract(ctx context.Context, blockNumber *big.Int) (*contracts.GasPriceMinimum, error) {
@@ -270,7 +304,11 @@ func (r *registryImpl) GetGasPriceMinimumContract(ctx context.Context, blockNumb
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewGasPriceMinimum(address, r.cc.Eth)
+	contract, err := contracts.NewGasPriceMinimum(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetGoldTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.GoldToken, error) {
@@ -278,7 +316,11 @@ func (r *registryImpl) GetGoldTokenContract(ctx context.Context, blockNumber *bi
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewGoldToken(address, r.cc.Eth)
+	contract, err := contracts.NewGoldToken(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetGovernanceContract(ctx context.Context, blockNumber *big.Int) (*contracts.Governance, error) {
@@ -286,7 +328,11 @@ func (r *registryImpl) GetGovernanceContract(ctx context.Context, blockNumber *b
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewGovernance(address, r.cc.Eth)
+	contract, err := contracts.NewGovernance(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetGovernanceSlasherContract(ctx context.Context, blockNumber *big.Int) (*contracts.GovernanceSlasher, error) {
@@ -294,7 +340,11 @@ func (r *registryImpl) GetGovernanceSlasherContract(ctx context.Context, blockNu
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewGovernanceSlasher(address, r.cc.Eth)
+	contract, err := contracts.NewGovernanceSlasher(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetLockedGoldContract(ctx context.Context, blockNumber *big.Int) (*contracts.LockedGold, error) {
@@ -302,7 +352,11 @@ func (r *registryImpl) GetLockedGoldContract(ctx context.Context, blockNumber *b
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewLockedGold(address, r.cc.Eth)
+	contract, err := contracts.NewLockedGold(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetRandomContract(ctx context.Context, blockNumber *big.Int) (*contracts.Random, error) {
@@ -310,7 +364,11 @@ func (r *registryImpl) GetRandomContract(ctx context.Context, blockNumber *big.I
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewRandom(address, r.cc.Eth)
+	contract, err := contracts.NewRandom(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetReserveContract(ctx context.Context, blockNumber *big.Int) (*contracts.Reserve, error) {
@@ -318,7 +376,11 @@ func (r *registryImpl) GetReserveContract(ctx context.Context, blockNumber *big.
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewReserve(address, r.cc.Eth)
+	contract, err := contracts.NewReserve(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetSortedOraclesContract(ctx context.Context, blockNumber *big.Int) (*contracts.SortedOracles, error) {
@@ -326,7 +388,11 @@ func (r *registryImpl) GetSortedOraclesContract(ctx context.Context, blockNumber
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewSortedOracles(address, r.cc.Eth)
+	contract, err := contracts.NewSortedOracles(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetStableTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.StableToken, error) {
@@ -334,7 +400,11 @@ func (r *registryImpl) GetStableTokenContract(ctx context.Context, blockNumber *
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewStableToken(address, r.cc.Eth)
+	contract, err := contracts.NewStableToken(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
 func (r *registryImpl) GetValidatorsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Validators, error) {
@@ -342,10 +412,14 @@ func (r *registryImpl) GetValidatorsContract(ctx context.Context, blockNumber *b
 	if err != nil {
 		return nil, err
 	}
-	return contracts.NewValidators(address, r.cc.Eth)
+	contract, err := contracts.NewValidators(address, r.cc.Eth)
+	if err != nil {
+		return nil, err
+	}
+	return contract, nil
 }
 
-// Hydrate populates contractsBinding using the registry's mapping at the provided blockNumber
+// Hydrate populates contract bindings using the registry's mapping at the provided blockNumber
 // for all known and deployed contracts
 func (r *registryImpl) Hydrate(ctx context.Context, blockNumber *big.Int) error {
 	check := func(err error) bool {
@@ -354,241 +428,260 @@ func (r *registryImpl) Hydrate(ctx context.Context, blockNumber *big.Int) error 
 
 	var err error
 
-	r.contractsBinding.AccountsContract, err = r.GetAccountsContract(ctx, blockNumber)
+	contract, err = r.GetAccountsContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.AccountsContract = contract
 
-	r.contractsBinding.AttestationsContract, err = r.GetAttestationsContract(ctx, blockNumber)
+	contract, err = r.GetAttestationsContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.AttestationsContract = contract
 
-	r.contractsBinding.BlockchainParametersContract, err = r.GetBlockchainParametersContract(ctx, blockNumber)
+	contract, err = r.GetBlockchainParametersContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.BlockchainParametersContract = contract
 
-	r.contractsBinding.DoubleSigningSlasherContract, err = r.GetDoubleSigningSlasherContract(ctx, blockNumber)
+	contract, err = r.GetDoubleSigningSlasherContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.DoubleSigningSlasherContract = contract
 
-	r.contractsBinding.DowntimeSlasherContract, err = r.GetDowntimeSlasherContract(ctx, blockNumber)
+	contract, err = r.GetDowntimeSlasherContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.DowntimeSlasherContract = contract
 
-	r.contractsBinding.ElectionContract, err = r.GetElectionContract(ctx, blockNumber)
+	contract, err = r.GetElectionContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.ElectionContract = contract
 
-	r.contractsBinding.EpochRewardsContract, err = r.GetEpochRewardsContract(ctx, blockNumber)
+	contract, err = r.GetEpochRewardsContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.EpochRewardsContract = contract
 
-	r.contractsBinding.EscrowContract, err = r.GetEscrowContract(ctx, blockNumber)
+	contract, err = r.GetEscrowContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.EscrowContract = contract
 
-	r.contractsBinding.ExchangeContract, err = r.GetExchangeContract(ctx, blockNumber)
+	contract, err = r.GetExchangeContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.ExchangeContract = contract
 
-	r.contractsBinding.GasPriceMinimumContract, err = r.GetGasPriceMinimumContract(ctx, blockNumber)
+	contract, err = r.GetGasPriceMinimumContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.GasPriceMinimumContract = contract
 
-	r.contractsBinding.GoldTokenContract, err = r.GetGoldTokenContract(ctx, blockNumber)
+	contract, err = r.GetGoldTokenContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.GoldTokenContract = contract
 
-	r.contractsBinding.GovernanceContract, err = r.GetGovernanceContract(ctx, blockNumber)
+	contract, err = r.GetGovernanceContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.GovernanceContract = contract
 
-	r.contractsBinding.GovernanceSlasherContract, err = r.GetGovernanceSlasherContract(ctx, blockNumber)
+	contract, err = r.GetGovernanceSlasherContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.GovernanceSlasherContract = contract
 
-	r.contractsBinding.LockedGoldContract, err = r.GetLockedGoldContract(ctx, blockNumber)
+	contract, err = r.GetLockedGoldContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.LockedGoldContract = contract
 
-	r.contractsBinding.RandomContract, err = r.GetRandomContract(ctx, blockNumber)
+	contract, err = r.GetRandomContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.RandomContract = contract
 
-	r.contractsBinding.ReserveContract, err = r.GetReserveContract(ctx, blockNumber)
+	contract, err = r.GetReserveContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.ReserveContract = contract
 
-	r.contractsBinding.SortedOraclesContract, err = r.GetSortedOraclesContract(ctx, blockNumber)
+	contract, err = r.GetSortedOraclesContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.SortedOraclesContract = contract
 
-	r.contractsBinding.StableTokenContract, err = r.GetStableTokenContract(ctx, blockNumber)
+	contract, err = r.GetStableTokenContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.StableTokenContract = contract
 
-	r.contractsBinding.ValidatorsContract, err = r.GetValidatorsContract(ctx, blockNumber)
+	contract, err = r.GetValidatorsContract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
+	r.ValidatorsContract = contract
 
 	return nil
 }
 
 // ParseLog parses an event log using a "hydrated" registry
 // Hydrate should be called at the desired block number prior to parsing
-func (r *registryImpl) ParseLog(eventLog *types.Log) []interface{} {
+func (r *registryImpl) ParseLog(eventLog types.Log) []interface{} {
 	buildSlice := func(contractName string, eventName string, event interface{}) []interface{} {
 		slice := []interface{}{"contract", contractName, "event", eventName}
 		eventSlice, _ := helpers.EventToSlice(event)
 		return append(slice, eventSlice)
 	}
 
-	if r.contractsBinding.AccountsContract != nil {
-		eventName, event, ok, err := r.contractsBinding.AccountsContract.TryParseLog(*eventLog)
+	if r.AccountsContract != nil {
+		eventName, event, ok, err := r.AccountsContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Accounts", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.AttestationsContract != nil {
-		eventName, event, ok, err := r.contractsBinding.AttestationsContract.TryParseLog(*eventLog)
+	if r.AttestationsContract != nil {
+		eventName, event, ok, err := r.AttestationsContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Attestations", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.BlockchainParametersContract != nil {
-		eventName, event, ok, err := r.contractsBinding.BlockchainParametersContract.TryParseLog(*eventLog)
+	if r.BlockchainParametersContract != nil {
+		eventName, event, ok, err := r.BlockchainParametersContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("BlockchainParameters", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.DoubleSigningSlasherContract != nil {
-		eventName, event, ok, err := r.contractsBinding.DoubleSigningSlasherContract.TryParseLog(*eventLog)
+	if r.DoubleSigningSlasherContract != nil {
+		eventName, event, ok, err := r.DoubleSigningSlasherContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("DoubleSigningSlasher", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.DowntimeSlasherContract != nil {
-		eventName, event, ok, err := r.contractsBinding.DowntimeSlasherContract.TryParseLog(*eventLog)
+	if r.DowntimeSlasherContract != nil {
+		eventName, event, ok, err := r.DowntimeSlasherContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("DowntimeSlasher", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.ElectionContract != nil {
-		eventName, event, ok, err := r.contractsBinding.ElectionContract.TryParseLog(*eventLog)
+	if r.ElectionContract != nil {
+		eventName, event, ok, err := r.ElectionContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Election", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.EpochRewardsContract != nil {
-		eventName, event, ok, err := r.contractsBinding.EpochRewardsContract.TryParseLog(*eventLog)
+	if r.EpochRewardsContract != nil {
+		eventName, event, ok, err := r.EpochRewardsContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("EpochRewards", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.EscrowContract != nil {
-		eventName, event, ok, err := r.contractsBinding.EscrowContract.TryParseLog(*eventLog)
+	if r.EscrowContract != nil {
+		eventName, event, ok, err := r.EscrowContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Escrow", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.ExchangeContract != nil {
-		eventName, event, ok, err := r.contractsBinding.ExchangeContract.TryParseLog(*eventLog)
+	if r.ExchangeContract != nil {
+		eventName, event, ok, err := r.ExchangeContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Exchange", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.GasPriceMinimumContract != nil {
-		eventName, event, ok, err := r.contractsBinding.GasPriceMinimumContract.TryParseLog(*eventLog)
+	if r.GasPriceMinimumContract != nil {
+		eventName, event, ok, err := r.GasPriceMinimumContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("GasPriceMinimum", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.GoldTokenContract != nil {
-		eventName, event, ok, err := r.contractsBinding.GoldTokenContract.TryParseLog(*eventLog)
+	if r.GoldTokenContract != nil {
+		eventName, event, ok, err := r.GoldTokenContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("GoldToken", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.GovernanceContract != nil {
-		eventName, event, ok, err := r.contractsBinding.GovernanceContract.TryParseLog(*eventLog)
+	if r.GovernanceContract != nil {
+		eventName, event, ok, err := r.GovernanceContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Governance", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.GovernanceSlasherContract != nil {
-		eventName, event, ok, err := r.contractsBinding.GovernanceSlasherContract.TryParseLog(*eventLog)
+	if r.GovernanceSlasherContract != nil {
+		eventName, event, ok, err := r.GovernanceSlasherContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("GovernanceSlasher", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.LockedGoldContract != nil {
-		eventName, event, ok, err := r.contractsBinding.LockedGoldContract.TryParseLog(*eventLog)
+	if r.LockedGoldContract != nil {
+		eventName, event, ok, err := r.LockedGoldContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("LockedGold", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.RandomContract != nil {
-		eventName, event, ok, err := r.contractsBinding.RandomContract.TryParseLog(*eventLog)
+	if r.RandomContract != nil {
+		eventName, event, ok, err := r.RandomContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Random", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.ReserveContract != nil {
-		eventName, event, ok, err := r.contractsBinding.ReserveContract.TryParseLog(*eventLog)
+	if r.ReserveContract != nil {
+		eventName, event, ok, err := r.ReserveContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Reserve", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.SortedOraclesContract != nil {
-		eventName, event, ok, err := r.contractsBinding.SortedOraclesContract.TryParseLog(*eventLog)
+	if r.SortedOraclesContract != nil {
+		eventName, event, ok, err := r.SortedOraclesContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("SortedOracles", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.StableTokenContract != nil {
-		eventName, event, ok, err := r.contractsBinding.StableTokenContract.TryParseLog(*eventLog)
+	if r.StableTokenContract != nil {
+		eventName, event, ok, err := r.StableTokenContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("StableToken", eventName, event)
 		}
 	}
 
-	if r.contractsBinding.ValidatorsContract != nil {
-		eventName, event, ok, err := r.contractsBinding.ValidatorsContract.TryParseLog(*eventLog)
+	if r.ValidatorsContract != nil {
+		eventName, event, ok, err := r.ValidatorsContract.TryParseLog(eventLog)
 		if ok && err != nil {
 			return buildSlice("Validators", eventName, event)
 		}

@@ -23,6 +23,7 @@ import (
 	"github.com/celo-org/kliento/contracts"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
 )
 
@@ -37,13 +38,16 @@ var RegistryAddress = params.RegistrySmartContractAddress
 // Registry defines an interface to access all Celo core Contracts
 type Registry interface {
 	GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error)
+	Hydrate(ctx context.Context, blockNumber *big.Int) error
+	ParseLog(eventLog types.Log) []interface{}
 	generatedRegistry
 }
 
 type registryImpl struct {
 	cc               *client.CeloClient
-	contract         *contracts.Registry
-	contractsBinding *boundRegistry
+	RegistryContract *contracts.Registry
+	cache            map[string]common.Address
+	boundRegistry
 }
 
 var (
@@ -56,16 +60,21 @@ var (
 func New(cc *client.CeloClient) (Registry, error) {
 	registry, err := contracts.NewRegistry(RegistryAddress, cc.Eth)
 	err = client.WrapRpcError(err)
+
 	return &registryImpl{
 		cc:               cc,
-		contract:         registry,
-		contractsBinding: &boundRegistry{},
+		RegistryContract: registry,
+		cache:            make(map[string]common.Address),
 	}, err
 }
 
 func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error) {
-	address, err := r.contract.GetAddressForString(&bind.CallOpts{BlockNumber: blockNumber, Context: ctx}, contractID.String())
+	// TODO: more sophisticated caching
+	if address, ok := r.cache[contractID.String()]; ok {
+		return address, nil
+	}
 
+	address, err := r.RegistryContract.GetAddressForString(&bind.CallOpts{BlockNumber: blockNumber, Context: ctx}, contractID.String())
 	err = client.WrapRpcError(err)
 
 	if err == client.ErrContractNotDeployed {
@@ -76,5 +85,23 @@ func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, 
 		return common.ZeroAddress, client.ErrContractNotDeployed
 	}
 
+	r.cache[contractID.String()] = address
 	return address, nil
+}
+
+func (r *registryImpl) UpdateCacheForBlocks(ctx context.Context, start uint64, end *uint64) error {
+	opts := &bind.FilterOpts{
+		Start:   start,
+		End:     end,
+		Context: ctx,
+	}
+	iter, err := r.RegistryContract.RegistryFilterer.FilterRegistryUpdated(opts, nil, nil)
+	if err != nil {
+		return err
+	}
+	for iter.Next() {
+		event := iter.Event
+		r.cache[event.Identifier] = event.Addr
+	}
+	return nil
 }
