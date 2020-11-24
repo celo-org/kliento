@@ -764,5 +764,9 @@ func (r *registryImpl) ParseLog(eventLog types.Log) []interface{} {
 		}
 	}
 
+	eventName, event, ok, err := r.RegistryContract.TryParseLog(eventLog)
+	if ok && err != nil {
+		return buildSlice("Registry", eventName, event)
+	}
 	return nil
 }

@@ -68,6 +68,10 @@ func New(cc *client.CeloClient) (Registry, error) {
 	}, err
 }
 
+func (r *registryImpl) GetRegistryContract() *contracts.Registry {
+	return r.RegistryContract
+}
+
 func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error) {
 	// TODO: more sophisticated caching
 	if address, ok := r.cache[contractID.String()]; ok {
