@@ -39,6 +39,7 @@ import (
   	"context"
 	"math/big"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
@@ -59,6 +60,7 @@ var RegisteredContractIDs = []ContractID{
 
 type boundRegistry struct {
 	{{range .}}
+	_{{.}}Address *common.Address
 	{{.}}Contract *contracts.{{.}}
 	{{end}}
 }
@@ -74,11 +76,15 @@ func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.In
 	address, err := r.GetAddressFor(ctx, blockNumber, {{.}}ContractID)
 	if err != nil {
 		return nil, err
+	} else if address == *r._{{.}}Address {
+		return r.{{.}}Contract, nil
 	}
+	
 	contract, err := contracts.New{{.}}(address, r.cc.Eth)
 	if err != nil {
 		return nil, err
 	}
+	r._{{.}}Address, r.{{.}}Contract = &address, contract
 	return contract, nil
 }
 {{end}}
@@ -92,17 +98,16 @@ func (r *registryImpl) Hydrate(ctx context.Context, blockNumber *big.Int) (error
 
 	var err error
 	{{range .}}
-	contract, err = r.Get{{.}}Contract(ctx, blockNumber)
+	_, err = r.Get{{.}}Contract(ctx, blockNumber)
 	if check(err) {
 		return err
 	}
-	r.{{.}}Contract = contract
 	{{end}}
 	return nil
 }
 
 // ParseLog parses an event log using a "hydrated" registry
-// Hydrate should be called at the desired block number prior to parsing
+// Hydrate should be called at the desired block number prior to parsing for comprehensive results
 func (r *registryImpl) ParseLog(eventLog types.Log) ([]interface{}) {
 	buildSlice := func(contractName string, eventName string, event interface{}) []interface{} {
 		slice := []interface{}{"contract", contractName, "event", eventName}

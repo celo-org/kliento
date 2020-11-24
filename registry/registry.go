@@ -101,6 +101,7 @@ func (r *registryImpl) UpdateCacheForBlocks(ctx context.Context, start uint64, e
 	}
 	for iter.Next() {
 		event := iter.Event
+		// TODO: add more sophisticated caching with event.raw.blocknumber
 		r.cache[event.Identifier] = event.Addr
 	}
 	return nil
