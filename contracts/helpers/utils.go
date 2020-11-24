@@ -19,7 +19,6 @@ import (
 	"math/big"
 	"reflect"
 
-	"github.com/celo-org/eksportisto/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -30,6 +29,14 @@ func callOptsFromTxOpts(txOpts *bind.TransactOpts) *bind.CallOpts {
 		From:    txOpts.From,
 		Context: txOpts.Context,
 	}
+}
+
+func FromFixed(number *big.Int) float32 {
+	var fixed1, _ = new(big.Float).SetString("1000000000000000000000000")
+	ret := new(big.Float)
+	ret.Quo(new(big.Float).SetInt(number), fixed1)
+	retF, _ := ret.Float32()
+	return retF
 }
 
 func isSuffixEqual(s string, suffix string) bool {
@@ -75,7 +82,7 @@ func EventToSlice(event interface{}) ([]interface{}, error) {
 			out = v.Hex()
 		case *big.Int:
 			if isFixidity(fi.Name) {
-				out = utils.FromFixed(v)
+				out = FromFixed(v)
 			} else {
 				out = v.Uint64()
 			}
