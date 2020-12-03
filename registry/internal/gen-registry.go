@@ -36,14 +36,14 @@ var templateStr = `
 package registry
 
 import (
-  	"context"
+	"context"
+	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
-	"github.com/celo-org/kliento/client"
 )
 
 {{range .}}
@@ -60,8 +60,8 @@ var RegisteredContractIDs = []ContractID{
 
 type boundRegistry struct {
 	{{range .}}
-	_{{.}}Address *common.Address
 	{{.}}Contract *contracts.{{.}}
+	{{.}}ContractProxy *contracts.Proxy
 	{{end}}
 }
 
@@ -73,60 +73,53 @@ type generatedRegistry interface {
 
 {{range .}}
 func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, {{.}}ContractID)
-	if err != nil {
-		return nil, err
-	} else if address == *r._{{.}}Address {
-		return r.{{.}}Contract, nil
+	identifier := {{.}}ContractID.String()
+	if (r.{{.}}Contract == nil || r.isCacheDirty(identifier)) {
+		address, err := r.GetAddressFor(ctx, blockNumber, {{.}}ContractID)
+		if err != nil {
+			return nil, err
+		}
+		contract, err := contracts.New{{.}}(address, r.cc.Eth)
+		if err != nil {
+			return nil, err
+		}
+		r.{{.}}Contract = contract
+		contractProxy, err := contracts.NewProxy(address, r.cc.Eth)
+		if err != nil {
+			return nil, err
+		}
+		r.{{.}}ContractProxy = contractProxy
 	}
-	
-	contract, err := contracts.New{{.}}(address, r.cc.Eth)
-	if err != nil {
-		return nil, err
-	}
-	r._{{.}}Address, r.{{.}}Contract = &address, contract
-	return contract, nil
+	return r.{{.}}Contract, nil
 }
 {{end}}
 
-// Hydrate populates contract bindings using the registry's mapping at the provided blockNumber 
-// for all known and deployed contracts
-func (r *registryImpl) Hydrate(ctx context.Context, blockNumber *big.Int) (error) {
-	check := func(err error) (bool) {
-		return err != nil && err != ErrRegistryNotDeployed && err != client.ErrContractNotDeployed
-	}
-
+func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) ([]interface{}, error) {
+	var eventName string
+	var event interface{}
+	var ok bool
 	var err error
+	
 	{{range .}}
 	_, err = r.Get{{.}}Contract(ctx, blockNumber)
-	if check(err) {
-		return err
-	}
-	{{end}}
-	return nil
-}
-
-// ParseLog parses an event log using a "hydrated" registry
-// Hydrate should be called at the desired block number prior to parsing for comprehensive results
-func (r *registryImpl) ParseLog(eventLog types.Log) ([]interface{}) {
-	buildSlice := func(contractName string, eventName string, event interface{}) []interface{} {
-		slice := []interface{}{"contract", contractName, "event", eventName}
-		eventSlice, _ := helpers.EventToSlice(event)
-		return append(slice, eventSlice)
-	}
-	{{range .}}
-	if (r.{{.}}Contract != nil) {
-		eventName, event, ok, err := r.{{.}}Contract.TryParseLog(eventLog)
-		if ok && err != nil {
-			return buildSlice("{{.}}", eventName, event)
+	if err == nil {
+		eventName, event, ok, err = r.{{.}}Contract.TryParseLog(*eventLog) // checks matching address
+		if ok && err == nil {
+			return helpers.BuildEventSlice("{{.}}", eventName, event)
+		}
+		eventName, event, ok, err = r.{{.}}ContractProxy.TryParseLog(*eventLog) // checks matching address
+		if ok && err == nil {
+			return helpers.BuildEventSlice("{{.}}Proxy", eventName, event)
+		}
+	} else {
+		// skip deployed failures
+		if err != blockchainErrors.ErrSmartContractNotDeployed {
+			return nil, fmt.Errorf("{{.}} %v", err)
 		}
 	}
+	
 	{{end}}
-	eventName, event, ok, err := r.RegistryContract.TryParseLog(eventLog)
-	if ok && err != nil {
-		return buildSlice("Registry", eventName, event)
-	}
-	return nil
+	return nil, nil
 }
 `
 

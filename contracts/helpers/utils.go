@@ -66,7 +66,7 @@ func EventToSlice(event interface{}) ([]interface{}, error) {
 		return nil, fmt.Errorf("eventToSlice only accepts structs; got %T", v)
 	}
 
-	slice := make([]interface{}, v.NumField()-1) // exclude raw
+	slice := make([]interface{}, (v.NumField()-1)*2) // exclude raw, include field names
 
 	typ := v.Type()
 	for i := 0; i < v.NumField(); i++ {
@@ -88,12 +88,26 @@ func EventToSlice(event interface{}) ([]interface{}, error) {
 			}
 		case []byte:
 			out = hexutil.Encode(v)
+		case [32]byte:
+			out = hexutil.Encode(v[:])
+		case [4]byte:
+			out = hexutil.Encode(v[:])
 		default:
 			out = v
 		}
 
-		slice = append(slice, fi.Name, out)
+		slice[2*i] = fi.Name
+		slice[2*i+1] = out
 	}
 
 	return slice, nil
+}
+
+func BuildEventSlice(contractName string, eventName string, event interface{}) ([]interface{}, error) {
+	slice := []interface{}{"contract", contractName, "event", eventName}
+	eventSlice, err := EventToSlice(event)
+	if err != nil {
+		return nil, err
+	}
+	return append(slice, eventSlice...), nil
 }
