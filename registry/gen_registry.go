@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math/big"
 
+	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
 	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
@@ -616,325 +617,327 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	var ok bool
 	var err error
 
+	log := *eventLog
+
 	_, err = r.GetAccountsContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.AccountsContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.AccountsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Accounts", eventName, event)
 		}
-		eventName, event, ok, err = r.AccountsContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.AccountsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("AccountsProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Accounts %v", err)
 		}
 	}
 
 	_, err = r.GetAttestationsContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.AttestationsContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.AttestationsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Attestations", eventName, event)
 		}
-		eventName, event, ok, err = r.AttestationsContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.AttestationsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("AttestationsProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Attestations %v", err)
 		}
 	}
 
 	_, err = r.GetBlockchainParametersContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.BlockchainParametersContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.BlockchainParametersContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("BlockchainParameters", eventName, event)
 		}
-		eventName, event, ok, err = r.BlockchainParametersContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.BlockchainParametersContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("BlockchainParametersProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("BlockchainParameters %v", err)
 		}
 	}
 
 	_, err = r.GetDoubleSigningSlasherContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.DoubleSigningSlasherContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.DoubleSigningSlasherContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("DoubleSigningSlasher", eventName, event)
 		}
-		eventName, event, ok, err = r.DoubleSigningSlasherContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.DoubleSigningSlasherContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("DoubleSigningSlasherProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("DoubleSigningSlasher %v", err)
 		}
 	}
 
 	_, err = r.GetDowntimeSlasherContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.DowntimeSlasherContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.DowntimeSlasherContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("DowntimeSlasher", eventName, event)
 		}
-		eventName, event, ok, err = r.DowntimeSlasherContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.DowntimeSlasherContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("DowntimeSlasherProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("DowntimeSlasher %v", err)
 		}
 	}
 
 	_, err = r.GetElectionContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.ElectionContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ElectionContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Election", eventName, event)
 		}
-		eventName, event, ok, err = r.ElectionContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ElectionContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("ElectionProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Election %v", err)
 		}
 	}
 
 	_, err = r.GetEpochRewardsContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.EpochRewardsContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.EpochRewardsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("EpochRewards", eventName, event)
 		}
-		eventName, event, ok, err = r.EpochRewardsContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.EpochRewardsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("EpochRewardsProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("EpochRewards %v", err)
 		}
 	}
 
 	_, err = r.GetEscrowContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.EscrowContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.EscrowContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Escrow", eventName, event)
 		}
-		eventName, event, ok, err = r.EscrowContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.EscrowContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("EscrowProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Escrow %v", err)
 		}
 	}
 
 	_, err = r.GetExchangeContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.ExchangeContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ExchangeContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Exchange", eventName, event)
 		}
-		eventName, event, ok, err = r.ExchangeContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ExchangeContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("ExchangeProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Exchange %v", err)
 		}
 	}
 
 	_, err = r.GetGasPriceMinimumContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.GasPriceMinimumContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GasPriceMinimumContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("GasPriceMinimum", eventName, event)
 		}
-		eventName, event, ok, err = r.GasPriceMinimumContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GasPriceMinimumContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("GasPriceMinimumProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("GasPriceMinimum %v", err)
 		}
 	}
 
 	_, err = r.GetGoldTokenContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.GoldTokenContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GoldTokenContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("GoldToken", eventName, event)
 		}
-		eventName, event, ok, err = r.GoldTokenContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GoldTokenContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("GoldTokenProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("GoldToken %v", err)
 		}
 	}
 
 	_, err = r.GetGovernanceContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.GovernanceContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GovernanceContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Governance", eventName, event)
 		}
-		eventName, event, ok, err = r.GovernanceContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GovernanceContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("GovernanceProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Governance %v", err)
 		}
 	}
 
 	_, err = r.GetGovernanceSlasherContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.GovernanceSlasherContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GovernanceSlasherContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("GovernanceSlasher", eventName, event)
 		}
-		eventName, event, ok, err = r.GovernanceSlasherContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.GovernanceSlasherContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("GovernanceSlasherProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("GovernanceSlasher %v", err)
 		}
 	}
 
 	_, err = r.GetLockedGoldContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.LockedGoldContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.LockedGoldContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("LockedGold", eventName, event)
 		}
-		eventName, event, ok, err = r.LockedGoldContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.LockedGoldContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("LockedGoldProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("LockedGold %v", err)
 		}
 	}
 
 	_, err = r.GetRandomContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.RandomContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.RandomContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Random", eventName, event)
 		}
-		eventName, event, ok, err = r.RandomContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.RandomContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("RandomProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Random %v", err)
 		}
 	}
 
 	_, err = r.GetReserveContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.ReserveContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ReserveContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Reserve", eventName, event)
 		}
-		eventName, event, ok, err = r.ReserveContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ReserveContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("ReserveProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Reserve %v", err)
 		}
 	}
 
 	_, err = r.GetSortedOraclesContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.SortedOraclesContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.SortedOraclesContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("SortedOracles", eventName, event)
 		}
-		eventName, event, ok, err = r.SortedOraclesContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.SortedOraclesContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("SortedOraclesProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("SortedOracles %v", err)
 		}
 	}
 
 	_, err = r.GetStableTokenContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.StableTokenContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.StableTokenContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("StableToken", eventName, event)
 		}
-		eventName, event, ok, err = r.StableTokenContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.StableTokenContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("StableTokenProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("StableToken %v", err)
 		}
 	}
 
 	_, err = r.GetValidatorsContract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.ValidatorsContract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ValidatorsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("Validators", eventName, event)
 		}
-		eventName, event, ok, err = r.ValidatorsContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.ValidatorsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("ValidatorsProxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("Validators %v", err)
 		}
 	}

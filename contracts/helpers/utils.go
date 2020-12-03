@@ -109,5 +109,6 @@ func BuildEventSlice(contractName string, eventName string, event interface{}) (
 	if err != nil {
 		return nil, err
 	}
-	return append(slice, eventSlice...), nil
+	slice = append(slice, eventSlice...)
+	return slice, nil
 }

@@ -42,6 +42,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/types"
 	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
+	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
 )
@@ -100,20 +101,21 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	var ok bool
 	var err error
 	
+	log := *eventLog
 	{{range .}}
 	_, err = r.Get{{.}}Contract(ctx, blockNumber)
 	if err == nil {
-		eventName, event, ok, err = r.{{.}}Contract.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.{{.}}Contract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("{{.}}", eventName, event)
 		}
-		eventName, event, ok, err = r.{{.}}ContractProxy.TryParseLog(*eventLog) // checks matching address
+		eventName, event, ok, err = r.{{.}}ContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
 			return helpers.BuildEventSlice("{{.}}Proxy", eventName, event)
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed {
+		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
 			return nil, fmt.Errorf("{{.}} %v", err)
 		}
 	}
