@@ -7,10 +7,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
-	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
@@ -631,7 +629,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Accounts %v", err)
 		}
 	}
@@ -648,7 +646,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Attestations %v", err)
 		}
 	}
@@ -665,7 +663,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("BlockchainParameters %v", err)
 		}
 	}
@@ -682,7 +680,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("DoubleSigningSlasher %v", err)
 		}
 	}
@@ -699,7 +697,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("DowntimeSlasher %v", err)
 		}
 	}
@@ -716,7 +714,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Election %v", err)
 		}
 	}
@@ -733,7 +731,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("EpochRewards %v", err)
 		}
 	}
@@ -750,7 +748,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Escrow %v", err)
 		}
 	}
@@ -767,7 +765,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Exchange %v", err)
 		}
 	}
@@ -784,7 +782,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("GasPriceMinimum %v", err)
 		}
 	}
@@ -801,7 +799,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("GoldToken %v", err)
 		}
 	}
@@ -818,7 +816,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Governance %v", err)
 		}
 	}
@@ -835,7 +833,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("GovernanceSlasher %v", err)
 		}
 	}
@@ -852,7 +850,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("LockedGold %v", err)
 		}
 	}
@@ -869,7 +867,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Random %v", err)
 		}
 	}
@@ -886,7 +884,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Reserve %v", err)
 		}
 	}
@@ -903,7 +901,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("SortedOracles %v", err)
 		}
 	}
@@ -920,7 +918,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("StableToken %v", err)
 		}
 	}
@@ -937,7 +935,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("Validators %v", err)
 		}
 	}

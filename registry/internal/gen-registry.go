@@ -41,8 +41,6 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/core/types"
-	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
-	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
 )
@@ -115,7 +113,7 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 		}
 	} else {
 		// skip deployed failures
-		if err != blockchainErrors.ErrSmartContractNotDeployed && err != client.ErrContractNotDeployed {
+		if !IsExpectedBeforeContractsDeployed(err) {
 			return nil, fmt.Errorf("{{.}} %v", err)
 		}
 	}

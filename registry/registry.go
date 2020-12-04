@@ -106,6 +106,11 @@ func (r *registryImpl) isCacheDirty(identifier string) bool {
 	return false
 }
 
+// IsExpectedBeforeContractsDeployed checks for expected errors when contracts are not deployed yet
+func IsExpectedBeforeContractsDeployed(err error) bool {
+	return err == blockchainErrors.ErrRegistryContractNotDeployed || err == blockchainErrors.ErrSmartContractNotDeployed || err == client.ErrContractNotDeployed
+}
+
 func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error) {
 	identifier := contractID.String()
 	// retrieve cached result and mark clean
@@ -121,7 +126,7 @@ func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, 
 	if err != nil {
 		return common.ZeroAddress, err
 	} else if address == common.ZeroAddress {
-		return address, blockchainErrors.ErrSmartContractNotDeployed
+		return address, client.ErrContractNotDeployed
 	}
 
 	r.putCache(identifier, address)
