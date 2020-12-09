@@ -83,8 +83,6 @@ func EventToSlice(event interface{}) ([]interface{}, error) {
 		case *big.Int:
 			if isFixidity(fi.Name) {
 				out = FromFixed(v)
-			} else if v.IsInt64() {
-				out = v.Int64()
 			} else {
 				out = v.String()
 			}
