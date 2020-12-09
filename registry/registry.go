@@ -19,6 +19,7 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	"strings"
 
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
@@ -106,9 +107,13 @@ func (r *registryImpl) isCacheDirty(identifier string) bool {
 	return false
 }
 
+func isErrSubset(err error, suberr error) bool {
+	return strings.Contains(err.Error(), suberr.Error())
+}
+
 // IsExpectedBeforeContractsDeployed checks for expected errors when contracts are not deployed yet
 func IsExpectedBeforeContractsDeployed(err error) bool {
-	return err == blockchainErrors.ErrRegistryContractNotDeployed || err == blockchainErrors.ErrSmartContractNotDeployed || err == client.ErrContractNotDeployed
+	return isErrSubset(err, blockchainErrors.ErrRegistryContractNotDeployed) || isErrSubset(err, blockchainErrors.ErrSmartContractNotDeployed) || isErrSubset(err, client.ErrContractNotDeployed)
 }
 
 func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error) {

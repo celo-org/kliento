@@ -47,7 +47,7 @@ func isFixidity(name string) bool {
 	return isSuffixEqual(name, "Factor") || isSuffixEqual(name, "Fraction") || isSuffixEqual(name, "Multiplier") || isSuffixEqual(name, "Ratio") || isSuffixEqual(name, "Rate")
 }
 
-// EventToSlice transforms an abigen event struct binding to a slice.
+// EventToSlice transforms an abigen event struct binding to a string/int64/float64 encoded slice (ideal for BigQuery).
 // type AttestationsAttestationsRequested struct {
 // 	Identifier                 [32]byte
 // 	Account                    common.Address
