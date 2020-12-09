@@ -31,11 +31,11 @@ func callOptsFromTxOpts(txOpts *bind.TransactOpts) *bind.CallOpts {
 	}
 }
 
-func FromFixed(number *big.Int) float32 {
+func FromFixed(number *big.Int) float64 {
 	var fixed1, _ = new(big.Float).SetString("1000000000000000000000000")
 	ret := new(big.Float)
 	ret.Quo(new(big.Float).SetInt(number), fixed1)
-	retF, _ := ret.Float32()
+	retF, _ := ret.Float64()
 	return retF
 }
 
@@ -83,8 +83,10 @@ func EventToSlice(event interface{}) ([]interface{}, error) {
 		case *big.Int:
 			if isFixidity(fi.Name) {
 				out = FromFixed(v)
+			} else if v.IsInt64() {
+				out = v.Int64()
 			} else {
-				out = v.Uint64()
+				out = v.String()
 			}
 		case []byte:
 			out = hexutil.Encode(v)
