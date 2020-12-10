@@ -16,14 +16,12 @@ package registry
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"math/big"
 	"strings"
 
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
-	"github.com/celo-org/kliento/contracts/helpers"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
@@ -42,7 +40,7 @@ var RegistryAddress = params.RegistrySmartContractAddress
 // Registry defines an interface to access all Celo core Contracts
 type Registry interface {
 	GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error)
-	TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) ([]interface{}, error)
+	TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error)
 	generatedRegistry
 }
 
@@ -59,11 +57,11 @@ type registryImpl struct {
 	boundRegistry
 }
 
-var (
-	// ErrRegistryNotDeployed sigals that registry is not yet deployed and
-	// thus no contract address can be found
-	ErrRegistryNotDeployed = errors.New("Registry Not Deployed")
-)
+type RegistryParsedLog struct {
+	Contract string
+	Event    string
+	Log      interface{}
+}
 
 // New creates a new contracts Registry
 func New(cc *client.CeloClient) (Registry, error) {
@@ -139,14 +137,18 @@ func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, 
 }
 
 // TryParseLog parses an event log using a fully hydrated registry
-func (r *registryImpl) TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) ([]interface{}, error) {
+func (r *registryImpl) TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
 	if eventLog.Address == params.RegistrySmartContractAddress {
 		log := *eventLog
 		eventName, event, ok, err := r.RegistryContract.TryParseLog(log)
 		if err != nil || !ok {
 			proxyEventName, proxyEvent, proxyOk, proxyErr := r.RegistryContractProxy.TryParseLog(log)
 			if proxyErr == nil && proxyOk {
-				return helpers.BuildEventSlice("RegistryProxy", proxyEventName, proxyEvent)
+				return &RegistryParsedLog{
+					Contract: "RegistryProxy",
+					Event:    proxyEventName,
+					Log:      proxyEvent,
+				}, nil
 			}
 			return nil, fmt.Errorf("registry error %v, proxy error %v", err, proxyErr)
 		}
@@ -154,7 +156,11 @@ func (r *registryImpl) TryParseLog(ctx context.Context, eventLog *types.Log, blo
 		case contracts.RegistryRegistryUpdated:
 			r.putCache(v.Identifier, v.Addr)
 		}
-		return helpers.BuildEventSlice("Registry", eventName, event)
+		return &RegistryParsedLog{
+			Contract: "Registry",
+			Event:    eventName,
+			Log:      event,
+		}, nil
 	}
 
 	return r.tryParseLogGenerated(ctx, eventLog, blockNumber)

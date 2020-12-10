@@ -102,13 +102,3 @@ func EventToSlice(event interface{}) ([]interface{}, error) {
 
 	return slice, nil
 }
-
-func BuildEventSlice(contractName string, eventName string, event interface{}) ([]interface{}, error) {
-	slice := []interface{}{"contract", contractName, "event", eventName}
-	eventSlice, err := EventToSlice(event)
-	if err != nil {
-		return nil, err
-	}
-	slice = append(slice, eventSlice...)
-	return slice, nil
-}

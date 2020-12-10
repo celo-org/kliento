@@ -8,7 +8,6 @@ import (
 	"math/big"
 
 	"github.com/celo-org/kliento/contracts"
-	"github.com/celo-org/kliento/contracts/helpers"
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
@@ -609,7 +608,7 @@ func (r *registryImpl) GetValidatorsContract(ctx context.Context, blockNumber *b
 	return r.ValidatorsContract, nil
 }
 
-func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) ([]interface{}, error) {
+func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
 	var eventName string
 	var event interface{}
 	var ok bool
@@ -621,11 +620,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.AccountsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Accounts", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Accounts",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.AccountsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("AccountsProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "AccountsProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -638,11 +645,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.AttestationsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Attestations", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Attestations",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.AttestationsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("AttestationsProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "AttestationsProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -655,11 +670,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.BlockchainParametersContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("BlockchainParameters", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "BlockchainParameters",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.BlockchainParametersContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("BlockchainParametersProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "BlockchainParametersProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -672,11 +695,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.DoubleSigningSlasherContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("DoubleSigningSlasher", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "DoubleSigningSlasher",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.DoubleSigningSlasherContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("DoubleSigningSlasherProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "DoubleSigningSlasherProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -689,11 +720,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.DowntimeSlasherContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("DowntimeSlasher", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "DowntimeSlasher",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.DowntimeSlasherContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("DowntimeSlasherProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "DowntimeSlasherProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -706,11 +745,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.ElectionContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Election", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Election",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.ElectionContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("ElectionProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "ElectionProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -723,11 +770,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.EpochRewardsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("EpochRewards", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "EpochRewards",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.EpochRewardsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("EpochRewardsProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "EpochRewardsProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -740,11 +795,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.EscrowContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Escrow", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Escrow",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.EscrowContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("EscrowProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "EscrowProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -757,11 +820,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.ExchangeContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Exchange", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Exchange",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.ExchangeContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("ExchangeProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "ExchangeProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -774,11 +845,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.GasPriceMinimumContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("GasPriceMinimum", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "GasPriceMinimum",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.GasPriceMinimumContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("GasPriceMinimumProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "GasPriceMinimumProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -791,11 +870,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.GoldTokenContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("GoldToken", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "GoldToken",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.GoldTokenContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("GoldTokenProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "GoldTokenProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -808,11 +895,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.GovernanceContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Governance", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Governance",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.GovernanceContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("GovernanceProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "GovernanceProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -825,11 +920,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.GovernanceSlasherContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("GovernanceSlasher", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "GovernanceSlasher",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.GovernanceSlasherContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("GovernanceSlasherProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "GovernanceSlasherProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -842,11 +945,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.LockedGoldContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("LockedGold", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "LockedGold",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.LockedGoldContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("LockedGoldProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "LockedGoldProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -859,11 +970,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.RandomContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Random", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Random",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.RandomContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("RandomProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "RandomProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -876,11 +995,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.ReserveContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Reserve", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Reserve",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.ReserveContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("ReserveProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "ReserveProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -893,11 +1020,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.SortedOraclesContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("SortedOracles", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "SortedOracles",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.SortedOraclesContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("SortedOraclesProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "SortedOraclesProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -910,11 +1045,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.StableTokenContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("StableToken", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "StableToken",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.StableTokenContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("StableTokenProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "StableTokenProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
@@ -927,11 +1070,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.ValidatorsContract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("Validators", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "Validators",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 		eventName, event, ok, err = r.ValidatorsContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("ValidatorsProxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "ValidatorsProxy",
+				Event:    eventName,
+				Log:      event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures

@@ -42,7 +42,6 @@ import (
 
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/celo-org/kliento/contracts"
-	"github.com/celo-org/kliento/contracts/helpers"
 )
 
 {{range .}}
@@ -93,7 +92,7 @@ func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.In
 }
 {{end}}
 
-func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) ([]interface{}, error) {
+func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
 	var eventName string
 	var event interface{}
 	var ok bool
@@ -105,11 +104,19 @@ func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types
 	if err == nil {
 		eventName, event, ok, err = r.{{.}}Contract.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("{{.}}", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "{{.}}",
+				Event: eventName,
+				Log: event,
+			}, nil
 		}
 		eventName, event, ok, err = r.{{.}}ContractProxy.TryParseLog(log) // checks matching address
 		if ok && err == nil {
-			return helpers.BuildEventSlice("{{.}}Proxy", eventName, event)
+			return &RegistryParsedLog{
+				Contract: "{{.}}Proxy",
+				Event: eventName,
+				Log: event,
+			}, nil
 		}
 	} else {
 		// skip deployed failures
