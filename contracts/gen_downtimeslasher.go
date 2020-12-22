@@ -1,17 +1,3 @@
-// Copyright 2020 Celo Org
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
@@ -42,7 +28,7 @@ var (
 )
 
 // DowntimeSlasherABI is the input ABI used to generate the binding from.
-const DowntimeSlasherABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"slashingIncentives\",\"outputs\":[{\"name\":\"penalty\",\"type\":\"uint256\"},{\"name\":\"reward\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"sender\",\"type\":\"address\"},{\"name\":\"blsKey\",\"type\":\"bytes\"},{\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"slashableDowntime\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"index\",\"type\":\"uint256\"},{\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"validator\",\"type\":\"address\"},{\"name\":\"blockNumber\",\"type\":\"uint256\"},{\"name\":\"groupMembershipHistoryIndex\",\"type\":\"uint256\"}],\"name\":\"groupMembershipAtBlock\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"penalty\",\"type\":\"uint256\"},{\"name\":\"reward\",\"type\":\"uint256\"}],\"name\":\"setSlashingIncentives\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"name\":\"exponent\",\"type\":\"uint256\"},{\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"interval\",\"type\":\"uint256\"}],\"name\":\"SlashableDowntimeSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"startBlock\",\"type\":\"uint256\"}],\"name\":\"DowntimeSlashPerformed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"penalty\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"reward\",\"type\":\"uint256\"}],\"name\":\"SlashingIncentivesSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"registryAddress\",\"type\":\"address\"},{\"name\":\"_penalty\",\"type\":\"uint256\"},{\"name\":\"_reward\",\"type\":\"uint256\"},{\"name\":\"_slashableDowntime\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"interval\",\"type\":\"uint256\"}],\"name\":\"setSlashableDowntime\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"startBlock\",\"type\":\"uint256\"},{\"name\":\"startSignerIndex\",\"type\":\"uint256\"},{\"name\":\"endSignerIndex\",\"type\":\"uint256\"}],\"name\":\"isDown\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"startBlock\",\"type\":\"uint256\"},{\"name\":\"startSignerIndex\",\"type\":\"uint256\"},{\"name\":\"endSignerIndex\",\"type\":\"uint256\"},{\"name\":\"groupMembershipHistoryIndex\",\"type\":\"uint256\"},{\"name\":\"validatorElectionLessers\",\"type\":\"address[]\"},{\"name\":\"validatorElectionGreaters\",\"type\":\"address[]\"},{\"name\":\"validatorElectionIndices\",\"type\":\"uint256[]\"},{\"name\":\"groupElectionLessers\",\"type\":\"address[]\"},{\"name\":\"groupElectionGreaters\",\"type\":\"address[]\"},{\"name\":\"groupElectionIndices\",\"type\":\"uint256[]\"}],\"name\":\"slash\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const DowntimeSlasherABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"startBlock\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"endBlock\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"bitmap\",\"type\":\"bytes32\"}],\"name\":\"BitmapSetForInterval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"startBlock\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"endBlock\",\"type\":\"uint256\"}],\"name\":\"DowntimeSlashPerformed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"interval\",\"type\":\"uint256\"}],\"name\":\"SlashableDowntimeSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"penalty\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"}],\"name\":\"SlashingIncentivesSet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"bitmaps\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupMembershipHistoryIndex\",\"type\":\"uint256\"}],\"name\":\"groupMembershipAtBlock\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"lastSlashedBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"penalty\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"}],\"name\":\"setSlashingIncentives\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"slashableDowntime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"slashingIncentives\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"penalty\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_penalty\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_reward\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_slashableDowntime\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"interval\",\"type\":\"uint256\"}],\"name\":\"setSlashableDowntime\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endBlock\",\"type\":\"uint256\"}],\"name\":\"getBitmapForInterval\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endBlock\",\"type\":\"uint256\"}],\"name\":\"setBitmapForInterval\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"signerIndex\",\"type\":\"uint256\"}],\"name\":\"wasDownForInterval\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"startBlock\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"endBlock\",\"type\":\"uint256\"}],\"name\":\"isBitmapSetForInterval\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"startBlocks\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"endBlocks\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"signerIndices\",\"type\":\"uint256[]\"}],\"name\":\"wasDownForIntervals\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"startBlocks\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"endBlocks\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"signerIndices\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"groupMembershipHistoryIndex\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"validatorElectionLessers\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"validatorElectionGreaters\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"validatorElectionIndices\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"groupElectionLessers\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"groupElectionGreaters\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"groupElectionIndices\",\"type\":\"uint256[]\"}],\"name\":\"slash\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // DowntimeSlasher is an auto generated Go binding around an Ethereum contract.
 type DowntimeSlasher struct {
@@ -195,6 +181,32 @@ func (_DowntimeSlasher *DowntimeSlasherTransactorRaw) Transact(opts *bind.Transa
 	return _DowntimeSlasher.Contract.contract.Transact(opts, method, params...)
 }
 
+// Bitmaps is a free data retrieval call binding the contract method 0x91275b4f.
+//
+// Solidity: function bitmaps(address , uint256 , uint256 ) constant returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherCaller) Bitmaps(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int, arg2 *big.Int) ([32]byte, error) {
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _DowntimeSlasher.contract.Call(opts, out, "bitmaps", arg0, arg1, arg2)
+	return *ret0, err
+}
+
+// Bitmaps is a free data retrieval call binding the contract method 0x91275b4f.
+//
+// Solidity: function bitmaps(address , uint256 , uint256 ) constant returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherSession) Bitmaps(arg0 common.Address, arg1 *big.Int, arg2 *big.Int) ([32]byte, error) {
+	return _DowntimeSlasher.Contract.Bitmaps(&_DowntimeSlasher.CallOpts, arg0, arg1, arg2)
+}
+
+// Bitmaps is a free data retrieval call binding the contract method 0x91275b4f.
+//
+// Solidity: function bitmaps(address , uint256 , uint256 ) constant returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherCallerSession) Bitmaps(arg0 common.Address, arg1 *big.Int, arg2 *big.Int) ([32]byte, error) {
+	return _DowntimeSlasher.Contract.Bitmaps(&_DowntimeSlasher.CallOpts, arg0, arg1, arg2)
+}
+
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
 // Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
@@ -249,6 +261,32 @@ func (_DowntimeSlasher *DowntimeSlasherSession) FractionMulExp(aNumerator *big.I
 // Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _DowntimeSlasher.Contract.FractionMulExp(&_DowntimeSlasher.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
+}
+
+// GetBitmapForInterval is a free data retrieval call binding the contract method 0xa654a494.
+//
+// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) constant returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherCaller) GetBitmapForInterval(opts *bind.CallOpts, startBlock *big.Int, endBlock *big.Int) ([32]byte, error) {
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _DowntimeSlasher.contract.Call(opts, out, "getBitmapForInterval", startBlock, endBlock)
+	return *ret0, err
+}
+
+// GetBitmapForInterval is a free data retrieval call binding the contract method 0xa654a494.
+//
+// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) constant returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherSession) GetBitmapForInterval(startBlock *big.Int, endBlock *big.Int) ([32]byte, error) {
+	return _DowntimeSlasher.Contract.GetBitmapForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
+}
+
+// GetBitmapForInterval is a free data retrieval call binding the contract method 0xa654a494.
+//
+// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) constant returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetBitmapForInterval(startBlock *big.Int, endBlock *big.Int) ([32]byte, error) {
+	return _DowntimeSlasher.Contract.GetBitmapForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
@@ -407,6 +445,40 @@ func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetVerifiedSealBitmapFromH
 	return _DowntimeSlasher.Contract.GetVerifiedSealBitmapFromHeader(&_DowntimeSlasher.CallOpts, header)
 }
 
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+func (_DowntimeSlasher *DowntimeSlasherCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+		ret1 = new(*big.Int)
+		ret2 = new(*big.Int)
+		ret3 = new(*big.Int)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
+		ret2,
+		ret3,
+	}
+	err := _DowntimeSlasher.contract.Call(opts, out, "getVersionNumber")
+	return *ret0, *ret1, *ret2, *ret3, err
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+func (_DowntimeSlasher *DowntimeSlasherSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _DowntimeSlasher.Contract.GetVersionNumber(&_DowntimeSlasher.CallOpts)
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _DowntimeSlasher.Contract.GetVersionNumber(&_DowntimeSlasher.CallOpts)
+}
+
 // GroupMembershipAtBlock is a free data retrieval call binding the contract method 0x88498aaf.
 //
 // Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) constant returns(address)
@@ -485,30 +557,30 @@ func (_DowntimeSlasher *DowntimeSlasherCallerSession) Initialized() (bool, error
 	return _DowntimeSlasher.Contract.Initialized(&_DowntimeSlasher.CallOpts)
 }
 
-// IsDown is a free data retrieval call binding the contract method 0x86bcf1e6.
+// IsBitmapSetForInterval is a free data retrieval call binding the contract method 0x1bf0925b.
 //
-// Solidity: function isDown(uint256 startBlock, uint256 startSignerIndex, uint256 endSignerIndex) constant returns(bool)
-func (_DowntimeSlasher *DowntimeSlasherCaller) IsDown(opts *bind.CallOpts, startBlock *big.Int, startSignerIndex *big.Int, endSignerIndex *big.Int) (bool, error) {
+// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherCaller) IsBitmapSetForInterval(opts *bind.CallOpts, startBlock *big.Int, endBlock *big.Int) (bool, error) {
 	var (
 		ret0 = new(bool)
 	)
 	out := ret0
-	err := _DowntimeSlasher.contract.Call(opts, out, "isDown", startBlock, startSignerIndex, endSignerIndex)
+	err := _DowntimeSlasher.contract.Call(opts, out, "isBitmapSetForInterval", startBlock, endBlock)
 	return *ret0, err
 }
 
-// IsDown is a free data retrieval call binding the contract method 0x86bcf1e6.
+// IsBitmapSetForInterval is a free data retrieval call binding the contract method 0x1bf0925b.
 //
-// Solidity: function isDown(uint256 startBlock, uint256 startSignerIndex, uint256 endSignerIndex) constant returns(bool)
-func (_DowntimeSlasher *DowntimeSlasherSession) IsDown(startBlock *big.Int, startSignerIndex *big.Int, endSignerIndex *big.Int) (bool, error) {
-	return _DowntimeSlasher.Contract.IsDown(&_DowntimeSlasher.CallOpts, startBlock, startSignerIndex, endSignerIndex)
+// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherSession) IsBitmapSetForInterval(startBlock *big.Int, endBlock *big.Int) (bool, error) {
+	return _DowntimeSlasher.Contract.IsBitmapSetForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
 }
 
-// IsDown is a free data retrieval call binding the contract method 0x86bcf1e6.
+// IsBitmapSetForInterval is a free data retrieval call binding the contract method 0x1bf0925b.
 //
-// Solidity: function isDown(uint256 startBlock, uint256 startSignerIndex, uint256 endSignerIndex) constant returns(bool)
-func (_DowntimeSlasher *DowntimeSlasherCallerSession) IsDown(startBlock *big.Int, startSignerIndex *big.Int, endSignerIndex *big.Int) (bool, error) {
-	return _DowntimeSlasher.Contract.IsDown(&_DowntimeSlasher.CallOpts, startBlock, startSignerIndex, endSignerIndex)
+// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherCallerSession) IsBitmapSetForInterval(startBlock *big.Int, endBlock *big.Int) (bool, error) {
+	return _DowntimeSlasher.Contract.IsBitmapSetForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
@@ -535,6 +607,32 @@ func (_DowntimeSlasher *DowntimeSlasherSession) IsOwner() (bool, error) {
 // Solidity: function isOwner() constant returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) IsOwner() (bool, error) {
 	return _DowntimeSlasher.Contract.IsOwner(&_DowntimeSlasher.CallOpts)
+}
+
+// LastSlashedBlock is a free data retrieval call binding the contract method 0x222d6b9f.
+//
+// Solidity: function lastSlashedBlock(address ) constant returns(uint256)
+func (_DowntimeSlasher *DowntimeSlasherCaller) LastSlashedBlock(opts *bind.CallOpts, arg0 common.Address) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _DowntimeSlasher.contract.Call(opts, out, "lastSlashedBlock", arg0)
+	return *ret0, err
+}
+
+// LastSlashedBlock is a free data retrieval call binding the contract method 0x222d6b9f.
+//
+// Solidity: function lastSlashedBlock(address ) constant returns(uint256)
+func (_DowntimeSlasher *DowntimeSlasherSession) LastSlashedBlock(arg0 common.Address) (*big.Int, error) {
+	return _DowntimeSlasher.Contract.LastSlashedBlock(&_DowntimeSlasher.CallOpts, arg0)
+}
+
+// LastSlashedBlock is a free data retrieval call binding the contract method 0x222d6b9f.
+//
+// Solidity: function lastSlashedBlock(address ) constant returns(uint256)
+func (_DowntimeSlasher *DowntimeSlasherCallerSession) LastSlashedBlock(arg0 common.Address) (*big.Int, error) {
+	return _DowntimeSlasher.Contract.LastSlashedBlock(&_DowntimeSlasher.CallOpts, arg0)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
@@ -807,6 +905,58 @@ func (_DowntimeSlasher *DowntimeSlasherCallerSession) ValidatorSignerAddressFrom
 	return _DowntimeSlasher.Contract.ValidatorSignerAddressFromSet(&_DowntimeSlasher.CallOpts, index, blockNumber)
 }
 
+// WasDownForInterval is a free data retrieval call binding the contract method 0xec611ffc.
+//
+// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherCaller) WasDownForInterval(opts *bind.CallOpts, startBlock *big.Int, endBlock *big.Int, signerIndex *big.Int) (bool, error) {
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _DowntimeSlasher.contract.Call(opts, out, "wasDownForInterval", startBlock, endBlock, signerIndex)
+	return *ret0, err
+}
+
+// WasDownForInterval is a free data retrieval call binding the contract method 0xec611ffc.
+//
+// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherSession) WasDownForInterval(startBlock *big.Int, endBlock *big.Int, signerIndex *big.Int) (bool, error) {
+	return _DowntimeSlasher.Contract.WasDownForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock, signerIndex)
+}
+
+// WasDownForInterval is a free data retrieval call binding the contract method 0xec611ffc.
+//
+// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherCallerSession) WasDownForInterval(startBlock *big.Int, endBlock *big.Int, signerIndex *big.Int) (bool, error) {
+	return _DowntimeSlasher.Contract.WasDownForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock, signerIndex)
+}
+
+// WasDownForIntervals is a free data retrieval call binding the contract method 0xe252e904.
+//
+// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherCaller) WasDownForIntervals(opts *bind.CallOpts, startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int) (bool, error) {
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _DowntimeSlasher.contract.Call(opts, out, "wasDownForIntervals", startBlocks, endBlocks, signerIndices)
+	return *ret0, err
+}
+
+// WasDownForIntervals is a free data retrieval call binding the contract method 0xe252e904.
+//
+// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherSession) WasDownForIntervals(startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int) (bool, error) {
+	return _DowntimeSlasher.Contract.WasDownForIntervals(&_DowntimeSlasher.CallOpts, startBlocks, endBlocks, signerIndices)
+}
+
+// WasDownForIntervals is a free data retrieval call binding the contract method 0xe252e904.
+//
+// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) constant returns(bool)
+func (_DowntimeSlasher *DowntimeSlasherCallerSession) WasDownForIntervals(startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int) (bool, error) {
+	return _DowntimeSlasher.Contract.WasDownForIntervals(&_DowntimeSlasher.CallOpts, startBlocks, endBlocks, signerIndices)
+}
+
 // Initialize is a paid mutator transaction binding the contract method 0x4ec81af1.
 //
 // Solidity: function initialize(address registryAddress, uint256 _penalty, uint256 _reward, uint256 _slashableDowntime) returns()
@@ -847,6 +997,27 @@ func (_DowntimeSlasher *DowntimeSlasherSession) RenounceOwnership() (*types.Tran
 // Solidity: function renounceOwnership() returns()
 func (_DowntimeSlasher *DowntimeSlasherTransactorSession) RenounceOwnership() (*types.Transaction, error) {
 	return _DowntimeSlasher.Contract.RenounceOwnership(&_DowntimeSlasher.TransactOpts)
+}
+
+// SetBitmapForInterval is a paid mutator transaction binding the contract method 0xfafec0f6.
+//
+// Solidity: function setBitmapForInterval(uint256 startBlock, uint256 endBlock) returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherTransactor) SetBitmapForInterval(opts *bind.TransactOpts, startBlock *big.Int, endBlock *big.Int) (*types.Transaction, error) {
+	return _DowntimeSlasher.contract.Transact(opts, "setBitmapForInterval", startBlock, endBlock)
+}
+
+// SetBitmapForInterval is a paid mutator transaction binding the contract method 0xfafec0f6.
+//
+// Solidity: function setBitmapForInterval(uint256 startBlock, uint256 endBlock) returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherSession) SetBitmapForInterval(startBlock *big.Int, endBlock *big.Int) (*types.Transaction, error) {
+	return _DowntimeSlasher.Contract.SetBitmapForInterval(&_DowntimeSlasher.TransactOpts, startBlock, endBlock)
+}
+
+// SetBitmapForInterval is a paid mutator transaction binding the contract method 0xfafec0f6.
+//
+// Solidity: function setBitmapForInterval(uint256 startBlock, uint256 endBlock) returns(bytes32)
+func (_DowntimeSlasher *DowntimeSlasherTransactorSession) SetBitmapForInterval(startBlock *big.Int, endBlock *big.Int) (*types.Transaction, error) {
+	return _DowntimeSlasher.Contract.SetBitmapForInterval(&_DowntimeSlasher.TransactOpts, startBlock, endBlock)
 }
 
 // SetRegistry is a paid mutator transaction binding the contract method 0xa91ee0dc.
@@ -912,25 +1083,25 @@ func (_DowntimeSlasher *DowntimeSlasherTransactorSession) SetSlashingIncentives(
 	return _DowntimeSlasher.Contract.SetSlashingIncentives(&_DowntimeSlasher.TransactOpts, penalty, reward)
 }
 
-// Slash is a paid mutator transaction binding the contract method 0xf7499291.
+// Slash is a paid mutator transaction binding the contract method 0x190ad68b.
 //
-// Solidity: function slash(uint256 startBlock, uint256 startSignerIndex, uint256 endSignerIndex, uint256 groupMembershipHistoryIndex, address[] validatorElectionLessers, address[] validatorElectionGreaters, uint256[] validatorElectionIndices, address[] groupElectionLessers, address[] groupElectionGreaters, uint256[] groupElectionIndices) returns()
-func (_DowntimeSlasher *DowntimeSlasherTransactor) Slash(opts *bind.TransactOpts, startBlock *big.Int, startSignerIndex *big.Int, endSignerIndex *big.Int, groupMembershipHistoryIndex *big.Int, validatorElectionLessers []common.Address, validatorElectionGreaters []common.Address, validatorElectionIndices []*big.Int, groupElectionLessers []common.Address, groupElectionGreaters []common.Address, groupElectionIndices []*big.Int) (*types.Transaction, error) {
-	return _DowntimeSlasher.contract.Transact(opts, "slash", startBlock, startSignerIndex, endSignerIndex, groupMembershipHistoryIndex, validatorElectionLessers, validatorElectionGreaters, validatorElectionIndices, groupElectionLessers, groupElectionGreaters, groupElectionIndices)
+// Solidity: function slash(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices, uint256 groupMembershipHistoryIndex, address[] validatorElectionLessers, address[] validatorElectionGreaters, uint256[] validatorElectionIndices, address[] groupElectionLessers, address[] groupElectionGreaters, uint256[] groupElectionIndices) returns()
+func (_DowntimeSlasher *DowntimeSlasherTransactor) Slash(opts *bind.TransactOpts, startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int, groupMembershipHistoryIndex *big.Int, validatorElectionLessers []common.Address, validatorElectionGreaters []common.Address, validatorElectionIndices []*big.Int, groupElectionLessers []common.Address, groupElectionGreaters []common.Address, groupElectionIndices []*big.Int) (*types.Transaction, error) {
+	return _DowntimeSlasher.contract.Transact(opts, "slash", startBlocks, endBlocks, signerIndices, groupMembershipHistoryIndex, validatorElectionLessers, validatorElectionGreaters, validatorElectionIndices, groupElectionLessers, groupElectionGreaters, groupElectionIndices)
 }
 
-// Slash is a paid mutator transaction binding the contract method 0xf7499291.
+// Slash is a paid mutator transaction binding the contract method 0x190ad68b.
 //
-// Solidity: function slash(uint256 startBlock, uint256 startSignerIndex, uint256 endSignerIndex, uint256 groupMembershipHistoryIndex, address[] validatorElectionLessers, address[] validatorElectionGreaters, uint256[] validatorElectionIndices, address[] groupElectionLessers, address[] groupElectionGreaters, uint256[] groupElectionIndices) returns()
-func (_DowntimeSlasher *DowntimeSlasherSession) Slash(startBlock *big.Int, startSignerIndex *big.Int, endSignerIndex *big.Int, groupMembershipHistoryIndex *big.Int, validatorElectionLessers []common.Address, validatorElectionGreaters []common.Address, validatorElectionIndices []*big.Int, groupElectionLessers []common.Address, groupElectionGreaters []common.Address, groupElectionIndices []*big.Int) (*types.Transaction, error) {
-	return _DowntimeSlasher.Contract.Slash(&_DowntimeSlasher.TransactOpts, startBlock, startSignerIndex, endSignerIndex, groupMembershipHistoryIndex, validatorElectionLessers, validatorElectionGreaters, validatorElectionIndices, groupElectionLessers, groupElectionGreaters, groupElectionIndices)
+// Solidity: function slash(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices, uint256 groupMembershipHistoryIndex, address[] validatorElectionLessers, address[] validatorElectionGreaters, uint256[] validatorElectionIndices, address[] groupElectionLessers, address[] groupElectionGreaters, uint256[] groupElectionIndices) returns()
+func (_DowntimeSlasher *DowntimeSlasherSession) Slash(startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int, groupMembershipHistoryIndex *big.Int, validatorElectionLessers []common.Address, validatorElectionGreaters []common.Address, validatorElectionIndices []*big.Int, groupElectionLessers []common.Address, groupElectionGreaters []common.Address, groupElectionIndices []*big.Int) (*types.Transaction, error) {
+	return _DowntimeSlasher.Contract.Slash(&_DowntimeSlasher.TransactOpts, startBlocks, endBlocks, signerIndices, groupMembershipHistoryIndex, validatorElectionLessers, validatorElectionGreaters, validatorElectionIndices, groupElectionLessers, groupElectionGreaters, groupElectionIndices)
 }
 
-// Slash is a paid mutator transaction binding the contract method 0xf7499291.
+// Slash is a paid mutator transaction binding the contract method 0x190ad68b.
 //
-// Solidity: function slash(uint256 startBlock, uint256 startSignerIndex, uint256 endSignerIndex, uint256 groupMembershipHistoryIndex, address[] validatorElectionLessers, address[] validatorElectionGreaters, uint256[] validatorElectionIndices, address[] groupElectionLessers, address[] groupElectionGreaters, uint256[] groupElectionIndices) returns()
-func (_DowntimeSlasher *DowntimeSlasherTransactorSession) Slash(startBlock *big.Int, startSignerIndex *big.Int, endSignerIndex *big.Int, groupMembershipHistoryIndex *big.Int, validatorElectionLessers []common.Address, validatorElectionGreaters []common.Address, validatorElectionIndices []*big.Int, groupElectionLessers []common.Address, groupElectionGreaters []common.Address, groupElectionIndices []*big.Int) (*types.Transaction, error) {
-	return _DowntimeSlasher.Contract.Slash(&_DowntimeSlasher.TransactOpts, startBlock, startSignerIndex, endSignerIndex, groupMembershipHistoryIndex, validatorElectionLessers, validatorElectionGreaters, validatorElectionIndices, groupElectionLessers, groupElectionGreaters, groupElectionIndices)
+// Solidity: function slash(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices, uint256 groupMembershipHistoryIndex, address[] validatorElectionLessers, address[] validatorElectionGreaters, uint256[] validatorElectionIndices, address[] groupElectionLessers, address[] groupElectionGreaters, uint256[] groupElectionIndices) returns()
+func (_DowntimeSlasher *DowntimeSlasherTransactorSession) Slash(startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int, groupMembershipHistoryIndex *big.Int, validatorElectionLessers []common.Address, validatorElectionGreaters []common.Address, validatorElectionIndices []*big.Int, groupElectionLessers []common.Address, groupElectionGreaters []common.Address, groupElectionIndices []*big.Int) (*types.Transaction, error) {
+	return _DowntimeSlasher.Contract.Slash(&_DowntimeSlasher.TransactOpts, startBlocks, endBlocks, signerIndices, groupMembershipHistoryIndex, validatorElectionLessers, validatorElectionGreaters, validatorElectionIndices, groupElectionLessers, groupElectionGreaters, groupElectionIndices)
 }
 
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
@@ -962,6 +1133,8 @@ func (_DowntimeSlasher *DowntimeSlasherFilterer) TryParseLog(log types.Log) (eve
 	}
 
 	switch eventName {
+	case "BitmapSetForInterval":
+		event, err = _DowntimeSlasher.ParseBitmapSetForInterval(log)
 	case "DowntimeSlashPerformed":
 		event, err = _DowntimeSlasher.ParseDowntimeSlashPerformed(log)
 	case "OwnershipTransferred":
@@ -978,6 +1151,168 @@ func (_DowntimeSlasher *DowntimeSlasherFilterer) TryParseLog(log types.Log) (eve
 	}
 
 	return eventName, event, ok, nil
+}
+
+// DowntimeSlasherBitmapSetForIntervalIterator is returned from FilterBitmapSetForInterval and is used to iterate over the raw logs and unpacked data for BitmapSetForInterval events raised by the DowntimeSlasher contract.
+type DowntimeSlasherBitmapSetForIntervalIterator struct {
+	Event *DowntimeSlasherBitmapSetForInterval // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *DowntimeSlasherBitmapSetForIntervalIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(DowntimeSlasherBitmapSetForInterval)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(DowntimeSlasherBitmapSetForInterval)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *DowntimeSlasherBitmapSetForIntervalIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *DowntimeSlasherBitmapSetForIntervalIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// DowntimeSlasherBitmapSetForInterval represents a BitmapSetForInterval event raised by the DowntimeSlasher contract.
+type DowntimeSlasherBitmapSetForInterval struct {
+	Sender     common.Address
+	StartBlock *big.Int
+	EndBlock   *big.Int
+	Bitmap     [32]byte
+	Raw        types.Log // Blockchain specific contextual infos
+}
+
+// FilterBitmapSetForInterval is a free log retrieval operation binding the contract event 0x0aa96aa275a5f936eed2a6a01f082594744dcc2510f575101366f8f479f03235.
+//
+// Solidity: event BitmapSetForInterval(address indexed sender, uint256 indexed startBlock, uint256 indexed endBlock, bytes32 bitmap)
+func (_DowntimeSlasher *DowntimeSlasherFilterer) FilterBitmapSetForInterval(opts *bind.FilterOpts, sender []common.Address, startBlock []*big.Int, endBlock []*big.Int) (*DowntimeSlasherBitmapSetForIntervalIterator, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+	var startBlockRule []interface{}
+	for _, startBlockItem := range startBlock {
+		startBlockRule = append(startBlockRule, startBlockItem)
+	}
+	var endBlockRule []interface{}
+	for _, endBlockItem := range endBlock {
+		endBlockRule = append(endBlockRule, endBlockItem)
+	}
+
+	logs, sub, err := _DowntimeSlasher.contract.FilterLogs(opts, "BitmapSetForInterval", senderRule, startBlockRule, endBlockRule)
+	if err != nil {
+		return nil, err
+	}
+	return &DowntimeSlasherBitmapSetForIntervalIterator{contract: _DowntimeSlasher.contract, event: "BitmapSetForInterval", logs: logs, sub: sub}, nil
+}
+
+// WatchBitmapSetForInterval is a free log subscription operation binding the contract event 0x0aa96aa275a5f936eed2a6a01f082594744dcc2510f575101366f8f479f03235.
+//
+// Solidity: event BitmapSetForInterval(address indexed sender, uint256 indexed startBlock, uint256 indexed endBlock, bytes32 bitmap)
+func (_DowntimeSlasher *DowntimeSlasherFilterer) WatchBitmapSetForInterval(opts *bind.WatchOpts, sink chan<- *DowntimeSlasherBitmapSetForInterval, sender []common.Address, startBlock []*big.Int, endBlock []*big.Int) (event.Subscription, error) {
+
+	var senderRule []interface{}
+	for _, senderItem := range sender {
+		senderRule = append(senderRule, senderItem)
+	}
+	var startBlockRule []interface{}
+	for _, startBlockItem := range startBlock {
+		startBlockRule = append(startBlockRule, startBlockItem)
+	}
+	var endBlockRule []interface{}
+	for _, endBlockItem := range endBlock {
+		endBlockRule = append(endBlockRule, endBlockItem)
+	}
+
+	logs, sub, err := _DowntimeSlasher.contract.WatchLogs(opts, "BitmapSetForInterval", senderRule, startBlockRule, endBlockRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(DowntimeSlasherBitmapSetForInterval)
+				if err := _DowntimeSlasher.contract.UnpackLog(event, "BitmapSetForInterval", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseBitmapSetForInterval is a log parse operation binding the contract event 0x0aa96aa275a5f936eed2a6a01f082594744dcc2510f575101366f8f479f03235.
+//
+// Solidity: event BitmapSetForInterval(address indexed sender, uint256 indexed startBlock, uint256 indexed endBlock, bytes32 bitmap)
+func (_DowntimeSlasher *DowntimeSlasherFilterer) ParseBitmapSetForInterval(log types.Log) (*DowntimeSlasherBitmapSetForInterval, error) {
+	event := new(DowntimeSlasherBitmapSetForInterval)
+	if err := _DowntimeSlasher.contract.UnpackLog(event, "BitmapSetForInterval", log); err != nil {
+		return nil, err
+	}
+	return event, nil
 }
 
 // DowntimeSlasherDowntimeSlashPerformedIterator is returned from FilterDowntimeSlashPerformed and is used to iterate over the raw logs and unpacked data for DowntimeSlashPerformed events raised by the DowntimeSlasher contract.
@@ -1051,13 +1386,14 @@ func (it *DowntimeSlasherDowntimeSlashPerformedIterator) Close() error {
 type DowntimeSlasherDowntimeSlashPerformed struct {
 	Validator  common.Address
 	StartBlock *big.Int
+	EndBlock   *big.Int
 	Raw        types.Log // Blockchain specific contextual infos
 }
 
-// FilterDowntimeSlashPerformed is a free log retrieval operation binding the contract event 0x8c83b12f71cc3bbf5922a9600018df883cfe2e1f40bfbc3856fb794d69b2ae54.
+// FilterDowntimeSlashPerformed is a free log retrieval operation binding the contract event 0x229d63d990a0f1068a86ee5bdce0b23fe156ff5d5174cc634d5da8ed3618e0c9.
 //
-// Solidity: event DowntimeSlashPerformed(address indexed validator, uint256 indexed startBlock)
-func (_DowntimeSlasher *DowntimeSlasherFilterer) FilterDowntimeSlashPerformed(opts *bind.FilterOpts, validator []common.Address, startBlock []*big.Int) (*DowntimeSlasherDowntimeSlashPerformedIterator, error) {
+// Solidity: event DowntimeSlashPerformed(address indexed validator, uint256 indexed startBlock, uint256 indexed endBlock)
+func (_DowntimeSlasher *DowntimeSlasherFilterer) FilterDowntimeSlashPerformed(opts *bind.FilterOpts, validator []common.Address, startBlock []*big.Int, endBlock []*big.Int) (*DowntimeSlasherDowntimeSlashPerformedIterator, error) {
 
 	var validatorRule []interface{}
 	for _, validatorItem := range validator {
@@ -1067,18 +1403,22 @@ func (_DowntimeSlasher *DowntimeSlasherFilterer) FilterDowntimeSlashPerformed(op
 	for _, startBlockItem := range startBlock {
 		startBlockRule = append(startBlockRule, startBlockItem)
 	}
+	var endBlockRule []interface{}
+	for _, endBlockItem := range endBlock {
+		endBlockRule = append(endBlockRule, endBlockItem)
+	}
 
-	logs, sub, err := _DowntimeSlasher.contract.FilterLogs(opts, "DowntimeSlashPerformed", validatorRule, startBlockRule)
+	logs, sub, err := _DowntimeSlasher.contract.FilterLogs(opts, "DowntimeSlashPerformed", validatorRule, startBlockRule, endBlockRule)
 	if err != nil {
 		return nil, err
 	}
 	return &DowntimeSlasherDowntimeSlashPerformedIterator{contract: _DowntimeSlasher.contract, event: "DowntimeSlashPerformed", logs: logs, sub: sub}, nil
 }
 
-// WatchDowntimeSlashPerformed is a free log subscription operation binding the contract event 0x8c83b12f71cc3bbf5922a9600018df883cfe2e1f40bfbc3856fb794d69b2ae54.
+// WatchDowntimeSlashPerformed is a free log subscription operation binding the contract event 0x229d63d990a0f1068a86ee5bdce0b23fe156ff5d5174cc634d5da8ed3618e0c9.
 //
-// Solidity: event DowntimeSlashPerformed(address indexed validator, uint256 indexed startBlock)
-func (_DowntimeSlasher *DowntimeSlasherFilterer) WatchDowntimeSlashPerformed(opts *bind.WatchOpts, sink chan<- *DowntimeSlasherDowntimeSlashPerformed, validator []common.Address, startBlock []*big.Int) (event.Subscription, error) {
+// Solidity: event DowntimeSlashPerformed(address indexed validator, uint256 indexed startBlock, uint256 indexed endBlock)
+func (_DowntimeSlasher *DowntimeSlasherFilterer) WatchDowntimeSlashPerformed(opts *bind.WatchOpts, sink chan<- *DowntimeSlasherDowntimeSlashPerformed, validator []common.Address, startBlock []*big.Int, endBlock []*big.Int) (event.Subscription, error) {
 
 	var validatorRule []interface{}
 	for _, validatorItem := range validator {
@@ -1088,8 +1428,12 @@ func (_DowntimeSlasher *DowntimeSlasherFilterer) WatchDowntimeSlashPerformed(opt
 	for _, startBlockItem := range startBlock {
 		startBlockRule = append(startBlockRule, startBlockItem)
 	}
+	var endBlockRule []interface{}
+	for _, endBlockItem := range endBlock {
+		endBlockRule = append(endBlockRule, endBlockItem)
+	}
 
-	logs, sub, err := _DowntimeSlasher.contract.WatchLogs(opts, "DowntimeSlashPerformed", validatorRule, startBlockRule)
+	logs, sub, err := _DowntimeSlasher.contract.WatchLogs(opts, "DowntimeSlashPerformed", validatorRule, startBlockRule, endBlockRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1121,9 +1465,9 @@ func (_DowntimeSlasher *DowntimeSlasherFilterer) WatchDowntimeSlashPerformed(opt
 	}), nil
 }
 
-// ParseDowntimeSlashPerformed is a log parse operation binding the contract event 0x8c83b12f71cc3bbf5922a9600018df883cfe2e1f40bfbc3856fb794d69b2ae54.
+// ParseDowntimeSlashPerformed is a log parse operation binding the contract event 0x229d63d990a0f1068a86ee5bdce0b23fe156ff5d5174cc634d5da8ed3618e0c9.
 //
-// Solidity: event DowntimeSlashPerformed(address indexed validator, uint256 indexed startBlock)
+// Solidity: event DowntimeSlashPerformed(address indexed validator, uint256 indexed startBlock, uint256 indexed endBlock)
 func (_DowntimeSlasher *DowntimeSlasherFilterer) ParseDowntimeSlashPerformed(log types.Log) (*DowntimeSlasherDowntimeSlashPerformed, error) {
 	event := new(DowntimeSlasherDowntimeSlashPerformed)
 	if err := _DowntimeSlasher.contract.UnpackLog(event, "DowntimeSlashPerformed", log); err != nil {

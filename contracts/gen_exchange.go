@@ -1,17 +1,3 @@
-// Copyright 2020 Celo Org
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//      http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 // Code generated - DO NOT EDIT.
 // This file is a generated binding and any manual changes will be lost.
 
@@ -42,7 +28,7 @@ var (
 )
 
 // ExchangeABI is the input ABI used to generate the binding from.
-const ExchangeABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minimumReports\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stable\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stableBucket\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"spread\",\"outputs\":[{\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"goldBucket\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"updateFrequency\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserveFraction\",\"outputs\":[{\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastBucketUpdate\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"exchanger\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"soldGold\",\"type\":\"bool\"}],\"name\":\"Exchanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"updateFrequency\",\"type\":\"uint256\"}],\"name\":\"UpdateFrequencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"minimumReports\",\"type\":\"uint256\"}],\"name\":\"MinimumReportsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"stable\",\"type\":\"address\"}],\"name\":\"StableTokenSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"spread\",\"type\":\"uint256\"}],\"name\":\"SpreadSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"reserveFraction\",\"type\":\"uint256\"}],\"name\":\"ReserveFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"goldBucket\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"stableBucket\",\"type\":\"uint256\"}],\"name\":\"BucketsUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"registryAddress\",\"type\":\"address\"},{\"name\":\"stableToken\",\"type\":\"address\"},{\"name\":\"_spread\",\"type\":\"uint256\"},{\"name\":\"_reserveFraction\",\"type\":\"uint256\"},{\"name\":\"_updateFrequency\",\"type\":\"uint256\"},{\"name\":\"_minimumReports\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"name\":\"minBuyAmount\",\"type\":\"uint256\"},{\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"exchange\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyTokenAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getSellTokenAmount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyAndSellBuckets\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newUpdateFrequency\",\"type\":\"uint256\"}],\"name\":\"setUpdateFrequency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newMininumReports\",\"type\":\"uint256\"}],\"name\":\"setMinimumReports\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newStableToken\",\"type\":\"address\"}],\"name\":\"setStableToken\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newSpread\",\"type\":\"uint256\"}],\"name\":\"setSpread\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newReserveFraction\",\"type\":\"uint256\"}],\"name\":\"setReserveFraction\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const ExchangeABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"goldBucket\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"stableBucket\",\"type\":\"uint256\"}],\"name\":\"BucketsUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"exchanger\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"soldGold\",\"type\":\"bool\"}],\"name\":\"Exchanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minimumReports\",\"type\":\"uint256\"}],\"name\":\"MinimumReportsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reserveFraction\",\"type\":\"uint256\"}],\"name\":\"ReserveFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"spreadFraction\",\"type\":\"uint256\"}],\"name\":\"SpreadSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"stable\",\"type\":\"address\"}],\"name\":\"StableTokenSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"updateFrequency\",\"type\":\"uint256\"}],\"name\":\"UpdateFrequencySet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"goldBucket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastBucketUpdate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minimumReports\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserveFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"spread\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stable\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stableBucket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"updateFrequency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"stableToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_spread\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_reserveFraction\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_updateFrequency\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_minimumReports\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minBuyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"sell\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minBuyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"exchange\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxSellAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"buyGold\",\"type\":\"bool\"}],\"name\":\"buy\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyTokenAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getSellTokenAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyAndSellBuckets\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newUpdateFrequency\",\"type\":\"uint256\"}],\"name\":\"setUpdateFrequency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newMininumReports\",\"type\":\"uint256\"}],\"name\":\"setMinimumReports\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newStableToken\",\"type\":\"address\"}],\"name\":\"setStableToken\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newSpread\",\"type\":\"uint256\"}],\"name\":\"setSpread\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newReserveFraction\",\"type\":\"uint256\"}],\"name\":\"setReserveFraction\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // Exchange is an auto generated Go binding around an Ethereum contract.
 type Exchange struct {
@@ -275,6 +261,40 @@ func (_Exchange *ExchangeSession) GetSellTokenAmount(buyAmount *big.Int, sellGol
 // Solidity: function getSellTokenAmount(uint256 buyAmount, bool sellGold) constant returns(uint256)
 func (_Exchange *ExchangeCallerSession) GetSellTokenAmount(buyAmount *big.Int, sellGold bool) (*big.Int, error) {
 	return _Exchange.Contract.GetSellTokenAmount(&_Exchange.CallOpts, buyAmount, sellGold)
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+func (_Exchange *ExchangeCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+		ret1 = new(*big.Int)
+		ret2 = new(*big.Int)
+		ret3 = new(*big.Int)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
+		ret2,
+		ret3,
+	}
+	err := _Exchange.contract.Call(opts, out, "getVersionNumber")
+	return *ret0, *ret1, *ret2, *ret3, err
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+func (_Exchange *ExchangeSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _Exchange.Contract.GetVersionNumber(&_Exchange.CallOpts)
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+func (_Exchange *ExchangeCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _Exchange.Contract.GetVersionNumber(&_Exchange.CallOpts)
 }
 
 // GoldBucket is a free data retrieval call binding the contract method 0x62f09084.
@@ -589,6 +609,27 @@ func (_Exchange *ExchangeCallerSession) UpdateFrequency() (*big.Int, error) {
 	return _Exchange.Contract.UpdateFrequency(&_Exchange.CallOpts)
 }
 
+// Buy is a paid mutator transaction binding the contract method 0xc3434883.
+//
+// Solidity: function buy(uint256 buyAmount, uint256 maxSellAmount, bool buyGold) returns(uint256)
+func (_Exchange *ExchangeTransactor) Buy(opts *bind.TransactOpts, buyAmount *big.Int, maxSellAmount *big.Int, buyGold bool) (*types.Transaction, error) {
+	return _Exchange.contract.Transact(opts, "buy", buyAmount, maxSellAmount, buyGold)
+}
+
+// Buy is a paid mutator transaction binding the contract method 0xc3434883.
+//
+// Solidity: function buy(uint256 buyAmount, uint256 maxSellAmount, bool buyGold) returns(uint256)
+func (_Exchange *ExchangeSession) Buy(buyAmount *big.Int, maxSellAmount *big.Int, buyGold bool) (*types.Transaction, error) {
+	return _Exchange.Contract.Buy(&_Exchange.TransactOpts, buyAmount, maxSellAmount, buyGold)
+}
+
+// Buy is a paid mutator transaction binding the contract method 0xc3434883.
+//
+// Solidity: function buy(uint256 buyAmount, uint256 maxSellAmount, bool buyGold) returns(uint256)
+func (_Exchange *ExchangeTransactorSession) Buy(buyAmount *big.Int, maxSellAmount *big.Int, buyGold bool) (*types.Transaction, error) {
+	return _Exchange.Contract.Buy(&_Exchange.TransactOpts, buyAmount, maxSellAmount, buyGold)
+}
+
 // Exchange is a paid mutator transaction binding the contract method 0x2bc7d67a.
 //
 // Solidity: function exchange(uint256 sellAmount, uint256 minBuyAmount, bool sellGold) returns(uint256)
@@ -650,6 +691,27 @@ func (_Exchange *ExchangeSession) RenounceOwnership() (*types.Transaction, error
 // Solidity: function renounceOwnership() returns()
 func (_Exchange *ExchangeTransactorSession) RenounceOwnership() (*types.Transaction, error) {
 	return _Exchange.Contract.RenounceOwnership(&_Exchange.TransactOpts)
+}
+
+// Sell is a paid mutator transaction binding the contract method 0x8ab1a5d4.
+//
+// Solidity: function sell(uint256 sellAmount, uint256 minBuyAmount, bool sellGold) returns(uint256)
+func (_Exchange *ExchangeTransactor) Sell(opts *bind.TransactOpts, sellAmount *big.Int, minBuyAmount *big.Int, sellGold bool) (*types.Transaction, error) {
+	return _Exchange.contract.Transact(opts, "sell", sellAmount, minBuyAmount, sellGold)
+}
+
+// Sell is a paid mutator transaction binding the contract method 0x8ab1a5d4.
+//
+// Solidity: function sell(uint256 sellAmount, uint256 minBuyAmount, bool sellGold) returns(uint256)
+func (_Exchange *ExchangeSession) Sell(sellAmount *big.Int, minBuyAmount *big.Int, sellGold bool) (*types.Transaction, error) {
+	return _Exchange.Contract.Sell(&_Exchange.TransactOpts, sellAmount, minBuyAmount, sellGold)
+}
+
+// Sell is a paid mutator transaction binding the contract method 0x8ab1a5d4.
+//
+// Solidity: function sell(uint256 sellAmount, uint256 minBuyAmount, bool sellGold) returns(uint256)
+func (_Exchange *ExchangeTransactorSession) Sell(sellAmount *big.Int, minBuyAmount *big.Int, sellGold bool) (*types.Transaction, error) {
+	return _Exchange.Contract.Sell(&_Exchange.TransactOpts, sellAmount, minBuyAmount, sellGold)
 }
 
 // SetMinimumReports is a paid mutator transaction binding the contract method 0xd404f7f8.
@@ -1743,13 +1805,13 @@ func (it *ExchangeSpreadSetIterator) Close() error {
 
 // ExchangeSpreadSet represents a SpreadSet event raised by the Exchange contract.
 type ExchangeSpreadSet struct {
-	Spread *big.Int
-	Raw    types.Log // Blockchain specific contextual infos
+	SpreadFraction *big.Int
+	Raw            types.Log // Blockchain specific contextual infos
 }
 
 // FilterSpreadSet is a free log retrieval operation binding the contract event 0x8946f328efcc515b5cc3282f6cd95e87a6c0d3508421af0b52d4d3620b3e2db3.
 //
-// Solidity: event SpreadSet(uint256 spread)
+// Solidity: event SpreadSet(uint256 spreadFraction)
 func (_Exchange *ExchangeFilterer) FilterSpreadSet(opts *bind.FilterOpts) (*ExchangeSpreadSetIterator, error) {
 
 	logs, sub, err := _Exchange.contract.FilterLogs(opts, "SpreadSet")
@@ -1761,7 +1823,7 @@ func (_Exchange *ExchangeFilterer) FilterSpreadSet(opts *bind.FilterOpts) (*Exch
 
 // WatchSpreadSet is a free log subscription operation binding the contract event 0x8946f328efcc515b5cc3282f6cd95e87a6c0d3508421af0b52d4d3620b3e2db3.
 //
-// Solidity: event SpreadSet(uint256 spread)
+// Solidity: event SpreadSet(uint256 spreadFraction)
 func (_Exchange *ExchangeFilterer) WatchSpreadSet(opts *bind.WatchOpts, sink chan<- *ExchangeSpreadSet) (event.Subscription, error) {
 
 	logs, sub, err := _Exchange.contract.WatchLogs(opts, "SpreadSet")
@@ -1798,7 +1860,7 @@ func (_Exchange *ExchangeFilterer) WatchSpreadSet(opts *bind.WatchOpts, sink cha
 
 // ParseSpreadSet is a log parse operation binding the contract event 0x8946f328efcc515b5cc3282f6cd95e87a6c0d3508421af0b52d4d3620b3e2db3.
 //
-// Solidity: event SpreadSet(uint256 spread)
+// Solidity: event SpreadSet(uint256 spreadFraction)
 func (_Exchange *ExchangeFilterer) ParseSpreadSet(log types.Log) (*ExchangeSpreadSet, error) {
 	event := new(ExchangeSpreadSet)
 	if err := _Exchange.contract.UnpackLog(event, "SpreadSet", log); err != nil {
