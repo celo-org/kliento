@@ -15,7 +15,13 @@
 package helpers
 
 import (
+	"fmt"
+	"math/big"
+	"reflect"
+
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 )
 
 func callOptsFromTxOpts(txOpts *bind.TransactOpts) *bind.CallOpts {
@@ -23,4 +29,76 @@ func callOptsFromTxOpts(txOpts *bind.TransactOpts) *bind.CallOpts {
 		From:    txOpts.From,
 		Context: txOpts.Context,
 	}
+}
+
+func FromFixed(number *big.Int) float64 {
+	var fixed1, _ = new(big.Float).SetString("1000000000000000000000000")
+	ret := new(big.Float)
+	ret.Quo(new(big.Float).SetInt(number), fixed1)
+	retF, _ := ret.Float64()
+	return retF
+}
+
+func isSuffixEqual(s string, suffix string) bool {
+	return len(suffix) <= len(s) && s[len(s)-len(suffix):] == suffix
+}
+
+func isFixidity(name string) bool {
+	return isSuffixEqual(name, "Factor") || isSuffixEqual(name, "Fraction") || isSuffixEqual(name, "Multiplier") || isSuffixEqual(name, "Ratio") || isSuffixEqual(name, "Rate")
+}
+
+// EventToSlice transforms an abigen event struct binding to a string/int64/float64 encoded slice (ideal for BigQuery).
+// type AttestationsAttestationsRequested struct {
+// 	Identifier                 [32]byte
+// 	Account                    common.Address
+// 	AttestationsRequested      *big.Int
+// 	AttestationRequestFeeToken common.Address
+// 	Raw                        types.Log // Blockchain specific contextual infos
+// }
+func EventToSlice(event interface{}) ([]interface{}, error) {
+	v := reflect.ValueOf(event)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+
+	// we only accept structs
+	if v.Kind() != reflect.Struct {
+		return nil, fmt.Errorf("eventToSlice only accepts structs; got %T", v)
+	}
+
+	slice := make([]interface{}, (v.NumField()-1)*2) // exclude raw, include field names
+
+	typ := v.Type()
+	for i := 0; i < v.NumField(); i++ {
+		fi := typ.Field(i)
+
+		if fi.Name == "Raw" { // skip raw
+			continue
+		}
+
+		var out interface{}
+		switch v := v.Field(i).Interface().(type) {
+		case common.Address:
+			out = v.Hex()
+		case *big.Int:
+			if isFixidity(fi.Name) {
+				out = FromFixed(v)
+			} else {
+				out = v.String()
+			}
+		case []byte:
+			out = hexutil.Encode(v)
+		case [32]byte:
+			out = hexutil.Encode(v[:])
+		case [4]byte:
+			out = hexutil.Encode(v[:])
+		default:
+			out = v
+		}
+
+		slice[2*i] = fi.Name
+		slice[2*i+1] = out
+	}
+
+	return slice, nil
 }

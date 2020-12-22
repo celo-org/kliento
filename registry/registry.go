@@ -16,15 +16,23 @@ package registry
 
 import (
 	"context"
-	"errors"
 	"math/big"
+	"strings"
 
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
 )
+
+// ContractID represents the ID of a contract according to the Registry
+type ContractID string
+
+func (cid ContractID) String() string { return string(cid) }
 
 // RegistryAddress is the address of the registry which is the same on any celo network
 var RegistryAddress = params.RegistrySmartContractAddress
@@ -32,287 +40,201 @@ var RegistryAddress = params.RegistrySmartContractAddress
 // Registry defines an interface to access all Celo core Contracts
 type Registry interface {
 	GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error)
+	generatedRegistry
+	TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error)
+	EnableCaching(ctx context.Context, blockNumber *big.Int) error
+}
 
-	GetAccountsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Accounts, error)
-	GetAttestationsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Attestations, error)
-	GetBlockchainParametersContract(ctx context.Context, blockNumber *big.Int) (*contracts.BlockchainParameters, error)
-	GetDoubleSigningSlasherContract(ctx context.Context, blockNumber *big.Int) (*contracts.DoubleSigningSlasher, error)
-	GetDowntimeSlasherContract(ctx context.Context, blockNumber *big.Int) (*contracts.DowntimeSlasher, error)
-	GetElectionContract(ctx context.Context, blockNumber *big.Int) (*contracts.Election, error)
-	GetEpochRewardsContract(ctx context.Context, blockNumber *big.Int) (*contracts.EpochRewards, error)
-	GetEscrowContract(ctx context.Context, blockNumber *big.Int) (*contracts.Escrow, error)
-	GetExchangeContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error)
-	GetFeeCurrencyWhitelistContract(ctx context.Context, blockNumber *big.Int) (*contracts.FeeCurrencyWhitelist, error)
-	GetFreezerContract(ctx context.Context, blockNumber *big.Int) (*contracts.Freezer, error)
-	GetGasPriceMinimumContract(ctx context.Context, blockNumber *big.Int) (*contracts.GasPriceMinimum, error)
-	GetGoldTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.GoldToken, error)
-	GetGovernanceContract(ctx context.Context, blockNumber *big.Int) (*contracts.Governance, error)
-	GetGovernanceApproverMultiSigContract(ctx context.Context, blockNumber *big.Int) (*contracts.GovernanceApproverMultiSig, error)
-	GetLockedGoldContract(ctx context.Context, blockNumber *big.Int) (*contracts.LockedGold, error)
-	GetMultiSigContract(ctx context.Context, blockNumber *big.Int) (*contracts.MultiSig, error)
-	GetProxyContract(ctx context.Context, blockNumber *big.Int) (*contracts.Proxy, error)
-	GetRandomContract(ctx context.Context, blockNumber *big.Int) (*contracts.Random, error)
-	GetRegistryContract(ctx context.Context, blockNumber *big.Int) (*contracts.Registry, error)
-	GetReleaseGoldContract(ctx context.Context, blockNumber *big.Int) (*contracts.ReleaseGold, error)
-	GetReserveContract(ctx context.Context, blockNumber *big.Int) (*contracts.Reserve, error)
-	GetReserveSpenderMultiSigContract(ctx context.Context, blockNumber *big.Int) (*contracts.ReserveSpenderMultiSig, error)
-	GetSortedOraclesContract(ctx context.Context, blockNumber *big.Int) (*contracts.SortedOracles, error)
-	GetStableTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.StableToken, error)
-	GetTransferWhitelistContract(ctx context.Context, blockNumber *big.Int) (*contracts.TransferWhitelist, error)
-	GetValidatorsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Validators, error)
+type RegistryParsedLog struct {
+	Contract string
+	Event    string
+	Log      interface{}
+}
+
+type addressContainer struct {
+	address common.Address
+	dirty   bool
+}
+
+type registryCache struct {
+	idToAddress map[string]*addressContainer
+	addressToID map[common.Address]string
 }
 
 type registryImpl struct {
-	cc       *client.CeloClient
-	contract *contracts.Registry
+	cc               *client.CeloClient
+	RegistryContract *contracts.Registry
+	cache            *registryCache
+	proxyAbi         *abi.ABI
+	boundContracts
 }
-
-var (
-	// ErrRegistryNotDeployed sigals that registry is not yet deployed and
-	// thus no contract address can be found
-	ErrRegistryNotDeployed = errors.New("Registry Not Deployed")
-)
 
 // New creates a new contracts Registry
 func New(cc *client.CeloClient) (Registry, error) {
 	registry, err := contracts.NewRegistry(RegistryAddress, cc.Eth)
 	err = client.WrapRpcError(err)
+	if err != nil {
+		return nil, err
+	}
+
 	return &registryImpl{
-		cc:       cc,
-		contract: registry,
+		cc:               cc,
+		RegistryContract: registry,
+		cache:            nil,
 	}, err
 }
 
+func (r *registryImpl) GetRegistryContract() *contracts.Registry {
+	return r.RegistryContract
+}
+
 func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error) {
-	address, err := r.contract.GetAddressForString(&bind.CallOpts{BlockNumber: blockNumber, Context: ctx}, contractID.String())
+	identifier := contractID.String()
+	// fetch from cache and mark clean if successful
+	ac := r.cache.getAddressContainer(identifier)
+	if ac != nil {
+		ac.dirty = false
+		return ac.address, nil
+	}
 
+	// if uncached, fetch from contract state
+	address, err := r.RegistryContract.GetAddressForString(&bind.CallOpts{BlockNumber: blockNumber, Context: ctx}, identifier)
 	err = client.WrapRpcError(err)
-
 	if err != nil {
 		return common.ZeroAddress, err
-	} else if err == client.ErrContractNotDeployed {
-		return common.ZeroAddress, ErrRegistryNotDeployed
+	} else if address == common.ZeroAddress {
+		return address, client.ErrContractNotDeployed
 	}
 
-	if address == common.ZeroAddress {
-		return common.ZeroAddress, client.ErrContractNotDeployed
-	}
-
+	// update cache
+	r.cache.put(identifier, address)
 	return address, nil
 }
 
-func (r *registryImpl) GetAccountsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Accounts, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, AccountsContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewAccounts(address, r.cc.Eth)
+// IsExpectedBeforeContractsDeployed checks for expected errors when contracts are not deployed yet
+func IsExpectedBeforeContractsDeployed(err error) bool {
+	return isErrSubset(err, blockchainErrors.ErrRegistryContractNotDeployed) || isErrSubset(err, blockchainErrors.ErrSmartContractNotDeployed) || isErrSubset(err, client.ErrContractNotDeployed)
 }
 
-func (r *registryImpl) GetAttestationsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Attestations, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, AttestationsContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewAttestations(address, r.cc.Eth)
+func isErrSubset(err error, suberr error) bool {
+	return strings.Contains(err.Error(), suberr.Error())
 }
 
-func (r *registryImpl) GetBlockchainParametersContract(ctx context.Context, blockNumber *big.Int) (*contracts.BlockchainParameters, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, BlockchainParametersContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewBlockchainParameters(address, r.cc.Eth)
+type logParser interface {
+	TryParseLog(log types.Log) (eventName string, event interface{}, ok bool, err error)
 }
 
-func (r *registryImpl) GetDoubleSigningSlasherContract(ctx context.Context, blockNumber *big.Int) (*contracts.DoubleSigningSlasher, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, DoubleSigningSlasherContractID)
+func (r *registryImpl) tryParseProxyLog(log types.Log) (eventName string, event interface{}, err error) {
+	proxy, err := contracts.NewProxyFilterer(log.Address, r.cc.Eth)
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
-	return contracts.NewDoubleSigningSlasher(address, r.cc.Eth)
+	eventName, event, ok, err := proxy.TryParseLog(log)
+	if !ok || err != nil {
+		return "", nil, err
+	}
+	return eventName, event, nil
 }
 
-func (r *registryImpl) GetDowntimeSlasherContract(ctx context.Context, blockNumber *big.Int) (*contracts.DowntimeSlasher, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, DowntimeSlasherContractID)
-	if err != nil {
-		return nil, err
+// TryParseLog parses an event log using a fully hydrated registry
+func (r *registryImpl) TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
+	log := *eventLog
+	var eventName, id string
+	var event interface{}
+	var parseError error
+
+	// determine contract identifier and parse log if address is known
+	if log.Address == params.RegistrySmartContractAddress {
+		id = "Registry"
+		eventName, event, _, parseError = r.RegistryContract.TryParseLog(log)
+
+		// update cache if registry mapping was changed
+		switch v := event.(type) {
+		case contracts.RegistryRegistryUpdated:
+			r.cache.put(v.Identifier, v.Addr)
+		}
+	} else if id = r.cache.getIdentifier(log.Address); id != "" {
+		contract, err := r.GetContractByID(ctx, id, blockNumber)
+		if err != nil {
+			return nil, err
+		}
+		eventName, event, _, parseError = contract.(logParser).TryParseLog(log)
 	}
-	return contracts.NewDowntimeSlasher(address, r.cc.Eth)
+
+	// if address is known but parsing failed, try using proxy ABI
+	if parseError != nil {
+		eventName, event, parseError = r.tryParseProxyLog(log)
+		if parseError != nil {
+			return nil, parseError
+		}
+		id += "Proxy"
+	}
+
+	if event != nil {
+		return &RegistryParsedLog{
+			Contract: id,
+			Event:    eventName,
+			Log:      event,
+		}, nil
+	}
+
+	return nil, nil
 }
 
-func (r *registryImpl) GetElectionContract(ctx context.Context, blockNumber *big.Int) (*contracts.Election, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, ElectionContractID)
-	if err != nil {
-		return nil, err
+// Enables address caching
+func (r *registryImpl) EnableCaching(ctx context.Context, blockNumber *big.Int) error {
+	r.cache = &registryCache{
+		idToAddress: make(map[string]*addressContainer, len(RegisteredContractIDs)),
+		addressToID: make(map[common.Address]string, len(RegisteredContractIDs)),
 	}
-	return contracts.NewElection(address, r.cc.Eth)
+
+	// Hydrate initially at provided block
+	for _, id := range RegisteredContractIDs {
+		_, err := r.GetContractByID(ctx, id.String(), blockNumber)
+		if err != nil && !IsExpectedBeforeContractsDeployed(err) {
+			return err
+		}
+	}
+	return nil
 }
 
-func (r *registryImpl) GetEpochRewardsContract(ctx context.Context, blockNumber *big.Int) (*contracts.EpochRewards, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, EpochRewardsContractID)
-	if err != nil {
-		return nil, err
+func (rc *registryCache) put(identifier string, address common.Address) {
+	if rc != nil {
+		ac := rc.getAddressContainer(identifier)
+		if ac != nil {
+			ac.address = address
+			rc.addressToID[address] = identifier
+			ac.dirty = true
+		} else {
+			rc.idToAddress[identifier] = &addressContainer{address, true}
+			rc.addressToID[address] = identifier
+		}
 	}
-	return contracts.NewEpochRewards(address, r.cc.Eth)
 }
 
-func (r *registryImpl) GetEscrowContract(ctx context.Context, blockNumber *big.Int) (*contracts.Escrow, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, EscrowContractID)
-	if err != nil {
-		return nil, err
+func (rc *registryCache) getAddressContainer(identifier string) *addressContainer {
+	if rc != nil {
+		if addressContainer, ok := rc.idToAddress[identifier]; ok {
+			return addressContainer
+		}
 	}
-	return contracts.NewEscrow(address, r.cc.Eth)
+	return nil
 }
 
-func (r *registryImpl) GetExchangeContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, ExchangeContractID)
-	if err != nil {
-		return nil, err
+func (rc *registryCache) getIdentifier(address common.Address) string {
+	if rc != nil {
+		if identifier, ok := rc.addressToID[address]; ok {
+			return identifier
+		}
 	}
-	return contracts.NewExchange(address, r.cc.Eth)
+	return ""
 }
 
-func (r *registryImpl) GetFeeCurrencyWhitelistContract(ctx context.Context, blockNumber *big.Int) (*contracts.FeeCurrencyWhitelist, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, FeeCurrencyWhitelistContractID)
-	if err != nil {
-		return nil, err
+// used in generated registry for contract binding reinitialization
+func (rc *registryCache) isDirty(identifier string) bool {
+	ac := rc.getAddressContainer(identifier)
+	if ac != nil {
+		return ac.dirty
 	}
-	return contracts.NewFeeCurrencyWhitelist(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetFreezerContract(ctx context.Context, blockNumber *big.Int) (*contracts.Freezer, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, FreezerContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewFreezer(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetGasPriceMinimumContract(ctx context.Context, blockNumber *big.Int) (*contracts.GasPriceMinimum, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, GasPriceMinimumContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewGasPriceMinimum(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetGoldTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.GoldToken, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, GoldTokenContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewGoldToken(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetGovernanceContract(ctx context.Context, blockNumber *big.Int) (*contracts.Governance, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, GovernanceContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewGovernance(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetGovernanceApproverMultiSigContract(ctx context.Context, blockNumber *big.Int) (*contracts.GovernanceApproverMultiSig, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, GovernanceApproverMultiSigContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewGovernanceApproverMultiSig(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetLockedGoldContract(ctx context.Context, blockNumber *big.Int) (*contracts.LockedGold, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, LockedGoldContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewLockedGold(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetMultiSigContract(ctx context.Context, blockNumber *big.Int) (*contracts.MultiSig, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, MultiSigContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewMultiSig(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetProxyContract(ctx context.Context, blockNumber *big.Int) (*contracts.Proxy, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, ProxyContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewProxy(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetRandomContract(ctx context.Context, blockNumber *big.Int) (*contracts.Random, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, RandomContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewRandom(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetRegistryContract(ctx context.Context, blockNumber *big.Int) (*contracts.Registry, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, RegistryContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewRegistry(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetReleaseGoldContract(ctx context.Context, blockNumber *big.Int) (*contracts.ReleaseGold, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, ReleaseGoldContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewReleaseGold(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetReserveContract(ctx context.Context, blockNumber *big.Int) (*contracts.Reserve, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, ReserveContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewReserve(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetReserveSpenderMultiSigContract(ctx context.Context, blockNumber *big.Int) (*contracts.ReserveSpenderMultiSig, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, ReserveSpenderMultiSigContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewReserveSpenderMultiSig(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetSortedOraclesContract(ctx context.Context, blockNumber *big.Int) (*contracts.SortedOracles, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, SortedOraclesContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewSortedOracles(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetStableTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.StableToken, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, StableTokenContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewStableToken(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetTransferWhitelistContract(ctx context.Context, blockNumber *big.Int) (*contracts.TransferWhitelist, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, TransferWhitelistContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewTransferWhitelist(address, r.cc.Eth)
-}
-
-func (r *registryImpl) GetValidatorsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Validators, error) {
-	address, err := r.GetAddressFor(ctx, blockNumber, ValidatorsContractID)
-	if err != nil {
-		return nil, err
-	}
-	return contracts.NewValidators(address, r.cc.Eth)
+	return false
 }

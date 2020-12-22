@@ -6,3 +6,8 @@ Kliento (/client in esperanto/) is a set of client libraries for Celo in Golang.
 
 Kliento has limited usage and capabilities and is not recommended for the majority of use cases. For most development, we recommend using [ContractKit](https://docs.celo.org/developer-guide/overview/introduction/contractkit).
 
+## Development
+
+Use `make gen-contracts` to update the abigen bindings to the build artifacts from local monorepo.
+
+Use `make gen-registry` to update the generated registry bindings to a list of contracts specified in the [template script](`registry/internal/gen-registry.go`).
