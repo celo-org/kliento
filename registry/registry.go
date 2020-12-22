@@ -150,7 +150,7 @@ func (r *registryImpl) TryParseLog(ctx context.Context, eventLog *types.Log, blo
 
 		// update cache if registry mapping was changed
 		switch v := event.(type) {
-		case contracts.RegistryRegistryUpdated:
+		case *contracts.RegistryRegistryUpdated:
 			r.cache.put(v.Identifier, v.Addr)
 		}
 	} else if id = r.cache.getIdentifier(log.Address); id != "" {
