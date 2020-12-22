@@ -16,12 +16,12 @@ package registry
 
 import (
 	"context"
-	"fmt"
 	"math/big"
 	"strings"
 
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	blockchainErrors "github.com/ethereum/go-ethereum/contract_comm/errors"
@@ -40,21 +40,9 @@ var RegistryAddress = params.RegistrySmartContractAddress
 // Registry defines an interface to access all Celo core Contracts
 type Registry interface {
 	GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error)
-	TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error)
 	generatedRegistry
-}
-
-type addressContainer struct {
-	address common.Address
-	dirty   bool
-}
-
-type registryImpl struct {
-	cc                    *client.CeloClient
-	RegistryContract      *contracts.Registry
-	RegistryContractProxy *contracts.Proxy
-	cache                 map[string]*addressContainer
-	boundRegistry
+	TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error)
+	EnableCaching(ctx context.Context, blockNumber *big.Int) error
 }
 
 type RegistryParsedLog struct {
@@ -63,19 +51,36 @@ type RegistryParsedLog struct {
 	Log      interface{}
 }
 
+type addressContainer struct {
+	address common.Address
+	dirty   bool
+}
+
+type registryCache struct {
+	idToAddress map[string]*addressContainer
+	addressToID map[common.Address]string
+}
+
+type registryImpl struct {
+	cc               *client.CeloClient
+	RegistryContract *contracts.Registry
+	cache            *registryCache
+	proxyAbi         *abi.ABI
+	boundContracts
+}
+
 // New creates a new contracts Registry
 func New(cc *client.CeloClient) (Registry, error) {
 	registry, err := contracts.NewRegistry(RegistryAddress, cc.Eth)
 	err = client.WrapRpcError(err)
-
-	registryProxy, err := contracts.NewProxy(RegistryAddress, cc.Eth)
-	err = client.WrapRpcError(err)
+	if err != nil {
+		return nil, err
+	}
 
 	return &registryImpl{
-		cc:                    cc,
-		RegistryContract:      registry,
-		RegistryContractProxy: registryProxy,
-		cache:                 make(map[string]*addressContainer),
+		cc:               cc,
+		RegistryContract: registry,
+		cache:            nil,
 	}, err
 }
 
@@ -83,41 +88,10 @@ func (r *registryImpl) GetRegistryContract() *contracts.Registry {
 	return r.RegistryContract
 }
 
-func (r *registryImpl) putCache(identifier string, address common.Address) {
-	r.cache[identifier] = &addressContainer{
-		address: address,
-		dirty:   true,
-	}
-}
-
-func (r *registryImpl) getCache(identifier string) *addressContainer {
-	if addressContainer, ok := r.cache[identifier]; ok {
-		return addressContainer
-	}
-	return nil
-}
-
-func (r *registryImpl) isCacheDirty(identifier string) bool {
-	ac := r.getCache(identifier)
-	if ac != nil {
-		return ac.dirty
-	}
-	return false
-}
-
-func isErrSubset(err error, suberr error) bool {
-	return strings.Contains(err.Error(), suberr.Error())
-}
-
-// IsExpectedBeforeContractsDeployed checks for expected errors when contracts are not deployed yet
-func IsExpectedBeforeContractsDeployed(err error) bool {
-	return isErrSubset(err, blockchainErrors.ErrRegistryContractNotDeployed) || isErrSubset(err, blockchainErrors.ErrSmartContractNotDeployed) || isErrSubset(err, client.ErrContractNotDeployed)
-}
-
 func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error) {
 	identifier := contractID.String()
-	// retrieve cached result and mark clean
-	ac := r.getCache(identifier)
+	// fetch from cache and mark clean if successful
+	ac := r.cache.getAddressContainer(identifier)
 	if ac != nil {
 		ac.dirty = false
 		return ac.address, nil
@@ -132,36 +106,135 @@ func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, 
 		return address, client.ErrContractNotDeployed
 	}
 
-	r.putCache(identifier, address)
+	// update cache
+	r.cache.put(identifier, address)
 	return address, nil
+}
+
+// IsExpectedBeforeContractsDeployed checks for expected errors when contracts are not deployed yet
+func IsExpectedBeforeContractsDeployed(err error) bool {
+	return isErrSubset(err, blockchainErrors.ErrRegistryContractNotDeployed) || isErrSubset(err, blockchainErrors.ErrSmartContractNotDeployed) || isErrSubset(err, client.ErrContractNotDeployed)
+}
+
+func isErrSubset(err error, suberr error) bool {
+	return strings.Contains(err.Error(), suberr.Error())
+}
+
+type logParser interface {
+	TryParseLog(log types.Log) (eventName string, event interface{}, ok bool, err error)
+}
+
+func (r *registryImpl) tryParseProxyLog(log types.Log) (eventName string, event interface{}, err error) {
+	proxy, err := contracts.NewProxyFilterer(log.Address, r.cc.Eth)
+	if err != nil {
+		return "", nil, err
+	}
+	eventName, event, ok, err := proxy.TryParseLog(log)
+	if !ok || err != nil {
+		return "", nil, err
+	}
+	return eventName, event, nil
 }
 
 // TryParseLog parses an event log using a fully hydrated registry
 func (r *registryImpl) TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
-	if eventLog.Address == params.RegistrySmartContractAddress {
-		log := *eventLog
-		eventName, event, ok, err := r.RegistryContract.TryParseLog(log)
-		if err != nil || !ok {
-			proxyEventName, proxyEvent, proxyOk, proxyErr := r.RegistryContractProxy.TryParseLog(log)
-			if proxyErr == nil && proxyOk {
-				return &RegistryParsedLog{
-					Contract: "RegistryProxy",
-					Event:    proxyEventName,
-					Log:      proxyEvent,
-				}, nil
-			}
-			return nil, fmt.Errorf("registry error %v, proxy error %v", err, proxyErr)
-		}
+	log := *eventLog
+	var eventName, id string
+	var event interface{}
+	var parseError error
+
+	// determine contract identifier and parse log if address is known
+	if log.Address == params.RegistrySmartContractAddress {
+		id = "Registry"
+		eventName, event, _, parseError = r.RegistryContract.TryParseLog(log)
+
+		// update cache if registry mapping was changed
 		switch v := event.(type) {
 		case contracts.RegistryRegistryUpdated:
-			r.putCache(v.Identifier, v.Addr)
+			r.cache.put(v.Identifier, v.Addr)
 		}
+	} else if id = r.cache.getIdentifier(log.Address); id != "" {
+		contract, err := r.GetContractByID(ctx, id, blockNumber)
+		if err != nil {
+			return nil, err
+		}
+		eventName, event, _, parseError = contract.(logParser).TryParseLog(log)
+	}
+
+	// if address is known but parsing failed, try using proxy ABI
+	if parseError != nil {
+		eventName, event, parseError = r.tryParseProxyLog(log)
+		if parseError != nil {
+			return nil, parseError
+		}
+		id += "Proxy"
+	}
+
+	if event != nil {
 		return &RegistryParsedLog{
-			Contract: "Registry",
+			Contract: id,
 			Event:    eventName,
 			Log:      event,
 		}, nil
 	}
 
-	return r.tryParseLogGenerated(ctx, eventLog, blockNumber)
+	return nil, nil
+}
+
+// Enables address caching
+func (r *registryImpl) EnableCaching(ctx context.Context, blockNumber *big.Int) error {
+	r.cache = &registryCache{
+		idToAddress: make(map[string]*addressContainer, len(RegisteredContractIDs)),
+		addressToID: make(map[common.Address]string, len(RegisteredContractIDs)),
+	}
+
+	// Hydrate initially at provided block
+	for _, id := range RegisteredContractIDs {
+		_, err := r.GetContractByID(ctx, id.String(), blockNumber)
+		if err != nil && !IsExpectedBeforeContractsDeployed(err) {
+			return err
+		}
+	}
+	return nil
+}
+
+func (rc *registryCache) put(identifier string, address common.Address) {
+	if rc != nil {
+		ac := rc.getAddressContainer(identifier)
+		if ac != nil {
+			ac.address = address
+			rc.addressToID[address] = identifier
+			ac.dirty = true
+		} else {
+			rc.idToAddress[identifier] = &addressContainer{address, true}
+			rc.addressToID[address] = identifier
+		}
+	}
+}
+
+func (rc *registryCache) getAddressContainer(identifier string) *addressContainer {
+	if rc != nil {
+		if addressContainer, ok := rc.idToAddress[identifier]; ok {
+			return addressContainer
+		}
+	}
+	return nil
+}
+
+func (rc *registryCache) getIdentifier(address common.Address) string {
+	if rc != nil {
+		if identifier, ok := rc.addressToID[address]; ok {
+			return identifier
+		}
+	}
+	return ""
+}
+
+// used in generated registry for contract binding reinitialization
+func (rc *registryCache) isDirty(identifier string) bool {
+	ac := rc.getAddressContainer(identifier)
+	if ac != nil {
+		return ac.dirty
+	}
+	return false
 }

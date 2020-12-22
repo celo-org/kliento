@@ -40,7 +40,6 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/celo-org/kliento/contracts"
 )
 
@@ -56,23 +55,33 @@ var RegisteredContractIDs = []ContractID{
 	{{end}}
 }
 
-type boundRegistry struct {
+type boundContracts struct {
 	{{range .}}
 	{{.}}Contract *contracts.{{.}}
-	{{.}}ContractProxy *contracts.Proxy
 	{{end}}
 }
 
 type generatedRegistry interface {
+	GetContractByID(ctx context.Context, identifier string, blockNumber *big.Int) (interface{}, error)
 	{{range .}}
 	Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error)
 	{{end}}
 }
 
+func (r *registryImpl) GetContractByID(ctx context.Context, identifier string, blockNumber *big.Int) (interface{}, error) {
+	switch identifier {
+		{{range .}}
+		case {{.}}ContractID.String():
+			return r.Get{{.}}Contract(ctx, blockNumber)
+		{{end}}
+	}
+	return nil, fmt.Errorf("identifier '%s' not found", identifier)
+}
+
 {{range .}}
 func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error) {
 	identifier := {{.}}ContractID.String()
-	if (r.{{.}}Contract == nil || r.isCacheDirty(identifier)) {
+	if (r.{{.}}Contract == nil || r.cache.isDirty(identifier)) {
 		address, err := r.GetAddressFor(ctx, blockNumber, {{.}}ContractID)
 		if err != nil {
 			return nil, err
@@ -82,52 +91,10 @@ func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.In
 			return nil, err
 		}
 		r.{{.}}Contract = contract
-		contractProxy, err := contracts.NewProxy(address, r.cc.Eth)
-		if err != nil {
-			return nil, err
-		}
-		r.{{.}}ContractProxy = contractProxy
 	}
 	return r.{{.}}Contract, nil
 }
 {{end}}
-
-func (r *registryImpl) tryParseLogGenerated(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
-	var eventName string
-	var event interface{}
-	var ok bool
-	var err error
-	
-	log := *eventLog
-	{{range .}}
-	_, err = r.Get{{.}}Contract(ctx, blockNumber)
-	if err == nil {
-		eventName, event, ok, err = r.{{.}}Contract.TryParseLog(log) // checks matching address
-		if ok && err == nil {
-			return &RegistryParsedLog{
-				Contract: "{{.}}",
-				Event: eventName,
-				Log: event,
-			}, nil
-		}
-		eventName, event, ok, err = r.{{.}}ContractProxy.TryParseLog(log) // checks matching address
-		if ok && err == nil {
-			return &RegistryParsedLog{
-				Contract: "{{.}}Proxy",
-				Event: eventName,
-				Log: event,
-			}, nil
-		}
-	} else {
-		// skip deployed failures
-		if !IsExpectedBeforeContractsDeployed(err) {
-			return nil, fmt.Errorf("{{.}} %v", err)
-		}
-	}
-	
-	{{end}}
-	return nil, nil
-}
 `
 
 func main() {
