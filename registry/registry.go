@@ -39,9 +39,10 @@ var RegistryAddress = params.RegistrySmartContractAddress
 
 // Registry defines an interface to access all Celo core Contracts
 type Registry interface {
+	AllAddresses(ctx context.Context, blockNumber *big.Int) ([]common.Address, error)
 	GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error)
 	generatedRegistry
-	TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error)
+	TryParseLog(ctx context.Context, eventLog types.Log, blockNumber *big.Int) (*RegistryParsedLog, error)
 	EnableCaching(ctx context.Context, blockNumber *big.Int) error
 }
 
@@ -86,6 +87,18 @@ func New(cc *client.CeloClient) (Registry, error) {
 
 func (r *registryImpl) GetRegistryContract() *contracts.Registry {
 	return r.RegistryContract
+}
+
+func (r *registryImpl) AllAddresses(ctx context.Context, blockNumber *big.Int) ([]common.Address, error) {
+	addresses := make([]common.Address, len(RegisteredContractIDs))
+	for idx, id := range RegisteredContractIDs {
+		_address, err := r.GetAddressFor(ctx, blockNumber, id)
+		if err != nil {
+			return nil, err
+		}
+		addresses[idx] = _address
+	}
+	return addresses, nil
 }
 
 func (r *registryImpl) GetAddressFor(ctx context.Context, blockNumber *big.Int, contractID ContractID) (common.Address, error) {
@@ -137,8 +150,7 @@ func (r *registryImpl) tryParseProxyLog(log types.Log) (eventName string, event 
 }
 
 // TryParseLog parses an event log using a fully hydrated registry
-func (r *registryImpl) TryParseLog(ctx context.Context, eventLog *types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
-	log := *eventLog
+func (r *registryImpl) TryParseLog(ctx context.Context, log types.Log, blockNumber *big.Int) (*RegistryParsedLog, error) {
 	var eventName, id string
 	var event interface{}
 	var parseError error
