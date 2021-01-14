@@ -4,9 +4,11 @@ Kliento (/client in esperanto/) is a set of client libraries for Celo in Golang.
 
 ## Usage
 
+Kliento is most useful for tight integration with contract bindings and historical queries.
+
 See [examples](./internal/examples) for some code samples demonstrating common use cases.
 
-Kliento is most useful for tight integration with contract bindings and historical queries.
+![watch transfers screenshot](./watchTransfers.png)
 
 For sending contract transactions in consumer applications, we recommend using [ContractKit](https://docs.celo.org/developer-guide/overview/introduction/contractkit).
 
