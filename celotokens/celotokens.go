@@ -16,25 +16,28 @@ type CeloToken string
 const (
     CELO CeloToken = "CELO"
     CUSD CeloToken = "cUSD"
-    CEUR CeloToken = "cEUR"
 )
 
-type stableTokenInfo struct {
+type celoTokenInfo struct {
     contractID registry.ContractID
+    isStableToken bool
     exchangeContractID registry.ContractID
 }
 
-var stableTokenInfos = map[CeloToken]stableTokenInfo{
-	CUSD: stableTokenInfo{
+var celoTokenInfos = map[CeloToken]celoTokenInfo{
+    CELO: celoTokenInfo{
         contractID: registry.StableTokenContractID,
+        isStableToken: false,
+    },
+    CUSD: celoTokenInfo{
+        contractID: registry.StableTokenContractID,
+        isStableToken: true,
         exchangeContractID: registry.ExchangeContractID,
     },
 }
 
-// const celoTokenInfos map[CeloToken]CeloTokenInfo{
-// 	CELO: CeloTokenInfo{
-//         contractID: registry.GoldTokenContractID
-//     }
+// var stableTokenExchangeContractIDs = map[CeloToken]registry.ContractID{
+//     CUSD: registry.ExchangeContractID,
 // }
 
 type CeloTokens struct {
@@ -48,25 +51,39 @@ func New(reg registry.Registry) (*CeloTokens) {
 }
 
 func (ct *CeloTokens) GetExchangeContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (*contracts.Exchange, error) {
-    tokenInfo, ok := stableTokenInfos[token]
+    tokenInfo, ok := celoTokenInfos[token]
     if !ok {
-        return nil, fmt.Errorf("Token %w not found in stable token infos", stableTokenInfos)
+        return nil, fmt.Errorf("Token %w not found", token)
+    }
+    if !tokenInfo.isStableToken {
+        return nil, fmt.Errorf("Token %w not a stable token", token)
     }
     contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.exchangeContractID), blockNumber)
-    if (err != nil) {
+    if err != nil {
         return nil, err
     }
     return contract.(*contracts.Exchange), nil
 }
 
 func (ct *CeloTokens) GetStableTokenContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (*contracts.StableToken, error) {
-    tokenInfo, ok := stableTokenInfos[token]
+    tokenInfo, ok := celoTokenInfos[token]
     if !ok {
-        return nil, fmt.Errorf("Token %w not found in stable token infos", stableTokenInfos)
+        return nil, fmt.Errorf("Token %w not found", token)
+    }
+    if !tokenInfo.isStableToken {
+        return nil, fmt.Errorf("Token %w not a stable token", token)
     }
     contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.contractID), blockNumber)
-    if (err != nil) {
+    if err != nil {
         return nil, err
     }
     return contract.(*contracts.StableToken), nil
+}
+
+func (ct *CeloTokens) GetContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (interface {}, error) {
+    tokenInfo, ok := celoTokenInfos[token]
+    if !ok {
+        return nil, fmt.Errorf("Token %w not found", token)
+    }
+    return ct.registry.GetContractByID(ctx, string(tokenInfo.contractID), blockNumber)
 }
