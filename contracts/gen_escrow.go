@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_Escrow *EscrowTransactorRaw) Transact(opts *bind.TransactOpts, method str
 
 // EscrowedPayments is a free data retrieval call binding the contract method 0x680d782c.
 //
-// Solidity: function escrowedPayments(address ) constant returns(bytes32 recipientIdentifier, address sender, address token, uint256 value, uint256 sentIndex, uint256 receivedIndex, uint256 timestamp, uint256 expirySeconds, uint256 minAttestations)
+// Solidity: function escrowedPayments(address ) view returns(bytes32 recipientIdentifier, address sender, address token, uint256 value, uint256 sentIndex, uint256 receivedIndex, uint256 timestamp, uint256 expirySeconds, uint256 minAttestations)
 func (_Escrow *EscrowCaller) EscrowedPayments(opts *bind.CallOpts, arg0 common.Address) (struct {
 	RecipientIdentifier [32]byte
 	Sender              common.Address
@@ -213,7 +213,7 @@ func (_Escrow *EscrowCaller) EscrowedPayments(opts *bind.CallOpts, arg0 common.A
 
 // EscrowedPayments is a free data retrieval call binding the contract method 0x680d782c.
 //
-// Solidity: function escrowedPayments(address ) constant returns(bytes32 recipientIdentifier, address sender, address token, uint256 value, uint256 sentIndex, uint256 receivedIndex, uint256 timestamp, uint256 expirySeconds, uint256 minAttestations)
+// Solidity: function escrowedPayments(address ) view returns(bytes32 recipientIdentifier, address sender, address token, uint256 value, uint256 sentIndex, uint256 receivedIndex, uint256 timestamp, uint256 expirySeconds, uint256 minAttestations)
 func (_Escrow *EscrowSession) EscrowedPayments(arg0 common.Address) (struct {
 	RecipientIdentifier [32]byte
 	Sender              common.Address
@@ -230,7 +230,7 @@ func (_Escrow *EscrowSession) EscrowedPayments(arg0 common.Address) (struct {
 
 // EscrowedPayments is a free data retrieval call binding the contract method 0x680d782c.
 //
-// Solidity: function escrowedPayments(address ) constant returns(bytes32 recipientIdentifier, address sender, address token, uint256 value, uint256 sentIndex, uint256 receivedIndex, uint256 timestamp, uint256 expirySeconds, uint256 minAttestations)
+// Solidity: function escrowedPayments(address ) view returns(bytes32 recipientIdentifier, address sender, address token, uint256 value, uint256 sentIndex, uint256 receivedIndex, uint256 timestamp, uint256 expirySeconds, uint256 minAttestations)
 func (_Escrow *EscrowCallerSession) EscrowedPayments(arg0 common.Address) (struct {
 	RecipientIdentifier [32]byte
 	Sender              common.Address
@@ -247,7 +247,7 @@ func (_Escrow *EscrowCallerSession) EscrowedPayments(arg0 common.Address) (struc
 
 // GetReceivedPaymentIds is a free data retrieval call binding the contract method 0x5b57b65b.
 //
-// Solidity: function getReceivedPaymentIds(bytes32 identifier) constant returns(address[])
+// Solidity: function getReceivedPaymentIds(bytes32 identifier) view returns(address[])
 func (_Escrow *EscrowCaller) GetReceivedPaymentIds(opts *bind.CallOpts, identifier [32]byte) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -259,21 +259,21 @@ func (_Escrow *EscrowCaller) GetReceivedPaymentIds(opts *bind.CallOpts, identifi
 
 // GetReceivedPaymentIds is a free data retrieval call binding the contract method 0x5b57b65b.
 //
-// Solidity: function getReceivedPaymentIds(bytes32 identifier) constant returns(address[])
+// Solidity: function getReceivedPaymentIds(bytes32 identifier) view returns(address[])
 func (_Escrow *EscrowSession) GetReceivedPaymentIds(identifier [32]byte) ([]common.Address, error) {
 	return _Escrow.Contract.GetReceivedPaymentIds(&_Escrow.CallOpts, identifier)
 }
 
 // GetReceivedPaymentIds is a free data retrieval call binding the contract method 0x5b57b65b.
 //
-// Solidity: function getReceivedPaymentIds(bytes32 identifier) constant returns(address[])
+// Solidity: function getReceivedPaymentIds(bytes32 identifier) view returns(address[])
 func (_Escrow *EscrowCallerSession) GetReceivedPaymentIds(identifier [32]byte) ([]common.Address, error) {
 	return _Escrow.Contract.GetReceivedPaymentIds(&_Escrow.CallOpts, identifier)
 }
 
 // GetSentPaymentIds is a free data retrieval call binding the contract method 0x18d46532.
 //
-// Solidity: function getSentPaymentIds(address sender) constant returns(address[])
+// Solidity: function getSentPaymentIds(address sender) view returns(address[])
 func (_Escrow *EscrowCaller) GetSentPaymentIds(opts *bind.CallOpts, sender common.Address) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -285,21 +285,21 @@ func (_Escrow *EscrowCaller) GetSentPaymentIds(opts *bind.CallOpts, sender commo
 
 // GetSentPaymentIds is a free data retrieval call binding the contract method 0x18d46532.
 //
-// Solidity: function getSentPaymentIds(address sender) constant returns(address[])
+// Solidity: function getSentPaymentIds(address sender) view returns(address[])
 func (_Escrow *EscrowSession) GetSentPaymentIds(sender common.Address) ([]common.Address, error) {
 	return _Escrow.Contract.GetSentPaymentIds(&_Escrow.CallOpts, sender)
 }
 
 // GetSentPaymentIds is a free data retrieval call binding the contract method 0x18d46532.
 //
-// Solidity: function getSentPaymentIds(address sender) constant returns(address[])
+// Solidity: function getSentPaymentIds(address sender) view returns(address[])
 func (_Escrow *EscrowCallerSession) GetSentPaymentIds(sender common.Address) ([]common.Address, error) {
 	return _Escrow.Contract.GetSentPaymentIds(&_Escrow.CallOpts, sender)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Escrow *EscrowCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -319,21 +319,21 @@ func (_Escrow *EscrowCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *b
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Escrow *EscrowSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Escrow.Contract.GetVersionNumber(&_Escrow.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Escrow *EscrowCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Escrow.Contract.GetVersionNumber(&_Escrow.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Escrow *EscrowCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -345,21 +345,21 @@ func (_Escrow *EscrowCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Escrow *EscrowSession) Initialized() (bool, error) {
 	return _Escrow.Contract.Initialized(&_Escrow.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Escrow *EscrowCallerSession) Initialized() (bool, error) {
 	return _Escrow.Contract.Initialized(&_Escrow.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Escrow *EscrowCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -371,21 +371,21 @@ func (_Escrow *EscrowCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Escrow *EscrowSession) IsOwner() (bool, error) {
 	return _Escrow.Contract.IsOwner(&_Escrow.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Escrow *EscrowCallerSession) IsOwner() (bool, error) {
 	return _Escrow.Contract.IsOwner(&_Escrow.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Escrow *EscrowCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -397,21 +397,21 @@ func (_Escrow *EscrowCaller) Owner(opts *bind.CallOpts) (common.Address, error) 
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Escrow *EscrowSession) Owner() (common.Address, error) {
 	return _Escrow.Contract.Owner(&_Escrow.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Escrow *EscrowCallerSession) Owner() (common.Address, error) {
 	return _Escrow.Contract.Owner(&_Escrow.CallOpts)
 }
 
 // ReceivedPaymentIds is a free data retrieval call binding the contract method 0x8f80c33e.
 //
-// Solidity: function receivedPaymentIds(bytes32 , uint256 ) constant returns(address)
+// Solidity: function receivedPaymentIds(bytes32 , uint256 ) view returns(address)
 func (_Escrow *EscrowCaller) ReceivedPaymentIds(opts *bind.CallOpts, arg0 [32]byte, arg1 *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -423,21 +423,21 @@ func (_Escrow *EscrowCaller) ReceivedPaymentIds(opts *bind.CallOpts, arg0 [32]by
 
 // ReceivedPaymentIds is a free data retrieval call binding the contract method 0x8f80c33e.
 //
-// Solidity: function receivedPaymentIds(bytes32 , uint256 ) constant returns(address)
+// Solidity: function receivedPaymentIds(bytes32 , uint256 ) view returns(address)
 func (_Escrow *EscrowSession) ReceivedPaymentIds(arg0 [32]byte, arg1 *big.Int) (common.Address, error) {
 	return _Escrow.Contract.ReceivedPaymentIds(&_Escrow.CallOpts, arg0, arg1)
 }
 
 // ReceivedPaymentIds is a free data retrieval call binding the contract method 0x8f80c33e.
 //
-// Solidity: function receivedPaymentIds(bytes32 , uint256 ) constant returns(address)
+// Solidity: function receivedPaymentIds(bytes32 , uint256 ) view returns(address)
 func (_Escrow *EscrowCallerSession) ReceivedPaymentIds(arg0 [32]byte, arg1 *big.Int) (common.Address, error) {
 	return _Escrow.Contract.ReceivedPaymentIds(&_Escrow.CallOpts, arg0, arg1)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Escrow *EscrowCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -449,21 +449,21 @@ func (_Escrow *EscrowCaller) Registry(opts *bind.CallOpts) (common.Address, erro
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Escrow *EscrowSession) Registry() (common.Address, error) {
 	return _Escrow.Contract.Registry(&_Escrow.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Escrow *EscrowCallerSession) Registry() (common.Address, error) {
 	return _Escrow.Contract.Registry(&_Escrow.CallOpts)
 }
 
 // SentPaymentIds is a free data retrieval call binding the contract method 0xe1d9a080.
 //
-// Solidity: function sentPaymentIds(address , uint256 ) constant returns(address)
+// Solidity: function sentPaymentIds(address , uint256 ) view returns(address)
 func (_Escrow *EscrowCaller) SentPaymentIds(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -475,14 +475,14 @@ func (_Escrow *EscrowCaller) SentPaymentIds(opts *bind.CallOpts, arg0 common.Add
 
 // SentPaymentIds is a free data retrieval call binding the contract method 0xe1d9a080.
 //
-// Solidity: function sentPaymentIds(address , uint256 ) constant returns(address)
+// Solidity: function sentPaymentIds(address , uint256 ) view returns(address)
 func (_Escrow *EscrowSession) SentPaymentIds(arg0 common.Address, arg1 *big.Int) (common.Address, error) {
 	return _Escrow.Contract.SentPaymentIds(&_Escrow.CallOpts, arg0, arg1)
 }
 
 // SentPaymentIds is a free data retrieval call binding the contract method 0xe1d9a080.
 //
-// Solidity: function sentPaymentIds(address , uint256 ) constant returns(address)
+// Solidity: function sentPaymentIds(address , uint256 ) view returns(address)
 func (_Escrow *EscrowCallerSession) SentPaymentIds(arg0 common.Address, arg1 *big.Int) (common.Address, error) {
 	return _Escrow.Contract.SentPaymentIds(&_Escrow.CallOpts, arg0, arg1)
 }

@@ -8,8 +8,8 @@ import (
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
 	"github.com/celo-org/kliento/registry"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
 )
 
 // Watch stable token transfers to specific address

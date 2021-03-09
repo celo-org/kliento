@@ -20,9 +20,9 @@ import (
 
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/utils/bn"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
 )
 
 // Election helper methods

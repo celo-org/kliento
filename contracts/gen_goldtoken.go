@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_GoldToken *GoldTokenTransactorRaw) Transact(opts *bind.TransactOpts, meth
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
+// Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_GoldToken *GoldTokenCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_GoldToken *GoldTokenCaller) Allowance(opts *bind.CallOpts, owner common.A
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
+// Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_GoldToken *GoldTokenSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
 	return _GoldToken.Contract.Allowance(&_GoldToken.CallOpts, owner, spender)
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
-// Solidity: function allowance(address owner, address spender) constant returns(uint256)
+// Solidity: function allowance(address owner, address spender) view returns(uint256)
 func (_GoldToken *GoldTokenCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
 	return _GoldToken.Contract.Allowance(&_GoldToken.CallOpts, owner, spender)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
-// Solidity: function balanceOf(address owner) constant returns(uint256)
+// Solidity: function balanceOf(address owner) view returns(uint256)
 func (_GoldToken *GoldTokenCaller) BalanceOf(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -221,21 +221,21 @@ func (_GoldToken *GoldTokenCaller) BalanceOf(opts *bind.CallOpts, owner common.A
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
-// Solidity: function balanceOf(address owner) constant returns(uint256)
+// Solidity: function balanceOf(address owner) view returns(uint256)
 func (_GoldToken *GoldTokenSession) BalanceOf(owner common.Address) (*big.Int, error) {
 	return _GoldToken.Contract.BalanceOf(&_GoldToken.CallOpts, owner)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
-// Solidity: function balanceOf(address owner) constant returns(uint256)
+// Solidity: function balanceOf(address owner) view returns(uint256)
 func (_GoldToken *GoldTokenCallerSession) BalanceOf(owner common.Address) (*big.Int, error) {
 	return _GoldToken.Contract.BalanceOf(&_GoldToken.CallOpts, owner)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
-// Solidity: function decimals() constant returns(uint8)
+// Solidity: function decimals() view returns(uint8)
 func (_GoldToken *GoldTokenCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
 	var (
 		ret0 = new(uint8)
@@ -247,21 +247,21 @@ func (_GoldToken *GoldTokenCaller) Decimals(opts *bind.CallOpts) (uint8, error) 
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
-// Solidity: function decimals() constant returns(uint8)
+// Solidity: function decimals() view returns(uint8)
 func (_GoldToken *GoldTokenSession) Decimals() (uint8, error) {
 	return _GoldToken.Contract.Decimals(&_GoldToken.CallOpts)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
-// Solidity: function decimals() constant returns(uint8)
+// Solidity: function decimals() view returns(uint8)
 func (_GoldToken *GoldTokenCallerSession) Decimals() (uint8, error) {
 	return _GoldToken.Contract.Decimals(&_GoldToken.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_GoldToken *GoldTokenCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -281,21 +281,21 @@ func (_GoldToken *GoldTokenCaller) GetVersionNumber(opts *bind.CallOpts) (*big.I
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_GoldToken *GoldTokenSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _GoldToken.Contract.GetVersionNumber(&_GoldToken.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_GoldToken *GoldTokenCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _GoldToken.Contract.GetVersionNumber(&_GoldToken.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GoldToken *GoldTokenCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -307,21 +307,21 @@ func (_GoldToken *GoldTokenCaller) Initialized(opts *bind.CallOpts) (bool, error
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GoldToken *GoldTokenSession) Initialized() (bool, error) {
 	return _GoldToken.Contract.Initialized(&_GoldToken.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GoldToken *GoldTokenCallerSession) Initialized() (bool, error) {
 	return _GoldToken.Contract.Initialized(&_GoldToken.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_GoldToken *GoldTokenCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -333,21 +333,21 @@ func (_GoldToken *GoldTokenCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_GoldToken *GoldTokenSession) IsOwner() (bool, error) {
 	return _GoldToken.Contract.IsOwner(&_GoldToken.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_GoldToken *GoldTokenCallerSession) IsOwner() (bool, error) {
 	return _GoldToken.Contract.IsOwner(&_GoldToken.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
+// Solidity: function name() view returns(string)
 func (_GoldToken *GoldTokenCaller) Name(opts *bind.CallOpts) (string, error) {
 	var (
 		ret0 = new(string)
@@ -359,21 +359,21 @@ func (_GoldToken *GoldTokenCaller) Name(opts *bind.CallOpts) (string, error) {
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
+// Solidity: function name() view returns(string)
 func (_GoldToken *GoldTokenSession) Name() (string, error) {
 	return _GoldToken.Contract.Name(&_GoldToken.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
+// Solidity: function name() view returns(string)
 func (_GoldToken *GoldTokenCallerSession) Name() (string, error) {
 	return _GoldToken.Contract.Name(&_GoldToken.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_GoldToken *GoldTokenCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -385,21 +385,21 @@ func (_GoldToken *GoldTokenCaller) Owner(opts *bind.CallOpts) (common.Address, e
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_GoldToken *GoldTokenSession) Owner() (common.Address, error) {
 	return _GoldToken.Contract.Owner(&_GoldToken.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_GoldToken *GoldTokenCallerSession) Owner() (common.Address, error) {
 	return _GoldToken.Contract.Owner(&_GoldToken.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_GoldToken *GoldTokenCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -411,21 +411,21 @@ func (_GoldToken *GoldTokenCaller) Registry(opts *bind.CallOpts) (common.Address
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_GoldToken *GoldTokenSession) Registry() (common.Address, error) {
 	return _GoldToken.Contract.Registry(&_GoldToken.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_GoldToken *GoldTokenCallerSession) Registry() (common.Address, error) {
 	return _GoldToken.Contract.Registry(&_GoldToken.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
-// Solidity: function symbol() constant returns(string)
+// Solidity: function symbol() view returns(string)
 func (_GoldToken *GoldTokenCaller) Symbol(opts *bind.CallOpts) (string, error) {
 	var (
 		ret0 = new(string)
@@ -437,21 +437,21 @@ func (_GoldToken *GoldTokenCaller) Symbol(opts *bind.CallOpts) (string, error) {
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
-// Solidity: function symbol() constant returns(string)
+// Solidity: function symbol() view returns(string)
 func (_GoldToken *GoldTokenSession) Symbol() (string, error) {
 	return _GoldToken.Contract.Symbol(&_GoldToken.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
-// Solidity: function symbol() constant returns(string)
+// Solidity: function symbol() view returns(string)
 func (_GoldToken *GoldTokenCallerSession) Symbol() (string, error) {
 	return _GoldToken.Contract.Symbol(&_GoldToken.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
-// Solidity: function totalSupply() constant returns(uint256)
+// Solidity: function totalSupply() view returns(uint256)
 func (_GoldToken *GoldTokenCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -463,14 +463,14 @@ func (_GoldToken *GoldTokenCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, e
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
-// Solidity: function totalSupply() constant returns(uint256)
+// Solidity: function totalSupply() view returns(uint256)
 func (_GoldToken *GoldTokenSession) TotalSupply() (*big.Int, error) {
 	return _GoldToken.Contract.TotalSupply(&_GoldToken.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
-// Solidity: function totalSupply() constant returns(uint256)
+// Solidity: function totalSupply() view returns(uint256)
 func (_GoldToken *GoldTokenCallerSession) TotalSupply() (*big.Int, error) {
 	return _GoldToken.Contract.TotalSupply(&_GoldToken.CallOpts)
 }

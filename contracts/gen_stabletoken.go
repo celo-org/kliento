@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +28,7 @@ var (
 )
 
 // StableTokenABI is the input ABI used to generate the binding from.
-const StableTokenABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"factor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"lastUpdated\",\"type\":\"uint256\"}],\"name\":\"InflationFactorUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"updatePeriod\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"lastUpdated\",\"type\":\"uint256\"}],\"name\":\"InflationParametersUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"comment\",\"type\":\"string\"}],\"name\":\"TransferComment\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_symbol\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"_decimals\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"inflationRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"inflationFactorUpdatePeriod\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"initialBalanceAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"initialBalanceValues\",\"type\":\"uint256[]\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"updatePeriod\",\"type\":\"uint256\"}],\"name\":\"setInflationParameters\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"comment\",\"type\":\"string\"}],\"name\":\"transferWithComment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"accountOwner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"accountOwner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getInflationParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"valueToUnits\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"units\",\"type\":\"uint256\"}],\"name\":\"unitsToValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"debitGasFees\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feeRecipient\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"gatewayFeeRecipient\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"communityFund\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"refund\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipTxFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gatewayFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baseTxFee\",\"type\":\"uint256\"}],\"name\":\"creditGasFees\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const StableTokenABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"factor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"lastUpdated\",\"type\":\"uint256\"}],\"name\":\"InflationFactorUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"updatePeriod\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"lastUpdated\",\"type\":\"uint256\"}],\"name\":\"InflationParametersUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"comment\",\"type\":\"string\"}],\"name\":\"TransferComment\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_symbol\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"_decimals\",\"type\":\"uint8\"},{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"inflationRate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"inflationFactorUpdatePeriod\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"initialBalanceAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"initialBalanceValues\",\"type\":\"uint256[]\"},{\"internalType\":\"string\",\"name\":\"exchangeIdentifier\",\"type\":\"string\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"updatePeriod\",\"type\":\"uint256\"}],\"name\":\"setInflationParameters\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"increaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"decreaseAllowance\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"comment\",\"type\":\"string\"}],\"name\":\"transferWithComment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"accountOwner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"accountOwner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getInflationParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"valueToUnits\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getExchangeRegistryId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"units\",\"type\":\"uint256\"}],\"name\":\"unitsToValue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"debitGasFees\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feeRecipient\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"gatewayFeeRecipient\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"communityFund\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"refund\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tipTxFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gatewayFee\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baseTxFee\",\"type\":\"uint256\"}],\"name\":\"creditGasFees\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // StableToken is an auto generated Go binding around an Ethereum contract.
 type StableToken struct {
@@ -183,7 +183,7 @@ func (_StableToken *StableTokenTransactorRaw) Transact(opts *bind.TransactOpts, 
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
-// Solidity: function allowance(address accountOwner, address spender) constant returns(uint256)
+// Solidity: function allowance(address accountOwner, address spender) view returns(uint256)
 func (_StableToken *StableTokenCaller) Allowance(opts *bind.CallOpts, accountOwner common.Address, spender common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_StableToken *StableTokenCaller) Allowance(opts *bind.CallOpts, accountOwn
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
-// Solidity: function allowance(address accountOwner, address spender) constant returns(uint256)
+// Solidity: function allowance(address accountOwner, address spender) view returns(uint256)
 func (_StableToken *StableTokenSession) Allowance(accountOwner common.Address, spender common.Address) (*big.Int, error) {
 	return _StableToken.Contract.Allowance(&_StableToken.CallOpts, accountOwner, spender)
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
-// Solidity: function allowance(address accountOwner, address spender) constant returns(uint256)
+// Solidity: function allowance(address accountOwner, address spender) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) Allowance(accountOwner common.Address, spender common.Address) (*big.Int, error) {
 	return _StableToken.Contract.Allowance(&_StableToken.CallOpts, accountOwner, spender)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
-// Solidity: function balanceOf(address accountOwner) constant returns(uint256)
+// Solidity: function balanceOf(address accountOwner) view returns(uint256)
 func (_StableToken *StableTokenCaller) BalanceOf(opts *bind.CallOpts, accountOwner common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -221,21 +221,21 @@ func (_StableToken *StableTokenCaller) BalanceOf(opts *bind.CallOpts, accountOwn
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
-// Solidity: function balanceOf(address accountOwner) constant returns(uint256)
+// Solidity: function balanceOf(address accountOwner) view returns(uint256)
 func (_StableToken *StableTokenSession) BalanceOf(accountOwner common.Address) (*big.Int, error) {
 	return _StableToken.Contract.BalanceOf(&_StableToken.CallOpts, accountOwner)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
-// Solidity: function balanceOf(address accountOwner) constant returns(uint256)
+// Solidity: function balanceOf(address accountOwner) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) BalanceOf(accountOwner common.Address) (*big.Int, error) {
 	return _StableToken.Contract.BalanceOf(&_StableToken.CallOpts, accountOwner)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_StableToken *StableTokenCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -247,21 +247,21 @@ func (_StableToken *StableTokenCaller) CheckProofOfPossession(opts *bind.CallOpt
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_StableToken *StableTokenSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _StableToken.Contract.CheckProofOfPossession(&_StableToken.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_StableToken *StableTokenCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _StableToken.Contract.CheckProofOfPossession(&_StableToken.CallOpts, sender, blsKey, blsPop)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
-// Solidity: function decimals() constant returns(uint8)
+// Solidity: function decimals() view returns(uint8)
 func (_StableToken *StableTokenCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
 	var (
 		ret0 = new(uint8)
@@ -273,21 +273,21 @@ func (_StableToken *StableTokenCaller) Decimals(opts *bind.CallOpts) (uint8, err
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
-// Solidity: function decimals() constant returns(uint8)
+// Solidity: function decimals() view returns(uint8)
 func (_StableToken *StableTokenSession) Decimals() (uint8, error) {
 	return _StableToken.Contract.Decimals(&_StableToken.CallOpts)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
-// Solidity: function decimals() constant returns(uint8)
+// Solidity: function decimals() view returns(uint8)
 func (_StableToken *StableTokenCallerSession) Decimals() (uint8, error) {
 	return _StableToken.Contract.Decimals(&_StableToken.CallOpts)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_StableToken *StableTokenCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -303,21 +303,21 @@ func (_StableToken *StableTokenCaller) FractionMulExp(opts *bind.CallOpts, aNume
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_StableToken *StableTokenSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _StableToken.Contract.FractionMulExp(&_StableToken.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_StableToken *StableTokenCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _StableToken.Contract.FractionMulExp(&_StableToken.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_StableToken *StableTokenCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -329,21 +329,21 @@ func (_StableToken *StableTokenCaller) GetBlockNumberFromHeader(opts *bind.CallO
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_StableToken *StableTokenSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _StableToken.Contract.GetBlockNumberFromHeader(&_StableToken.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _StableToken.Contract.GetBlockNumberFromHeader(&_StableToken.CallOpts, header)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_StableToken *StableTokenCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -355,21 +355,21 @@ func (_StableToken *StableTokenCaller) GetEpochNumber(opts *bind.CallOpts) (*big
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_StableToken *StableTokenSession) GetEpochNumber() (*big.Int, error) {
 	return _StableToken.Contract.GetEpochNumber(&_StableToken.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_StableToken *StableTokenCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _StableToken.Contract.GetEpochNumber(&_StableToken.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -381,21 +381,21 @@ func (_StableToken *StableTokenCaller) GetEpochNumberOfBlock(opts *bind.CallOpts
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.GetEpochNumberOfBlock(&_StableToken.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.GetEpochNumberOfBlock(&_StableToken.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_StableToken *StableTokenCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -407,21 +407,47 @@ func (_StableToken *StableTokenCaller) GetEpochSize(opts *bind.CallOpts) (*big.I
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_StableToken *StableTokenSession) GetEpochSize() (*big.Int, error) {
 	return _StableToken.Contract.GetEpochSize(&_StableToken.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_StableToken *StableTokenCallerSession) GetEpochSize() (*big.Int, error) {
 	return _StableToken.Contract.GetEpochSize(&_StableToken.CallOpts)
 }
 
+// GetExchangeRegistryId is a free data retrieval call binding the contract method 0x40a12f64.
+//
+// Solidity: function getExchangeRegistryId() view returns(bytes32)
+func (_StableToken *StableTokenCaller) GetExchangeRegistryId(opts *bind.CallOpts) ([32]byte, error) {
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _StableToken.contract.Call(opts, out, "getExchangeRegistryId")
+	return *ret0, err
+}
+
+// GetExchangeRegistryId is a free data retrieval call binding the contract method 0x40a12f64.
+//
+// Solidity: function getExchangeRegistryId() view returns(bytes32)
+func (_StableToken *StableTokenSession) GetExchangeRegistryId() ([32]byte, error) {
+	return _StableToken.Contract.GetExchangeRegistryId(&_StableToken.CallOpts)
+}
+
+// GetExchangeRegistryId is a free data retrieval call binding the contract method 0x40a12f64.
+//
+// Solidity: function getExchangeRegistryId() view returns(bytes32)
+func (_StableToken *StableTokenCallerSession) GetExchangeRegistryId() ([32]byte, error) {
+	return _StableToken.Contract.GetExchangeRegistryId(&_StableToken.CallOpts)
+}
+
 // GetInflationParameters is a free data retrieval call binding the contract method 0xa67f8747.
 //
-// Solidity: function getInflationParameters() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getInflationParameters() view returns(uint256, uint256, uint256, uint256)
 func (_StableToken *StableTokenCaller) GetInflationParameters(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -441,21 +467,21 @@ func (_StableToken *StableTokenCaller) GetInflationParameters(opts *bind.CallOpt
 
 // GetInflationParameters is a free data retrieval call binding the contract method 0xa67f8747.
 //
-// Solidity: function getInflationParameters() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getInflationParameters() view returns(uint256, uint256, uint256, uint256)
 func (_StableToken *StableTokenSession) GetInflationParameters() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _StableToken.Contract.GetInflationParameters(&_StableToken.CallOpts)
 }
 
 // GetInflationParameters is a free data retrieval call binding the contract method 0xa67f8747.
 //
-// Solidity: function getInflationParameters() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getInflationParameters() view returns(uint256, uint256, uint256, uint256)
 func (_StableToken *StableTokenCallerSession) GetInflationParameters() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _StableToken.Contract.GetInflationParameters(&_StableToken.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_StableToken *StableTokenCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -467,21 +493,21 @@ func (_StableToken *StableTokenCaller) GetParentSealBitmap(opts *bind.CallOpts, 
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_StableToken *StableTokenSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _StableToken.Contract.GetParentSealBitmap(&_StableToken.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_StableToken *StableTokenCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _StableToken.Contract.GetParentSealBitmap(&_StableToken.CallOpts, blockNumber)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_StableToken *StableTokenCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -493,21 +519,21 @@ func (_StableToken *StableTokenCaller) GetVerifiedSealBitmapFromHeader(opts *bin
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_StableToken *StableTokenSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _StableToken.Contract.GetVerifiedSealBitmapFromHeader(&_StableToken.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_StableToken *StableTokenCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _StableToken.Contract.GetVerifiedSealBitmapFromHeader(&_StableToken.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_StableToken *StableTokenCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -527,21 +553,21 @@ func (_StableToken *StableTokenCaller) GetVersionNumber(opts *bind.CallOpts) (*b
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_StableToken *StableTokenSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _StableToken.Contract.GetVersionNumber(&_StableToken.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_StableToken *StableTokenCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _StableToken.Contract.GetVersionNumber(&_StableToken.CallOpts)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_StableToken *StableTokenCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -553,21 +579,21 @@ func (_StableToken *StableTokenCaller) HashHeader(opts *bind.CallOpts, header []
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_StableToken *StableTokenSession) HashHeader(header []byte) ([32]byte, error) {
 	return _StableToken.Contract.HashHeader(&_StableToken.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_StableToken *StableTokenCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _StableToken.Contract.HashHeader(&_StableToken.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_StableToken *StableTokenCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -579,21 +605,21 @@ func (_StableToken *StableTokenCaller) Initialized(opts *bind.CallOpts) (bool, e
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_StableToken *StableTokenSession) Initialized() (bool, error) {
 	return _StableToken.Contract.Initialized(&_StableToken.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_StableToken *StableTokenCallerSession) Initialized() (bool, error) {
 	return _StableToken.Contract.Initialized(&_StableToken.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_StableToken *StableTokenCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -605,21 +631,21 @@ func (_StableToken *StableTokenCaller) IsOwner(opts *bind.CallOpts) (bool, error
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_StableToken *StableTokenSession) IsOwner() (bool, error) {
 	return _StableToken.Contract.IsOwner(&_StableToken.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_StableToken *StableTokenCallerSession) IsOwner() (bool, error) {
 	return _StableToken.Contract.IsOwner(&_StableToken.CallOpts)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -631,21 +657,21 @@ func (_StableToken *StableTokenCaller) MinQuorumSize(opts *bind.CallOpts, blockN
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.MinQuorumSize(&_StableToken.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.MinQuorumSize(&_StableToken.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_StableToken *StableTokenCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -657,21 +683,21 @@ func (_StableToken *StableTokenCaller) MinQuorumSizeInCurrentSet(opts *bind.Call
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_StableToken *StableTokenSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _StableToken.Contract.MinQuorumSizeInCurrentSet(&_StableToken.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_StableToken *StableTokenCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _StableToken.Contract.MinQuorumSizeInCurrentSet(&_StableToken.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
+// Solidity: function name() view returns(string)
 func (_StableToken *StableTokenCaller) Name(opts *bind.CallOpts) (string, error) {
 	var (
 		ret0 = new(string)
@@ -683,21 +709,21 @@ func (_StableToken *StableTokenCaller) Name(opts *bind.CallOpts) (string, error)
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
+// Solidity: function name() view returns(string)
 func (_StableToken *StableTokenSession) Name() (string, error) {
 	return _StableToken.Contract.Name(&_StableToken.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
-// Solidity: function name() constant returns(string)
+// Solidity: function name() view returns(string)
 func (_StableToken *StableTokenCallerSession) Name() (string, error) {
 	return _StableToken.Contract.Name(&_StableToken.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_StableToken *StableTokenCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -709,21 +735,21 @@ func (_StableToken *StableTokenCaller) NumberValidatorsInCurrentSet(opts *bind.C
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_StableToken *StableTokenSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _StableToken.Contract.NumberValidatorsInCurrentSet(&_StableToken.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_StableToken *StableTokenCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _StableToken.Contract.NumberValidatorsInCurrentSet(&_StableToken.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -735,21 +761,21 @@ func (_StableToken *StableTokenCaller) NumberValidatorsInSet(opts *bind.CallOpts
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.NumberValidatorsInSet(&_StableToken.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.NumberValidatorsInSet(&_StableToken.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_StableToken *StableTokenCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -761,21 +787,21 @@ func (_StableToken *StableTokenCaller) Owner(opts *bind.CallOpts) (common.Addres
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_StableToken *StableTokenSession) Owner() (common.Address, error) {
 	return _StableToken.Contract.Owner(&_StableToken.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_StableToken *StableTokenCallerSession) Owner() (common.Address, error) {
 	return _StableToken.Contract.Owner(&_StableToken.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_StableToken *StableTokenCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -787,21 +813,21 @@ func (_StableToken *StableTokenCaller) Registry(opts *bind.CallOpts) (common.Add
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_StableToken *StableTokenSession) Registry() (common.Address, error) {
 	return _StableToken.Contract.Registry(&_StableToken.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_StableToken *StableTokenCallerSession) Registry() (common.Address, error) {
 	return _StableToken.Contract.Registry(&_StableToken.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
-// Solidity: function symbol() constant returns(string)
+// Solidity: function symbol() view returns(string)
 func (_StableToken *StableTokenCaller) Symbol(opts *bind.CallOpts) (string, error) {
 	var (
 		ret0 = new(string)
@@ -813,21 +839,21 @@ func (_StableToken *StableTokenCaller) Symbol(opts *bind.CallOpts) (string, erro
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
-// Solidity: function symbol() constant returns(string)
+// Solidity: function symbol() view returns(string)
 func (_StableToken *StableTokenSession) Symbol() (string, error) {
 	return _StableToken.Contract.Symbol(&_StableToken.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
-// Solidity: function symbol() constant returns(string)
+// Solidity: function symbol() view returns(string)
 func (_StableToken *StableTokenCallerSession) Symbol() (string, error) {
 	return _StableToken.Contract.Symbol(&_StableToken.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
-// Solidity: function totalSupply() constant returns(uint256)
+// Solidity: function totalSupply() view returns(uint256)
 func (_StableToken *StableTokenCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -839,21 +865,21 @@ func (_StableToken *StableTokenCaller) TotalSupply(opts *bind.CallOpts) (*big.In
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
-// Solidity: function totalSupply() constant returns(uint256)
+// Solidity: function totalSupply() view returns(uint256)
 func (_StableToken *StableTokenSession) TotalSupply() (*big.Int, error) {
 	return _StableToken.Contract.TotalSupply(&_StableToken.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
-// Solidity: function totalSupply() constant returns(uint256)
+// Solidity: function totalSupply() view returns(uint256)
 func (_StableToken *StableTokenCallerSession) TotalSupply() (*big.Int, error) {
 	return _StableToken.Contract.TotalSupply(&_StableToken.CallOpts)
 }
 
 // UnitsToValue is a free data retrieval call binding the contract method 0xaf31f587.
 //
-// Solidity: function unitsToValue(uint256 units) constant returns(uint256)
+// Solidity: function unitsToValue(uint256 units) view returns(uint256)
 func (_StableToken *StableTokenCaller) UnitsToValue(opts *bind.CallOpts, units *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -865,21 +891,21 @@ func (_StableToken *StableTokenCaller) UnitsToValue(opts *bind.CallOpts, units *
 
 // UnitsToValue is a free data retrieval call binding the contract method 0xaf31f587.
 //
-// Solidity: function unitsToValue(uint256 units) constant returns(uint256)
+// Solidity: function unitsToValue(uint256 units) view returns(uint256)
 func (_StableToken *StableTokenSession) UnitsToValue(units *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.UnitsToValue(&_StableToken.CallOpts, units)
 }
 
 // UnitsToValue is a free data retrieval call binding the contract method 0xaf31f587.
 //
-// Solidity: function unitsToValue(uint256 units) constant returns(uint256)
+// Solidity: function unitsToValue(uint256 units) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) UnitsToValue(units *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.UnitsToValue(&_StableToken.CallOpts, units)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_StableToken *StableTokenCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -891,21 +917,21 @@ func (_StableToken *StableTokenCaller) ValidatorSignerAddressFromCurrentSet(opts
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_StableToken *StableTokenSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _StableToken.Contract.ValidatorSignerAddressFromCurrentSet(&_StableToken.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_StableToken *StableTokenCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _StableToken.Contract.ValidatorSignerAddressFromCurrentSet(&_StableToken.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_StableToken *StableTokenCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -917,21 +943,21 @@ func (_StableToken *StableTokenCaller) ValidatorSignerAddressFromSet(opts *bind.
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_StableToken *StableTokenSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _StableToken.Contract.ValidatorSignerAddressFromSet(&_StableToken.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_StableToken *StableTokenCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _StableToken.Contract.ValidatorSignerAddressFromSet(&_StableToken.CallOpts, index, blockNumber)
 }
 
 // ValueToUnits is a free data retrieval call binding the contract method 0x12c6c099.
 //
-// Solidity: function valueToUnits(uint256 value) constant returns(uint256)
+// Solidity: function valueToUnits(uint256 value) view returns(uint256)
 func (_StableToken *StableTokenCaller) ValueToUnits(opts *bind.CallOpts, value *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -943,14 +969,14 @@ func (_StableToken *StableTokenCaller) ValueToUnits(opts *bind.CallOpts, value *
 
 // ValueToUnits is a free data retrieval call binding the contract method 0x12c6c099.
 //
-// Solidity: function valueToUnits(uint256 value) constant returns(uint256)
+// Solidity: function valueToUnits(uint256 value) view returns(uint256)
 func (_StableToken *StableTokenSession) ValueToUnits(value *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.ValueToUnits(&_StableToken.CallOpts, value)
 }
 
 // ValueToUnits is a free data retrieval call binding the contract method 0x12c6c099.
 //
-// Solidity: function valueToUnits(uint256 value) constant returns(uint256)
+// Solidity: function valueToUnits(uint256 value) view returns(uint256)
 func (_StableToken *StableTokenCallerSession) ValueToUnits(value *big.Int) (*big.Int, error) {
 	return _StableToken.Contract.ValueToUnits(&_StableToken.CallOpts, value)
 }
@@ -1081,25 +1107,25 @@ func (_StableToken *StableTokenTransactorSession) IncreaseAllowance(spender comm
 	return _StableToken.Contract.IncreaseAllowance(&_StableToken.TransactOpts, spender, value)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x82b93516.
+// Initialize is a paid mutator transaction binding the contract method 0x1e4f0e03.
 //
-// Solidity: function initialize(string _name, string _symbol, uint8 _decimals, address registryAddress, uint256 inflationRate, uint256 inflationFactorUpdatePeriod, address[] initialBalanceAddresses, uint256[] initialBalanceValues) returns()
-func (_StableToken *StableTokenTransactor) Initialize(opts *bind.TransactOpts, _name string, _symbol string, _decimals uint8, registryAddress common.Address, inflationRate *big.Int, inflationFactorUpdatePeriod *big.Int, initialBalanceAddresses []common.Address, initialBalanceValues []*big.Int) (*types.Transaction, error) {
-	return _StableToken.contract.Transact(opts, "initialize", _name, _symbol, _decimals, registryAddress, inflationRate, inflationFactorUpdatePeriod, initialBalanceAddresses, initialBalanceValues)
+// Solidity: function initialize(string _name, string _symbol, uint8 _decimals, address registryAddress, uint256 inflationRate, uint256 inflationFactorUpdatePeriod, address[] initialBalanceAddresses, uint256[] initialBalanceValues, string exchangeIdentifier) returns()
+func (_StableToken *StableTokenTransactor) Initialize(opts *bind.TransactOpts, _name string, _symbol string, _decimals uint8, registryAddress common.Address, inflationRate *big.Int, inflationFactorUpdatePeriod *big.Int, initialBalanceAddresses []common.Address, initialBalanceValues []*big.Int, exchangeIdentifier string) (*types.Transaction, error) {
+	return _StableToken.contract.Transact(opts, "initialize", _name, _symbol, _decimals, registryAddress, inflationRate, inflationFactorUpdatePeriod, initialBalanceAddresses, initialBalanceValues, exchangeIdentifier)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x82b93516.
+// Initialize is a paid mutator transaction binding the contract method 0x1e4f0e03.
 //
-// Solidity: function initialize(string _name, string _symbol, uint8 _decimals, address registryAddress, uint256 inflationRate, uint256 inflationFactorUpdatePeriod, address[] initialBalanceAddresses, uint256[] initialBalanceValues) returns()
-func (_StableToken *StableTokenSession) Initialize(_name string, _symbol string, _decimals uint8, registryAddress common.Address, inflationRate *big.Int, inflationFactorUpdatePeriod *big.Int, initialBalanceAddresses []common.Address, initialBalanceValues []*big.Int) (*types.Transaction, error) {
-	return _StableToken.Contract.Initialize(&_StableToken.TransactOpts, _name, _symbol, _decimals, registryAddress, inflationRate, inflationFactorUpdatePeriod, initialBalanceAddresses, initialBalanceValues)
+// Solidity: function initialize(string _name, string _symbol, uint8 _decimals, address registryAddress, uint256 inflationRate, uint256 inflationFactorUpdatePeriod, address[] initialBalanceAddresses, uint256[] initialBalanceValues, string exchangeIdentifier) returns()
+func (_StableToken *StableTokenSession) Initialize(_name string, _symbol string, _decimals uint8, registryAddress common.Address, inflationRate *big.Int, inflationFactorUpdatePeriod *big.Int, initialBalanceAddresses []common.Address, initialBalanceValues []*big.Int, exchangeIdentifier string) (*types.Transaction, error) {
+	return _StableToken.Contract.Initialize(&_StableToken.TransactOpts, _name, _symbol, _decimals, registryAddress, inflationRate, inflationFactorUpdatePeriod, initialBalanceAddresses, initialBalanceValues, exchangeIdentifier)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x82b93516.
+// Initialize is a paid mutator transaction binding the contract method 0x1e4f0e03.
 //
-// Solidity: function initialize(string _name, string _symbol, uint8 _decimals, address registryAddress, uint256 inflationRate, uint256 inflationFactorUpdatePeriod, address[] initialBalanceAddresses, uint256[] initialBalanceValues) returns()
-func (_StableToken *StableTokenTransactorSession) Initialize(_name string, _symbol string, _decimals uint8, registryAddress common.Address, inflationRate *big.Int, inflationFactorUpdatePeriod *big.Int, initialBalanceAddresses []common.Address, initialBalanceValues []*big.Int) (*types.Transaction, error) {
-	return _StableToken.Contract.Initialize(&_StableToken.TransactOpts, _name, _symbol, _decimals, registryAddress, inflationRate, inflationFactorUpdatePeriod, initialBalanceAddresses, initialBalanceValues)
+// Solidity: function initialize(string _name, string _symbol, uint8 _decimals, address registryAddress, uint256 inflationRate, uint256 inflationFactorUpdatePeriod, address[] initialBalanceAddresses, uint256[] initialBalanceValues, string exchangeIdentifier) returns()
+func (_StableToken *StableTokenTransactorSession) Initialize(_name string, _symbol string, _decimals uint8, registryAddress common.Address, inflationRate *big.Int, inflationFactorUpdatePeriod *big.Int, initialBalanceAddresses []common.Address, initialBalanceValues []*big.Int, exchangeIdentifier string) (*types.Transaction, error) {
+	return _StableToken.Contract.Initialize(&_StableToken.TransactOpts, _name, _symbol, _decimals, registryAddress, inflationRate, inflationFactorUpdatePeriod, initialBalanceAddresses, initialBalanceValues, exchangeIdentifier)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x40c10f19.

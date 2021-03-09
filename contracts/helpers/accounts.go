@@ -17,7 +17,7 @@ package helpers
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/celo-org/celo-blockchain/crypto"
 )
 
 type SignatureValues struct {

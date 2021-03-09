@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +28,7 @@ var (
 )
 
 // BlockchainParametersABI is the input ABI used to generate the binding from.
-const BlockchainParametersABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"BlockGasLimitSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"IntrinsicGasForAlternativeFeeCurrencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"name\":\"MinimumClientVersionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"blockGasLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"intrinsicGasForAlternativeFeeCurrency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_gasForNonGoldCurrencies\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"name\":\"setMinimumClientVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"}],\"name\":\"setBlockGasLimit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"setIntrinsicGasForAlternativeFeeCurrency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getMinimumClientVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+const BlockchainParametersABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"BlockGasLimitSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"IntrinsicGasForAlternativeFeeCurrencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"name\":\"MinimumClientVersionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationEpoch\",\"type\":\"uint256\"}],\"name\":\"UptimeLookbackWindowSet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"blockGasLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"intrinsicGasForAlternativeFeeCurrency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"uptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"oldValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValueActivationEpoch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_gasForNonGoldCurrencies\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"name\":\"setMinimumClientVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"}],\"name\":\"setBlockGasLimit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"setIntrinsicGasForAlternativeFeeCurrency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"}],\"name\":\"setUptimeLookbackWindow\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getMinimumClientVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
 
 // BlockchainParameters is an auto generated Go binding around an Ethereum contract.
 type BlockchainParameters struct {
@@ -183,7 +183,7 @@ func (_BlockchainParameters *BlockchainParametersTransactorRaw) Transact(opts *b
 
 // BlockGasLimit is a free data retrieval call binding the contract method 0x7877a797.
 //
-// Solidity: function blockGasLimit() constant returns(uint256)
+// Solidity: function blockGasLimit() view returns(uint256)
 func (_BlockchainParameters *BlockchainParametersCaller) BlockGasLimit(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,181 @@ func (_BlockchainParameters *BlockchainParametersCaller) BlockGasLimit(opts *bin
 
 // BlockGasLimit is a free data retrieval call binding the contract method 0x7877a797.
 //
-// Solidity: function blockGasLimit() constant returns(uint256)
+// Solidity: function blockGasLimit() view returns(uint256)
 func (_BlockchainParameters *BlockchainParametersSession) BlockGasLimit() (*big.Int, error) {
 	return _BlockchainParameters.Contract.BlockGasLimit(&_BlockchainParameters.CallOpts)
 }
 
 // BlockGasLimit is a free data retrieval call binding the contract method 0x7877a797.
 //
-// Solidity: function blockGasLimit() constant returns(uint256)
+// Solidity: function blockGasLimit() view returns(uint256)
 func (_BlockchainParameters *BlockchainParametersCallerSession) BlockGasLimit() (*big.Int, error) {
 	return _BlockchainParameters.Contract.BlockGasLimit(&_BlockchainParameters.CallOpts)
 }
 
+// CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
+//
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
+func (_BlockchainParameters *BlockchainParametersCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "checkProofOfPossession", sender, blsKey, blsPop)
+	return *ret0, err
+}
+
+// CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
+//
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
+func (_BlockchainParameters *BlockchainParametersSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
+	return _BlockchainParameters.Contract.CheckProofOfPossession(&_BlockchainParameters.CallOpts, sender, blsKey, blsPop)
+}
+
+// CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
+//
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
+func (_BlockchainParameters *BlockchainParametersCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
+	return _BlockchainParameters.Contract.CheckProofOfPossession(&_BlockchainParameters.CallOpts, sender, blsKey, blsPop)
+}
+
+// FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
+//
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+		ret1 = new(*big.Int)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
+	}
+	err := _BlockchainParameters.contract.Call(opts, out, "fractionMulExp", aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
+	return *ret0, *ret1, err
+}
+
+// FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
+//
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
+func (_BlockchainParameters *BlockchainParametersSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
+	return _BlockchainParameters.Contract.FractionMulExp(&_BlockchainParameters.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
+}
+
+// FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
+//
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
+	return _BlockchainParameters.Contract.FractionMulExp(&_BlockchainParameters.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
+}
+
+// GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
+//
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "getBlockNumberFromHeader", header)
+	return *ret0, err
+}
+
+// GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
+//
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetBlockNumberFromHeader(&_BlockchainParameters.CallOpts, header)
+}
+
+// GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
+//
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetBlockNumberFromHeader(&_BlockchainParameters.CallOpts, header)
+}
+
+// GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
+//
+// Solidity: function getEpochNumber() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "getEpochNumber")
+	return *ret0, err
+}
+
+// GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
+//
+// Solidity: function getEpochNumber() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) GetEpochNumber() (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetEpochNumber(&_BlockchainParameters.CallOpts)
+}
+
+// GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
+//
+// Solidity: function getEpochNumber() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetEpochNumber() (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetEpochNumber(&_BlockchainParameters.CallOpts)
+}
+
+// GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
+//
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "getEpochNumberOfBlock", blockNumber)
+	return *ret0, err
+}
+
+// GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
+//
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetEpochNumberOfBlock(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
+// GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
+//
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetEpochNumberOfBlock(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
+// GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
+//
+// Solidity: function getEpochSize() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "getEpochSize")
+	return *ret0, err
+}
+
+// GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
+//
+// Solidity: function getEpochSize() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) GetEpochSize() (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetEpochSize(&_BlockchainParameters.CallOpts)
+}
+
+// GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
+//
+// Solidity: function getEpochSize() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetEpochSize() (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetEpochSize(&_BlockchainParameters.CallOpts)
+}
+
 // GetMinimumClientVersion is a free data retrieval call binding the contract method 0x25eb315d.
 //
-// Solidity: function getMinimumClientVersion() constant returns(uint256 major, uint256 minor, uint256 patch)
+// Solidity: function getMinimumClientVersion() view returns(uint256 major, uint256 minor, uint256 patch)
 func (_BlockchainParameters *BlockchainParametersCaller) GetMinimumClientVersion(opts *bind.CallOpts) (struct {
 	Major *big.Int
 	Minor *big.Int
@@ -227,7 +387,7 @@ func (_BlockchainParameters *BlockchainParametersCaller) GetMinimumClientVersion
 
 // GetMinimumClientVersion is a free data retrieval call binding the contract method 0x25eb315d.
 //
-// Solidity: function getMinimumClientVersion() constant returns(uint256 major, uint256 minor, uint256 patch)
+// Solidity: function getMinimumClientVersion() view returns(uint256 major, uint256 minor, uint256 patch)
 func (_BlockchainParameters *BlockchainParametersSession) GetMinimumClientVersion() (struct {
 	Major *big.Int
 	Minor *big.Int
@@ -238,7 +398,7 @@ func (_BlockchainParameters *BlockchainParametersSession) GetMinimumClientVersio
 
 // GetMinimumClientVersion is a free data retrieval call binding the contract method 0x25eb315d.
 //
-// Solidity: function getMinimumClientVersion() constant returns(uint256 major, uint256 minor, uint256 patch)
+// Solidity: function getMinimumClientVersion() view returns(uint256 major, uint256 minor, uint256 patch)
 func (_BlockchainParameters *BlockchainParametersCallerSession) GetMinimumClientVersion() (struct {
 	Major *big.Int
 	Minor *big.Int
@@ -247,9 +407,147 @@ func (_BlockchainParameters *BlockchainParametersCallerSession) GetMinimumClient
 	return _BlockchainParameters.Contract.GetMinimumClientVersion(&_BlockchainParameters.CallOpts)
 }
 
+// GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
+//
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "getParentSealBitmap", blockNumber)
+	return *ret0, err
+}
+
+// GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
+//
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
+	return _BlockchainParameters.Contract.GetParentSealBitmap(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
+// GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
+//
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
+	return _BlockchainParameters.Contract.GetParentSealBitmap(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
+// GetUptimeLookbackWindow is a free data retrieval call binding the contract method 0x52bed4d7.
+//
+// Solidity: function getUptimeLookbackWindow() view returns(uint256 lookbackWindow)
+func (_BlockchainParameters *BlockchainParametersCaller) GetUptimeLookbackWindow(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "getUptimeLookbackWindow")
+	return *ret0, err
+}
+
+// GetUptimeLookbackWindow is a free data retrieval call binding the contract method 0x52bed4d7.
+//
+// Solidity: function getUptimeLookbackWindow() view returns(uint256 lookbackWindow)
+func (_BlockchainParameters *BlockchainParametersSession) GetUptimeLookbackWindow() (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetUptimeLookbackWindow(&_BlockchainParameters.CallOpts)
+}
+
+// GetUptimeLookbackWindow is a free data retrieval call binding the contract method 0x52bed4d7.
+//
+// Solidity: function getUptimeLookbackWindow() view returns(uint256 lookbackWindow)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetUptimeLookbackWindow() (*big.Int, error) {
+	return _BlockchainParameters.Contract.GetUptimeLookbackWindow(&_BlockchainParameters.CallOpts)
+}
+
+// GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
+//
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "getVerifiedSealBitmapFromHeader", header)
+	return *ret0, err
+}
+
+// GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
+//
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
+	return _BlockchainParameters.Contract.GetVerifiedSealBitmapFromHeader(&_BlockchainParameters.CallOpts, header)
+}
+
+// GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
+//
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
+	return _BlockchainParameters.Contract.GetVerifiedSealBitmapFromHeader(&_BlockchainParameters.CallOpts, header)
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+		ret1 = new(*big.Int)
+		ret2 = new(*big.Int)
+		ret3 = new(*big.Int)
+	)
+	out := &[]interface{}{
+		ret0,
+		ret1,
+		ret2,
+		ret3,
+	}
+	err := _BlockchainParameters.contract.Call(opts, out, "getVersionNumber")
+	return *ret0, *ret1, *ret2, *ret3, err
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
+func (_BlockchainParameters *BlockchainParametersSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _BlockchainParameters.Contract.GetVersionNumber(&_BlockchainParameters.CallOpts)
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _BlockchainParameters.Contract.GetVersionNumber(&_BlockchainParameters.CallOpts)
+}
+
+// HashHeader is a free data retrieval call binding the contract method 0x67960e91.
+//
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
+	var (
+		ret0 = new([32]byte)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "hashHeader", header)
+	return *ret0, err
+}
+
+// HashHeader is a free data retrieval call binding the contract method 0x67960e91.
+//
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersSession) HashHeader(header []byte) ([32]byte, error) {
+	return _BlockchainParameters.Contract.HashHeader(&_BlockchainParameters.CallOpts, header)
+}
+
+// HashHeader is a free data retrieval call binding the contract method 0x67960e91.
+//
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
+func (_BlockchainParameters *BlockchainParametersCallerSession) HashHeader(header []byte) ([32]byte, error) {
+	return _BlockchainParameters.Contract.HashHeader(&_BlockchainParameters.CallOpts, header)
+}
+
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_BlockchainParameters *BlockchainParametersCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -261,21 +559,21 @@ func (_BlockchainParameters *BlockchainParametersCaller) Initialized(opts *bind.
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_BlockchainParameters *BlockchainParametersSession) Initialized() (bool, error) {
 	return _BlockchainParameters.Contract.Initialized(&_BlockchainParameters.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_BlockchainParameters *BlockchainParametersCallerSession) Initialized() (bool, error) {
 	return _BlockchainParameters.Contract.Initialized(&_BlockchainParameters.CallOpts)
 }
 
 // IntrinsicGasForAlternativeFeeCurrency is a free data retrieval call binding the contract method 0x808474f1.
 //
-// Solidity: function intrinsicGasForAlternativeFeeCurrency() constant returns(uint256)
+// Solidity: function intrinsicGasForAlternativeFeeCurrency() view returns(uint256)
 func (_BlockchainParameters *BlockchainParametersCaller) IntrinsicGasForAlternativeFeeCurrency(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -287,21 +585,21 @@ func (_BlockchainParameters *BlockchainParametersCaller) IntrinsicGasForAlternat
 
 // IntrinsicGasForAlternativeFeeCurrency is a free data retrieval call binding the contract method 0x808474f1.
 //
-// Solidity: function intrinsicGasForAlternativeFeeCurrency() constant returns(uint256)
+// Solidity: function intrinsicGasForAlternativeFeeCurrency() view returns(uint256)
 func (_BlockchainParameters *BlockchainParametersSession) IntrinsicGasForAlternativeFeeCurrency() (*big.Int, error) {
 	return _BlockchainParameters.Contract.IntrinsicGasForAlternativeFeeCurrency(&_BlockchainParameters.CallOpts)
 }
 
 // IntrinsicGasForAlternativeFeeCurrency is a free data retrieval call binding the contract method 0x808474f1.
 //
-// Solidity: function intrinsicGasForAlternativeFeeCurrency() constant returns(uint256)
+// Solidity: function intrinsicGasForAlternativeFeeCurrency() view returns(uint256)
 func (_BlockchainParameters *BlockchainParametersCallerSession) IntrinsicGasForAlternativeFeeCurrency() (*big.Int, error) {
 	return _BlockchainParameters.Contract.IntrinsicGasForAlternativeFeeCurrency(&_BlockchainParameters.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_BlockchainParameters *BlockchainParametersCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -313,21 +611,125 @@ func (_BlockchainParameters *BlockchainParametersCaller) IsOwner(opts *bind.Call
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_BlockchainParameters *BlockchainParametersSession) IsOwner() (bool, error) {
 	return _BlockchainParameters.Contract.IsOwner(&_BlockchainParameters.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_BlockchainParameters *BlockchainParametersCallerSession) IsOwner() (bool, error) {
 	return _BlockchainParameters.Contract.IsOwner(&_BlockchainParameters.CallOpts)
 }
 
+// MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
+//
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "minQuorumSize", blockNumber)
+	return *ret0, err
+}
+
+// MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
+//
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
+	return _BlockchainParameters.Contract.MinQuorumSize(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
+// MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
+//
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
+	return _BlockchainParameters.Contract.MinQuorumSize(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
+// MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
+//
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "minQuorumSizeInCurrentSet")
+	return *ret0, err
+}
+
+// MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
+//
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
+	return _BlockchainParameters.Contract.MinQuorumSizeInCurrentSet(&_BlockchainParameters.CallOpts)
+}
+
+// MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
+//
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
+	return _BlockchainParameters.Contract.MinQuorumSizeInCurrentSet(&_BlockchainParameters.CallOpts)
+}
+
+// NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
+//
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "numberValidatorsInCurrentSet")
+	return *ret0, err
+}
+
+// NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
+//
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
+	return _BlockchainParameters.Contract.NumberValidatorsInCurrentSet(&_BlockchainParameters.CallOpts)
+}
+
+// NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
+//
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
+	return _BlockchainParameters.Contract.NumberValidatorsInCurrentSet(&_BlockchainParameters.CallOpts)
+}
+
+// NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
+//
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "numberValidatorsInSet", blockNumber)
+	return *ret0, err
+}
+
+// NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
+//
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
+	return _BlockchainParameters.Contract.NumberValidatorsInSet(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
+// NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
+//
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
+func (_BlockchainParameters *BlockchainParametersCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
+	return _BlockchainParameters.Contract.NumberValidatorsInSet(&_BlockchainParameters.CallOpts, blockNumber)
+}
+
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_BlockchainParameters *BlockchainParametersCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -339,37 +741,129 @@ func (_BlockchainParameters *BlockchainParametersCaller) Owner(opts *bind.CallOp
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_BlockchainParameters *BlockchainParametersSession) Owner() (common.Address, error) {
 	return _BlockchainParameters.Contract.Owner(&_BlockchainParameters.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_BlockchainParameters *BlockchainParametersCallerSession) Owner() (common.Address, error) {
 	return _BlockchainParameters.Contract.Owner(&_BlockchainParameters.CallOpts)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xdcbab608.
+// UptimeLookbackWindow is a free data retrieval call binding the contract method 0x61568828.
 //
-// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit) returns()
-func (_BlockchainParameters *BlockchainParametersTransactor) Initialize(opts *bind.TransactOpts, major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.contract.Transact(opts, "initialize", major, minor, patch, _gasForNonGoldCurrencies, gasLimit)
+// Solidity: function uptimeLookbackWindow() view returns(uint256 oldValue, uint256 nextValue, uint256 nextValueActivationEpoch)
+func (_BlockchainParameters *BlockchainParametersCaller) UptimeLookbackWindow(opts *bind.CallOpts) (struct {
+	OldValue                 *big.Int
+	NextValue                *big.Int
+	NextValueActivationEpoch *big.Int
+}, error) {
+	ret := new(struct {
+		OldValue                 *big.Int
+		NextValue                *big.Int
+		NextValueActivationEpoch *big.Int
+	})
+	out := ret
+	err := _BlockchainParameters.contract.Call(opts, out, "uptimeLookbackWindow")
+	return *ret, err
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xdcbab608.
+// UptimeLookbackWindow is a free data retrieval call binding the contract method 0x61568828.
 //
-// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit) returns()
-func (_BlockchainParameters *BlockchainParametersSession) Initialize(major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, major, minor, patch, _gasForNonGoldCurrencies, gasLimit)
+// Solidity: function uptimeLookbackWindow() view returns(uint256 oldValue, uint256 nextValue, uint256 nextValueActivationEpoch)
+func (_BlockchainParameters *BlockchainParametersSession) UptimeLookbackWindow() (struct {
+	OldValue                 *big.Int
+	NextValue                *big.Int
+	NextValueActivationEpoch *big.Int
+}, error) {
+	return _BlockchainParameters.Contract.UptimeLookbackWindow(&_BlockchainParameters.CallOpts)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xdcbab608.
+// UptimeLookbackWindow is a free data retrieval call binding the contract method 0x61568828.
 //
-// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit) returns()
-func (_BlockchainParameters *BlockchainParametersTransactorSession) Initialize(major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, major, minor, patch, _gasForNonGoldCurrencies, gasLimit)
+// Solidity: function uptimeLookbackWindow() view returns(uint256 oldValue, uint256 nextValue, uint256 nextValueActivationEpoch)
+func (_BlockchainParameters *BlockchainParametersCallerSession) UptimeLookbackWindow() (struct {
+	OldValue                 *big.Int
+	NextValue                *big.Int
+	NextValueActivationEpoch *big.Int
+}, error) {
+	return _BlockchainParameters.Contract.UptimeLookbackWindow(&_BlockchainParameters.CallOpts)
+}
+
+// ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
+//
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
+func (_BlockchainParameters *BlockchainParametersCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "validatorSignerAddressFromCurrentSet", index)
+	return *ret0, err
+}
+
+// ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
+//
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
+func (_BlockchainParameters *BlockchainParametersSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
+	return _BlockchainParameters.Contract.ValidatorSignerAddressFromCurrentSet(&_BlockchainParameters.CallOpts, index)
+}
+
+// ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
+//
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
+func (_BlockchainParameters *BlockchainParametersCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
+	return _BlockchainParameters.Contract.ValidatorSignerAddressFromCurrentSet(&_BlockchainParameters.CallOpts, index)
+}
+
+// ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
+//
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
+func (_BlockchainParameters *BlockchainParametersCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _BlockchainParameters.contract.Call(opts, out, "validatorSignerAddressFromSet", index, blockNumber)
+	return *ret0, err
+}
+
+// ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
+//
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
+func (_BlockchainParameters *BlockchainParametersSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
+	return _BlockchainParameters.Contract.ValidatorSignerAddressFromSet(&_BlockchainParameters.CallOpts, index, blockNumber)
+}
+
+// ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
+//
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
+func (_BlockchainParameters *BlockchainParametersCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
+	return _BlockchainParameters.Contract.ValidatorSignerAddressFromSet(&_BlockchainParameters.CallOpts, index, blockNumber)
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x2d7aa82b.
+//
+// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
+func (_BlockchainParameters *BlockchainParametersTransactor) Initialize(opts *bind.TransactOpts, major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.contract.Transact(opts, "initialize", major, minor, patch, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x2d7aa82b.
+//
+// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
+func (_BlockchainParameters *BlockchainParametersSession) Initialize(major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, major, minor, patch, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x2d7aa82b.
+//
+// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
+func (_BlockchainParameters *BlockchainParametersTransactorSession) Initialize(major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, major, minor, patch, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
@@ -456,6 +950,27 @@ func (_BlockchainParameters *BlockchainParametersTransactorSession) SetMinimumCl
 	return _BlockchainParameters.Contract.SetMinimumClientVersion(&_BlockchainParameters.TransactOpts, major, minor, patch)
 }
 
+// SetUptimeLookbackWindow is a paid mutator transaction binding the contract method 0xe94fd109.
+//
+// Solidity: function setUptimeLookbackWindow(uint256 window) returns()
+func (_BlockchainParameters *BlockchainParametersTransactor) SetUptimeLookbackWindow(opts *bind.TransactOpts, window *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.contract.Transact(opts, "setUptimeLookbackWindow", window)
+}
+
+// SetUptimeLookbackWindow is a paid mutator transaction binding the contract method 0xe94fd109.
+//
+// Solidity: function setUptimeLookbackWindow(uint256 window) returns()
+func (_BlockchainParameters *BlockchainParametersSession) SetUptimeLookbackWindow(window *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.Contract.SetUptimeLookbackWindow(&_BlockchainParameters.TransactOpts, window)
+}
+
+// SetUptimeLookbackWindow is a paid mutator transaction binding the contract method 0xe94fd109.
+//
+// Solidity: function setUptimeLookbackWindow(uint256 window) returns()
+func (_BlockchainParameters *BlockchainParametersTransactorSession) SetUptimeLookbackWindow(window *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.Contract.SetUptimeLookbackWindow(&_BlockchainParameters.TransactOpts, window)
+}
+
 // TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
 //
 // Solidity: function transferOwnership(address newOwner) returns()
@@ -493,6 +1008,8 @@ func (_BlockchainParameters *BlockchainParametersFilterer) TryParseLog(log types
 		event, err = _BlockchainParameters.ParseMinimumClientVersionSet(log)
 	case "OwnershipTransferred":
 		event, err = _BlockchainParameters.ParseOwnershipTransferred(log)
+	case "UptimeLookbackWindowSet":
+		event, err = _BlockchainParameters.ParseUptimeLookbackWindowSet(log)
 	}
 	if err != nil {
 		return "", nil, false, err
@@ -1049,6 +1566,140 @@ func (_BlockchainParameters *BlockchainParametersFilterer) WatchOwnershipTransfe
 func (_BlockchainParameters *BlockchainParametersFilterer) ParseOwnershipTransferred(log types.Log) (*BlockchainParametersOwnershipTransferred, error) {
 	event := new(BlockchainParametersOwnershipTransferred)
 	if err := _BlockchainParameters.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+// BlockchainParametersUptimeLookbackWindowSetIterator is returned from FilterUptimeLookbackWindowSet and is used to iterate over the raw logs and unpacked data for UptimeLookbackWindowSet events raised by the BlockchainParameters contract.
+type BlockchainParametersUptimeLookbackWindowSetIterator struct {
+	Event *BlockchainParametersUptimeLookbackWindowSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *BlockchainParametersUptimeLookbackWindowSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(BlockchainParametersUptimeLookbackWindowSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(BlockchainParametersUptimeLookbackWindowSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *BlockchainParametersUptimeLookbackWindowSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *BlockchainParametersUptimeLookbackWindowSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// BlockchainParametersUptimeLookbackWindowSet represents a UptimeLookbackWindowSet event raised by the BlockchainParameters contract.
+type BlockchainParametersUptimeLookbackWindowSet struct {
+	Window          *big.Int
+	ActivationEpoch *big.Int
+	Raw             types.Log // Blockchain specific contextual infos
+}
+
+// FilterUptimeLookbackWindowSet is a free log retrieval operation binding the contract event 0x484a24d7faca8c4330aaf9ba5f131e6bd474ed6877a555511f39d16a1d71d15a.
+//
+// Solidity: event UptimeLookbackWindowSet(uint256 window, uint256 activationEpoch)
+func (_BlockchainParameters *BlockchainParametersFilterer) FilterUptimeLookbackWindowSet(opts *bind.FilterOpts) (*BlockchainParametersUptimeLookbackWindowSetIterator, error) {
+
+	logs, sub, err := _BlockchainParameters.contract.FilterLogs(opts, "UptimeLookbackWindowSet")
+	if err != nil {
+		return nil, err
+	}
+	return &BlockchainParametersUptimeLookbackWindowSetIterator{contract: _BlockchainParameters.contract, event: "UptimeLookbackWindowSet", logs: logs, sub: sub}, nil
+}
+
+// WatchUptimeLookbackWindowSet is a free log subscription operation binding the contract event 0x484a24d7faca8c4330aaf9ba5f131e6bd474ed6877a555511f39d16a1d71d15a.
+//
+// Solidity: event UptimeLookbackWindowSet(uint256 window, uint256 activationEpoch)
+func (_BlockchainParameters *BlockchainParametersFilterer) WatchUptimeLookbackWindowSet(opts *bind.WatchOpts, sink chan<- *BlockchainParametersUptimeLookbackWindowSet) (event.Subscription, error) {
+
+	logs, sub, err := _BlockchainParameters.contract.WatchLogs(opts, "UptimeLookbackWindowSet")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(BlockchainParametersUptimeLookbackWindowSet)
+				if err := _BlockchainParameters.contract.UnpackLog(event, "UptimeLookbackWindowSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseUptimeLookbackWindowSet is a log parse operation binding the contract event 0x484a24d7faca8c4330aaf9ba5f131e6bd474ed6877a555511f39d16a1d71d15a.
+//
+// Solidity: event UptimeLookbackWindowSet(uint256 window, uint256 activationEpoch)
+func (_BlockchainParameters *BlockchainParametersFilterer) ParseUptimeLookbackWindowSet(log types.Log) (*BlockchainParametersUptimeLookbackWindowSet, error) {
+	event := new(BlockchainParametersUptimeLookbackWindowSet)
+	if err := _BlockchainParameters.contract.UnpackLog(event, "UptimeLookbackWindowSet", log); err != nil {
 		return nil, err
 	}
 	return event, nil

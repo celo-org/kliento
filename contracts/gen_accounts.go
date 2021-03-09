@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_Accounts *AccountsTransactorRaw) Transact(opts *bind.TransactOpts, method
 
 // AttestationSignerToAccount is a free data retrieval call binding the contract method 0x7b2434cb.
 //
-// Solidity: function attestationSignerToAccount(address signer) constant returns(address)
+// Solidity: function attestationSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) AttestationSignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -195,21 +195,21 @@ func (_Accounts *AccountsCaller) AttestationSignerToAccount(opts *bind.CallOpts,
 
 // AttestationSignerToAccount is a free data retrieval call binding the contract method 0x7b2434cb.
 //
-// Solidity: function attestationSignerToAccount(address signer) constant returns(address)
+// Solidity: function attestationSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsSession) AttestationSignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.AttestationSignerToAccount(&_Accounts.CallOpts, signer)
 }
 
 // AttestationSignerToAccount is a free data retrieval call binding the contract method 0x7b2434cb.
 //
-// Solidity: function attestationSignerToAccount(address signer) constant returns(address)
+// Solidity: function attestationSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCallerSession) AttestationSignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.AttestationSignerToAccount(&_Accounts.CallOpts, signer)
 }
 
 // AuthorizedBy is a free data retrieval call binding the contract method 0xb5a664c2.
 //
-// Solidity: function authorizedBy(address ) constant returns(address)
+// Solidity: function authorizedBy(address ) view returns(address)
 func (_Accounts *AccountsCaller) AuthorizedBy(opts *bind.CallOpts, arg0 common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -221,21 +221,21 @@ func (_Accounts *AccountsCaller) AuthorizedBy(opts *bind.CallOpts, arg0 common.A
 
 // AuthorizedBy is a free data retrieval call binding the contract method 0xb5a664c2.
 //
-// Solidity: function authorizedBy(address ) constant returns(address)
+// Solidity: function authorizedBy(address ) view returns(address)
 func (_Accounts *AccountsSession) AuthorizedBy(arg0 common.Address) (common.Address, error) {
 	return _Accounts.Contract.AuthorizedBy(&_Accounts.CallOpts, arg0)
 }
 
 // AuthorizedBy is a free data retrieval call binding the contract method 0xb5a664c2.
 //
-// Solidity: function authorizedBy(address ) constant returns(address)
+// Solidity: function authorizedBy(address ) view returns(address)
 func (_Accounts *AccountsCallerSession) AuthorizedBy(arg0 common.Address) (common.Address, error) {
 	return _Accounts.Contract.AuthorizedBy(&_Accounts.CallOpts, arg0)
 }
 
 // BatchGetMetadataURL is a free data retrieval call binding the contract method 0x8adaf96f.
 //
-// Solidity: function batchGetMetadataURL(address[] accountsToQuery) constant returns(uint256[], bytes)
+// Solidity: function batchGetMetadataURL(address[] accountsToQuery) view returns(uint256[], bytes)
 func (_Accounts *AccountsCaller) BatchGetMetadataURL(opts *bind.CallOpts, accountsToQuery []common.Address) ([]*big.Int, []byte, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -251,21 +251,21 @@ func (_Accounts *AccountsCaller) BatchGetMetadataURL(opts *bind.CallOpts, accoun
 
 // BatchGetMetadataURL is a free data retrieval call binding the contract method 0x8adaf96f.
 //
-// Solidity: function batchGetMetadataURL(address[] accountsToQuery) constant returns(uint256[], bytes)
+// Solidity: function batchGetMetadataURL(address[] accountsToQuery) view returns(uint256[], bytes)
 func (_Accounts *AccountsSession) BatchGetMetadataURL(accountsToQuery []common.Address) ([]*big.Int, []byte, error) {
 	return _Accounts.Contract.BatchGetMetadataURL(&_Accounts.CallOpts, accountsToQuery)
 }
 
 // BatchGetMetadataURL is a free data retrieval call binding the contract method 0x8adaf96f.
 //
-// Solidity: function batchGetMetadataURL(address[] accountsToQuery) constant returns(uint256[], bytes)
+// Solidity: function batchGetMetadataURL(address[] accountsToQuery) view returns(uint256[], bytes)
 func (_Accounts *AccountsCallerSession) BatchGetMetadataURL(accountsToQuery []common.Address) ([]*big.Int, []byte, error) {
 	return _Accounts.Contract.BatchGetMetadataURL(&_Accounts.CallOpts, accountsToQuery)
 }
 
 // GetAttestationSigner is a free data retrieval call binding the contract method 0x61bab1ae.
 //
-// Solidity: function getAttestationSigner(address account) constant returns(address)
+// Solidity: function getAttestationSigner(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetAttestationSigner(opts *bind.CallOpts, account common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -277,21 +277,21 @@ func (_Accounts *AccountsCaller) GetAttestationSigner(opts *bind.CallOpts, accou
 
 // GetAttestationSigner is a free data retrieval call binding the contract method 0x61bab1ae.
 //
-// Solidity: function getAttestationSigner(address account) constant returns(address)
+// Solidity: function getAttestationSigner(address account) view returns(address)
 func (_Accounts *AccountsSession) GetAttestationSigner(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetAttestationSigner(&_Accounts.CallOpts, account)
 }
 
 // GetAttestationSigner is a free data retrieval call binding the contract method 0x61bab1ae.
 //
-// Solidity: function getAttestationSigner(address account) constant returns(address)
+// Solidity: function getAttestationSigner(address account) view returns(address)
 func (_Accounts *AccountsCallerSession) GetAttestationSigner(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetAttestationSigner(&_Accounts.CallOpts, account)
 }
 
 // GetDataEncryptionKey is a free data retrieval call binding the contract method 0xae32fa0e.
 //
-// Solidity: function getDataEncryptionKey(address account) constant returns(bytes)
+// Solidity: function getDataEncryptionKey(address account) view returns(bytes)
 func (_Accounts *AccountsCaller) GetDataEncryptionKey(opts *bind.CallOpts, account common.Address) ([]byte, error) {
 	var (
 		ret0 = new([]byte)
@@ -303,21 +303,21 @@ func (_Accounts *AccountsCaller) GetDataEncryptionKey(opts *bind.CallOpts, accou
 
 // GetDataEncryptionKey is a free data retrieval call binding the contract method 0xae32fa0e.
 //
-// Solidity: function getDataEncryptionKey(address account) constant returns(bytes)
+// Solidity: function getDataEncryptionKey(address account) view returns(bytes)
 func (_Accounts *AccountsSession) GetDataEncryptionKey(account common.Address) ([]byte, error) {
 	return _Accounts.Contract.GetDataEncryptionKey(&_Accounts.CallOpts, account)
 }
 
 // GetDataEncryptionKey is a free data retrieval call binding the contract method 0xae32fa0e.
 //
-// Solidity: function getDataEncryptionKey(address account) constant returns(bytes)
+// Solidity: function getDataEncryptionKey(address account) view returns(bytes)
 func (_Accounts *AccountsCallerSession) GetDataEncryptionKey(account common.Address) ([]byte, error) {
 	return _Accounts.Contract.GetDataEncryptionKey(&_Accounts.CallOpts, account)
 }
 
 // GetMetadataURL is a free data retrieval call binding the contract method 0xa8ae1a3d.
 //
-// Solidity: function getMetadataURL(address account) constant returns(string)
+// Solidity: function getMetadataURL(address account) view returns(string)
 func (_Accounts *AccountsCaller) GetMetadataURL(opts *bind.CallOpts, account common.Address) (string, error) {
 	var (
 		ret0 = new(string)
@@ -329,21 +329,21 @@ func (_Accounts *AccountsCaller) GetMetadataURL(opts *bind.CallOpts, account com
 
 // GetMetadataURL is a free data retrieval call binding the contract method 0xa8ae1a3d.
 //
-// Solidity: function getMetadataURL(address account) constant returns(string)
+// Solidity: function getMetadataURL(address account) view returns(string)
 func (_Accounts *AccountsSession) GetMetadataURL(account common.Address) (string, error) {
 	return _Accounts.Contract.GetMetadataURL(&_Accounts.CallOpts, account)
 }
 
 // GetMetadataURL is a free data retrieval call binding the contract method 0xa8ae1a3d.
 //
-// Solidity: function getMetadataURL(address account) constant returns(string)
+// Solidity: function getMetadataURL(address account) view returns(string)
 func (_Accounts *AccountsCallerSession) GetMetadataURL(account common.Address) (string, error) {
 	return _Accounts.Contract.GetMetadataURL(&_Accounts.CallOpts, account)
 }
 
 // GetName is a free data retrieval call binding the contract method 0x5fd4b08a.
 //
-// Solidity: function getName(address account) constant returns(string)
+// Solidity: function getName(address account) view returns(string)
 func (_Accounts *AccountsCaller) GetName(opts *bind.CallOpts, account common.Address) (string, error) {
 	var (
 		ret0 = new(string)
@@ -355,21 +355,21 @@ func (_Accounts *AccountsCaller) GetName(opts *bind.CallOpts, account common.Add
 
 // GetName is a free data retrieval call binding the contract method 0x5fd4b08a.
 //
-// Solidity: function getName(address account) constant returns(string)
+// Solidity: function getName(address account) view returns(string)
 func (_Accounts *AccountsSession) GetName(account common.Address) (string, error) {
 	return _Accounts.Contract.GetName(&_Accounts.CallOpts, account)
 }
 
 // GetName is a free data retrieval call binding the contract method 0x5fd4b08a.
 //
-// Solidity: function getName(address account) constant returns(string)
+// Solidity: function getName(address account) view returns(string)
 func (_Accounts *AccountsCallerSession) GetName(account common.Address) (string, error) {
 	return _Accounts.Contract.GetName(&_Accounts.CallOpts, account)
 }
 
 // GetValidatorSigner is a free data retrieval call binding the contract method 0x4ce38b5f.
 //
-// Solidity: function getValidatorSigner(address account) constant returns(address)
+// Solidity: function getValidatorSigner(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetValidatorSigner(opts *bind.CallOpts, account common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -381,21 +381,21 @@ func (_Accounts *AccountsCaller) GetValidatorSigner(opts *bind.CallOpts, account
 
 // GetValidatorSigner is a free data retrieval call binding the contract method 0x4ce38b5f.
 //
-// Solidity: function getValidatorSigner(address account) constant returns(address)
+// Solidity: function getValidatorSigner(address account) view returns(address)
 func (_Accounts *AccountsSession) GetValidatorSigner(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetValidatorSigner(&_Accounts.CallOpts, account)
 }
 
 // GetValidatorSigner is a free data retrieval call binding the contract method 0x4ce38b5f.
 //
-// Solidity: function getValidatorSigner(address account) constant returns(address)
+// Solidity: function getValidatorSigner(address account) view returns(address)
 func (_Accounts *AccountsCallerSession) GetValidatorSigner(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetValidatorSigner(&_Accounts.CallOpts, account)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Accounts *AccountsCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -415,21 +415,21 @@ func (_Accounts *AccountsCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Accounts *AccountsSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Accounts.Contract.GetVersionNumber(&_Accounts.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Accounts *AccountsCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Accounts.Contract.GetVersionNumber(&_Accounts.CallOpts)
 }
 
 // GetVoteSigner is a free data retrieval call binding the contract method 0x41ddd880.
 //
-// Solidity: function getVoteSigner(address account) constant returns(address)
+// Solidity: function getVoteSigner(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetVoteSigner(opts *bind.CallOpts, account common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -441,21 +441,21 @@ func (_Accounts *AccountsCaller) GetVoteSigner(opts *bind.CallOpts, account comm
 
 // GetVoteSigner is a free data retrieval call binding the contract method 0x41ddd880.
 //
-// Solidity: function getVoteSigner(address account) constant returns(address)
+// Solidity: function getVoteSigner(address account) view returns(address)
 func (_Accounts *AccountsSession) GetVoteSigner(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetVoteSigner(&_Accounts.CallOpts, account)
 }
 
 // GetVoteSigner is a free data retrieval call binding the contract method 0x41ddd880.
 //
-// Solidity: function getVoteSigner(address account) constant returns(address)
+// Solidity: function getVoteSigner(address account) view returns(address)
 func (_Accounts *AccountsCallerSession) GetVoteSigner(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetVoteSigner(&_Accounts.CallOpts, account)
 }
 
 // GetWalletAddress is a free data retrieval call binding the contract method 0x1fd9afa5.
 //
-// Solidity: function getWalletAddress(address account) constant returns(address)
+// Solidity: function getWalletAddress(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetWalletAddress(opts *bind.CallOpts, account common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -467,21 +467,21 @@ func (_Accounts *AccountsCaller) GetWalletAddress(opts *bind.CallOpts, account c
 
 // GetWalletAddress is a free data retrieval call binding the contract method 0x1fd9afa5.
 //
-// Solidity: function getWalletAddress(address account) constant returns(address)
+// Solidity: function getWalletAddress(address account) view returns(address)
 func (_Accounts *AccountsSession) GetWalletAddress(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetWalletAddress(&_Accounts.CallOpts, account)
 }
 
 // GetWalletAddress is a free data retrieval call binding the contract method 0x1fd9afa5.
 //
-// Solidity: function getWalletAddress(address account) constant returns(address)
+// Solidity: function getWalletAddress(address account) view returns(address)
 func (_Accounts *AccountsCallerSession) GetWalletAddress(account common.Address) (common.Address, error) {
 	return _Accounts.Contract.GetWalletAddress(&_Accounts.CallOpts, account)
 }
 
 // HasAuthorizedAttestationSigner is a free data retrieval call binding the contract method 0xc2e0ee20.
 //
-// Solidity: function hasAuthorizedAttestationSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedAttestationSigner(address account) view returns(bool)
 func (_Accounts *AccountsCaller) HasAuthorizedAttestationSigner(opts *bind.CallOpts, account common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -493,21 +493,21 @@ func (_Accounts *AccountsCaller) HasAuthorizedAttestationSigner(opts *bind.CallO
 
 // HasAuthorizedAttestationSigner is a free data retrieval call binding the contract method 0xc2e0ee20.
 //
-// Solidity: function hasAuthorizedAttestationSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedAttestationSigner(address account) view returns(bool)
 func (_Accounts *AccountsSession) HasAuthorizedAttestationSigner(account common.Address) (bool, error) {
 	return _Accounts.Contract.HasAuthorizedAttestationSigner(&_Accounts.CallOpts, account)
 }
 
 // HasAuthorizedAttestationSigner is a free data retrieval call binding the contract method 0xc2e0ee20.
 //
-// Solidity: function hasAuthorizedAttestationSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedAttestationSigner(address account) view returns(bool)
 func (_Accounts *AccountsCallerSession) HasAuthorizedAttestationSigner(account common.Address) (bool, error) {
 	return _Accounts.Contract.HasAuthorizedAttestationSigner(&_Accounts.CallOpts, account)
 }
 
 // HasAuthorizedValidatorSigner is a free data retrieval call binding the contract method 0x0127dbed.
 //
-// Solidity: function hasAuthorizedValidatorSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedValidatorSigner(address account) view returns(bool)
 func (_Accounts *AccountsCaller) HasAuthorizedValidatorSigner(opts *bind.CallOpts, account common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -519,21 +519,21 @@ func (_Accounts *AccountsCaller) HasAuthorizedValidatorSigner(opts *bind.CallOpt
 
 // HasAuthorizedValidatorSigner is a free data retrieval call binding the contract method 0x0127dbed.
 //
-// Solidity: function hasAuthorizedValidatorSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedValidatorSigner(address account) view returns(bool)
 func (_Accounts *AccountsSession) HasAuthorizedValidatorSigner(account common.Address) (bool, error) {
 	return _Accounts.Contract.HasAuthorizedValidatorSigner(&_Accounts.CallOpts, account)
 }
 
 // HasAuthorizedValidatorSigner is a free data retrieval call binding the contract method 0x0127dbed.
 //
-// Solidity: function hasAuthorizedValidatorSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedValidatorSigner(address account) view returns(bool)
 func (_Accounts *AccountsCallerSession) HasAuthorizedValidatorSigner(account common.Address) (bool, error) {
 	return _Accounts.Contract.HasAuthorizedValidatorSigner(&_Accounts.CallOpts, account)
 }
 
 // HasAuthorizedVoteSigner is a free data retrieval call binding the contract method 0x614ed493.
 //
-// Solidity: function hasAuthorizedVoteSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedVoteSigner(address account) view returns(bool)
 func (_Accounts *AccountsCaller) HasAuthorizedVoteSigner(opts *bind.CallOpts, account common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -545,21 +545,21 @@ func (_Accounts *AccountsCaller) HasAuthorizedVoteSigner(opts *bind.CallOpts, ac
 
 // HasAuthorizedVoteSigner is a free data retrieval call binding the contract method 0x614ed493.
 //
-// Solidity: function hasAuthorizedVoteSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedVoteSigner(address account) view returns(bool)
 func (_Accounts *AccountsSession) HasAuthorizedVoteSigner(account common.Address) (bool, error) {
 	return _Accounts.Contract.HasAuthorizedVoteSigner(&_Accounts.CallOpts, account)
 }
 
 // HasAuthorizedVoteSigner is a free data retrieval call binding the contract method 0x614ed493.
 //
-// Solidity: function hasAuthorizedVoteSigner(address account) constant returns(bool)
+// Solidity: function hasAuthorizedVoteSigner(address account) view returns(bool)
 func (_Accounts *AccountsCallerSession) HasAuthorizedVoteSigner(account common.Address) (bool, error) {
 	return _Accounts.Contract.HasAuthorizedVoteSigner(&_Accounts.CallOpts, account)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Accounts *AccountsCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -571,21 +571,21 @@ func (_Accounts *AccountsCaller) Initialized(opts *bind.CallOpts) (bool, error) 
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Accounts *AccountsSession) Initialized() (bool, error) {
 	return _Accounts.Contract.Initialized(&_Accounts.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Accounts *AccountsCallerSession) Initialized() (bool, error) {
 	return _Accounts.Contract.Initialized(&_Accounts.CallOpts)
 }
 
 // IsAccount is a free data retrieval call binding the contract method 0x25ca4c9c.
 //
-// Solidity: function isAccount(address account) constant returns(bool)
+// Solidity: function isAccount(address account) view returns(bool)
 func (_Accounts *AccountsCaller) IsAccount(opts *bind.CallOpts, account common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -597,21 +597,21 @@ func (_Accounts *AccountsCaller) IsAccount(opts *bind.CallOpts, account common.A
 
 // IsAccount is a free data retrieval call binding the contract method 0x25ca4c9c.
 //
-// Solidity: function isAccount(address account) constant returns(bool)
+// Solidity: function isAccount(address account) view returns(bool)
 func (_Accounts *AccountsSession) IsAccount(account common.Address) (bool, error) {
 	return _Accounts.Contract.IsAccount(&_Accounts.CallOpts, account)
 }
 
 // IsAccount is a free data retrieval call binding the contract method 0x25ca4c9c.
 //
-// Solidity: function isAccount(address account) constant returns(bool)
+// Solidity: function isAccount(address account) view returns(bool)
 func (_Accounts *AccountsCallerSession) IsAccount(account common.Address) (bool, error) {
 	return _Accounts.Contract.IsAccount(&_Accounts.CallOpts, account)
 }
 
 // IsAuthorizedSigner is a free data retrieval call binding the contract method 0x49045e16.
 //
-// Solidity: function isAuthorizedSigner(address signer) constant returns(bool)
+// Solidity: function isAuthorizedSigner(address signer) view returns(bool)
 func (_Accounts *AccountsCaller) IsAuthorizedSigner(opts *bind.CallOpts, signer common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -623,21 +623,21 @@ func (_Accounts *AccountsCaller) IsAuthorizedSigner(opts *bind.CallOpts, signer 
 
 // IsAuthorizedSigner is a free data retrieval call binding the contract method 0x49045e16.
 //
-// Solidity: function isAuthorizedSigner(address signer) constant returns(bool)
+// Solidity: function isAuthorizedSigner(address signer) view returns(bool)
 func (_Accounts *AccountsSession) IsAuthorizedSigner(signer common.Address) (bool, error) {
 	return _Accounts.Contract.IsAuthorizedSigner(&_Accounts.CallOpts, signer)
 }
 
 // IsAuthorizedSigner is a free data retrieval call binding the contract method 0x49045e16.
 //
-// Solidity: function isAuthorizedSigner(address signer) constant returns(bool)
+// Solidity: function isAuthorizedSigner(address signer) view returns(bool)
 func (_Accounts *AccountsCallerSession) IsAuthorizedSigner(signer common.Address) (bool, error) {
 	return _Accounts.Contract.IsAuthorizedSigner(&_Accounts.CallOpts, signer)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Accounts *AccountsCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -649,21 +649,21 @@ func (_Accounts *AccountsCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Accounts *AccountsSession) IsOwner() (bool, error) {
 	return _Accounts.Contract.IsOwner(&_Accounts.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Accounts *AccountsCallerSession) IsOwner() (bool, error) {
 	return _Accounts.Contract.IsOwner(&_Accounts.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Accounts *AccountsCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -675,21 +675,21 @@ func (_Accounts *AccountsCaller) Owner(opts *bind.CallOpts) (common.Address, err
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Accounts *AccountsSession) Owner() (common.Address, error) {
 	return _Accounts.Contract.Owner(&_Accounts.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Accounts *AccountsCallerSession) Owner() (common.Address, error) {
 	return _Accounts.Contract.Owner(&_Accounts.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Accounts *AccountsCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -701,21 +701,21 @@ func (_Accounts *AccountsCaller) Registry(opts *bind.CallOpts) (common.Address, 
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Accounts *AccountsSession) Registry() (common.Address, error) {
 	return _Accounts.Contract.Registry(&_Accounts.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Accounts *AccountsCallerSession) Registry() (common.Address, error) {
 	return _Accounts.Contract.Registry(&_Accounts.CallOpts)
 }
 
 // SignerToAccount is a free data retrieval call binding the contract method 0x93c5c487.
 //
-// Solidity: function signerToAccount(address signer) constant returns(address)
+// Solidity: function signerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) SignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -727,21 +727,21 @@ func (_Accounts *AccountsCaller) SignerToAccount(opts *bind.CallOpts, signer com
 
 // SignerToAccount is a free data retrieval call binding the contract method 0x93c5c487.
 //
-// Solidity: function signerToAccount(address signer) constant returns(address)
+// Solidity: function signerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsSession) SignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.SignerToAccount(&_Accounts.CallOpts, signer)
 }
 
 // SignerToAccount is a free data retrieval call binding the contract method 0x93c5c487.
 //
-// Solidity: function signerToAccount(address signer) constant returns(address)
+// Solidity: function signerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCallerSession) SignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.SignerToAccount(&_Accounts.CallOpts, signer)
 }
 
 // ValidatorSignerToAccount is a free data retrieval call binding the contract method 0x64439b43.
 //
-// Solidity: function validatorSignerToAccount(address signer) constant returns(address)
+// Solidity: function validatorSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) ValidatorSignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -753,21 +753,21 @@ func (_Accounts *AccountsCaller) ValidatorSignerToAccount(opts *bind.CallOpts, s
 
 // ValidatorSignerToAccount is a free data retrieval call binding the contract method 0x64439b43.
 //
-// Solidity: function validatorSignerToAccount(address signer) constant returns(address)
+// Solidity: function validatorSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsSession) ValidatorSignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.ValidatorSignerToAccount(&_Accounts.CallOpts, signer)
 }
 
 // ValidatorSignerToAccount is a free data retrieval call binding the contract method 0x64439b43.
 //
-// Solidity: function validatorSignerToAccount(address signer) constant returns(address)
+// Solidity: function validatorSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCallerSession) ValidatorSignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.ValidatorSignerToAccount(&_Accounts.CallOpts, signer)
 }
 
 // VoteSignerToAccount is a free data retrieval call binding the contract method 0x6642d594.
 //
-// Solidity: function voteSignerToAccount(address signer) constant returns(address)
+// Solidity: function voteSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) VoteSignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -779,14 +779,14 @@ func (_Accounts *AccountsCaller) VoteSignerToAccount(opts *bind.CallOpts, signer
 
 // VoteSignerToAccount is a free data retrieval call binding the contract method 0x6642d594.
 //
-// Solidity: function voteSignerToAccount(address signer) constant returns(address)
+// Solidity: function voteSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsSession) VoteSignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.VoteSignerToAccount(&_Accounts.CallOpts, signer)
 }
 
 // VoteSignerToAccount is a free data retrieval call binding the contract method 0x6642d594.
 //
-// Solidity: function voteSignerToAccount(address signer) constant returns(address)
+// Solidity: function voteSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCallerSession) VoteSignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.VoteSignerToAccount(&_Accounts.CallOpts, signer)
 }

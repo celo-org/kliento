@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigTransactorRaw) Tran
 
 // MAXOWNERCOUNT is a free data retrieval call binding the contract method 0xd74f8edd.
 //
-// Solidity: function MAX_OWNER_COUNT() constant returns(uint256)
+// Solidity: function MAX_OWNER_COUNT() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) MAXOWNERCOUNT(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) MAXOWNERCOU
 
 // MAXOWNERCOUNT is a free data retrieval call binding the contract method 0xd74f8edd.
 //
-// Solidity: function MAX_OWNER_COUNT() constant returns(uint256)
+// Solidity: function MAX_OWNER_COUNT() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) MAXOWNERCOUNT() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.MAXOWNERCOUNT(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // MAXOWNERCOUNT is a free data retrieval call binding the contract method 0xd74f8edd.
 //
-// Solidity: function MAX_OWNER_COUNT() constant returns(uint256)
+// Solidity: function MAX_OWNER_COUNT() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) MAXOWNERCOUNT() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.MAXOWNERCOUNT(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // Confirmations is a free data retrieval call binding the contract method 0x3411c81c.
 //
-// Solidity: function confirmations(uint256 , address ) constant returns(bool)
+// Solidity: function confirmations(uint256 , address ) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Confirmations(opts *bind.CallOpts, arg0 *big.Int, arg1 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -221,21 +221,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Confirmatio
 
 // Confirmations is a free data retrieval call binding the contract method 0x3411c81c.
 //
-// Solidity: function confirmations(uint256 , address ) constant returns(bool)
+// Solidity: function confirmations(uint256 , address ) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) Confirmations(arg0 *big.Int, arg1 common.Address) (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.Confirmations(&_GovernanceApproverMultiSig.CallOpts, arg0, arg1)
 }
 
 // Confirmations is a free data retrieval call binding the contract method 0x3411c81c.
 //
-// Solidity: function confirmations(uint256 , address ) constant returns(bool)
+// Solidity: function confirmations(uint256 , address ) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) Confirmations(arg0 *big.Int, arg1 common.Address) (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.Confirmations(&_GovernanceApproverMultiSig.CallOpts, arg0, arg1)
 }
 
 // GetConfirmationCount is a free data retrieval call binding the contract method 0x8b51d13f.
 //
-// Solidity: function getConfirmationCount(uint256 transactionId) constant returns(uint256 count)
+// Solidity: function getConfirmationCount(uint256 transactionId) view returns(uint256 count)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetConfirmationCount(opts *bind.CallOpts, transactionId *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -247,21 +247,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetConfirma
 
 // GetConfirmationCount is a free data retrieval call binding the contract method 0x8b51d13f.
 //
-// Solidity: function getConfirmationCount(uint256 transactionId) constant returns(uint256 count)
+// Solidity: function getConfirmationCount(uint256 transactionId) view returns(uint256 count)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) GetConfirmationCount(transactionId *big.Int) (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.GetConfirmationCount(&_GovernanceApproverMultiSig.CallOpts, transactionId)
 }
 
 // GetConfirmationCount is a free data retrieval call binding the contract method 0x8b51d13f.
 //
-// Solidity: function getConfirmationCount(uint256 transactionId) constant returns(uint256 count)
+// Solidity: function getConfirmationCount(uint256 transactionId) view returns(uint256 count)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) GetConfirmationCount(transactionId *big.Int) (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.GetConfirmationCount(&_GovernanceApproverMultiSig.CallOpts, transactionId)
 }
 
 // GetConfirmations is a free data retrieval call binding the contract method 0xb5dc40c3.
 //
-// Solidity: function getConfirmations(uint256 transactionId) constant returns(address[] _confirmations)
+// Solidity: function getConfirmations(uint256 transactionId) view returns(address[] _confirmations)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetConfirmations(opts *bind.CallOpts, transactionId *big.Int) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -273,21 +273,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetConfirma
 
 // GetConfirmations is a free data retrieval call binding the contract method 0xb5dc40c3.
 //
-// Solidity: function getConfirmations(uint256 transactionId) constant returns(address[] _confirmations)
+// Solidity: function getConfirmations(uint256 transactionId) view returns(address[] _confirmations)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) GetConfirmations(transactionId *big.Int) ([]common.Address, error) {
 	return _GovernanceApproverMultiSig.Contract.GetConfirmations(&_GovernanceApproverMultiSig.CallOpts, transactionId)
 }
 
 // GetConfirmations is a free data retrieval call binding the contract method 0xb5dc40c3.
 //
-// Solidity: function getConfirmations(uint256 transactionId) constant returns(address[] _confirmations)
+// Solidity: function getConfirmations(uint256 transactionId) view returns(address[] _confirmations)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) GetConfirmations(transactionId *big.Int) ([]common.Address, error) {
 	return _GovernanceApproverMultiSig.Contract.GetConfirmations(&_GovernanceApproverMultiSig.CallOpts, transactionId)
 }
 
 // GetOwners is a free data retrieval call binding the contract method 0xa0e67e2b.
 //
-// Solidity: function getOwners() constant returns(address[])
+// Solidity: function getOwners() view returns(address[])
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetOwners(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -299,21 +299,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetOwners(o
 
 // GetOwners is a free data retrieval call binding the contract method 0xa0e67e2b.
 //
-// Solidity: function getOwners() constant returns(address[])
+// Solidity: function getOwners() view returns(address[])
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) GetOwners() ([]common.Address, error) {
 	return _GovernanceApproverMultiSig.Contract.GetOwners(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // GetOwners is a free data retrieval call binding the contract method 0xa0e67e2b.
 //
-// Solidity: function getOwners() constant returns(address[])
+// Solidity: function getOwners() view returns(address[])
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) GetOwners() ([]common.Address, error) {
 	return _GovernanceApproverMultiSig.Contract.GetOwners(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // GetTransactionCount is a free data retrieval call binding the contract method 0x54741525.
 //
-// Solidity: function getTransactionCount(bool pending, bool executed) constant returns(uint256 count)
+// Solidity: function getTransactionCount(bool pending, bool executed) view returns(uint256 count)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetTransactionCount(opts *bind.CallOpts, pending bool, executed bool) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -325,21 +325,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetTransact
 
 // GetTransactionCount is a free data retrieval call binding the contract method 0x54741525.
 //
-// Solidity: function getTransactionCount(bool pending, bool executed) constant returns(uint256 count)
+// Solidity: function getTransactionCount(bool pending, bool executed) view returns(uint256 count)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) GetTransactionCount(pending bool, executed bool) (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.GetTransactionCount(&_GovernanceApproverMultiSig.CallOpts, pending, executed)
 }
 
 // GetTransactionCount is a free data retrieval call binding the contract method 0x54741525.
 //
-// Solidity: function getTransactionCount(bool pending, bool executed) constant returns(uint256 count)
+// Solidity: function getTransactionCount(bool pending, bool executed) view returns(uint256 count)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) GetTransactionCount(pending bool, executed bool) (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.GetTransactionCount(&_GovernanceApproverMultiSig.CallOpts, pending, executed)
 }
 
 // GetTransactionIds is a free data retrieval call binding the contract method 0xa8abe69a.
 //
-// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) constant returns(uint256[] _transactionIds)
+// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) view returns(uint256[] _transactionIds)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetTransactionIds(opts *bind.CallOpts, from *big.Int, to *big.Int, pending bool, executed bool) ([]*big.Int, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -351,21 +351,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) GetTransact
 
 // GetTransactionIds is a free data retrieval call binding the contract method 0xa8abe69a.
 //
-// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) constant returns(uint256[] _transactionIds)
+// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) view returns(uint256[] _transactionIds)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) GetTransactionIds(from *big.Int, to *big.Int, pending bool, executed bool) ([]*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.GetTransactionIds(&_GovernanceApproverMultiSig.CallOpts, from, to, pending, executed)
 }
 
 // GetTransactionIds is a free data retrieval call binding the contract method 0xa8abe69a.
 //
-// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) constant returns(uint256[] _transactionIds)
+// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) view returns(uint256[] _transactionIds)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) GetTransactionIds(from *big.Int, to *big.Int, pending bool, executed bool) ([]*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.GetTransactionIds(&_GovernanceApproverMultiSig.CallOpts, from, to, pending, executed)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -377,21 +377,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Initialized
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) Initialized() (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.Initialized(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) Initialized() (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.Initialized(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // InternalRequired is a free data retrieval call binding the contract method 0xa24efcdf.
 //
-// Solidity: function internalRequired() constant returns(uint256)
+// Solidity: function internalRequired() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) InternalRequired(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -403,21 +403,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) InternalReq
 
 // InternalRequired is a free data retrieval call binding the contract method 0xa24efcdf.
 //
-// Solidity: function internalRequired() constant returns(uint256)
+// Solidity: function internalRequired() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) InternalRequired() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.InternalRequired(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // InternalRequired is a free data retrieval call binding the contract method 0xa24efcdf.
 //
-// Solidity: function internalRequired() constant returns(uint256)
+// Solidity: function internalRequired() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) InternalRequired() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.InternalRequired(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // IsConfirmed is a free data retrieval call binding the contract method 0x784547a7.
 //
-// Solidity: function isConfirmed(uint256 transactionId) constant returns(bool)
+// Solidity: function isConfirmed(uint256 transactionId) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) IsConfirmed(opts *bind.CallOpts, transactionId *big.Int) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -429,21 +429,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) IsConfirmed
 
 // IsConfirmed is a free data retrieval call binding the contract method 0x784547a7.
 //
-// Solidity: function isConfirmed(uint256 transactionId) constant returns(bool)
+// Solidity: function isConfirmed(uint256 transactionId) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) IsConfirmed(transactionId *big.Int) (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.IsConfirmed(&_GovernanceApproverMultiSig.CallOpts, transactionId)
 }
 
 // IsConfirmed is a free data retrieval call binding the contract method 0x784547a7.
 //
-// Solidity: function isConfirmed(uint256 transactionId) constant returns(bool)
+// Solidity: function isConfirmed(uint256 transactionId) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) IsConfirmed(transactionId *big.Int) (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.IsConfirmed(&_GovernanceApproverMultiSig.CallOpts, transactionId)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x2f54bf6e.
 //
-// Solidity: function isOwner(address ) constant returns(bool)
+// Solidity: function isOwner(address ) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) IsOwner(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -455,21 +455,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) IsOwner(opt
 
 // IsOwner is a free data retrieval call binding the contract method 0x2f54bf6e.
 //
-// Solidity: function isOwner(address ) constant returns(bool)
+// Solidity: function isOwner(address ) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) IsOwner(arg0 common.Address) (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.IsOwner(&_GovernanceApproverMultiSig.CallOpts, arg0)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x2f54bf6e.
 //
-// Solidity: function isOwner(address ) constant returns(bool)
+// Solidity: function isOwner(address ) view returns(bool)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) IsOwner(arg0 common.Address) (bool, error) {
 	return _GovernanceApproverMultiSig.Contract.IsOwner(&_GovernanceApproverMultiSig.CallOpts, arg0)
 }
 
 // Owners is a free data retrieval call binding the contract method 0x025e7c27.
 //
-// Solidity: function owners(uint256 ) constant returns(address)
+// Solidity: function owners(uint256 ) view returns(address)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Owners(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -481,21 +481,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Owners(opts
 
 // Owners is a free data retrieval call binding the contract method 0x025e7c27.
 //
-// Solidity: function owners(uint256 ) constant returns(address)
+// Solidity: function owners(uint256 ) view returns(address)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) Owners(arg0 *big.Int) (common.Address, error) {
 	return _GovernanceApproverMultiSig.Contract.Owners(&_GovernanceApproverMultiSig.CallOpts, arg0)
 }
 
 // Owners is a free data retrieval call binding the contract method 0x025e7c27.
 //
-// Solidity: function owners(uint256 ) constant returns(address)
+// Solidity: function owners(uint256 ) view returns(address)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) Owners(arg0 *big.Int) (common.Address, error) {
 	return _GovernanceApproverMultiSig.Contract.Owners(&_GovernanceApproverMultiSig.CallOpts, arg0)
 }
 
 // Required is a free data retrieval call binding the contract method 0xdc8452cd.
 //
-// Solidity: function required() constant returns(uint256)
+// Solidity: function required() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Required(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -507,21 +507,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Required(op
 
 // Required is a free data retrieval call binding the contract method 0xdc8452cd.
 //
-// Solidity: function required() constant returns(uint256)
+// Solidity: function required() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) Required() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.Required(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // Required is a free data retrieval call binding the contract method 0xdc8452cd.
 //
-// Solidity: function required() constant returns(uint256)
+// Solidity: function required() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) Required() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.Required(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // TransactionCount is a free data retrieval call binding the contract method 0xb77bf600.
 //
-// Solidity: function transactionCount() constant returns(uint256)
+// Solidity: function transactionCount() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) TransactionCount(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -533,21 +533,21 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Transaction
 
 // TransactionCount is a free data retrieval call binding the contract method 0xb77bf600.
 //
-// Solidity: function transactionCount() constant returns(uint256)
+// Solidity: function transactionCount() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) TransactionCount() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.TransactionCount(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // TransactionCount is a free data retrieval call binding the contract method 0xb77bf600.
 //
-// Solidity: function transactionCount() constant returns(uint256)
+// Solidity: function transactionCount() view returns(uint256)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) TransactionCount() (*big.Int, error) {
 	return _GovernanceApproverMultiSig.Contract.TransactionCount(&_GovernanceApproverMultiSig.CallOpts)
 }
 
 // Transactions is a free data retrieval call binding the contract method 0x9ace38c2.
 //
-// Solidity: function transactions(uint256 ) constant returns(address destination, uint256 value, bytes data, bool executed)
+// Solidity: function transactions(uint256 ) view returns(address destination, uint256 value, bytes data, bool executed)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Transactions(opts *bind.CallOpts, arg0 *big.Int) (struct {
 	Destination common.Address
 	Value       *big.Int
@@ -567,7 +567,7 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCaller) Transaction
 
 // Transactions is a free data retrieval call binding the contract method 0x9ace38c2.
 //
-// Solidity: function transactions(uint256 ) constant returns(address destination, uint256 value, bytes data, bool executed)
+// Solidity: function transactions(uint256 ) view returns(address destination, uint256 value, bytes data, bool executed)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) Transactions(arg0 *big.Int) (struct {
 	Destination common.Address
 	Value       *big.Int
@@ -579,7 +579,7 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) Transactio
 
 // Transactions is a free data retrieval call binding the contract method 0x9ace38c2.
 //
-// Solidity: function transactions(uint256 ) constant returns(address destination, uint256 value, bytes data, bool executed)
+// Solidity: function transactions(uint256 ) view returns(address destination, uint256 value, bytes data, bool executed)
 func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigCallerSession) Transactions(arg0 *big.Int) (struct {
 	Destination common.Address
 	Value       *big.Int
@@ -831,6 +831,27 @@ func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigFilterer) TryParseL
 	}
 
 	return eventName, event, ok, nil
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigTransactor) Fallback(opts *bind.TransactOpts, calldata []byte) (*types.Transaction, error) {
+	return _GovernanceApproverMultiSig.contract.RawTransact(opts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _GovernanceApproverMultiSig.Contract.Fallback(&_GovernanceApproverMultiSig.TransactOpts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_GovernanceApproverMultiSig *GovernanceApproverMultiSigTransactorSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _GovernanceApproverMultiSig.Contract.Fallback(&_GovernanceApproverMultiSig.TransactOpts, calldata)
 }
 
 // GovernanceApproverMultiSigConfirmationIterator is returned from FilterConfirmation and is used to iterate over the raw logs and unpacked data for Confirmation events raised by the GovernanceApproverMultiSig contract.

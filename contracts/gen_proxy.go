@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_Proxy *ProxyTransactorRaw) Transact(opts *bind.TransactOpts, method strin
 
 // GetImplementation is a free data retrieval call binding the contract method 0x42404e07.
 //
-// Solidity: function _getImplementation() constant returns(address implementation)
+// Solidity: function _getImplementation() view returns(address implementation)
 func (_Proxy *ProxyCaller) GetImplementation(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -195,21 +195,21 @@ func (_Proxy *ProxyCaller) GetImplementation(opts *bind.CallOpts) (common.Addres
 
 // GetImplementation is a free data retrieval call binding the contract method 0x42404e07.
 //
-// Solidity: function _getImplementation() constant returns(address implementation)
+// Solidity: function _getImplementation() view returns(address implementation)
 func (_Proxy *ProxySession) GetImplementation() (common.Address, error) {
 	return _Proxy.Contract.GetImplementation(&_Proxy.CallOpts)
 }
 
 // GetImplementation is a free data retrieval call binding the contract method 0x42404e07.
 //
-// Solidity: function _getImplementation() constant returns(address implementation)
+// Solidity: function _getImplementation() view returns(address implementation)
 func (_Proxy *ProxyCallerSession) GetImplementation() (common.Address, error) {
 	return _Proxy.Contract.GetImplementation(&_Proxy.CallOpts)
 }
 
 // GetOwner is a free data retrieval call binding the contract method 0xf7e6af80.
 //
-// Solidity: function _getOwner() constant returns(address owner)
+// Solidity: function _getOwner() view returns(address owner)
 func (_Proxy *ProxyCaller) GetOwner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -221,35 +221,35 @@ func (_Proxy *ProxyCaller) GetOwner(opts *bind.CallOpts) (common.Address, error)
 
 // GetOwner is a free data retrieval call binding the contract method 0xf7e6af80.
 //
-// Solidity: function _getOwner() constant returns(address owner)
+// Solidity: function _getOwner() view returns(address owner)
 func (_Proxy *ProxySession) GetOwner() (common.Address, error) {
 	return _Proxy.Contract.GetOwner(&_Proxy.CallOpts)
 }
 
 // GetOwner is a free data retrieval call binding the contract method 0xf7e6af80.
 //
-// Solidity: function _getOwner() constant returns(address owner)
+// Solidity: function _getOwner() view returns(address owner)
 func (_Proxy *ProxyCallerSession) GetOwner() (common.Address, error) {
 	return _Proxy.Contract.GetOwner(&_Proxy.CallOpts)
 }
 
 // SetAndInitializeImplementation is a paid mutator transaction binding the contract method 0x03386ba3.
 //
-// Solidity: function _setAndInitializeImplementation(address implementation, bytes callbackData) returns()
+// Solidity: function _setAndInitializeImplementation(address implementation, bytes callbackData) payable returns()
 func (_Proxy *ProxyTransactor) SetAndInitializeImplementation(opts *bind.TransactOpts, implementation common.Address, callbackData []byte) (*types.Transaction, error) {
 	return _Proxy.contract.Transact(opts, "_setAndInitializeImplementation", implementation, callbackData)
 }
 
 // SetAndInitializeImplementation is a paid mutator transaction binding the contract method 0x03386ba3.
 //
-// Solidity: function _setAndInitializeImplementation(address implementation, bytes callbackData) returns()
+// Solidity: function _setAndInitializeImplementation(address implementation, bytes callbackData) payable returns()
 func (_Proxy *ProxySession) SetAndInitializeImplementation(implementation common.Address, callbackData []byte) (*types.Transaction, error) {
 	return _Proxy.Contract.SetAndInitializeImplementation(&_Proxy.TransactOpts, implementation, callbackData)
 }
 
 // SetAndInitializeImplementation is a paid mutator transaction binding the contract method 0x03386ba3.
 //
-// Solidity: function _setAndInitializeImplementation(address implementation, bytes callbackData) returns()
+// Solidity: function _setAndInitializeImplementation(address implementation, bytes callbackData) payable returns()
 func (_Proxy *ProxyTransactorSession) SetAndInitializeImplementation(implementation common.Address, callbackData []byte) (*types.Transaction, error) {
 	return _Proxy.Contract.SetAndInitializeImplementation(&_Proxy.TransactOpts, implementation, callbackData)
 }
@@ -314,6 +314,27 @@ func (_Proxy *ProxyFilterer) TryParseLog(log types.Log) (eventName string, event
 	}
 
 	return eventName, event, ok, nil
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_Proxy *ProxyTransactor) Fallback(opts *bind.TransactOpts, calldata []byte) (*types.Transaction, error) {
+	return _Proxy.contract.RawTransact(opts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_Proxy *ProxySession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _Proxy.Contract.Fallback(&_Proxy.TransactOpts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_Proxy *ProxyTransactorSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _Proxy.Contract.Fallback(&_Proxy.TransactOpts, calldata)
 }
 
 // ProxyImplementationSetIterator is returned from FilterImplementationSet and is used to iterate over the raw logs and unpacked data for ImplementationSet events raised by the Proxy contract.

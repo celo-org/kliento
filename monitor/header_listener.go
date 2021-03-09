@@ -21,9 +21,9 @@ import (
 
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/utils/bn"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/log"
+	"github.com/celo-org/celo-blockchain/rpc"
 )
 
 type listener struct {

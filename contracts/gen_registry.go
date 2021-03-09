@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_Registry *RegistryTransactorRaw) Transact(opts *bind.TransactOpts, method
 
 // GetAddressFor is a free data retrieval call binding the contract method 0xdd927233.
 //
-// Solidity: function getAddressFor(bytes32 identifierHash) constant returns(address)
+// Solidity: function getAddressFor(bytes32 identifierHash) view returns(address)
 func (_Registry *RegistryCaller) GetAddressFor(opts *bind.CallOpts, identifierHash [32]byte) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -195,21 +195,21 @@ func (_Registry *RegistryCaller) GetAddressFor(opts *bind.CallOpts, identifierHa
 
 // GetAddressFor is a free data retrieval call binding the contract method 0xdd927233.
 //
-// Solidity: function getAddressFor(bytes32 identifierHash) constant returns(address)
+// Solidity: function getAddressFor(bytes32 identifierHash) view returns(address)
 func (_Registry *RegistrySession) GetAddressFor(identifierHash [32]byte) (common.Address, error) {
 	return _Registry.Contract.GetAddressFor(&_Registry.CallOpts, identifierHash)
 }
 
 // GetAddressFor is a free data retrieval call binding the contract method 0xdd927233.
 //
-// Solidity: function getAddressFor(bytes32 identifierHash) constant returns(address)
+// Solidity: function getAddressFor(bytes32 identifierHash) view returns(address)
 func (_Registry *RegistryCallerSession) GetAddressFor(identifierHash [32]byte) (common.Address, error) {
 	return _Registry.Contract.GetAddressFor(&_Registry.CallOpts, identifierHash)
 }
 
 // GetAddressForOrDie is a free data retrieval call binding the contract method 0xdcf0aaed.
 //
-// Solidity: function getAddressForOrDie(bytes32 identifierHash) constant returns(address)
+// Solidity: function getAddressForOrDie(bytes32 identifierHash) view returns(address)
 func (_Registry *RegistryCaller) GetAddressForOrDie(opts *bind.CallOpts, identifierHash [32]byte) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -221,21 +221,21 @@ func (_Registry *RegistryCaller) GetAddressForOrDie(opts *bind.CallOpts, identif
 
 // GetAddressForOrDie is a free data retrieval call binding the contract method 0xdcf0aaed.
 //
-// Solidity: function getAddressForOrDie(bytes32 identifierHash) constant returns(address)
+// Solidity: function getAddressForOrDie(bytes32 identifierHash) view returns(address)
 func (_Registry *RegistrySession) GetAddressForOrDie(identifierHash [32]byte) (common.Address, error) {
 	return _Registry.Contract.GetAddressForOrDie(&_Registry.CallOpts, identifierHash)
 }
 
 // GetAddressForOrDie is a free data retrieval call binding the contract method 0xdcf0aaed.
 //
-// Solidity: function getAddressForOrDie(bytes32 identifierHash) constant returns(address)
+// Solidity: function getAddressForOrDie(bytes32 identifierHash) view returns(address)
 func (_Registry *RegistryCallerSession) GetAddressForOrDie(identifierHash [32]byte) (common.Address, error) {
 	return _Registry.Contract.GetAddressForOrDie(&_Registry.CallOpts, identifierHash)
 }
 
 // GetAddressForString is a free data retrieval call binding the contract method 0x853db323.
 //
-// Solidity: function getAddressForString(string identifier) constant returns(address)
+// Solidity: function getAddressForString(string identifier) view returns(address)
 func (_Registry *RegistryCaller) GetAddressForString(opts *bind.CallOpts, identifier string) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -247,21 +247,21 @@ func (_Registry *RegistryCaller) GetAddressForString(opts *bind.CallOpts, identi
 
 // GetAddressForString is a free data retrieval call binding the contract method 0x853db323.
 //
-// Solidity: function getAddressForString(string identifier) constant returns(address)
+// Solidity: function getAddressForString(string identifier) view returns(address)
 func (_Registry *RegistrySession) GetAddressForString(identifier string) (common.Address, error) {
 	return _Registry.Contract.GetAddressForString(&_Registry.CallOpts, identifier)
 }
 
 // GetAddressForString is a free data retrieval call binding the contract method 0x853db323.
 //
-// Solidity: function getAddressForString(string identifier) constant returns(address)
+// Solidity: function getAddressForString(string identifier) view returns(address)
 func (_Registry *RegistryCallerSession) GetAddressForString(identifier string) (common.Address, error) {
 	return _Registry.Contract.GetAddressForString(&_Registry.CallOpts, identifier)
 }
 
 // GetAddressForStringOrDie is a free data retrieval call binding the contract method 0x8932cbf4.
 //
-// Solidity: function getAddressForStringOrDie(string identifier) constant returns(address)
+// Solidity: function getAddressForStringOrDie(string identifier) view returns(address)
 func (_Registry *RegistryCaller) GetAddressForStringOrDie(opts *bind.CallOpts, identifier string) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -273,21 +273,21 @@ func (_Registry *RegistryCaller) GetAddressForStringOrDie(opts *bind.CallOpts, i
 
 // GetAddressForStringOrDie is a free data retrieval call binding the contract method 0x8932cbf4.
 //
-// Solidity: function getAddressForStringOrDie(string identifier) constant returns(address)
+// Solidity: function getAddressForStringOrDie(string identifier) view returns(address)
 func (_Registry *RegistrySession) GetAddressForStringOrDie(identifier string) (common.Address, error) {
 	return _Registry.Contract.GetAddressForStringOrDie(&_Registry.CallOpts, identifier)
 }
 
 // GetAddressForStringOrDie is a free data retrieval call binding the contract method 0x8932cbf4.
 //
-// Solidity: function getAddressForStringOrDie(string identifier) constant returns(address)
+// Solidity: function getAddressForStringOrDie(string identifier) view returns(address)
 func (_Registry *RegistryCallerSession) GetAddressForStringOrDie(identifier string) (common.Address, error) {
 	return _Registry.Contract.GetAddressForStringOrDie(&_Registry.CallOpts, identifier)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Registry *RegistryCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -299,21 +299,21 @@ func (_Registry *RegistryCaller) Initialized(opts *bind.CallOpts) (bool, error) 
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Registry *RegistrySession) Initialized() (bool, error) {
 	return _Registry.Contract.Initialized(&_Registry.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Registry *RegistryCallerSession) Initialized() (bool, error) {
 	return _Registry.Contract.Initialized(&_Registry.CallOpts)
 }
 
 // IsOneOf is a free data retrieval call binding the contract method 0x17c50818.
 //
-// Solidity: function isOneOf(bytes32[] identifierHashes, address sender) constant returns(bool)
+// Solidity: function isOneOf(bytes32[] identifierHashes, address sender) view returns(bool)
 func (_Registry *RegistryCaller) IsOneOf(opts *bind.CallOpts, identifierHashes [][32]byte, sender common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -325,21 +325,21 @@ func (_Registry *RegistryCaller) IsOneOf(opts *bind.CallOpts, identifierHashes [
 
 // IsOneOf is a free data retrieval call binding the contract method 0x17c50818.
 //
-// Solidity: function isOneOf(bytes32[] identifierHashes, address sender) constant returns(bool)
+// Solidity: function isOneOf(bytes32[] identifierHashes, address sender) view returns(bool)
 func (_Registry *RegistrySession) IsOneOf(identifierHashes [][32]byte, sender common.Address) (bool, error) {
 	return _Registry.Contract.IsOneOf(&_Registry.CallOpts, identifierHashes, sender)
 }
 
 // IsOneOf is a free data retrieval call binding the contract method 0x17c50818.
 //
-// Solidity: function isOneOf(bytes32[] identifierHashes, address sender) constant returns(bool)
+// Solidity: function isOneOf(bytes32[] identifierHashes, address sender) view returns(bool)
 func (_Registry *RegistryCallerSession) IsOneOf(identifierHashes [][32]byte, sender common.Address) (bool, error) {
 	return _Registry.Contract.IsOneOf(&_Registry.CallOpts, identifierHashes, sender)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Registry *RegistryCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -351,21 +351,21 @@ func (_Registry *RegistryCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Registry *RegistrySession) IsOwner() (bool, error) {
 	return _Registry.Contract.IsOwner(&_Registry.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Registry *RegistryCallerSession) IsOwner() (bool, error) {
 	return _Registry.Contract.IsOwner(&_Registry.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Registry *RegistryCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -377,21 +377,21 @@ func (_Registry *RegistryCaller) Owner(opts *bind.CallOpts) (common.Address, err
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Registry *RegistrySession) Owner() (common.Address, error) {
 	return _Registry.Contract.Owner(&_Registry.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Registry *RegistryCallerSession) Owner() (common.Address, error) {
 	return _Registry.Contract.Owner(&_Registry.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7ef50298.
 //
-// Solidity: function registry(bytes32 ) constant returns(address)
+// Solidity: function registry(bytes32 ) view returns(address)
 func (_Registry *RegistryCaller) Registry(opts *bind.CallOpts, arg0 [32]byte) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -403,14 +403,14 @@ func (_Registry *RegistryCaller) Registry(opts *bind.CallOpts, arg0 [32]byte) (c
 
 // Registry is a free data retrieval call binding the contract method 0x7ef50298.
 //
-// Solidity: function registry(bytes32 ) constant returns(address)
+// Solidity: function registry(bytes32 ) view returns(address)
 func (_Registry *RegistrySession) Registry(arg0 [32]byte) (common.Address, error) {
 	return _Registry.Contract.Registry(&_Registry.CallOpts, arg0)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7ef50298.
 //
-// Solidity: function registry(bytes32 ) constant returns(address)
+// Solidity: function registry(bytes32 ) view returns(address)
 func (_Registry *RegistryCallerSession) Registry(arg0 [32]byte) (common.Address, error) {
 	return _Registry.Contract.Registry(&_Registry.CallOpts, arg0)
 }
