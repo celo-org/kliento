@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +28,7 @@ var (
 )
 
 // SortedOraclesABI is the input ABI used to generate the binding from.
-const SortedOraclesABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"}],\"name\":\"MedianUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"}],\"name\":\"OracleAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"}],\"name\":\"OracleRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"}],\"name\":\"OracleReportRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"rate\",\"type\":\"uint256\"}],\"name\":\"OracleReported\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reportExpiry\",\"type\":\"uint256\"}],\"name\":\"ReportExpirySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reportExpiry\",\"type\":\"uint256\"}],\"name\":\"TokenReportExpirySet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isOracle\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"oracles\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reportExpirySeconds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenReportExpirySeconds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_reportExpirySeconds\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_reportExpirySeconds\",\"type\":\"uint256\"}],\"name\":\"setReportExpiry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_reportExpirySeconds\",\"type\":\"uint256\"}],\"name\":\"setTokenReportExpiry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"}],\"name\":\"addOracle\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeOracle\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"n\",\"type\":\"uint256\"}],\"name\":\"removeExpiredReports\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"isOldestReportExpired\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesserKey\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greaterKey\",\"type\":\"address\"}],\"name\":\"report\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"numRates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"medianRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getRates\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"enumSortedLinkedListWithMedian.MedianRelation[]\",\"name\":\"\",\"type\":\"uint8[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"numTimestamps\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"medianTimestamp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getTimestamps\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"enumSortedLinkedListWithMedian.MedianRelation[]\",\"name\":\"\",\"type\":\"uint8[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getOracles\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getTokenReportExpirySeconds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+const SortedOraclesABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"MedianUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"}],\"name\":\"OracleAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"}],\"name\":\"OracleRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"}],\"name\":\"OracleReportRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"OracleReported\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reportExpiry\",\"type\":\"uint256\"}],\"name\":\"ReportExpirySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reportExpiry\",\"type\":\"uint256\"}],\"name\":\"TokenReportExpirySet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isOracle\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"oracles\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reportExpirySeconds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenReportExpirySeconds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_reportExpirySeconds\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_reportExpirySeconds\",\"type\":\"uint256\"}],\"name\":\"setReportExpiry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_reportExpirySeconds\",\"type\":\"uint256\"}],\"name\":\"setTokenReportExpiry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"}],\"name\":\"addOracle\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeOracle\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"n\",\"type\":\"uint256\"}],\"name\":\"removeExpiredReports\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"isOldestReportExpired\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesserKey\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greaterKey\",\"type\":\"address\"}],\"name\":\"report\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"numRates\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"medianRate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getRates\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"enumSortedLinkedListWithMedian.MedianRelation[]\",\"name\":\"\",\"type\":\"uint8[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"numTimestamps\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"medianTimestamp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getTimestamps\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"enumSortedLinkedListWithMedian.MedianRelation[]\",\"name\":\"\",\"type\":\"uint8[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getOracles\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"getTokenReportExpirySeconds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
 
 // SortedOracles is an auto generated Go binding around an Ethereum contract.
 type SortedOracles struct {
@@ -183,7 +183,7 @@ func (_SortedOracles *SortedOraclesTransactorRaw) Transact(opts *bind.TransactOp
 
 // GetOracles is a free data retrieval call binding the contract method 0x8e749281.
 //
-// Solidity: function getOracles(address token) constant returns(address[])
+// Solidity: function getOracles(address token) view returns(address[])
 func (_SortedOracles *SortedOraclesCaller) GetOracles(opts *bind.CallOpts, token common.Address) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -195,21 +195,21 @@ func (_SortedOracles *SortedOraclesCaller) GetOracles(opts *bind.CallOpts, token
 
 // GetOracles is a free data retrieval call binding the contract method 0x8e749281.
 //
-// Solidity: function getOracles(address token) constant returns(address[])
+// Solidity: function getOracles(address token) view returns(address[])
 func (_SortedOracles *SortedOraclesSession) GetOracles(token common.Address) ([]common.Address, error) {
 	return _SortedOracles.Contract.GetOracles(&_SortedOracles.CallOpts, token)
 }
 
 // GetOracles is a free data retrieval call binding the contract method 0x8e749281.
 //
-// Solidity: function getOracles(address token) constant returns(address[])
+// Solidity: function getOracles(address token) view returns(address[])
 func (_SortedOracles *SortedOraclesCallerSession) GetOracles(token common.Address) ([]common.Address, error) {
 	return _SortedOracles.Contract.GetOracles(&_SortedOracles.CallOpts, token)
 }
 
 // GetRates is a free data retrieval call binding the contract method 0x02f55b61.
 //
-// Solidity: function getRates(address token) constant returns(address[], uint256[], uint8[])
+// Solidity: function getRates(address token) view returns(address[], uint256[], uint8[])
 func (_SortedOracles *SortedOraclesCaller) GetRates(opts *bind.CallOpts, token common.Address) ([]common.Address, []*big.Int, []uint8, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -227,21 +227,21 @@ func (_SortedOracles *SortedOraclesCaller) GetRates(opts *bind.CallOpts, token c
 
 // GetRates is a free data retrieval call binding the contract method 0x02f55b61.
 //
-// Solidity: function getRates(address token) constant returns(address[], uint256[], uint8[])
+// Solidity: function getRates(address token) view returns(address[], uint256[], uint8[])
 func (_SortedOracles *SortedOraclesSession) GetRates(token common.Address) ([]common.Address, []*big.Int, []uint8, error) {
 	return _SortedOracles.Contract.GetRates(&_SortedOracles.CallOpts, token)
 }
 
 // GetRates is a free data retrieval call binding the contract method 0x02f55b61.
 //
-// Solidity: function getRates(address token) constant returns(address[], uint256[], uint8[])
+// Solidity: function getRates(address token) view returns(address[], uint256[], uint8[])
 func (_SortedOracles *SortedOraclesCallerSession) GetRates(token common.Address) ([]common.Address, []*big.Int, []uint8, error) {
 	return _SortedOracles.Contract.GetRates(&_SortedOracles.CallOpts, token)
 }
 
 // GetTimestamps is a free data retrieval call binding the contract method 0xb9292158.
 //
-// Solidity: function getTimestamps(address token) constant returns(address[], uint256[], uint8[])
+// Solidity: function getTimestamps(address token) view returns(address[], uint256[], uint8[])
 func (_SortedOracles *SortedOraclesCaller) GetTimestamps(opts *bind.CallOpts, token common.Address) ([]common.Address, []*big.Int, []uint8, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -259,21 +259,21 @@ func (_SortedOracles *SortedOraclesCaller) GetTimestamps(opts *bind.CallOpts, to
 
 // GetTimestamps is a free data retrieval call binding the contract method 0xb9292158.
 //
-// Solidity: function getTimestamps(address token) constant returns(address[], uint256[], uint8[])
+// Solidity: function getTimestamps(address token) view returns(address[], uint256[], uint8[])
 func (_SortedOracles *SortedOraclesSession) GetTimestamps(token common.Address) ([]common.Address, []*big.Int, []uint8, error) {
 	return _SortedOracles.Contract.GetTimestamps(&_SortedOracles.CallOpts, token)
 }
 
 // GetTimestamps is a free data retrieval call binding the contract method 0xb9292158.
 //
-// Solidity: function getTimestamps(address token) constant returns(address[], uint256[], uint8[])
+// Solidity: function getTimestamps(address token) view returns(address[], uint256[], uint8[])
 func (_SortedOracles *SortedOraclesCallerSession) GetTimestamps(token common.Address) ([]common.Address, []*big.Int, []uint8, error) {
 	return _SortedOracles.Contract.GetTimestamps(&_SortedOracles.CallOpts, token)
 }
 
 // GetTokenReportExpirySeconds is a free data retrieval call binding the contract method 0x6deb6799.
 //
-// Solidity: function getTokenReportExpirySeconds(address token) constant returns(uint256)
+// Solidity: function getTokenReportExpirySeconds(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCaller) GetTokenReportExpirySeconds(opts *bind.CallOpts, token common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -285,21 +285,21 @@ func (_SortedOracles *SortedOraclesCaller) GetTokenReportExpirySeconds(opts *bin
 
 // GetTokenReportExpirySeconds is a free data retrieval call binding the contract method 0x6deb6799.
 //
-// Solidity: function getTokenReportExpirySeconds(address token) constant returns(uint256)
+// Solidity: function getTokenReportExpirySeconds(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesSession) GetTokenReportExpirySeconds(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.GetTokenReportExpirySeconds(&_SortedOracles.CallOpts, token)
 }
 
 // GetTokenReportExpirySeconds is a free data retrieval call binding the contract method 0x6deb6799.
 //
-// Solidity: function getTokenReportExpirySeconds(address token) constant returns(uint256)
+// Solidity: function getTokenReportExpirySeconds(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCallerSession) GetTokenReportExpirySeconds(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.GetTokenReportExpirySeconds(&_SortedOracles.CallOpts, token)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_SortedOracles *SortedOraclesCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -319,21 +319,21 @@ func (_SortedOracles *SortedOraclesCaller) GetVersionNumber(opts *bind.CallOpts)
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_SortedOracles *SortedOraclesSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _SortedOracles.Contract.GetVersionNumber(&_SortedOracles.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_SortedOracles *SortedOraclesCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _SortedOracles.Contract.GetVersionNumber(&_SortedOracles.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_SortedOracles *SortedOraclesCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -345,21 +345,21 @@ func (_SortedOracles *SortedOraclesCaller) Initialized(opts *bind.CallOpts) (boo
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_SortedOracles *SortedOraclesSession) Initialized() (bool, error) {
 	return _SortedOracles.Contract.Initialized(&_SortedOracles.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_SortedOracles *SortedOraclesCallerSession) Initialized() (bool, error) {
 	return _SortedOracles.Contract.Initialized(&_SortedOracles.CallOpts)
 }
 
 // IsOldestReportExpired is a free data retrieval call binding the contract method 0xffe736bf.
 //
-// Solidity: function isOldestReportExpired(address token) constant returns(bool, address)
+// Solidity: function isOldestReportExpired(address token) view returns(bool, address)
 func (_SortedOracles *SortedOraclesCaller) IsOldestReportExpired(opts *bind.CallOpts, token common.Address) (bool, common.Address, error) {
 	var (
 		ret0 = new(bool)
@@ -375,21 +375,21 @@ func (_SortedOracles *SortedOraclesCaller) IsOldestReportExpired(opts *bind.Call
 
 // IsOldestReportExpired is a free data retrieval call binding the contract method 0xffe736bf.
 //
-// Solidity: function isOldestReportExpired(address token) constant returns(bool, address)
+// Solidity: function isOldestReportExpired(address token) view returns(bool, address)
 func (_SortedOracles *SortedOraclesSession) IsOldestReportExpired(token common.Address) (bool, common.Address, error) {
 	return _SortedOracles.Contract.IsOldestReportExpired(&_SortedOracles.CallOpts, token)
 }
 
 // IsOldestReportExpired is a free data retrieval call binding the contract method 0xffe736bf.
 //
-// Solidity: function isOldestReportExpired(address token) constant returns(bool, address)
+// Solidity: function isOldestReportExpired(address token) view returns(bool, address)
 func (_SortedOracles *SortedOraclesCallerSession) IsOldestReportExpired(token common.Address) (bool, common.Address, error) {
 	return _SortedOracles.Contract.IsOldestReportExpired(&_SortedOracles.CallOpts, token)
 }
 
 // IsOracle is a free data retrieval call binding the contract method 0x370c998e.
 //
-// Solidity: function isOracle(address , address ) constant returns(bool)
+// Solidity: function isOracle(address , address ) view returns(bool)
 func (_SortedOracles *SortedOraclesCaller) IsOracle(opts *bind.CallOpts, arg0 common.Address, arg1 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -401,21 +401,21 @@ func (_SortedOracles *SortedOraclesCaller) IsOracle(opts *bind.CallOpts, arg0 co
 
 // IsOracle is a free data retrieval call binding the contract method 0x370c998e.
 //
-// Solidity: function isOracle(address , address ) constant returns(bool)
+// Solidity: function isOracle(address , address ) view returns(bool)
 func (_SortedOracles *SortedOraclesSession) IsOracle(arg0 common.Address, arg1 common.Address) (bool, error) {
 	return _SortedOracles.Contract.IsOracle(&_SortedOracles.CallOpts, arg0, arg1)
 }
 
 // IsOracle is a free data retrieval call binding the contract method 0x370c998e.
 //
-// Solidity: function isOracle(address , address ) constant returns(bool)
+// Solidity: function isOracle(address , address ) view returns(bool)
 func (_SortedOracles *SortedOraclesCallerSession) IsOracle(arg0 common.Address, arg1 common.Address) (bool, error) {
 	return _SortedOracles.Contract.IsOracle(&_SortedOracles.CallOpts, arg0, arg1)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_SortedOracles *SortedOraclesCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -427,21 +427,21 @@ func (_SortedOracles *SortedOraclesCaller) IsOwner(opts *bind.CallOpts) (bool, e
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_SortedOracles *SortedOraclesSession) IsOwner() (bool, error) {
 	return _SortedOracles.Contract.IsOwner(&_SortedOracles.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_SortedOracles *SortedOraclesCallerSession) IsOwner() (bool, error) {
 	return _SortedOracles.Contract.IsOwner(&_SortedOracles.CallOpts)
 }
 
 // MedianRate is a free data retrieval call binding the contract method 0xef90e1b0.
 //
-// Solidity: function medianRate(address token) constant returns(uint256, uint256)
+// Solidity: function medianRate(address token) view returns(uint256, uint256)
 func (_SortedOracles *SortedOraclesCaller) MedianRate(opts *bind.CallOpts, token common.Address) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -457,21 +457,21 @@ func (_SortedOracles *SortedOraclesCaller) MedianRate(opts *bind.CallOpts, token
 
 // MedianRate is a free data retrieval call binding the contract method 0xef90e1b0.
 //
-// Solidity: function medianRate(address token) constant returns(uint256, uint256)
+// Solidity: function medianRate(address token) view returns(uint256, uint256)
 func (_SortedOracles *SortedOraclesSession) MedianRate(token common.Address) (*big.Int, *big.Int, error) {
 	return _SortedOracles.Contract.MedianRate(&_SortedOracles.CallOpts, token)
 }
 
 // MedianRate is a free data retrieval call binding the contract method 0xef90e1b0.
 //
-// Solidity: function medianRate(address token) constant returns(uint256, uint256)
+// Solidity: function medianRate(address token) view returns(uint256, uint256)
 func (_SortedOracles *SortedOraclesCallerSession) MedianRate(token common.Address) (*big.Int, *big.Int, error) {
 	return _SortedOracles.Contract.MedianRate(&_SortedOracles.CallOpts, token)
 }
 
 // MedianTimestamp is a free data retrieval call binding the contract method 0x071b48fc.
 //
-// Solidity: function medianTimestamp(address token) constant returns(uint256)
+// Solidity: function medianTimestamp(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCaller) MedianTimestamp(opts *bind.CallOpts, token common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -483,21 +483,21 @@ func (_SortedOracles *SortedOraclesCaller) MedianTimestamp(opts *bind.CallOpts, 
 
 // MedianTimestamp is a free data retrieval call binding the contract method 0x071b48fc.
 //
-// Solidity: function medianTimestamp(address token) constant returns(uint256)
+// Solidity: function medianTimestamp(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesSession) MedianTimestamp(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.MedianTimestamp(&_SortedOracles.CallOpts, token)
 }
 
 // MedianTimestamp is a free data retrieval call binding the contract method 0x071b48fc.
 //
-// Solidity: function medianTimestamp(address token) constant returns(uint256)
+// Solidity: function medianTimestamp(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCallerSession) MedianTimestamp(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.MedianTimestamp(&_SortedOracles.CallOpts, token)
 }
 
 // NumRates is a free data retrieval call binding the contract method 0xbbc66a94.
 //
-// Solidity: function numRates(address token) constant returns(uint256)
+// Solidity: function numRates(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCaller) NumRates(opts *bind.CallOpts, token common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -509,21 +509,21 @@ func (_SortedOracles *SortedOraclesCaller) NumRates(opts *bind.CallOpts, token c
 
 // NumRates is a free data retrieval call binding the contract method 0xbbc66a94.
 //
-// Solidity: function numRates(address token) constant returns(uint256)
+// Solidity: function numRates(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesSession) NumRates(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.NumRates(&_SortedOracles.CallOpts, token)
 }
 
 // NumRates is a free data retrieval call binding the contract method 0xbbc66a94.
 //
-// Solidity: function numRates(address token) constant returns(uint256)
+// Solidity: function numRates(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCallerSession) NumRates(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.NumRates(&_SortedOracles.CallOpts, token)
 }
 
 // NumTimestamps is a free data retrieval call binding the contract method 0x6dd6ef0c.
 //
-// Solidity: function numTimestamps(address token) constant returns(uint256)
+// Solidity: function numTimestamps(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCaller) NumTimestamps(opts *bind.CallOpts, token common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -535,21 +535,21 @@ func (_SortedOracles *SortedOraclesCaller) NumTimestamps(opts *bind.CallOpts, to
 
 // NumTimestamps is a free data retrieval call binding the contract method 0x6dd6ef0c.
 //
-// Solidity: function numTimestamps(address token) constant returns(uint256)
+// Solidity: function numTimestamps(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesSession) NumTimestamps(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.NumTimestamps(&_SortedOracles.CallOpts, token)
 }
 
 // NumTimestamps is a free data retrieval call binding the contract method 0x6dd6ef0c.
 //
-// Solidity: function numTimestamps(address token) constant returns(uint256)
+// Solidity: function numTimestamps(address token) view returns(uint256)
 func (_SortedOracles *SortedOraclesCallerSession) NumTimestamps(token common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.NumTimestamps(&_SortedOracles.CallOpts, token)
 }
 
 // Oracles is a free data retrieval call binding the contract method 0xa00a8b2c.
 //
-// Solidity: function oracles(address , uint256 ) constant returns(address)
+// Solidity: function oracles(address , uint256 ) view returns(address)
 func (_SortedOracles *SortedOraclesCaller) Oracles(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -561,21 +561,21 @@ func (_SortedOracles *SortedOraclesCaller) Oracles(opts *bind.CallOpts, arg0 com
 
 // Oracles is a free data retrieval call binding the contract method 0xa00a8b2c.
 //
-// Solidity: function oracles(address , uint256 ) constant returns(address)
+// Solidity: function oracles(address , uint256 ) view returns(address)
 func (_SortedOracles *SortedOraclesSession) Oracles(arg0 common.Address, arg1 *big.Int) (common.Address, error) {
 	return _SortedOracles.Contract.Oracles(&_SortedOracles.CallOpts, arg0, arg1)
 }
 
 // Oracles is a free data retrieval call binding the contract method 0xa00a8b2c.
 //
-// Solidity: function oracles(address , uint256 ) constant returns(address)
+// Solidity: function oracles(address , uint256 ) view returns(address)
 func (_SortedOracles *SortedOraclesCallerSession) Oracles(arg0 common.Address, arg1 *big.Int) (common.Address, error) {
 	return _SortedOracles.Contract.Oracles(&_SortedOracles.CallOpts, arg0, arg1)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_SortedOracles *SortedOraclesCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -587,21 +587,21 @@ func (_SortedOracles *SortedOraclesCaller) Owner(opts *bind.CallOpts) (common.Ad
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_SortedOracles *SortedOraclesSession) Owner() (common.Address, error) {
 	return _SortedOracles.Contract.Owner(&_SortedOracles.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_SortedOracles *SortedOraclesCallerSession) Owner() (common.Address, error) {
 	return _SortedOracles.Contract.Owner(&_SortedOracles.CallOpts)
 }
 
 // ReportExpirySeconds is a free data retrieval call binding the contract method 0x493a353c.
 //
-// Solidity: function reportExpirySeconds() constant returns(uint256)
+// Solidity: function reportExpirySeconds() view returns(uint256)
 func (_SortedOracles *SortedOraclesCaller) ReportExpirySeconds(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -613,21 +613,21 @@ func (_SortedOracles *SortedOraclesCaller) ReportExpirySeconds(opts *bind.CallOp
 
 // ReportExpirySeconds is a free data retrieval call binding the contract method 0x493a353c.
 //
-// Solidity: function reportExpirySeconds() constant returns(uint256)
+// Solidity: function reportExpirySeconds() view returns(uint256)
 func (_SortedOracles *SortedOraclesSession) ReportExpirySeconds() (*big.Int, error) {
 	return _SortedOracles.Contract.ReportExpirySeconds(&_SortedOracles.CallOpts)
 }
 
 // ReportExpirySeconds is a free data retrieval call binding the contract method 0x493a353c.
 //
-// Solidity: function reportExpirySeconds() constant returns(uint256)
+// Solidity: function reportExpirySeconds() view returns(uint256)
 func (_SortedOracles *SortedOraclesCallerSession) ReportExpirySeconds() (*big.Int, error) {
 	return _SortedOracles.Contract.ReportExpirySeconds(&_SortedOracles.CallOpts)
 }
 
 // TokenReportExpirySeconds is a free data retrieval call binding the contract method 0x2e86bc01.
 //
-// Solidity: function tokenReportExpirySeconds(address ) constant returns(uint256)
+// Solidity: function tokenReportExpirySeconds(address ) view returns(uint256)
 func (_SortedOracles *SortedOraclesCaller) TokenReportExpirySeconds(opts *bind.CallOpts, arg0 common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -639,14 +639,14 @@ func (_SortedOracles *SortedOraclesCaller) TokenReportExpirySeconds(opts *bind.C
 
 // TokenReportExpirySeconds is a free data retrieval call binding the contract method 0x2e86bc01.
 //
-// Solidity: function tokenReportExpirySeconds(address ) constant returns(uint256)
+// Solidity: function tokenReportExpirySeconds(address ) view returns(uint256)
 func (_SortedOracles *SortedOraclesSession) TokenReportExpirySeconds(arg0 common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.TokenReportExpirySeconds(&_SortedOracles.CallOpts, arg0)
 }
 
 // TokenReportExpirySeconds is a free data retrieval call binding the contract method 0x2e86bc01.
 //
-// Solidity: function tokenReportExpirySeconds(address ) constant returns(uint256)
+// Solidity: function tokenReportExpirySeconds(address ) view returns(uint256)
 func (_SortedOracles *SortedOraclesCallerSession) TokenReportExpirySeconds(arg0 common.Address) (*big.Int, error) {
 	return _SortedOracles.Contract.TokenReportExpirySeconds(&_SortedOracles.CallOpts, arg0)
 }
@@ -942,13 +942,13 @@ func (it *SortedOraclesMedianUpdatedIterator) Close() error {
 // SortedOraclesMedianUpdated represents a MedianUpdated event raised by the SortedOracles contract.
 type SortedOraclesMedianUpdated struct {
 	Token common.Address
-	Rate  *big.Int
+	Value *big.Int
 	Raw   types.Log // Blockchain specific contextual infos
 }
 
 // FilterMedianUpdated is a free log retrieval operation binding the contract event 0xa9981ebfc3b766a742486e898f54959b050a66006dbce1a4155c1f84a08bcf41.
 //
-// Solidity: event MedianUpdated(address indexed token, uint256 rate)
+// Solidity: event MedianUpdated(address indexed token, uint256 value)
 func (_SortedOracles *SortedOraclesFilterer) FilterMedianUpdated(opts *bind.FilterOpts, token []common.Address) (*SortedOraclesMedianUpdatedIterator, error) {
 
 	var tokenRule []interface{}
@@ -965,7 +965,7 @@ func (_SortedOracles *SortedOraclesFilterer) FilterMedianUpdated(opts *bind.Filt
 
 // WatchMedianUpdated is a free log subscription operation binding the contract event 0xa9981ebfc3b766a742486e898f54959b050a66006dbce1a4155c1f84a08bcf41.
 //
-// Solidity: event MedianUpdated(address indexed token, uint256 rate)
+// Solidity: event MedianUpdated(address indexed token, uint256 value)
 func (_SortedOracles *SortedOraclesFilterer) WatchMedianUpdated(opts *bind.WatchOpts, sink chan<- *SortedOraclesMedianUpdated, token []common.Address) (event.Subscription, error) {
 
 	var tokenRule []interface{}
@@ -1007,7 +1007,7 @@ func (_SortedOracles *SortedOraclesFilterer) WatchMedianUpdated(opts *bind.Watch
 
 // ParseMedianUpdated is a log parse operation binding the contract event 0xa9981ebfc3b766a742486e898f54959b050a66006dbce1a4155c1f84a08bcf41.
 //
-// Solidity: event MedianUpdated(address indexed token, uint256 rate)
+// Solidity: event MedianUpdated(address indexed token, uint256 value)
 func (_SortedOracles *SortedOraclesFilterer) ParseMedianUpdated(log types.Log) (*SortedOraclesMedianUpdated, error) {
 	event := new(SortedOraclesMedianUpdated)
 	if err := _SortedOracles.contract.UnpackLog(event, "MedianUpdated", log); err != nil {
@@ -1544,13 +1544,13 @@ type SortedOraclesOracleReported struct {
 	Token     common.Address
 	Oracle    common.Address
 	Timestamp *big.Int
-	Rate      *big.Int
+	Value     *big.Int
 	Raw       types.Log // Blockchain specific contextual infos
 }
 
 // FilterOracleReported is a free log retrieval operation binding the contract event 0x7cebb17173a9ed273d2b7538f64395c0ebf352ff743f1cf8ce66b437a6144213.
 //
-// Solidity: event OracleReported(address indexed token, address indexed oracle, uint256 timestamp, uint256 rate)
+// Solidity: event OracleReported(address indexed token, address indexed oracle, uint256 timestamp, uint256 value)
 func (_SortedOracles *SortedOraclesFilterer) FilterOracleReported(opts *bind.FilterOpts, token []common.Address, oracle []common.Address) (*SortedOraclesOracleReportedIterator, error) {
 
 	var tokenRule []interface{}
@@ -1571,7 +1571,7 @@ func (_SortedOracles *SortedOraclesFilterer) FilterOracleReported(opts *bind.Fil
 
 // WatchOracleReported is a free log subscription operation binding the contract event 0x7cebb17173a9ed273d2b7538f64395c0ebf352ff743f1cf8ce66b437a6144213.
 //
-// Solidity: event OracleReported(address indexed token, address indexed oracle, uint256 timestamp, uint256 rate)
+// Solidity: event OracleReported(address indexed token, address indexed oracle, uint256 timestamp, uint256 value)
 func (_SortedOracles *SortedOraclesFilterer) WatchOracleReported(opts *bind.WatchOpts, sink chan<- *SortedOraclesOracleReported, token []common.Address, oracle []common.Address) (event.Subscription, error) {
 
 	var tokenRule []interface{}
@@ -1617,7 +1617,7 @@ func (_SortedOracles *SortedOraclesFilterer) WatchOracleReported(opts *bind.Watc
 
 // ParseOracleReported is a log parse operation binding the contract event 0x7cebb17173a9ed273d2b7538f64395c0ebf352ff743f1cf8ce66b437a6144213.
 //
-// Solidity: event OracleReported(address indexed token, address indexed oracle, uint256 timestamp, uint256 rate)
+// Solidity: event OracleReported(address indexed token, address indexed oracle, uint256 timestamp, uint256 value)
 func (_SortedOracles *SortedOraclesFilterer) ParseOracleReported(log types.Log) (*SortedOraclesOracleReported, error) {
 	event := new(SortedOraclesOracleReported)
 	if err := _SortedOracles.contract.UnpackLog(event, "OracleReported", log); err != nil {

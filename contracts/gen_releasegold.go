@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_ReleaseGold *ReleaseGoldTransactorRaw) Transact(opts *bind.TransactOpts, 
 
 // EXPIRATIONTIME is a free data retrieval call binding the contract method 0x4a5c7348.
 //
-// Solidity: function EXPIRATION_TIME() constant returns(uint256)
+// Solidity: function EXPIRATION_TIME() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) EXPIRATIONTIME(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_ReleaseGold *ReleaseGoldCaller) EXPIRATIONTIME(opts *bind.CallOpts) (*big
 
 // EXPIRATIONTIME is a free data retrieval call binding the contract method 0x4a5c7348.
 //
-// Solidity: function EXPIRATION_TIME() constant returns(uint256)
+// Solidity: function EXPIRATION_TIME() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) EXPIRATIONTIME() (*big.Int, error) {
 	return _ReleaseGold.Contract.EXPIRATIONTIME(&_ReleaseGold.CallOpts)
 }
 
 // EXPIRATIONTIME is a free data retrieval call binding the contract method 0x4a5c7348.
 //
-// Solidity: function EXPIRATION_TIME() constant returns(uint256)
+// Solidity: function EXPIRATION_TIME() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) EXPIRATIONTIME() (*big.Int, error) {
 	return _ReleaseGold.Contract.EXPIRATIONTIME(&_ReleaseGold.CallOpts)
 }
 
 // Beneficiary is a free data retrieval call binding the contract method 0x38af3eed.
 //
-// Solidity: function beneficiary() constant returns(address)
+// Solidity: function beneficiary() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) Beneficiary(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -221,21 +221,21 @@ func (_ReleaseGold *ReleaseGoldCaller) Beneficiary(opts *bind.CallOpts) (common.
 
 // Beneficiary is a free data retrieval call binding the contract method 0x38af3eed.
 //
-// Solidity: function beneficiary() constant returns(address)
+// Solidity: function beneficiary() view returns(address)
 func (_ReleaseGold *ReleaseGoldSession) Beneficiary() (common.Address, error) {
 	return _ReleaseGold.Contract.Beneficiary(&_ReleaseGold.CallOpts)
 }
 
 // Beneficiary is a free data retrieval call binding the contract method 0x38af3eed.
 //
-// Solidity: function beneficiary() constant returns(address)
+// Solidity: function beneficiary() view returns(address)
 func (_ReleaseGold *ReleaseGoldCallerSession) Beneficiary() (common.Address, error) {
 	return _ReleaseGold.Contract.Beneficiary(&_ReleaseGold.CallOpts)
 }
 
 // CanValidate is a free data retrieval call binding the contract method 0xd69c2463.
 //
-// Solidity: function canValidate() constant returns(bool)
+// Solidity: function canValidate() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) CanValidate(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -247,21 +247,21 @@ func (_ReleaseGold *ReleaseGoldCaller) CanValidate(opts *bind.CallOpts) (bool, e
 
 // CanValidate is a free data retrieval call binding the contract method 0xd69c2463.
 //
-// Solidity: function canValidate() constant returns(bool)
+// Solidity: function canValidate() view returns(bool)
 func (_ReleaseGold *ReleaseGoldSession) CanValidate() (bool, error) {
 	return _ReleaseGold.Contract.CanValidate(&_ReleaseGold.CallOpts)
 }
 
 // CanValidate is a free data retrieval call binding the contract method 0xd69c2463.
 //
-// Solidity: function canValidate() constant returns(bool)
+// Solidity: function canValidate() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCallerSession) CanValidate() (bool, error) {
 	return _ReleaseGold.Contract.CanValidate(&_ReleaseGold.CallOpts)
 }
 
 // CanVote is a free data retrieval call binding the contract method 0x159e7064.
 //
-// Solidity: function canVote() constant returns(bool)
+// Solidity: function canVote() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) CanVote(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -273,21 +273,21 @@ func (_ReleaseGold *ReleaseGoldCaller) CanVote(opts *bind.CallOpts) (bool, error
 
 // CanVote is a free data retrieval call binding the contract method 0x159e7064.
 //
-// Solidity: function canVote() constant returns(bool)
+// Solidity: function canVote() view returns(bool)
 func (_ReleaseGold *ReleaseGoldSession) CanVote() (bool, error) {
 	return _ReleaseGold.Contract.CanVote(&_ReleaseGold.CallOpts)
 }
 
 // CanVote is a free data retrieval call binding the contract method 0x159e7064.
 //
-// Solidity: function canVote() constant returns(bool)
+// Solidity: function canVote() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCallerSession) CanVote() (bool, error) {
 	return _ReleaseGold.Contract.CanVote(&_ReleaseGold.CallOpts)
 }
 
 // GetCurrentReleasedTotalAmount is a free data retrieval call binding the contract method 0x1689eac7.
 //
-// Solidity: function getCurrentReleasedTotalAmount() constant returns(uint256)
+// Solidity: function getCurrentReleasedTotalAmount() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetCurrentReleasedTotalAmount(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -299,21 +299,21 @@ func (_ReleaseGold *ReleaseGoldCaller) GetCurrentReleasedTotalAmount(opts *bind.
 
 // GetCurrentReleasedTotalAmount is a free data retrieval call binding the contract method 0x1689eac7.
 //
-// Solidity: function getCurrentReleasedTotalAmount() constant returns(uint256)
+// Solidity: function getCurrentReleasedTotalAmount() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) GetCurrentReleasedTotalAmount() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetCurrentReleasedTotalAmount(&_ReleaseGold.CallOpts)
 }
 
 // GetCurrentReleasedTotalAmount is a free data retrieval call binding the contract method 0x1689eac7.
 //
-// Solidity: function getCurrentReleasedTotalAmount() constant returns(uint256)
+// Solidity: function getCurrentReleasedTotalAmount() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) GetCurrentReleasedTotalAmount() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetCurrentReleasedTotalAmount(&_ReleaseGold.CallOpts)
 }
 
 // GetRemainingLockedBalance is a free data retrieval call binding the contract method 0xcf23c33a.
 //
-// Solidity: function getRemainingLockedBalance() constant returns(uint256)
+// Solidity: function getRemainingLockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetRemainingLockedBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -325,21 +325,21 @@ func (_ReleaseGold *ReleaseGoldCaller) GetRemainingLockedBalance(opts *bind.Call
 
 // GetRemainingLockedBalance is a free data retrieval call binding the contract method 0xcf23c33a.
 //
-// Solidity: function getRemainingLockedBalance() constant returns(uint256)
+// Solidity: function getRemainingLockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) GetRemainingLockedBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetRemainingLockedBalance(&_ReleaseGold.CallOpts)
 }
 
 // GetRemainingLockedBalance is a free data retrieval call binding the contract method 0xcf23c33a.
 //
-// Solidity: function getRemainingLockedBalance() constant returns(uint256)
+// Solidity: function getRemainingLockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) GetRemainingLockedBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetRemainingLockedBalance(&_ReleaseGold.CallOpts)
 }
 
 // GetRemainingTotalBalance is a free data retrieval call binding the contract method 0x178f42e9.
 //
-// Solidity: function getRemainingTotalBalance() constant returns(uint256)
+// Solidity: function getRemainingTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetRemainingTotalBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -351,21 +351,21 @@ func (_ReleaseGold *ReleaseGoldCaller) GetRemainingTotalBalance(opts *bind.CallO
 
 // GetRemainingTotalBalance is a free data retrieval call binding the contract method 0x178f42e9.
 //
-// Solidity: function getRemainingTotalBalance() constant returns(uint256)
+// Solidity: function getRemainingTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) GetRemainingTotalBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetRemainingTotalBalance(&_ReleaseGold.CallOpts)
 }
 
 // GetRemainingTotalBalance is a free data retrieval call binding the contract method 0x178f42e9.
 //
-// Solidity: function getRemainingTotalBalance() constant returns(uint256)
+// Solidity: function getRemainingTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) GetRemainingTotalBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetRemainingTotalBalance(&_ReleaseGold.CallOpts)
 }
 
 // GetRemainingUnlockedBalance is a free data retrieval call binding the contract method 0xd0484677.
 //
-// Solidity: function getRemainingUnlockedBalance() constant returns(uint256)
+// Solidity: function getRemainingUnlockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetRemainingUnlockedBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -377,21 +377,21 @@ func (_ReleaseGold *ReleaseGoldCaller) GetRemainingUnlockedBalance(opts *bind.Ca
 
 // GetRemainingUnlockedBalance is a free data retrieval call binding the contract method 0xd0484677.
 //
-// Solidity: function getRemainingUnlockedBalance() constant returns(uint256)
+// Solidity: function getRemainingUnlockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) GetRemainingUnlockedBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetRemainingUnlockedBalance(&_ReleaseGold.CallOpts)
 }
 
 // GetRemainingUnlockedBalance is a free data retrieval call binding the contract method 0xd0484677.
 //
-// Solidity: function getRemainingUnlockedBalance() constant returns(uint256)
+// Solidity: function getRemainingUnlockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) GetRemainingUnlockedBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetRemainingUnlockedBalance(&_ReleaseGold.CallOpts)
 }
 
 // GetTotalBalance is a free data retrieval call binding the contract method 0x12b58349.
 //
-// Solidity: function getTotalBalance() constant returns(uint256)
+// Solidity: function getTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetTotalBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -403,21 +403,21 @@ func (_ReleaseGold *ReleaseGoldCaller) GetTotalBalance(opts *bind.CallOpts) (*bi
 
 // GetTotalBalance is a free data retrieval call binding the contract method 0x12b58349.
 //
-// Solidity: function getTotalBalance() constant returns(uint256)
+// Solidity: function getTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) GetTotalBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetTotalBalance(&_ReleaseGold.CallOpts)
 }
 
 // GetTotalBalance is a free data retrieval call binding the contract method 0x12b58349.
 //
-// Solidity: function getTotalBalance() constant returns(uint256)
+// Solidity: function getTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) GetTotalBalance() (*big.Int, error) {
 	return _ReleaseGold.Contract.GetTotalBalance(&_ReleaseGold.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -429,21 +429,21 @@ func (_ReleaseGold *ReleaseGoldCaller) Initialized(opts *bind.CallOpts) (bool, e
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_ReleaseGold *ReleaseGoldSession) Initialized() (bool, error) {
 	return _ReleaseGold.Contract.Initialized(&_ReleaseGold.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCallerSession) Initialized() (bool, error) {
 	return _ReleaseGold.Contract.Initialized(&_ReleaseGold.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -455,21 +455,21 @@ func (_ReleaseGold *ReleaseGoldCaller) IsOwner(opts *bind.CallOpts) (bool, error
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_ReleaseGold *ReleaseGoldSession) IsOwner() (bool, error) {
 	return _ReleaseGold.Contract.IsOwner(&_ReleaseGold.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCallerSession) IsOwner() (bool, error) {
 	return _ReleaseGold.Contract.IsOwner(&_ReleaseGold.CallOpts)
 }
 
 // IsRevoked is a free data retrieval call binding the contract method 0x2bc9ed02.
 //
-// Solidity: function isRevoked() constant returns(bool)
+// Solidity: function isRevoked() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) IsRevoked(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -481,21 +481,21 @@ func (_ReleaseGold *ReleaseGoldCaller) IsRevoked(opts *bind.CallOpts) (bool, err
 
 // IsRevoked is a free data retrieval call binding the contract method 0x2bc9ed02.
 //
-// Solidity: function isRevoked() constant returns(bool)
+// Solidity: function isRevoked() view returns(bool)
 func (_ReleaseGold *ReleaseGoldSession) IsRevoked() (bool, error) {
 	return _ReleaseGold.Contract.IsRevoked(&_ReleaseGold.CallOpts)
 }
 
 // IsRevoked is a free data retrieval call binding the contract method 0x2bc9ed02.
 //
-// Solidity: function isRevoked() constant returns(bool)
+// Solidity: function isRevoked() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCallerSession) IsRevoked() (bool, error) {
 	return _ReleaseGold.Contract.IsRevoked(&_ReleaseGold.CallOpts)
 }
 
 // LiquidityProvisionMet is a free data retrieval call binding the contract method 0xbeb28d7c.
 //
-// Solidity: function liquidityProvisionMet() constant returns(bool)
+// Solidity: function liquidityProvisionMet() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) LiquidityProvisionMet(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -507,21 +507,21 @@ func (_ReleaseGold *ReleaseGoldCaller) LiquidityProvisionMet(opts *bind.CallOpts
 
 // LiquidityProvisionMet is a free data retrieval call binding the contract method 0xbeb28d7c.
 //
-// Solidity: function liquidityProvisionMet() constant returns(bool)
+// Solidity: function liquidityProvisionMet() view returns(bool)
 func (_ReleaseGold *ReleaseGoldSession) LiquidityProvisionMet() (bool, error) {
 	return _ReleaseGold.Contract.LiquidityProvisionMet(&_ReleaseGold.CallOpts)
 }
 
 // LiquidityProvisionMet is a free data retrieval call binding the contract method 0xbeb28d7c.
 //
-// Solidity: function liquidityProvisionMet() constant returns(bool)
+// Solidity: function liquidityProvisionMet() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCallerSession) LiquidityProvisionMet() (bool, error) {
 	return _ReleaseGold.Contract.LiquidityProvisionMet(&_ReleaseGold.CallOpts)
 }
 
 // MaxDistribution is a free data retrieval call binding the contract method 0x044e0ea2.
 //
-// Solidity: function maxDistribution() constant returns(uint256)
+// Solidity: function maxDistribution() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) MaxDistribution(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -533,21 +533,21 @@ func (_ReleaseGold *ReleaseGoldCaller) MaxDistribution(opts *bind.CallOpts) (*bi
 
 // MaxDistribution is a free data retrieval call binding the contract method 0x044e0ea2.
 //
-// Solidity: function maxDistribution() constant returns(uint256)
+// Solidity: function maxDistribution() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) MaxDistribution() (*big.Int, error) {
 	return _ReleaseGold.Contract.MaxDistribution(&_ReleaseGold.CallOpts)
 }
 
 // MaxDistribution is a free data retrieval call binding the contract method 0x044e0ea2.
 //
-// Solidity: function maxDistribution() constant returns(uint256)
+// Solidity: function maxDistribution() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) MaxDistribution() (*big.Int, error) {
 	return _ReleaseGold.Contract.MaxDistribution(&_ReleaseGold.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -559,21 +559,21 @@ func (_ReleaseGold *ReleaseGoldCaller) Owner(opts *bind.CallOpts) (common.Addres
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_ReleaseGold *ReleaseGoldSession) Owner() (common.Address, error) {
 	return _ReleaseGold.Contract.Owner(&_ReleaseGold.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_ReleaseGold *ReleaseGoldCallerSession) Owner() (common.Address, error) {
 	return _ReleaseGold.Contract.Owner(&_ReleaseGold.CallOpts)
 }
 
 // RefundAddress is a free data retrieval call binding the contract method 0x0cb61f6c.
 //
-// Solidity: function refundAddress() constant returns(address)
+// Solidity: function refundAddress() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) RefundAddress(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -585,21 +585,21 @@ func (_ReleaseGold *ReleaseGoldCaller) RefundAddress(opts *bind.CallOpts) (commo
 
 // RefundAddress is a free data retrieval call binding the contract method 0x0cb61f6c.
 //
-// Solidity: function refundAddress() constant returns(address)
+// Solidity: function refundAddress() view returns(address)
 func (_ReleaseGold *ReleaseGoldSession) RefundAddress() (common.Address, error) {
 	return _ReleaseGold.Contract.RefundAddress(&_ReleaseGold.CallOpts)
 }
 
 // RefundAddress is a free data retrieval call binding the contract method 0x0cb61f6c.
 //
-// Solidity: function refundAddress() constant returns(address)
+// Solidity: function refundAddress() view returns(address)
 func (_ReleaseGold *ReleaseGoldCallerSession) RefundAddress() (common.Address, error) {
 	return _ReleaseGold.Contract.RefundAddress(&_ReleaseGold.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -611,21 +611,21 @@ func (_ReleaseGold *ReleaseGoldCaller) Registry(opts *bind.CallOpts) (common.Add
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_ReleaseGold *ReleaseGoldSession) Registry() (common.Address, error) {
 	return _ReleaseGold.Contract.Registry(&_ReleaseGold.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_ReleaseGold *ReleaseGoldCallerSession) Registry() (common.Address, error) {
 	return _ReleaseGold.Contract.Registry(&_ReleaseGold.CallOpts)
 }
 
 // ReleaseOwner is a free data retrieval call binding the contract method 0x83d0aae9.
 //
-// Solidity: function releaseOwner() constant returns(address)
+// Solidity: function releaseOwner() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) ReleaseOwner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -637,21 +637,21 @@ func (_ReleaseGold *ReleaseGoldCaller) ReleaseOwner(opts *bind.CallOpts) (common
 
 // ReleaseOwner is a free data retrieval call binding the contract method 0x83d0aae9.
 //
-// Solidity: function releaseOwner() constant returns(address)
+// Solidity: function releaseOwner() view returns(address)
 func (_ReleaseGold *ReleaseGoldSession) ReleaseOwner() (common.Address, error) {
 	return _ReleaseGold.Contract.ReleaseOwner(&_ReleaseGold.CallOpts)
 }
 
 // ReleaseOwner is a free data retrieval call binding the contract method 0x83d0aae9.
 //
-// Solidity: function releaseOwner() constant returns(address)
+// Solidity: function releaseOwner() view returns(address)
 func (_ReleaseGold *ReleaseGoldCallerSession) ReleaseOwner() (common.Address, error) {
 	return _ReleaseGold.Contract.ReleaseOwner(&_ReleaseGold.CallOpts)
 }
 
 // ReleaseSchedule is a free data retrieval call binding the contract method 0xfc9f3ef0.
 //
-// Solidity: function releaseSchedule() constant returns(uint256 releaseStartTime, uint256 releaseCliff, uint256 numReleasePeriods, uint256 releasePeriod, uint256 amountReleasedPerPeriod)
+// Solidity: function releaseSchedule() view returns(uint256 releaseStartTime, uint256 releaseCliff, uint256 numReleasePeriods, uint256 releasePeriod, uint256 amountReleasedPerPeriod)
 func (_ReleaseGold *ReleaseGoldCaller) ReleaseSchedule(opts *bind.CallOpts) (struct {
 	ReleaseStartTime        *big.Int
 	ReleaseCliff            *big.Int
@@ -673,7 +673,7 @@ func (_ReleaseGold *ReleaseGoldCaller) ReleaseSchedule(opts *bind.CallOpts) (str
 
 // ReleaseSchedule is a free data retrieval call binding the contract method 0xfc9f3ef0.
 //
-// Solidity: function releaseSchedule() constant returns(uint256 releaseStartTime, uint256 releaseCliff, uint256 numReleasePeriods, uint256 releasePeriod, uint256 amountReleasedPerPeriod)
+// Solidity: function releaseSchedule() view returns(uint256 releaseStartTime, uint256 releaseCliff, uint256 numReleasePeriods, uint256 releasePeriod, uint256 amountReleasedPerPeriod)
 func (_ReleaseGold *ReleaseGoldSession) ReleaseSchedule() (struct {
 	ReleaseStartTime        *big.Int
 	ReleaseCliff            *big.Int
@@ -686,7 +686,7 @@ func (_ReleaseGold *ReleaseGoldSession) ReleaseSchedule() (struct {
 
 // ReleaseSchedule is a free data retrieval call binding the contract method 0xfc9f3ef0.
 //
-// Solidity: function releaseSchedule() constant returns(uint256 releaseStartTime, uint256 releaseCliff, uint256 numReleasePeriods, uint256 releasePeriod, uint256 amountReleasedPerPeriod)
+// Solidity: function releaseSchedule() view returns(uint256 releaseStartTime, uint256 releaseCliff, uint256 numReleasePeriods, uint256 releasePeriod, uint256 amountReleasedPerPeriod)
 func (_ReleaseGold *ReleaseGoldCallerSession) ReleaseSchedule() (struct {
 	ReleaseStartTime        *big.Int
 	ReleaseCliff            *big.Int
@@ -699,7 +699,7 @@ func (_ReleaseGold *ReleaseGoldCallerSession) ReleaseSchedule() (struct {
 
 // RevocationInfo is a free data retrieval call binding the contract method 0x969e83af.
 //
-// Solidity: function revocationInfo() constant returns(bool revocable, bool canExpire, uint256 releasedBalanceAtRevoke, uint256 revokeTime)
+// Solidity: function revocationInfo() view returns(bool revocable, bool canExpire, uint256 releasedBalanceAtRevoke, uint256 revokeTime)
 func (_ReleaseGold *ReleaseGoldCaller) RevocationInfo(opts *bind.CallOpts) (struct {
 	Revocable               bool
 	CanExpire               bool
@@ -719,7 +719,7 @@ func (_ReleaseGold *ReleaseGoldCaller) RevocationInfo(opts *bind.CallOpts) (stru
 
 // RevocationInfo is a free data retrieval call binding the contract method 0x969e83af.
 //
-// Solidity: function revocationInfo() constant returns(bool revocable, bool canExpire, uint256 releasedBalanceAtRevoke, uint256 revokeTime)
+// Solidity: function revocationInfo() view returns(bool revocable, bool canExpire, uint256 releasedBalanceAtRevoke, uint256 revokeTime)
 func (_ReleaseGold *ReleaseGoldSession) RevocationInfo() (struct {
 	Revocable               bool
 	CanExpire               bool
@@ -731,7 +731,7 @@ func (_ReleaseGold *ReleaseGoldSession) RevocationInfo() (struct {
 
 // RevocationInfo is a free data retrieval call binding the contract method 0x969e83af.
 //
-// Solidity: function revocationInfo() constant returns(bool revocable, bool canExpire, uint256 releasedBalanceAtRevoke, uint256 revokeTime)
+// Solidity: function revocationInfo() view returns(bool revocable, bool canExpire, uint256 releasedBalanceAtRevoke, uint256 revokeTime)
 func (_ReleaseGold *ReleaseGoldCallerSession) RevocationInfo() (struct {
 	Revocable               bool
 	CanExpire               bool
@@ -743,7 +743,7 @@ func (_ReleaseGold *ReleaseGoldCallerSession) RevocationInfo() (struct {
 
 // TotalWithdrawn is a free data retrieval call binding the contract method 0x4b319713.
 //
-// Solidity: function totalWithdrawn() constant returns(uint256)
+// Solidity: function totalWithdrawn() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) TotalWithdrawn(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -755,14 +755,14 @@ func (_ReleaseGold *ReleaseGoldCaller) TotalWithdrawn(opts *bind.CallOpts) (*big
 
 // TotalWithdrawn is a free data retrieval call binding the contract method 0x4b319713.
 //
-// Solidity: function totalWithdrawn() constant returns(uint256)
+// Solidity: function totalWithdrawn() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldSession) TotalWithdrawn() (*big.Int, error) {
 	return _ReleaseGold.Contract.TotalWithdrawn(&_ReleaseGold.CallOpts)
 }
 
 // TotalWithdrawn is a free data retrieval call binding the contract method 0x4b319713.
 //
-// Solidity: function totalWithdrawn() constant returns(uint256)
+// Solidity: function totalWithdrawn() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCallerSession) TotalWithdrawn() (*big.Int, error) {
 	return _ReleaseGold.Contract.TotalWithdrawn(&_ReleaseGold.CallOpts)
 }
@@ -1429,6 +1429,27 @@ func (_ReleaseGold *ReleaseGoldFilterer) TryParseLog(log types.Log) (eventName s
 	}
 
 	return eventName, event, ok, nil
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_ReleaseGold *ReleaseGoldTransactor) Fallback(opts *bind.TransactOpts, calldata []byte) (*types.Transaction, error) {
+	return _ReleaseGold.contract.RawTransact(opts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_ReleaseGold *ReleaseGoldSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _ReleaseGold.Contract.Fallback(&_ReleaseGold.TransactOpts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_ReleaseGold *ReleaseGoldTransactorSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _ReleaseGold.Contract.Fallback(&_ReleaseGold.TransactOpts, calldata)
 }
 
 // ReleaseGoldBeneficiarySetIterator is returned from FilterBeneficiarySet and is used to iterate over the raw logs and unpacked data for BeneficiarySet events raised by the ReleaseGold contract.

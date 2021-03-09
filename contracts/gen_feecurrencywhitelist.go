@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistTransactorRaw) Transact(opts *b
 
 // GetWhitelist is a free data retrieval call binding the contract method 0xd01f63f5.
 //
-// Solidity: function getWhitelist() constant returns(address[])
+// Solidity: function getWhitelist() view returns(address[])
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) GetWhitelist(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -195,21 +195,21 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) GetWhitelist(opts *bind
 
 // GetWhitelist is a free data retrieval call binding the contract method 0xd01f63f5.
 //
-// Solidity: function getWhitelist() constant returns(address[])
+// Solidity: function getWhitelist() view returns(address[])
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistSession) GetWhitelist() ([]common.Address, error) {
 	return _FeeCurrencyWhitelist.Contract.GetWhitelist(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // GetWhitelist is a free data retrieval call binding the contract method 0xd01f63f5.
 //
-// Solidity: function getWhitelist() constant returns(address[])
+// Solidity: function getWhitelist() view returns(address[])
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCallerSession) GetWhitelist() ([]common.Address, error) {
 	return _FeeCurrencyWhitelist.Contract.GetWhitelist(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -221,21 +221,21 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) Initialized(opts *bind.
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistSession) Initialized() (bool, error) {
 	return _FeeCurrencyWhitelist.Contract.Initialized(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCallerSession) Initialized() (bool, error) {
 	return _FeeCurrencyWhitelist.Contract.Initialized(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -247,21 +247,21 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) IsOwner(opts *bind.Call
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistSession) IsOwner() (bool, error) {
 	return _FeeCurrencyWhitelist.Contract.IsOwner(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCallerSession) IsOwner() (bool, error) {
 	return _FeeCurrencyWhitelist.Contract.IsOwner(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -273,21 +273,21 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) Owner(opts *bind.CallOp
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistSession) Owner() (common.Address, error) {
 	return _FeeCurrencyWhitelist.Contract.Owner(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCallerSession) Owner() (common.Address, error) {
 	return _FeeCurrencyWhitelist.Contract.Owner(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // Whitelist is a free data retrieval call binding the contract method 0x7ebd1b30.
 //
-// Solidity: function whitelist(uint256 ) constant returns(address)
+// Solidity: function whitelist(uint256 ) view returns(address)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) Whitelist(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -299,14 +299,14 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) Whitelist(opts *bind.Ca
 
 // Whitelist is a free data retrieval call binding the contract method 0x7ebd1b30.
 //
-// Solidity: function whitelist(uint256 ) constant returns(address)
+// Solidity: function whitelist(uint256 ) view returns(address)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistSession) Whitelist(arg0 *big.Int) (common.Address, error) {
 	return _FeeCurrencyWhitelist.Contract.Whitelist(&_FeeCurrencyWhitelist.CallOpts, arg0)
 }
 
 // Whitelist is a free data retrieval call binding the contract method 0x7ebd1b30.
 //
-// Solidity: function whitelist(uint256 ) constant returns(address)
+// Solidity: function whitelist(uint256 ) view returns(address)
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCallerSession) Whitelist(arg0 *big.Int) (common.Address, error) {
 	return _FeeCurrencyWhitelist.Contract.Whitelist(&_FeeCurrencyWhitelist.CallOpts, arg0)
 }

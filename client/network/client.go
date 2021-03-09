@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/celo-org/celo-blockchain/rpc"
 )
 
 // NetworkClient defines typed wrappers for the Network RPC API.

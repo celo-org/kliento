@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_Attestations *AttestationsTransactorRaw) Transact(opts *bind.TransactOpts
 
 // AttestationExpiryBlocks is a free data retrieval call binding the contract method 0xb45eb7da.
 //
-// Solidity: function attestationExpiryBlocks() constant returns(uint256)
+// Solidity: function attestationExpiryBlocks() view returns(uint256)
 func (_Attestations *AttestationsCaller) AttestationExpiryBlocks(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_Attestations *AttestationsCaller) AttestationExpiryBlocks(opts *bind.Call
 
 // AttestationExpiryBlocks is a free data retrieval call binding the contract method 0xb45eb7da.
 //
-// Solidity: function attestationExpiryBlocks() constant returns(uint256)
+// Solidity: function attestationExpiryBlocks() view returns(uint256)
 func (_Attestations *AttestationsSession) AttestationExpiryBlocks() (*big.Int, error) {
 	return _Attestations.Contract.AttestationExpiryBlocks(&_Attestations.CallOpts)
 }
 
 // AttestationExpiryBlocks is a free data retrieval call binding the contract method 0xb45eb7da.
 //
-// Solidity: function attestationExpiryBlocks() constant returns(uint256)
+// Solidity: function attestationExpiryBlocks() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) AttestationExpiryBlocks() (*big.Int, error) {
 	return _Attestations.Contract.AttestationExpiryBlocks(&_Attestations.CallOpts)
 }
 
 // AttestationRequestFees is a free data retrieval call binding the contract method 0xbd93f998.
 //
-// Solidity: function attestationRequestFees(address ) constant returns(uint256)
+// Solidity: function attestationRequestFees(address ) view returns(uint256)
 func (_Attestations *AttestationsCaller) AttestationRequestFees(opts *bind.CallOpts, arg0 common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -221,21 +221,21 @@ func (_Attestations *AttestationsCaller) AttestationRequestFees(opts *bind.CallO
 
 // AttestationRequestFees is a free data retrieval call binding the contract method 0xbd93f998.
 //
-// Solidity: function attestationRequestFees(address ) constant returns(uint256)
+// Solidity: function attestationRequestFees(address ) view returns(uint256)
 func (_Attestations *AttestationsSession) AttestationRequestFees(arg0 common.Address) (*big.Int, error) {
 	return _Attestations.Contract.AttestationRequestFees(&_Attestations.CallOpts, arg0)
 }
 
 // AttestationRequestFees is a free data retrieval call binding the contract method 0xbd93f998.
 //
-// Solidity: function attestationRequestFees(address ) constant returns(uint256)
+// Solidity: function attestationRequestFees(address ) view returns(uint256)
 func (_Attestations *AttestationsCallerSession) AttestationRequestFees(arg0 common.Address) (*big.Int, error) {
 	return _Attestations.Contract.AttestationRequestFees(&_Attestations.CallOpts, arg0)
 }
 
 // BatchGetAttestationStats is a free data retrieval call binding the contract method 0x96357c0a.
 //
-// Solidity: function batchGetAttestationStats(bytes32[] identifiersToLookup) constant returns(uint256[], address[], uint64[], uint64[])
+// Solidity: function batchGetAttestationStats(bytes32[] identifiersToLookup) view returns(uint256[], address[], uint64[], uint64[])
 func (_Attestations *AttestationsCaller) BatchGetAttestationStats(opts *bind.CallOpts, identifiersToLookup [][32]byte) ([]*big.Int, []common.Address, []uint64, []uint64, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -255,21 +255,21 @@ func (_Attestations *AttestationsCaller) BatchGetAttestationStats(opts *bind.Cal
 
 // BatchGetAttestationStats is a free data retrieval call binding the contract method 0x96357c0a.
 //
-// Solidity: function batchGetAttestationStats(bytes32[] identifiersToLookup) constant returns(uint256[], address[], uint64[], uint64[])
+// Solidity: function batchGetAttestationStats(bytes32[] identifiersToLookup) view returns(uint256[], address[], uint64[], uint64[])
 func (_Attestations *AttestationsSession) BatchGetAttestationStats(identifiersToLookup [][32]byte) ([]*big.Int, []common.Address, []uint64, []uint64, error) {
 	return _Attestations.Contract.BatchGetAttestationStats(&_Attestations.CallOpts, identifiersToLookup)
 }
 
 // BatchGetAttestationStats is a free data retrieval call binding the contract method 0x96357c0a.
 //
-// Solidity: function batchGetAttestationStats(bytes32[] identifiersToLookup) constant returns(uint256[], address[], uint64[], uint64[])
+// Solidity: function batchGetAttestationStats(bytes32[] identifiersToLookup) view returns(uint256[], address[], uint64[], uint64[])
 func (_Attestations *AttestationsCallerSession) BatchGetAttestationStats(identifiersToLookup [][32]byte) ([]*big.Int, []common.Address, []uint64, []uint64, error) {
 	return _Attestations.Contract.BatchGetAttestationStats(&_Attestations.CallOpts, identifiersToLookup)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Attestations *AttestationsCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -281,21 +281,21 @@ func (_Attestations *AttestationsCaller) CheckProofOfPossession(opts *bind.CallO
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Attestations *AttestationsSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Attestations.Contract.CheckProofOfPossession(&_Attestations.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Attestations *AttestationsCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Attestations.Contract.CheckProofOfPossession(&_Attestations.CallOpts, sender, blsKey, blsPop)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Attestations *AttestationsCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -311,21 +311,21 @@ func (_Attestations *AttestationsCaller) FractionMulExp(opts *bind.CallOpts, aNu
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Attestations *AttestationsSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Attestations.Contract.FractionMulExp(&_Attestations.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Attestations *AttestationsCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Attestations.Contract.FractionMulExp(&_Attestations.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetAttestationIssuers is a free data retrieval call binding the contract method 0x5fc5c916.
 //
-// Solidity: function getAttestationIssuers(bytes32 identifier, address account) constant returns(address[])
+// Solidity: function getAttestationIssuers(bytes32 identifier, address account) view returns(address[])
 func (_Attestations *AttestationsCaller) GetAttestationIssuers(opts *bind.CallOpts, identifier [32]byte, account common.Address) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -337,21 +337,21 @@ func (_Attestations *AttestationsCaller) GetAttestationIssuers(opts *bind.CallOp
 
 // GetAttestationIssuers is a free data retrieval call binding the contract method 0x5fc5c916.
 //
-// Solidity: function getAttestationIssuers(bytes32 identifier, address account) constant returns(address[])
+// Solidity: function getAttestationIssuers(bytes32 identifier, address account) view returns(address[])
 func (_Attestations *AttestationsSession) GetAttestationIssuers(identifier [32]byte, account common.Address) ([]common.Address, error) {
 	return _Attestations.Contract.GetAttestationIssuers(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetAttestationIssuers is a free data retrieval call binding the contract method 0x5fc5c916.
 //
-// Solidity: function getAttestationIssuers(bytes32 identifier, address account) constant returns(address[])
+// Solidity: function getAttestationIssuers(bytes32 identifier, address account) view returns(address[])
 func (_Attestations *AttestationsCallerSession) GetAttestationIssuers(identifier [32]byte, account common.Address) ([]common.Address, error) {
 	return _Attestations.Contract.GetAttestationIssuers(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetAttestationRequestFee is a free data retrieval call binding the contract method 0x623d5931.
 //
-// Solidity: function getAttestationRequestFee(address token) constant returns(uint256)
+// Solidity: function getAttestationRequestFee(address token) view returns(uint256)
 func (_Attestations *AttestationsCaller) GetAttestationRequestFee(opts *bind.CallOpts, token common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -363,21 +363,21 @@ func (_Attestations *AttestationsCaller) GetAttestationRequestFee(opts *bind.Cal
 
 // GetAttestationRequestFee is a free data retrieval call binding the contract method 0x623d5931.
 //
-// Solidity: function getAttestationRequestFee(address token) constant returns(uint256)
+// Solidity: function getAttestationRequestFee(address token) view returns(uint256)
 func (_Attestations *AttestationsSession) GetAttestationRequestFee(token common.Address) (*big.Int, error) {
 	return _Attestations.Contract.GetAttestationRequestFee(&_Attestations.CallOpts, token)
 }
 
 // GetAttestationRequestFee is a free data retrieval call binding the contract method 0x623d5931.
 //
-// Solidity: function getAttestationRequestFee(address token) constant returns(uint256)
+// Solidity: function getAttestationRequestFee(address token) view returns(uint256)
 func (_Attestations *AttestationsCallerSession) GetAttestationRequestFee(token common.Address) (*big.Int, error) {
 	return _Attestations.Contract.GetAttestationRequestFee(&_Attestations.CallOpts, token)
 }
 
 // GetAttestationState is a free data retrieval call binding the contract method 0xb5599cc6.
 //
-// Solidity: function getAttestationState(bytes32 identifier, address account, address issuer) constant returns(uint8, uint32, address)
+// Solidity: function getAttestationState(bytes32 identifier, address account, address issuer) view returns(uint8, uint32, address)
 func (_Attestations *AttestationsCaller) GetAttestationState(opts *bind.CallOpts, identifier [32]byte, account common.Address, issuer common.Address) (uint8, uint32, common.Address, error) {
 	var (
 		ret0 = new(uint8)
@@ -395,21 +395,21 @@ func (_Attestations *AttestationsCaller) GetAttestationState(opts *bind.CallOpts
 
 // GetAttestationState is a free data retrieval call binding the contract method 0xb5599cc6.
 //
-// Solidity: function getAttestationState(bytes32 identifier, address account, address issuer) constant returns(uint8, uint32, address)
+// Solidity: function getAttestationState(bytes32 identifier, address account, address issuer) view returns(uint8, uint32, address)
 func (_Attestations *AttestationsSession) GetAttestationState(identifier [32]byte, account common.Address, issuer common.Address) (uint8, uint32, common.Address, error) {
 	return _Attestations.Contract.GetAttestationState(&_Attestations.CallOpts, identifier, account, issuer)
 }
 
 // GetAttestationState is a free data retrieval call binding the contract method 0xb5599cc6.
 //
-// Solidity: function getAttestationState(bytes32 identifier, address account, address issuer) constant returns(uint8, uint32, address)
+// Solidity: function getAttestationState(bytes32 identifier, address account, address issuer) view returns(uint8, uint32, address)
 func (_Attestations *AttestationsCallerSession) GetAttestationState(identifier [32]byte, account common.Address, issuer common.Address) (uint8, uint32, common.Address, error) {
 	return _Attestations.Contract.GetAttestationState(&_Attestations.CallOpts, identifier, account, issuer)
 }
 
 // GetAttestationStats is a free data retrieval call binding the contract method 0x596abea5.
 //
-// Solidity: function getAttestationStats(bytes32 identifier, address account) constant returns(uint32, uint32)
+// Solidity: function getAttestationStats(bytes32 identifier, address account) view returns(uint32, uint32)
 func (_Attestations *AttestationsCaller) GetAttestationStats(opts *bind.CallOpts, identifier [32]byte, account common.Address) (uint32, uint32, error) {
 	var (
 		ret0 = new(uint32)
@@ -425,21 +425,21 @@ func (_Attestations *AttestationsCaller) GetAttestationStats(opts *bind.CallOpts
 
 // GetAttestationStats is a free data retrieval call binding the contract method 0x596abea5.
 //
-// Solidity: function getAttestationStats(bytes32 identifier, address account) constant returns(uint32, uint32)
+// Solidity: function getAttestationStats(bytes32 identifier, address account) view returns(uint32, uint32)
 func (_Attestations *AttestationsSession) GetAttestationStats(identifier [32]byte, account common.Address) (uint32, uint32, error) {
 	return _Attestations.Contract.GetAttestationStats(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetAttestationStats is a free data retrieval call binding the contract method 0x596abea5.
 //
-// Solidity: function getAttestationStats(bytes32 identifier, address account) constant returns(uint32, uint32)
+// Solidity: function getAttestationStats(bytes32 identifier, address account) view returns(uint32, uint32)
 func (_Attestations *AttestationsCallerSession) GetAttestationStats(identifier [32]byte, account common.Address) (uint32, uint32, error) {
 	return _Attestations.Contract.GetAttestationStats(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Attestations *AttestationsCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -451,21 +451,21 @@ func (_Attestations *AttestationsCaller) GetBlockNumberFromHeader(opts *bind.Cal
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Attestations *AttestationsSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Attestations.Contract.GetBlockNumberFromHeader(&_Attestations.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Attestations *AttestationsCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Attestations.Contract.GetBlockNumberFromHeader(&_Attestations.CallOpts, header)
 }
 
 // GetCompletableAttestations is a free data retrieval call binding the contract method 0x4eef7e85.
 //
-// Solidity: function getCompletableAttestations(bytes32 identifier, address account) constant returns(uint32[], address[], uint256[], bytes)
+// Solidity: function getCompletableAttestations(bytes32 identifier, address account) view returns(uint32[], address[], uint256[], bytes)
 func (_Attestations *AttestationsCaller) GetCompletableAttestations(opts *bind.CallOpts, identifier [32]byte, account common.Address) ([]uint32, []common.Address, []*big.Int, []byte, error) {
 	var (
 		ret0 = new([]uint32)
@@ -485,21 +485,21 @@ func (_Attestations *AttestationsCaller) GetCompletableAttestations(opts *bind.C
 
 // GetCompletableAttestations is a free data retrieval call binding the contract method 0x4eef7e85.
 //
-// Solidity: function getCompletableAttestations(bytes32 identifier, address account) constant returns(uint32[], address[], uint256[], bytes)
+// Solidity: function getCompletableAttestations(bytes32 identifier, address account) view returns(uint32[], address[], uint256[], bytes)
 func (_Attestations *AttestationsSession) GetCompletableAttestations(identifier [32]byte, account common.Address) ([]uint32, []common.Address, []*big.Int, []byte, error) {
 	return _Attestations.Contract.GetCompletableAttestations(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetCompletableAttestations is a free data retrieval call binding the contract method 0x4eef7e85.
 //
-// Solidity: function getCompletableAttestations(bytes32 identifier, address account) constant returns(uint32[], address[], uint256[], bytes)
+// Solidity: function getCompletableAttestations(bytes32 identifier, address account) view returns(uint32[], address[], uint256[], bytes)
 func (_Attestations *AttestationsCallerSession) GetCompletableAttestations(identifier [32]byte, account common.Address) ([]uint32, []common.Address, []*big.Int, []byte, error) {
 	return _Attestations.Contract.GetCompletableAttestations(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Attestations *AttestationsCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -511,21 +511,21 @@ func (_Attestations *AttestationsCaller) GetEpochNumber(opts *bind.CallOpts) (*b
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Attestations *AttestationsSession) GetEpochNumber() (*big.Int, error) {
 	return _Attestations.Contract.GetEpochNumber(&_Attestations.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _Attestations.Contract.GetEpochNumber(&_Attestations.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -537,21 +537,21 @@ func (_Attestations *AttestationsCaller) GetEpochNumberOfBlock(opts *bind.CallOp
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Attestations.Contract.GetEpochNumberOfBlock(&_Attestations.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Attestations.Contract.GetEpochNumberOfBlock(&_Attestations.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Attestations *AttestationsCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -563,21 +563,21 @@ func (_Attestations *AttestationsCaller) GetEpochSize(opts *bind.CallOpts) (*big
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Attestations *AttestationsSession) GetEpochSize() (*big.Int, error) {
 	return _Attestations.Contract.GetEpochSize(&_Attestations.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) GetEpochSize() (*big.Int, error) {
 	return _Attestations.Contract.GetEpochSize(&_Attestations.CallOpts)
 }
 
 // GetMaxAttestations is a free data retrieval call binding the contract method 0x7796a684.
 //
-// Solidity: function getMaxAttestations() constant returns(uint256)
+// Solidity: function getMaxAttestations() view returns(uint256)
 func (_Attestations *AttestationsCaller) GetMaxAttestations(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -589,21 +589,21 @@ func (_Attestations *AttestationsCaller) GetMaxAttestations(opts *bind.CallOpts)
 
 // GetMaxAttestations is a free data retrieval call binding the contract method 0x7796a684.
 //
-// Solidity: function getMaxAttestations() constant returns(uint256)
+// Solidity: function getMaxAttestations() view returns(uint256)
 func (_Attestations *AttestationsSession) GetMaxAttestations() (*big.Int, error) {
 	return _Attestations.Contract.GetMaxAttestations(&_Attestations.CallOpts)
 }
 
 // GetMaxAttestations is a free data retrieval call binding the contract method 0x7796a684.
 //
-// Solidity: function getMaxAttestations() constant returns(uint256)
+// Solidity: function getMaxAttestations() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) GetMaxAttestations() (*big.Int, error) {
 	return _Attestations.Contract.GetMaxAttestations(&_Attestations.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Attestations *AttestationsCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -615,21 +615,21 @@ func (_Attestations *AttestationsCaller) GetParentSealBitmap(opts *bind.CallOpts
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Attestations *AttestationsSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Attestations.Contract.GetParentSealBitmap(&_Attestations.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Attestations *AttestationsCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Attestations.Contract.GetParentSealBitmap(&_Attestations.CallOpts, blockNumber)
 }
 
 // GetUnselectedRequest is a free data retrieval call binding the contract method 0xe3d0f66f.
 //
-// Solidity: function getUnselectedRequest(bytes32 identifier, address account) constant returns(uint32, uint32, address)
+// Solidity: function getUnselectedRequest(bytes32 identifier, address account) view returns(uint32, uint32, address)
 func (_Attestations *AttestationsCaller) GetUnselectedRequest(opts *bind.CallOpts, identifier [32]byte, account common.Address) (uint32, uint32, common.Address, error) {
 	var (
 		ret0 = new(uint32)
@@ -647,21 +647,21 @@ func (_Attestations *AttestationsCaller) GetUnselectedRequest(opts *bind.CallOpt
 
 // GetUnselectedRequest is a free data retrieval call binding the contract method 0xe3d0f66f.
 //
-// Solidity: function getUnselectedRequest(bytes32 identifier, address account) constant returns(uint32, uint32, address)
+// Solidity: function getUnselectedRequest(bytes32 identifier, address account) view returns(uint32, uint32, address)
 func (_Attestations *AttestationsSession) GetUnselectedRequest(identifier [32]byte, account common.Address) (uint32, uint32, common.Address, error) {
 	return _Attestations.Contract.GetUnselectedRequest(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetUnselectedRequest is a free data retrieval call binding the contract method 0xe3d0f66f.
 //
-// Solidity: function getUnselectedRequest(bytes32 identifier, address account) constant returns(uint32, uint32, address)
+// Solidity: function getUnselectedRequest(bytes32 identifier, address account) view returns(uint32, uint32, address)
 func (_Attestations *AttestationsCallerSession) GetUnselectedRequest(identifier [32]byte, account common.Address) (uint32, uint32, common.Address, error) {
 	return _Attestations.Contract.GetUnselectedRequest(&_Attestations.CallOpts, identifier, account)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Attestations *AttestationsCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -673,21 +673,21 @@ func (_Attestations *AttestationsCaller) GetVerifiedSealBitmapFromHeader(opts *b
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Attestations *AttestationsSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Attestations.Contract.GetVerifiedSealBitmapFromHeader(&_Attestations.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Attestations *AttestationsCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Attestations.Contract.GetVerifiedSealBitmapFromHeader(&_Attestations.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Attestations *AttestationsCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -707,21 +707,21 @@ func (_Attestations *AttestationsCaller) GetVersionNumber(opts *bind.CallOpts) (
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Attestations *AttestationsSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Attestations.Contract.GetVersionNumber(&_Attestations.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Attestations *AttestationsCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Attestations.Contract.GetVersionNumber(&_Attestations.CallOpts)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Attestations *AttestationsCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -733,21 +733,21 @@ func (_Attestations *AttestationsCaller) HashHeader(opts *bind.CallOpts, header 
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Attestations *AttestationsSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Attestations.Contract.HashHeader(&_Attestations.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Attestations *AttestationsCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Attestations.Contract.HashHeader(&_Attestations.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Attestations *AttestationsCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -759,21 +759,21 @@ func (_Attestations *AttestationsCaller) Initialized(opts *bind.CallOpts) (bool,
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Attestations *AttestationsSession) Initialized() (bool, error) {
 	return _Attestations.Contract.Initialized(&_Attestations.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Attestations *AttestationsCallerSession) Initialized() (bool, error) {
 	return _Attestations.Contract.Initialized(&_Attestations.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Attestations *AttestationsCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -785,21 +785,21 @@ func (_Attestations *AttestationsCaller) IsOwner(opts *bind.CallOpts) (bool, err
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Attestations *AttestationsSession) IsOwner() (bool, error) {
 	return _Attestations.Contract.IsOwner(&_Attestations.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Attestations *AttestationsCallerSession) IsOwner() (bool, error) {
 	return _Attestations.Contract.IsOwner(&_Attestations.CallOpts)
 }
 
 // LookupAccountsForIdentifier is a free data retrieval call binding the contract method 0x03cc1aff.
 //
-// Solidity: function lookupAccountsForIdentifier(bytes32 identifier) constant returns(address[])
+// Solidity: function lookupAccountsForIdentifier(bytes32 identifier) view returns(address[])
 func (_Attestations *AttestationsCaller) LookupAccountsForIdentifier(opts *bind.CallOpts, identifier [32]byte) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -811,21 +811,21 @@ func (_Attestations *AttestationsCaller) LookupAccountsForIdentifier(opts *bind.
 
 // LookupAccountsForIdentifier is a free data retrieval call binding the contract method 0x03cc1aff.
 //
-// Solidity: function lookupAccountsForIdentifier(bytes32 identifier) constant returns(address[])
+// Solidity: function lookupAccountsForIdentifier(bytes32 identifier) view returns(address[])
 func (_Attestations *AttestationsSession) LookupAccountsForIdentifier(identifier [32]byte) ([]common.Address, error) {
 	return _Attestations.Contract.LookupAccountsForIdentifier(&_Attestations.CallOpts, identifier)
 }
 
 // LookupAccountsForIdentifier is a free data retrieval call binding the contract method 0x03cc1aff.
 //
-// Solidity: function lookupAccountsForIdentifier(bytes32 identifier) constant returns(address[])
+// Solidity: function lookupAccountsForIdentifier(bytes32 identifier) view returns(address[])
 func (_Attestations *AttestationsCallerSession) LookupAccountsForIdentifier(identifier [32]byte) ([]common.Address, error) {
 	return _Attestations.Contract.LookupAccountsForIdentifier(&_Attestations.CallOpts, identifier)
 }
 
 // MaxAttestations is a free data retrieval call binding the contract method 0x8218c6fe.
 //
-// Solidity: function maxAttestations() constant returns(uint256)
+// Solidity: function maxAttestations() view returns(uint256)
 func (_Attestations *AttestationsCaller) MaxAttestations(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -837,21 +837,21 @@ func (_Attestations *AttestationsCaller) MaxAttestations(opts *bind.CallOpts) (*
 
 // MaxAttestations is a free data retrieval call binding the contract method 0x8218c6fe.
 //
-// Solidity: function maxAttestations() constant returns(uint256)
+// Solidity: function maxAttestations() view returns(uint256)
 func (_Attestations *AttestationsSession) MaxAttestations() (*big.Int, error) {
 	return _Attestations.Contract.MaxAttestations(&_Attestations.CallOpts)
 }
 
 // MaxAttestations is a free data retrieval call binding the contract method 0x8218c6fe.
 //
-// Solidity: function maxAttestations() constant returns(uint256)
+// Solidity: function maxAttestations() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) MaxAttestations() (*big.Int, error) {
 	return _Attestations.Contract.MaxAttestations(&_Attestations.CallOpts)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -863,21 +863,21 @@ func (_Attestations *AttestationsCaller) MinQuorumSize(opts *bind.CallOpts, bloc
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Attestations.Contract.MinQuorumSize(&_Attestations.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Attestations.Contract.MinQuorumSize(&_Attestations.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Attestations *AttestationsCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -889,21 +889,21 @@ func (_Attestations *AttestationsCaller) MinQuorumSizeInCurrentSet(opts *bind.Ca
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Attestations *AttestationsSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Attestations.Contract.MinQuorumSizeInCurrentSet(&_Attestations.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Attestations.Contract.MinQuorumSizeInCurrentSet(&_Attestations.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Attestations *AttestationsCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -915,21 +915,21 @@ func (_Attestations *AttestationsCaller) NumberValidatorsInCurrentSet(opts *bind
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Attestations *AttestationsSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Attestations.Contract.NumberValidatorsInCurrentSet(&_Attestations.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Attestations.Contract.NumberValidatorsInCurrentSet(&_Attestations.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -941,21 +941,21 @@ func (_Attestations *AttestationsCaller) NumberValidatorsInSet(opts *bind.CallOp
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Attestations.Contract.NumberValidatorsInSet(&_Attestations.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Attestations *AttestationsCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Attestations.Contract.NumberValidatorsInSet(&_Attestations.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Attestations *AttestationsCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -967,21 +967,21 @@ func (_Attestations *AttestationsCaller) Owner(opts *bind.CallOpts) (common.Addr
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Attestations *AttestationsSession) Owner() (common.Address, error) {
 	return _Attestations.Contract.Owner(&_Attestations.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Attestations *AttestationsCallerSession) Owner() (common.Address, error) {
 	return _Attestations.Contract.Owner(&_Attestations.CallOpts)
 }
 
 // PendingWithdrawals is a free data retrieval call binding the contract method 0xe831be58.
 //
-// Solidity: function pendingWithdrawals(address , address ) constant returns(uint256)
+// Solidity: function pendingWithdrawals(address , address ) view returns(uint256)
 func (_Attestations *AttestationsCaller) PendingWithdrawals(opts *bind.CallOpts, arg0 common.Address, arg1 common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -993,21 +993,21 @@ func (_Attestations *AttestationsCaller) PendingWithdrawals(opts *bind.CallOpts,
 
 // PendingWithdrawals is a free data retrieval call binding the contract method 0xe831be58.
 //
-// Solidity: function pendingWithdrawals(address , address ) constant returns(uint256)
+// Solidity: function pendingWithdrawals(address , address ) view returns(uint256)
 func (_Attestations *AttestationsSession) PendingWithdrawals(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
 	return _Attestations.Contract.PendingWithdrawals(&_Attestations.CallOpts, arg0, arg1)
 }
 
 // PendingWithdrawals is a free data retrieval call binding the contract method 0xe831be58.
 //
-// Solidity: function pendingWithdrawals(address , address ) constant returns(uint256)
+// Solidity: function pendingWithdrawals(address , address ) view returns(uint256)
 func (_Attestations *AttestationsCallerSession) PendingWithdrawals(arg0 common.Address, arg1 common.Address) (*big.Int, error) {
 	return _Attestations.Contract.PendingWithdrawals(&_Attestations.CallOpts, arg0, arg1)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Attestations *AttestationsCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1019,21 +1019,21 @@ func (_Attestations *AttestationsCaller) Registry(opts *bind.CallOpts) (common.A
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Attestations *AttestationsSession) Registry() (common.Address, error) {
 	return _Attestations.Contract.Registry(&_Attestations.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Attestations *AttestationsCallerSession) Registry() (common.Address, error) {
 	return _Attestations.Contract.Registry(&_Attestations.CallOpts)
 }
 
 // RequireNAttestationsRequested is a free data retrieval call binding the contract method 0xa762825a.
 //
-// Solidity: function requireNAttestationsRequested(bytes32 identifier, address account, uint32 expected) constant returns()
+// Solidity: function requireNAttestationsRequested(bytes32 identifier, address account, uint32 expected) view returns()
 func (_Attestations *AttestationsCaller) RequireNAttestationsRequested(opts *bind.CallOpts, identifier [32]byte, account common.Address, expected uint32) error {
 	var ()
 	out := &[]interface{}{}
@@ -1043,21 +1043,21 @@ func (_Attestations *AttestationsCaller) RequireNAttestationsRequested(opts *bin
 
 // RequireNAttestationsRequested is a free data retrieval call binding the contract method 0xa762825a.
 //
-// Solidity: function requireNAttestationsRequested(bytes32 identifier, address account, uint32 expected) constant returns()
+// Solidity: function requireNAttestationsRequested(bytes32 identifier, address account, uint32 expected) view returns()
 func (_Attestations *AttestationsSession) RequireNAttestationsRequested(identifier [32]byte, account common.Address, expected uint32) error {
 	return _Attestations.Contract.RequireNAttestationsRequested(&_Attestations.CallOpts, identifier, account, expected)
 }
 
 // RequireNAttestationsRequested is a free data retrieval call binding the contract method 0xa762825a.
 //
-// Solidity: function requireNAttestationsRequested(bytes32 identifier, address account, uint32 expected) constant returns()
+// Solidity: function requireNAttestationsRequested(bytes32 identifier, address account, uint32 expected) view returns()
 func (_Attestations *AttestationsCallerSession) RequireNAttestationsRequested(identifier [32]byte, account common.Address, expected uint32) error {
 	return _Attestations.Contract.RequireNAttestationsRequested(&_Attestations.CallOpts, identifier, account, expected)
 }
 
 // SelectIssuersWaitBlocks is a free data retrieval call binding the contract method 0x89d35286.
 //
-// Solidity: function selectIssuersWaitBlocks() constant returns(uint256)
+// Solidity: function selectIssuersWaitBlocks() view returns(uint256)
 func (_Attestations *AttestationsCaller) SelectIssuersWaitBlocks(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1069,21 +1069,21 @@ func (_Attestations *AttestationsCaller) SelectIssuersWaitBlocks(opts *bind.Call
 
 // SelectIssuersWaitBlocks is a free data retrieval call binding the contract method 0x89d35286.
 //
-// Solidity: function selectIssuersWaitBlocks() constant returns(uint256)
+// Solidity: function selectIssuersWaitBlocks() view returns(uint256)
 func (_Attestations *AttestationsSession) SelectIssuersWaitBlocks() (*big.Int, error) {
 	return _Attestations.Contract.SelectIssuersWaitBlocks(&_Attestations.CallOpts)
 }
 
 // SelectIssuersWaitBlocks is a free data retrieval call binding the contract method 0x89d35286.
 //
-// Solidity: function selectIssuersWaitBlocks() constant returns(uint256)
+// Solidity: function selectIssuersWaitBlocks() view returns(uint256)
 func (_Attestations *AttestationsCallerSession) SelectIssuersWaitBlocks() (*big.Int, error) {
 	return _Attestations.Contract.SelectIssuersWaitBlocks(&_Attestations.CallOpts)
 }
 
 // TransferApprovals is a free data retrieval call binding the contract method 0x84a1a4fc.
 //
-// Solidity: function transferApprovals(address , bytes32 ) constant returns(bool)
+// Solidity: function transferApprovals(address , bytes32 ) view returns(bool)
 func (_Attestations *AttestationsCaller) TransferApprovals(opts *bind.CallOpts, arg0 common.Address, arg1 [32]byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1095,21 +1095,21 @@ func (_Attestations *AttestationsCaller) TransferApprovals(opts *bind.CallOpts, 
 
 // TransferApprovals is a free data retrieval call binding the contract method 0x84a1a4fc.
 //
-// Solidity: function transferApprovals(address , bytes32 ) constant returns(bool)
+// Solidity: function transferApprovals(address , bytes32 ) view returns(bool)
 func (_Attestations *AttestationsSession) TransferApprovals(arg0 common.Address, arg1 [32]byte) (bool, error) {
 	return _Attestations.Contract.TransferApprovals(&_Attestations.CallOpts, arg0, arg1)
 }
 
 // TransferApprovals is a free data retrieval call binding the contract method 0x84a1a4fc.
 //
-// Solidity: function transferApprovals(address , bytes32 ) constant returns(bool)
+// Solidity: function transferApprovals(address , bytes32 ) view returns(bool)
 func (_Attestations *AttestationsCallerSession) TransferApprovals(arg0 common.Address, arg1 [32]byte) (bool, error) {
 	return _Attestations.Contract.TransferApprovals(&_Attestations.CallOpts, arg0, arg1)
 }
 
 // ValidateAttestationCode is a free data retrieval call binding the contract method 0x5ce9bc07.
 //
-// Solidity: function validateAttestationCode(bytes32 identifier, address account, uint8 v, bytes32 r, bytes32 s) constant returns(address)
+// Solidity: function validateAttestationCode(bytes32 identifier, address account, uint8 v, bytes32 r, bytes32 s) view returns(address)
 func (_Attestations *AttestationsCaller) ValidateAttestationCode(opts *bind.CallOpts, identifier [32]byte, account common.Address, v uint8, r [32]byte, s [32]byte) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1121,21 +1121,21 @@ func (_Attestations *AttestationsCaller) ValidateAttestationCode(opts *bind.Call
 
 // ValidateAttestationCode is a free data retrieval call binding the contract method 0x5ce9bc07.
 //
-// Solidity: function validateAttestationCode(bytes32 identifier, address account, uint8 v, bytes32 r, bytes32 s) constant returns(address)
+// Solidity: function validateAttestationCode(bytes32 identifier, address account, uint8 v, bytes32 r, bytes32 s) view returns(address)
 func (_Attestations *AttestationsSession) ValidateAttestationCode(identifier [32]byte, account common.Address, v uint8, r [32]byte, s [32]byte) (common.Address, error) {
 	return _Attestations.Contract.ValidateAttestationCode(&_Attestations.CallOpts, identifier, account, v, r, s)
 }
 
 // ValidateAttestationCode is a free data retrieval call binding the contract method 0x5ce9bc07.
 //
-// Solidity: function validateAttestationCode(bytes32 identifier, address account, uint8 v, bytes32 r, bytes32 s) constant returns(address)
+// Solidity: function validateAttestationCode(bytes32 identifier, address account, uint8 v, bytes32 r, bytes32 s) view returns(address)
 func (_Attestations *AttestationsCallerSession) ValidateAttestationCode(identifier [32]byte, account common.Address, v uint8, r [32]byte, s [32]byte) (common.Address, error) {
 	return _Attestations.Contract.ValidateAttestationCode(&_Attestations.CallOpts, identifier, account, v, r, s)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Attestations *AttestationsCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1147,21 +1147,21 @@ func (_Attestations *AttestationsCaller) ValidatorSignerAddressFromCurrentSet(op
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Attestations *AttestationsSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Attestations.Contract.ValidatorSignerAddressFromCurrentSet(&_Attestations.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Attestations *AttestationsCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Attestations.Contract.ValidatorSignerAddressFromCurrentSet(&_Attestations.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Attestations *AttestationsCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1173,14 +1173,14 @@ func (_Attestations *AttestationsCaller) ValidatorSignerAddressFromSet(opts *bin
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Attestations *AttestationsSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Attestations.Contract.ValidatorSignerAddressFromSet(&_Attestations.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Attestations *AttestationsCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Attestations.Contract.ValidatorSignerAddressFromSet(&_Attestations.CallOpts, index, blockNumber)
 }

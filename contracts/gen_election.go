@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +28,7 @@ var (
 )
 
 // ElectionABI is the input ABI used to generate the binding from.
-const ElectionABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"electabilityThresholdFraction\",\"type\":\"uint256\"}],\"name\":\"ElectabilityThresholdSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"}],\"name\":\"ElectableValidatorsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"EpochRewardsDistributedToVoters\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"maxNumGroupsVotedFor\",\"type\":\"uint256\"}],\"name\":\"MaxNumGroupsVotedForSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"units\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupActiveVoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMarkedEligible\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMarkedIneligible\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupPendingVoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"units\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupVoteActivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupVoteCast\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"electabilityThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"electableValidators\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxNumGroupsVotedFor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minElectableValidators\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxElectableValidators\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maxNumGroupsVotedFor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_electabilityThreshold\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"}],\"name\":\"setElectableValidators\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getElectableValidators\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_maxNumGroupsVotedFor\",\"type\":\"uint256\"}],\"name\":\"setMaxNumGroupsVotedFor\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"setElectabilityThreshold\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getElectabilityThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"activate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"hasActivatablePendingVotes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokePending\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokeAllActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokeActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getTotalVotesByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getPendingVotesForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getActiveVotesForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getTotalVotesForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getActiveVoteUnitsForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getActiveVoteUnitsForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getTotalVotesForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getActiveVotesForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getPendingVotesForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getGroupEligibility\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"totalEpochRewards\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"uptimes\",\"type\":\"uint256[]\"}],\"name\":\"getGroupEpochRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"distributeEpochRewards\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"markGroupIneligible\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"markGroupEligible\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getGroupsVotedForByAccount\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"canReceiveVotes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getNumVotesReceivable\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getActiveVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEligibleValidatorGroups\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalVotesForEligibleValidatorGroups\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"groups\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"electValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"minElectableValidators\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxElectableValidators\",\"type\":\"uint256\"}],\"name\":\"electNValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCurrentValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"lessers\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"greaters\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"indices\",\"type\":\"uint256[]\"}],\"name\":\"forceDecrementVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const ElectionABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"electabilityThreshold\",\"type\":\"uint256\"}],\"name\":\"ElectabilityThresholdSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"}],\"name\":\"ElectableValidatorsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"EpochRewardsDistributedToVoters\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"maxNumGroupsVotedFor\",\"type\":\"uint256\"}],\"name\":\"MaxNumGroupsVotedForSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"units\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupActiveVoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMarkedEligible\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMarkedIneligible\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupPendingVoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"units\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupVoteActivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupVoteCast\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"electabilityThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"electableValidators\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxNumGroupsVotedFor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minElectableValidators\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxElectableValidators\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maxNumGroupsVotedFor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_electabilityThreshold\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"}],\"name\":\"setElectableValidators\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getElectableValidators\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_maxNumGroupsVotedFor\",\"type\":\"uint256\"}],\"name\":\"setMaxNumGroupsVotedFor\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"setElectabilityThreshold\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getElectabilityThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"activate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"hasActivatablePendingVotes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokePending\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokeAllActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokeActive\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getTotalVotesByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getPendingVotesForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getActiveVotesForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getTotalVotesForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getActiveVoteUnitsForGroupByAccount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getActiveVoteUnitsForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getTotalVotesForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getActiveVotesForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getPendingVotesForGroup\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getGroupEligibility\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"totalEpochRewards\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"uptimes\",\"type\":\"uint256[]\"}],\"name\":\"getGroupEpochRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"distributeEpochRewards\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"markGroupIneligible\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"markGroupEligible\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getGroupsVotedForByAccount\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"canReceiveVotes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"getNumVotesReceivable\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getActiveVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEligibleValidatorGroups\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalVotesForEligibleValidatorGroups\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"groups\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"electValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"minElectableValidators\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxElectableValidators\",\"type\":\"uint256\"}],\"name\":\"electNValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCurrentValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"lessers\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"greaters\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"indices\",\"type\":\"uint256[]\"}],\"name\":\"forceDecrementVotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // Election is an auto generated Go binding around an Ethereum contract.
 type Election struct {
@@ -183,7 +183,7 @@ func (_Election *ElectionTransactorRaw) Transact(opts *bind.TransactOpts, method
 
 // CanReceiveVotes is a free data retrieval call binding the contract method 0xe59ea3e8.
 //
-// Solidity: function canReceiveVotes(address group, uint256 value) constant returns(bool)
+// Solidity: function canReceiveVotes(address group, uint256 value) view returns(bool)
 func (_Election *ElectionCaller) CanReceiveVotes(opts *bind.CallOpts, group common.Address, value *big.Int) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -195,21 +195,21 @@ func (_Election *ElectionCaller) CanReceiveVotes(opts *bind.CallOpts, group comm
 
 // CanReceiveVotes is a free data retrieval call binding the contract method 0xe59ea3e8.
 //
-// Solidity: function canReceiveVotes(address group, uint256 value) constant returns(bool)
+// Solidity: function canReceiveVotes(address group, uint256 value) view returns(bool)
 func (_Election *ElectionSession) CanReceiveVotes(group common.Address, value *big.Int) (bool, error) {
 	return _Election.Contract.CanReceiveVotes(&_Election.CallOpts, group, value)
 }
 
 // CanReceiveVotes is a free data retrieval call binding the contract method 0xe59ea3e8.
 //
-// Solidity: function canReceiveVotes(address group, uint256 value) constant returns(bool)
+// Solidity: function canReceiveVotes(address group, uint256 value) view returns(bool)
 func (_Election *ElectionCallerSession) CanReceiveVotes(group common.Address, value *big.Int) (bool, error) {
 	return _Election.Contract.CanReceiveVotes(&_Election.CallOpts, group, value)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Election *ElectionCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -221,21 +221,21 @@ func (_Election *ElectionCaller) CheckProofOfPossession(opts *bind.CallOpts, sen
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Election *ElectionSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Election.Contract.CheckProofOfPossession(&_Election.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Election *ElectionCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Election.Contract.CheckProofOfPossession(&_Election.CallOpts, sender, blsKey, blsPop)
 }
 
 // ElectNValidatorSigners is a free data retrieval call binding the contract method 0x90a4dd5c.
 //
-// Solidity: function electNValidatorSigners(uint256 minElectableValidators, uint256 maxElectableValidators) constant returns(address[])
+// Solidity: function electNValidatorSigners(uint256 minElectableValidators, uint256 maxElectableValidators) view returns(address[])
 func (_Election *ElectionCaller) ElectNValidatorSigners(opts *bind.CallOpts, minElectableValidators *big.Int, maxElectableValidators *big.Int) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -247,21 +247,21 @@ func (_Election *ElectionCaller) ElectNValidatorSigners(opts *bind.CallOpts, min
 
 // ElectNValidatorSigners is a free data retrieval call binding the contract method 0x90a4dd5c.
 //
-// Solidity: function electNValidatorSigners(uint256 minElectableValidators, uint256 maxElectableValidators) constant returns(address[])
+// Solidity: function electNValidatorSigners(uint256 minElectableValidators, uint256 maxElectableValidators) view returns(address[])
 func (_Election *ElectionSession) ElectNValidatorSigners(minElectableValidators *big.Int, maxElectableValidators *big.Int) ([]common.Address, error) {
 	return _Election.Contract.ElectNValidatorSigners(&_Election.CallOpts, minElectableValidators, maxElectableValidators)
 }
 
 // ElectNValidatorSigners is a free data retrieval call binding the contract method 0x90a4dd5c.
 //
-// Solidity: function electNValidatorSigners(uint256 minElectableValidators, uint256 maxElectableValidators) constant returns(address[])
+// Solidity: function electNValidatorSigners(uint256 minElectableValidators, uint256 maxElectableValidators) view returns(address[])
 func (_Election *ElectionCallerSession) ElectNValidatorSigners(minElectableValidators *big.Int, maxElectableValidators *big.Int) ([]common.Address, error) {
 	return _Election.Contract.ElectNValidatorSigners(&_Election.CallOpts, minElectableValidators, maxElectableValidators)
 }
 
 // ElectValidatorSigners is a free data retrieval call binding the contract method 0x2ba38e69.
 //
-// Solidity: function electValidatorSigners() constant returns(address[])
+// Solidity: function electValidatorSigners() view returns(address[])
 func (_Election *ElectionCaller) ElectValidatorSigners(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -273,21 +273,21 @@ func (_Election *ElectionCaller) ElectValidatorSigners(opts *bind.CallOpts) ([]c
 
 // ElectValidatorSigners is a free data retrieval call binding the contract method 0x2ba38e69.
 //
-// Solidity: function electValidatorSigners() constant returns(address[])
+// Solidity: function electValidatorSigners() view returns(address[])
 func (_Election *ElectionSession) ElectValidatorSigners() ([]common.Address, error) {
 	return _Election.Contract.ElectValidatorSigners(&_Election.CallOpts)
 }
 
 // ElectValidatorSigners is a free data retrieval call binding the contract method 0x2ba38e69.
 //
-// Solidity: function electValidatorSigners() constant returns(address[])
+// Solidity: function electValidatorSigners() view returns(address[])
 func (_Election *ElectionCallerSession) ElectValidatorSigners() ([]common.Address, error) {
 	return _Election.Contract.ElectValidatorSigners(&_Election.CallOpts)
 }
 
 // ElectabilityThreshold is a free data retrieval call binding the contract method 0x4be8843b.
 //
-// Solidity: function electabilityThreshold() constant returns(uint256 value)
+// Solidity: function electabilityThreshold() view returns(uint256 value)
 func (_Election *ElectionCaller) ElectabilityThreshold(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -299,21 +299,21 @@ func (_Election *ElectionCaller) ElectabilityThreshold(opts *bind.CallOpts) (*bi
 
 // ElectabilityThreshold is a free data retrieval call binding the contract method 0x4be8843b.
 //
-// Solidity: function electabilityThreshold() constant returns(uint256 value)
+// Solidity: function electabilityThreshold() view returns(uint256 value)
 func (_Election *ElectionSession) ElectabilityThreshold() (*big.Int, error) {
 	return _Election.Contract.ElectabilityThreshold(&_Election.CallOpts)
 }
 
 // ElectabilityThreshold is a free data retrieval call binding the contract method 0x4be8843b.
 //
-// Solidity: function electabilityThreshold() constant returns(uint256 value)
+// Solidity: function electabilityThreshold() view returns(uint256 value)
 func (_Election *ElectionCallerSession) ElectabilityThreshold() (*big.Int, error) {
 	return _Election.Contract.ElectabilityThreshold(&_Election.CallOpts)
 }
 
 // ElectableValidators is a free data retrieval call binding the contract method 0xf9d7daae.
 //
-// Solidity: function electableValidators() constant returns(uint256 min, uint256 max)
+// Solidity: function electableValidators() view returns(uint256 min, uint256 max)
 func (_Election *ElectionCaller) ElectableValidators(opts *bind.CallOpts) (struct {
 	Min *big.Int
 	Max *big.Int
@@ -329,7 +329,7 @@ func (_Election *ElectionCaller) ElectableValidators(opts *bind.CallOpts) (struc
 
 // ElectableValidators is a free data retrieval call binding the contract method 0xf9d7daae.
 //
-// Solidity: function electableValidators() constant returns(uint256 min, uint256 max)
+// Solidity: function electableValidators() view returns(uint256 min, uint256 max)
 func (_Election *ElectionSession) ElectableValidators() (struct {
 	Min *big.Int
 	Max *big.Int
@@ -339,7 +339,7 @@ func (_Election *ElectionSession) ElectableValidators() (struct {
 
 // ElectableValidators is a free data retrieval call binding the contract method 0xf9d7daae.
 //
-// Solidity: function electableValidators() constant returns(uint256 min, uint256 max)
+// Solidity: function electableValidators() view returns(uint256 min, uint256 max)
 func (_Election *ElectionCallerSession) ElectableValidators() (struct {
 	Min *big.Int
 	Max *big.Int
@@ -349,7 +349,7 @@ func (_Election *ElectionCallerSession) ElectableValidators() (struct {
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Election *ElectionCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -365,21 +365,21 @@ func (_Election *ElectionCaller) FractionMulExp(opts *bind.CallOpts, aNumerator 
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Election *ElectionSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Election.Contract.FractionMulExp(&_Election.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Election *ElectionCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Election.Contract.FractionMulExp(&_Election.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetActiveVoteUnitsForGroup is a free data retrieval call binding the contract method 0x5bb5acfb.
 //
-// Solidity: function getActiveVoteUnitsForGroup(address group) constant returns(uint256)
+// Solidity: function getActiveVoteUnitsForGroup(address group) view returns(uint256)
 func (_Election *ElectionCaller) GetActiveVoteUnitsForGroup(opts *bind.CallOpts, group common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -391,21 +391,21 @@ func (_Election *ElectionCaller) GetActiveVoteUnitsForGroup(opts *bind.CallOpts,
 
 // GetActiveVoteUnitsForGroup is a free data retrieval call binding the contract method 0x5bb5acfb.
 //
-// Solidity: function getActiveVoteUnitsForGroup(address group) constant returns(uint256)
+// Solidity: function getActiveVoteUnitsForGroup(address group) view returns(uint256)
 func (_Election *ElectionSession) GetActiveVoteUnitsForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVoteUnitsForGroup(&_Election.CallOpts, group)
 }
 
 // GetActiveVoteUnitsForGroup is a free data retrieval call binding the contract method 0x5bb5acfb.
 //
-// Solidity: function getActiveVoteUnitsForGroup(address group) constant returns(uint256)
+// Solidity: function getActiveVoteUnitsForGroup(address group) view returns(uint256)
 func (_Election *ElectionCallerSession) GetActiveVoteUnitsForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVoteUnitsForGroup(&_Election.CallOpts, group)
 }
 
 // GetActiveVoteUnitsForGroupByAccount is a free data retrieval call binding the contract method 0xa2fb4ddf.
 //
-// Solidity: function getActiveVoteUnitsForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getActiveVoteUnitsForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCaller) GetActiveVoteUnitsForGroupByAccount(opts *bind.CallOpts, group common.Address, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -417,21 +417,21 @@ func (_Election *ElectionCaller) GetActiveVoteUnitsForGroupByAccount(opts *bind.
 
 // GetActiveVoteUnitsForGroupByAccount is a free data retrieval call binding the contract method 0xa2fb4ddf.
 //
-// Solidity: function getActiveVoteUnitsForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getActiveVoteUnitsForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionSession) GetActiveVoteUnitsForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVoteUnitsForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetActiveVoteUnitsForGroupByAccount is a free data retrieval call binding the contract method 0xa2fb4ddf.
 //
-// Solidity: function getActiveVoteUnitsForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getActiveVoteUnitsForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCallerSession) GetActiveVoteUnitsForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVoteUnitsForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetActiveVotes is a free data retrieval call binding the contract method 0x1f604243.
 //
-// Solidity: function getActiveVotes() constant returns(uint256)
+// Solidity: function getActiveVotes() view returns(uint256)
 func (_Election *ElectionCaller) GetActiveVotes(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -443,21 +443,21 @@ func (_Election *ElectionCaller) GetActiveVotes(opts *bind.CallOpts) (*big.Int, 
 
 // GetActiveVotes is a free data retrieval call binding the contract method 0x1f604243.
 //
-// Solidity: function getActiveVotes() constant returns(uint256)
+// Solidity: function getActiveVotes() view returns(uint256)
 func (_Election *ElectionSession) GetActiveVotes() (*big.Int, error) {
 	return _Election.Contract.GetActiveVotes(&_Election.CallOpts)
 }
 
 // GetActiveVotes is a free data retrieval call binding the contract method 0x1f604243.
 //
-// Solidity: function getActiveVotes() constant returns(uint256)
+// Solidity: function getActiveVotes() view returns(uint256)
 func (_Election *ElectionCallerSession) GetActiveVotes() (*big.Int, error) {
 	return _Election.Contract.GetActiveVotes(&_Election.CallOpts)
 }
 
 // GetActiveVotesForGroup is a free data retrieval call binding the contract method 0x926d00ca.
 //
-// Solidity: function getActiveVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getActiveVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionCaller) GetActiveVotesForGroup(opts *bind.CallOpts, group common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -469,21 +469,21 @@ func (_Election *ElectionCaller) GetActiveVotesForGroup(opts *bind.CallOpts, gro
 
 // GetActiveVotesForGroup is a free data retrieval call binding the contract method 0x926d00ca.
 //
-// Solidity: function getActiveVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getActiveVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionSession) GetActiveVotesForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVotesForGroup(&_Election.CallOpts, group)
 }
 
 // GetActiveVotesForGroup is a free data retrieval call binding the contract method 0x926d00ca.
 //
-// Solidity: function getActiveVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getActiveVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionCallerSession) GetActiveVotesForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVotesForGroup(&_Election.CallOpts, group)
 }
 
 // GetActiveVotesForGroupByAccount is a free data retrieval call binding the contract method 0xd3e242a4.
 //
-// Solidity: function getActiveVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getActiveVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCaller) GetActiveVotesForGroupByAccount(opts *bind.CallOpts, group common.Address, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -495,21 +495,21 @@ func (_Election *ElectionCaller) GetActiveVotesForGroupByAccount(opts *bind.Call
 
 // GetActiveVotesForGroupByAccount is a free data retrieval call binding the contract method 0xd3e242a4.
 //
-// Solidity: function getActiveVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getActiveVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionSession) GetActiveVotesForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVotesForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetActiveVotesForGroupByAccount is a free data retrieval call binding the contract method 0xd3e242a4.
 //
-// Solidity: function getActiveVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getActiveVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCallerSession) GetActiveVotesForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetActiveVotesForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Election *ElectionCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -521,21 +521,21 @@ func (_Election *ElectionCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, h
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Election *ElectionSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Election.Contract.GetBlockNumberFromHeader(&_Election.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Election *ElectionCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Election.Contract.GetBlockNumberFromHeader(&_Election.CallOpts, header)
 }
 
 // GetCurrentValidatorSigners is a free data retrieval call binding the contract method 0x448144c8.
 //
-// Solidity: function getCurrentValidatorSigners() constant returns(address[])
+// Solidity: function getCurrentValidatorSigners() view returns(address[])
 func (_Election *ElectionCaller) GetCurrentValidatorSigners(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -547,21 +547,21 @@ func (_Election *ElectionCaller) GetCurrentValidatorSigners(opts *bind.CallOpts)
 
 // GetCurrentValidatorSigners is a free data retrieval call binding the contract method 0x448144c8.
 //
-// Solidity: function getCurrentValidatorSigners() constant returns(address[])
+// Solidity: function getCurrentValidatorSigners() view returns(address[])
 func (_Election *ElectionSession) GetCurrentValidatorSigners() ([]common.Address, error) {
 	return _Election.Contract.GetCurrentValidatorSigners(&_Election.CallOpts)
 }
 
 // GetCurrentValidatorSigners is a free data retrieval call binding the contract method 0x448144c8.
 //
-// Solidity: function getCurrentValidatorSigners() constant returns(address[])
+// Solidity: function getCurrentValidatorSigners() view returns(address[])
 func (_Election *ElectionCallerSession) GetCurrentValidatorSigners() ([]common.Address, error) {
 	return _Election.Contract.GetCurrentValidatorSigners(&_Election.CallOpts)
 }
 
 // GetElectabilityThreshold is a free data retrieval call binding the contract method 0xbdd14318.
 //
-// Solidity: function getElectabilityThreshold() constant returns(uint256)
+// Solidity: function getElectabilityThreshold() view returns(uint256)
 func (_Election *ElectionCaller) GetElectabilityThreshold(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -573,21 +573,21 @@ func (_Election *ElectionCaller) GetElectabilityThreshold(opts *bind.CallOpts) (
 
 // GetElectabilityThreshold is a free data retrieval call binding the contract method 0xbdd14318.
 //
-// Solidity: function getElectabilityThreshold() constant returns(uint256)
+// Solidity: function getElectabilityThreshold() view returns(uint256)
 func (_Election *ElectionSession) GetElectabilityThreshold() (*big.Int, error) {
 	return _Election.Contract.GetElectabilityThreshold(&_Election.CallOpts)
 }
 
 // GetElectabilityThreshold is a free data retrieval call binding the contract method 0xbdd14318.
 //
-// Solidity: function getElectabilityThreshold() constant returns(uint256)
+// Solidity: function getElectabilityThreshold() view returns(uint256)
 func (_Election *ElectionCallerSession) GetElectabilityThreshold() (*big.Int, error) {
 	return _Election.Contract.GetElectabilityThreshold(&_Election.CallOpts)
 }
 
 // GetElectableValidators is a free data retrieval call binding the contract method 0xf9f41a7a.
 //
-// Solidity: function getElectableValidators() constant returns(uint256, uint256)
+// Solidity: function getElectableValidators() view returns(uint256, uint256)
 func (_Election *ElectionCaller) GetElectableValidators(opts *bind.CallOpts) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -603,21 +603,21 @@ func (_Election *ElectionCaller) GetElectableValidators(opts *bind.CallOpts) (*b
 
 // GetElectableValidators is a free data retrieval call binding the contract method 0xf9f41a7a.
 //
-// Solidity: function getElectableValidators() constant returns(uint256, uint256)
+// Solidity: function getElectableValidators() view returns(uint256, uint256)
 func (_Election *ElectionSession) GetElectableValidators() (*big.Int, *big.Int, error) {
 	return _Election.Contract.GetElectableValidators(&_Election.CallOpts)
 }
 
 // GetElectableValidators is a free data retrieval call binding the contract method 0xf9f41a7a.
 //
-// Solidity: function getElectableValidators() constant returns(uint256, uint256)
+// Solidity: function getElectableValidators() view returns(uint256, uint256)
 func (_Election *ElectionCallerSession) GetElectableValidators() (*big.Int, *big.Int, error) {
 	return _Election.Contract.GetElectableValidators(&_Election.CallOpts)
 }
 
 // GetEligibleValidatorGroups is a free data retrieval call binding the contract method 0xa5826ab2.
 //
-// Solidity: function getEligibleValidatorGroups() constant returns(address[])
+// Solidity: function getEligibleValidatorGroups() view returns(address[])
 func (_Election *ElectionCaller) GetEligibleValidatorGroups(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -629,21 +629,21 @@ func (_Election *ElectionCaller) GetEligibleValidatorGroups(opts *bind.CallOpts)
 
 // GetEligibleValidatorGroups is a free data retrieval call binding the contract method 0xa5826ab2.
 //
-// Solidity: function getEligibleValidatorGroups() constant returns(address[])
+// Solidity: function getEligibleValidatorGroups() view returns(address[])
 func (_Election *ElectionSession) GetEligibleValidatorGroups() ([]common.Address, error) {
 	return _Election.Contract.GetEligibleValidatorGroups(&_Election.CallOpts)
 }
 
 // GetEligibleValidatorGroups is a free data retrieval call binding the contract method 0xa5826ab2.
 //
-// Solidity: function getEligibleValidatorGroups() constant returns(address[])
+// Solidity: function getEligibleValidatorGroups() view returns(address[])
 func (_Election *ElectionCallerSession) GetEligibleValidatorGroups() ([]common.Address, error) {
 	return _Election.Contract.GetEligibleValidatorGroups(&_Election.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Election *ElectionCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -655,21 +655,21 @@ func (_Election *ElectionCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, 
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Election *ElectionSession) GetEpochNumber() (*big.Int, error) {
 	return _Election.Contract.GetEpochNumber(&_Election.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Election *ElectionCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _Election.Contract.GetEpochNumber(&_Election.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -681,21 +681,21 @@ func (_Election *ElectionCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, bloc
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Election.Contract.GetEpochNumberOfBlock(&_Election.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Election.Contract.GetEpochNumberOfBlock(&_Election.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Election *ElectionCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -707,21 +707,21 @@ func (_Election *ElectionCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, er
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Election *ElectionSession) GetEpochSize() (*big.Int, error) {
 	return _Election.Contract.GetEpochSize(&_Election.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Election *ElectionCallerSession) GetEpochSize() (*big.Int, error) {
 	return _Election.Contract.GetEpochSize(&_Election.CallOpts)
 }
 
 // GetGroupEligibility is a free data retrieval call binding the contract method 0x8c666775.
 //
-// Solidity: function getGroupEligibility(address group) constant returns(bool)
+// Solidity: function getGroupEligibility(address group) view returns(bool)
 func (_Election *ElectionCaller) GetGroupEligibility(opts *bind.CallOpts, group common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -733,21 +733,21 @@ func (_Election *ElectionCaller) GetGroupEligibility(opts *bind.CallOpts, group 
 
 // GetGroupEligibility is a free data retrieval call binding the contract method 0x8c666775.
 //
-// Solidity: function getGroupEligibility(address group) constant returns(bool)
+// Solidity: function getGroupEligibility(address group) view returns(bool)
 func (_Election *ElectionSession) GetGroupEligibility(group common.Address) (bool, error) {
 	return _Election.Contract.GetGroupEligibility(&_Election.CallOpts, group)
 }
 
 // GetGroupEligibility is a free data retrieval call binding the contract method 0x8c666775.
 //
-// Solidity: function getGroupEligibility(address group) constant returns(bool)
+// Solidity: function getGroupEligibility(address group) view returns(bool)
 func (_Election *ElectionCallerSession) GetGroupEligibility(group common.Address) (bool, error) {
 	return _Election.Contract.GetGroupEligibility(&_Election.CallOpts, group)
 }
 
 // GetGroupEpochRewards is a free data retrieval call binding the contract method 0xf23263f9.
 //
-// Solidity: function getGroupEpochRewards(address group, uint256 totalEpochRewards, uint256[] uptimes) constant returns(uint256)
+// Solidity: function getGroupEpochRewards(address group, uint256 totalEpochRewards, uint256[] uptimes) view returns(uint256)
 func (_Election *ElectionCaller) GetGroupEpochRewards(opts *bind.CallOpts, group common.Address, totalEpochRewards *big.Int, uptimes []*big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -759,21 +759,21 @@ func (_Election *ElectionCaller) GetGroupEpochRewards(opts *bind.CallOpts, group
 
 // GetGroupEpochRewards is a free data retrieval call binding the contract method 0xf23263f9.
 //
-// Solidity: function getGroupEpochRewards(address group, uint256 totalEpochRewards, uint256[] uptimes) constant returns(uint256)
+// Solidity: function getGroupEpochRewards(address group, uint256 totalEpochRewards, uint256[] uptimes) view returns(uint256)
 func (_Election *ElectionSession) GetGroupEpochRewards(group common.Address, totalEpochRewards *big.Int, uptimes []*big.Int) (*big.Int, error) {
 	return _Election.Contract.GetGroupEpochRewards(&_Election.CallOpts, group, totalEpochRewards, uptimes)
 }
 
 // GetGroupEpochRewards is a free data retrieval call binding the contract method 0xf23263f9.
 //
-// Solidity: function getGroupEpochRewards(address group, uint256 totalEpochRewards, uint256[] uptimes) constant returns(uint256)
+// Solidity: function getGroupEpochRewards(address group, uint256 totalEpochRewards, uint256[] uptimes) view returns(uint256)
 func (_Election *ElectionCallerSession) GetGroupEpochRewards(group common.Address, totalEpochRewards *big.Int, uptimes []*big.Int) (*big.Int, error) {
 	return _Election.Contract.GetGroupEpochRewards(&_Election.CallOpts, group, totalEpochRewards, uptimes)
 }
 
 // GetGroupsVotedForByAccount is a free data retrieval call binding the contract method 0x457578a3.
 //
-// Solidity: function getGroupsVotedForByAccount(address account) constant returns(address[])
+// Solidity: function getGroupsVotedForByAccount(address account) view returns(address[])
 func (_Election *ElectionCaller) GetGroupsVotedForByAccount(opts *bind.CallOpts, account common.Address) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -785,21 +785,21 @@ func (_Election *ElectionCaller) GetGroupsVotedForByAccount(opts *bind.CallOpts,
 
 // GetGroupsVotedForByAccount is a free data retrieval call binding the contract method 0x457578a3.
 //
-// Solidity: function getGroupsVotedForByAccount(address account) constant returns(address[])
+// Solidity: function getGroupsVotedForByAccount(address account) view returns(address[])
 func (_Election *ElectionSession) GetGroupsVotedForByAccount(account common.Address) ([]common.Address, error) {
 	return _Election.Contract.GetGroupsVotedForByAccount(&_Election.CallOpts, account)
 }
 
 // GetGroupsVotedForByAccount is a free data retrieval call binding the contract method 0x457578a3.
 //
-// Solidity: function getGroupsVotedForByAccount(address account) constant returns(address[])
+// Solidity: function getGroupsVotedForByAccount(address account) view returns(address[])
 func (_Election *ElectionCallerSession) GetGroupsVotedForByAccount(account common.Address) ([]common.Address, error) {
 	return _Election.Contract.GetGroupsVotedForByAccount(&_Election.CallOpts, account)
 }
 
 // GetNumVotesReceivable is a free data retrieval call binding the contract method 0x2c3b7916.
 //
-// Solidity: function getNumVotesReceivable(address group) constant returns(uint256)
+// Solidity: function getNumVotesReceivable(address group) view returns(uint256)
 func (_Election *ElectionCaller) GetNumVotesReceivable(opts *bind.CallOpts, group common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -811,21 +811,21 @@ func (_Election *ElectionCaller) GetNumVotesReceivable(opts *bind.CallOpts, grou
 
 // GetNumVotesReceivable is a free data retrieval call binding the contract method 0x2c3b7916.
 //
-// Solidity: function getNumVotesReceivable(address group) constant returns(uint256)
+// Solidity: function getNumVotesReceivable(address group) view returns(uint256)
 func (_Election *ElectionSession) GetNumVotesReceivable(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetNumVotesReceivable(&_Election.CallOpts, group)
 }
 
 // GetNumVotesReceivable is a free data retrieval call binding the contract method 0x2c3b7916.
 //
-// Solidity: function getNumVotesReceivable(address group) constant returns(uint256)
+// Solidity: function getNumVotesReceivable(address group) view returns(uint256)
 func (_Election *ElectionCallerSession) GetNumVotesReceivable(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetNumVotesReceivable(&_Election.CallOpts, group)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Election *ElectionCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -837,21 +837,21 @@ func (_Election *ElectionCaller) GetParentSealBitmap(opts *bind.CallOpts, blockN
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Election *ElectionSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Election.Contract.GetParentSealBitmap(&_Election.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Election *ElectionCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Election.Contract.GetParentSealBitmap(&_Election.CallOpts, blockNumber)
 }
 
 // GetPendingVotesForGroup is a free data retrieval call binding the contract method 0x95128ce3.
 //
-// Solidity: function getPendingVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getPendingVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionCaller) GetPendingVotesForGroup(opts *bind.CallOpts, group common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -863,21 +863,21 @@ func (_Election *ElectionCaller) GetPendingVotesForGroup(opts *bind.CallOpts, gr
 
 // GetPendingVotesForGroup is a free data retrieval call binding the contract method 0x95128ce3.
 //
-// Solidity: function getPendingVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getPendingVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionSession) GetPendingVotesForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetPendingVotesForGroup(&_Election.CallOpts, group)
 }
 
 // GetPendingVotesForGroup is a free data retrieval call binding the contract method 0x95128ce3.
 //
-// Solidity: function getPendingVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getPendingVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionCallerSession) GetPendingVotesForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetPendingVotesForGroup(&_Election.CallOpts, group)
 }
 
 // GetPendingVotesForGroupByAccount is a free data retrieval call binding the contract method 0x9b95975f.
 //
-// Solidity: function getPendingVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getPendingVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCaller) GetPendingVotesForGroupByAccount(opts *bind.CallOpts, group common.Address, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -889,21 +889,21 @@ func (_Election *ElectionCaller) GetPendingVotesForGroupByAccount(opts *bind.Cal
 
 // GetPendingVotesForGroupByAccount is a free data retrieval call binding the contract method 0x9b95975f.
 //
-// Solidity: function getPendingVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getPendingVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionSession) GetPendingVotesForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetPendingVotesForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetPendingVotesForGroupByAccount is a free data retrieval call binding the contract method 0x9b95975f.
 //
-// Solidity: function getPendingVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getPendingVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCallerSession) GetPendingVotesForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetPendingVotesForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetTotalVotes is a free data retrieval call binding the contract method 0x9a0e7d66.
 //
-// Solidity: function getTotalVotes() constant returns(uint256)
+// Solidity: function getTotalVotes() view returns(uint256)
 func (_Election *ElectionCaller) GetTotalVotes(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -915,21 +915,21 @@ func (_Election *ElectionCaller) GetTotalVotes(opts *bind.CallOpts) (*big.Int, e
 
 // GetTotalVotes is a free data retrieval call binding the contract method 0x9a0e7d66.
 //
-// Solidity: function getTotalVotes() constant returns(uint256)
+// Solidity: function getTotalVotes() view returns(uint256)
 func (_Election *ElectionSession) GetTotalVotes() (*big.Int, error) {
 	return _Election.Contract.GetTotalVotes(&_Election.CallOpts)
 }
 
 // GetTotalVotes is a free data retrieval call binding the contract method 0x9a0e7d66.
 //
-// Solidity: function getTotalVotes() constant returns(uint256)
+// Solidity: function getTotalVotes() view returns(uint256)
 func (_Election *ElectionCallerSession) GetTotalVotes() (*big.Int, error) {
 	return _Election.Contract.GetTotalVotes(&_Election.CallOpts)
 }
 
 // GetTotalVotesByAccount is a free data retrieval call binding the contract method 0x6c781a2c.
 //
-// Solidity: function getTotalVotesByAccount(address account) constant returns(uint256)
+// Solidity: function getTotalVotesByAccount(address account) view returns(uint256)
 func (_Election *ElectionCaller) GetTotalVotesByAccount(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -941,21 +941,21 @@ func (_Election *ElectionCaller) GetTotalVotesByAccount(opts *bind.CallOpts, acc
 
 // GetTotalVotesByAccount is a free data retrieval call binding the contract method 0x6c781a2c.
 //
-// Solidity: function getTotalVotesByAccount(address account) constant returns(uint256)
+// Solidity: function getTotalVotesByAccount(address account) view returns(uint256)
 func (_Election *ElectionSession) GetTotalVotesByAccount(account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetTotalVotesByAccount(&_Election.CallOpts, account)
 }
 
 // GetTotalVotesByAccount is a free data retrieval call binding the contract method 0x6c781a2c.
 //
-// Solidity: function getTotalVotesByAccount(address account) constant returns(uint256)
+// Solidity: function getTotalVotesByAccount(address account) view returns(uint256)
 func (_Election *ElectionCallerSession) GetTotalVotesByAccount(account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetTotalVotesByAccount(&_Election.CallOpts, account)
 }
 
 // GetTotalVotesForEligibleValidatorGroups is a free data retrieval call binding the contract method 0x7046c96b.
 //
-// Solidity: function getTotalVotesForEligibleValidatorGroups() constant returns(address[] groups, uint256[] values)
+// Solidity: function getTotalVotesForEligibleValidatorGroups() view returns(address[] groups, uint256[] values)
 func (_Election *ElectionCaller) GetTotalVotesForEligibleValidatorGroups(opts *bind.CallOpts) (struct {
 	Groups []common.Address
 	Values []*big.Int
@@ -971,7 +971,7 @@ func (_Election *ElectionCaller) GetTotalVotesForEligibleValidatorGroups(opts *b
 
 // GetTotalVotesForEligibleValidatorGroups is a free data retrieval call binding the contract method 0x7046c96b.
 //
-// Solidity: function getTotalVotesForEligibleValidatorGroups() constant returns(address[] groups, uint256[] values)
+// Solidity: function getTotalVotesForEligibleValidatorGroups() view returns(address[] groups, uint256[] values)
 func (_Election *ElectionSession) GetTotalVotesForEligibleValidatorGroups() (struct {
 	Groups []common.Address
 	Values []*big.Int
@@ -981,7 +981,7 @@ func (_Election *ElectionSession) GetTotalVotesForEligibleValidatorGroups() (str
 
 // GetTotalVotesForEligibleValidatorGroups is a free data retrieval call binding the contract method 0x7046c96b.
 //
-// Solidity: function getTotalVotesForEligibleValidatorGroups() constant returns(address[] groups, uint256[] values)
+// Solidity: function getTotalVotesForEligibleValidatorGroups() view returns(address[] groups, uint256[] values)
 func (_Election *ElectionCallerSession) GetTotalVotesForEligibleValidatorGroups() (struct {
 	Groups []common.Address
 	Values []*big.Int
@@ -991,7 +991,7 @@ func (_Election *ElectionCallerSession) GetTotalVotesForEligibleValidatorGroups(
 
 // GetTotalVotesForGroup is a free data retrieval call binding the contract method 0xdedafeae.
 //
-// Solidity: function getTotalVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getTotalVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionCaller) GetTotalVotesForGroup(opts *bind.CallOpts, group common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1003,21 +1003,21 @@ func (_Election *ElectionCaller) GetTotalVotesForGroup(opts *bind.CallOpts, grou
 
 // GetTotalVotesForGroup is a free data retrieval call binding the contract method 0xdedafeae.
 //
-// Solidity: function getTotalVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getTotalVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionSession) GetTotalVotesForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetTotalVotesForGroup(&_Election.CallOpts, group)
 }
 
 // GetTotalVotesForGroup is a free data retrieval call binding the contract method 0xdedafeae.
 //
-// Solidity: function getTotalVotesForGroup(address group) constant returns(uint256)
+// Solidity: function getTotalVotesForGroup(address group) view returns(uint256)
 func (_Election *ElectionCallerSession) GetTotalVotesForGroup(group common.Address) (*big.Int, error) {
 	return _Election.Contract.GetTotalVotesForGroup(&_Election.CallOpts, group)
 }
 
 // GetTotalVotesForGroupByAccount is a free data retrieval call binding the contract method 0x38617272.
 //
-// Solidity: function getTotalVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getTotalVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCaller) GetTotalVotesForGroupByAccount(opts *bind.CallOpts, group common.Address, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1029,21 +1029,21 @@ func (_Election *ElectionCaller) GetTotalVotesForGroupByAccount(opts *bind.CallO
 
 // GetTotalVotesForGroupByAccount is a free data retrieval call binding the contract method 0x38617272.
 //
-// Solidity: function getTotalVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getTotalVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionSession) GetTotalVotesForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetTotalVotesForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetTotalVotesForGroupByAccount is a free data retrieval call binding the contract method 0x38617272.
 //
-// Solidity: function getTotalVotesForGroupByAccount(address group, address account) constant returns(uint256)
+// Solidity: function getTotalVotesForGroupByAccount(address group, address account) view returns(uint256)
 func (_Election *ElectionCallerSession) GetTotalVotesForGroupByAccount(group common.Address, account common.Address) (*big.Int, error) {
 	return _Election.Contract.GetTotalVotesForGroupByAccount(&_Election.CallOpts, group, account)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Election *ElectionCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -1055,21 +1055,21 @@ func (_Election *ElectionCaller) GetVerifiedSealBitmapFromHeader(opts *bind.Call
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Election *ElectionSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Election.Contract.GetVerifiedSealBitmapFromHeader(&_Election.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Election *ElectionCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Election.Contract.GetVerifiedSealBitmapFromHeader(&_Election.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Election *ElectionCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1089,21 +1089,21 @@ func (_Election *ElectionCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Election *ElectionSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Election.Contract.GetVersionNumber(&_Election.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Election *ElectionCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Election.Contract.GetVersionNumber(&_Election.CallOpts)
 }
 
 // HasActivatablePendingVotes is a free data retrieval call binding the contract method 0x263ecf74.
 //
-// Solidity: function hasActivatablePendingVotes(address account, address group) constant returns(bool)
+// Solidity: function hasActivatablePendingVotes(address account, address group) view returns(bool)
 func (_Election *ElectionCaller) HasActivatablePendingVotes(opts *bind.CallOpts, account common.Address, group common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1115,21 +1115,21 @@ func (_Election *ElectionCaller) HasActivatablePendingVotes(opts *bind.CallOpts,
 
 // HasActivatablePendingVotes is a free data retrieval call binding the contract method 0x263ecf74.
 //
-// Solidity: function hasActivatablePendingVotes(address account, address group) constant returns(bool)
+// Solidity: function hasActivatablePendingVotes(address account, address group) view returns(bool)
 func (_Election *ElectionSession) HasActivatablePendingVotes(account common.Address, group common.Address) (bool, error) {
 	return _Election.Contract.HasActivatablePendingVotes(&_Election.CallOpts, account, group)
 }
 
 // HasActivatablePendingVotes is a free data retrieval call binding the contract method 0x263ecf74.
 //
-// Solidity: function hasActivatablePendingVotes(address account, address group) constant returns(bool)
+// Solidity: function hasActivatablePendingVotes(address account, address group) view returns(bool)
 func (_Election *ElectionCallerSession) HasActivatablePendingVotes(account common.Address, group common.Address) (bool, error) {
 	return _Election.Contract.HasActivatablePendingVotes(&_Election.CallOpts, account, group)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Election *ElectionCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -1141,21 +1141,21 @@ func (_Election *ElectionCaller) HashHeader(opts *bind.CallOpts, header []byte) 
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Election *ElectionSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Election.Contract.HashHeader(&_Election.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Election *ElectionCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Election.Contract.HashHeader(&_Election.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Election *ElectionCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1167,21 +1167,21 @@ func (_Election *ElectionCaller) Initialized(opts *bind.CallOpts) (bool, error) 
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Election *ElectionSession) Initialized() (bool, error) {
 	return _Election.Contract.Initialized(&_Election.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Election *ElectionCallerSession) Initialized() (bool, error) {
 	return _Election.Contract.Initialized(&_Election.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Election *ElectionCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1193,21 +1193,21 @@ func (_Election *ElectionCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Election *ElectionSession) IsOwner() (bool, error) {
 	return _Election.Contract.IsOwner(&_Election.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Election *ElectionCallerSession) IsOwner() (bool, error) {
 	return _Election.Contract.IsOwner(&_Election.CallOpts)
 }
 
 // MaxNumGroupsVotedFor is a free data retrieval call binding the contract method 0xac839d69.
 //
-// Solidity: function maxNumGroupsVotedFor() constant returns(uint256)
+// Solidity: function maxNumGroupsVotedFor() view returns(uint256)
 func (_Election *ElectionCaller) MaxNumGroupsVotedFor(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1219,21 +1219,21 @@ func (_Election *ElectionCaller) MaxNumGroupsVotedFor(opts *bind.CallOpts) (*big
 
 // MaxNumGroupsVotedFor is a free data retrieval call binding the contract method 0xac839d69.
 //
-// Solidity: function maxNumGroupsVotedFor() constant returns(uint256)
+// Solidity: function maxNumGroupsVotedFor() view returns(uint256)
 func (_Election *ElectionSession) MaxNumGroupsVotedFor() (*big.Int, error) {
 	return _Election.Contract.MaxNumGroupsVotedFor(&_Election.CallOpts)
 }
 
 // MaxNumGroupsVotedFor is a free data retrieval call binding the contract method 0xac839d69.
 //
-// Solidity: function maxNumGroupsVotedFor() constant returns(uint256)
+// Solidity: function maxNumGroupsVotedFor() view returns(uint256)
 func (_Election *ElectionCallerSession) MaxNumGroupsVotedFor() (*big.Int, error) {
 	return _Election.Contract.MaxNumGroupsVotedFor(&_Election.CallOpts)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1245,21 +1245,21 @@ func (_Election *ElectionCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber 
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Election.Contract.MinQuorumSize(&_Election.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Election.Contract.MinQuorumSize(&_Election.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Election *ElectionCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1271,21 +1271,21 @@ func (_Election *ElectionCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) 
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Election *ElectionSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Election.Contract.MinQuorumSizeInCurrentSet(&_Election.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Election *ElectionCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Election.Contract.MinQuorumSizeInCurrentSet(&_Election.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Election *ElectionCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1297,21 +1297,21 @@ func (_Election *ElectionCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpt
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Election *ElectionSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Election.Contract.NumberValidatorsInCurrentSet(&_Election.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Election *ElectionCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Election.Contract.NumberValidatorsInCurrentSet(&_Election.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1323,21 +1323,21 @@ func (_Election *ElectionCaller) NumberValidatorsInSet(opts *bind.CallOpts, bloc
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Election.Contract.NumberValidatorsInSet(&_Election.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Election *ElectionCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Election.Contract.NumberValidatorsInSet(&_Election.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Election *ElectionCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1349,21 +1349,21 @@ func (_Election *ElectionCaller) Owner(opts *bind.CallOpts) (common.Address, err
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Election *ElectionSession) Owner() (common.Address, error) {
 	return _Election.Contract.Owner(&_Election.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Election *ElectionCallerSession) Owner() (common.Address, error) {
 	return _Election.Contract.Owner(&_Election.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Election *ElectionCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1375,21 +1375,21 @@ func (_Election *ElectionCaller) Registry(opts *bind.CallOpts) (common.Address, 
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Election *ElectionSession) Registry() (common.Address, error) {
 	return _Election.Contract.Registry(&_Election.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Election *ElectionCallerSession) Registry() (common.Address, error) {
 	return _Election.Contract.Registry(&_Election.CallOpts)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Election *ElectionCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1401,21 +1401,21 @@ func (_Election *ElectionCaller) ValidatorSignerAddressFromCurrentSet(opts *bind
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Election *ElectionSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Election.Contract.ValidatorSignerAddressFromCurrentSet(&_Election.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Election *ElectionCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Election.Contract.ValidatorSignerAddressFromCurrentSet(&_Election.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Election *ElectionCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1427,14 +1427,14 @@ func (_Election *ElectionCaller) ValidatorSignerAddressFromSet(opts *bind.CallOp
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Election *ElectionSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Election.Contract.ValidatorSignerAddressFromSet(&_Election.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Election *ElectionCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Election.Contract.ValidatorSignerAddressFromSet(&_Election.CallOpts, index, blockNumber)
 }
@@ -1884,13 +1884,13 @@ func (it *ElectionElectabilityThresholdSetIterator) Close() error {
 
 // ElectionElectabilityThresholdSet represents a ElectabilityThresholdSet event raised by the Election contract.
 type ElectionElectabilityThresholdSet struct {
-	ElectabilityThresholdFraction *big.Int
-	Raw                           types.Log // Blockchain specific contextual infos
+	ElectabilityThreshold *big.Int
+	Raw                   types.Log // Blockchain specific contextual infos
 }
 
 // FilterElectabilityThresholdSet is a free log retrieval operation binding the contract event 0x9854be03126e38f9c318d8aabe1b150d09cb3a57059b21855b1e11d44e082c1a.
 //
-// Solidity: event ElectabilityThresholdSet(uint256 electabilityThresholdFraction)
+// Solidity: event ElectabilityThresholdSet(uint256 electabilityThreshold)
 func (_Election *ElectionFilterer) FilterElectabilityThresholdSet(opts *bind.FilterOpts) (*ElectionElectabilityThresholdSetIterator, error) {
 
 	logs, sub, err := _Election.contract.FilterLogs(opts, "ElectabilityThresholdSet")
@@ -1902,7 +1902,7 @@ func (_Election *ElectionFilterer) FilterElectabilityThresholdSet(opts *bind.Fil
 
 // WatchElectabilityThresholdSet is a free log subscription operation binding the contract event 0x9854be03126e38f9c318d8aabe1b150d09cb3a57059b21855b1e11d44e082c1a.
 //
-// Solidity: event ElectabilityThresholdSet(uint256 electabilityThresholdFraction)
+// Solidity: event ElectabilityThresholdSet(uint256 electabilityThreshold)
 func (_Election *ElectionFilterer) WatchElectabilityThresholdSet(opts *bind.WatchOpts, sink chan<- *ElectionElectabilityThresholdSet) (event.Subscription, error) {
 
 	logs, sub, err := _Election.contract.WatchLogs(opts, "ElectabilityThresholdSet")
@@ -1939,7 +1939,7 @@ func (_Election *ElectionFilterer) WatchElectabilityThresholdSet(opts *bind.Watc
 
 // ParseElectabilityThresholdSet is a log parse operation binding the contract event 0x9854be03126e38f9c318d8aabe1b150d09cb3a57059b21855b1e11d44e082c1a.
 //
-// Solidity: event ElectabilityThresholdSet(uint256 electabilityThresholdFraction)
+// Solidity: event ElectabilityThresholdSet(uint256 electabilityThreshold)
 func (_Election *ElectionFilterer) ParseElectabilityThresholdSet(log types.Log) (*ElectionElectabilityThresholdSet, error) {
 	event := new(ElectionElectabilityThresholdSet)
 	if err := _Election.contract.UnpackLog(event, "ElectabilityThresholdSet", log); err != nil {

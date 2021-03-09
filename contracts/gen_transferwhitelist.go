@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_TransferWhitelist *TransferWhitelistTransactorRaw) Transact(opts *bind.Tr
 
 // GetNumberOfWhitelistedContractIdentifiers is a free data retrieval call binding the contract method 0x1dc34b89.
 //
-// Solidity: function getNumberOfWhitelistedContractIdentifiers() constant returns(uint256 length)
+// Solidity: function getNumberOfWhitelistedContractIdentifiers() view returns(uint256 length)
 func (_TransferWhitelist *TransferWhitelistCaller) GetNumberOfWhitelistedContractIdentifiers(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_TransferWhitelist *TransferWhitelistCaller) GetNumberOfWhitelistedContrac
 
 // GetNumberOfWhitelistedContractIdentifiers is a free data retrieval call binding the contract method 0x1dc34b89.
 //
-// Solidity: function getNumberOfWhitelistedContractIdentifiers() constant returns(uint256 length)
+// Solidity: function getNumberOfWhitelistedContractIdentifiers() view returns(uint256 length)
 func (_TransferWhitelist *TransferWhitelistSession) GetNumberOfWhitelistedContractIdentifiers() (*big.Int, error) {
 	return _TransferWhitelist.Contract.GetNumberOfWhitelistedContractIdentifiers(&_TransferWhitelist.CallOpts)
 }
 
 // GetNumberOfWhitelistedContractIdentifiers is a free data retrieval call binding the contract method 0x1dc34b89.
 //
-// Solidity: function getNumberOfWhitelistedContractIdentifiers() constant returns(uint256 length)
+// Solidity: function getNumberOfWhitelistedContractIdentifiers() view returns(uint256 length)
 func (_TransferWhitelist *TransferWhitelistCallerSession) GetNumberOfWhitelistedContractIdentifiers() (*big.Int, error) {
 	return _TransferWhitelist.Contract.GetNumberOfWhitelistedContractIdentifiers(&_TransferWhitelist.CallOpts)
 }
 
 // GetWhitelist is a free data retrieval call binding the contract method 0xd01f63f5.
 //
-// Solidity: function getWhitelist() constant returns(address[])
+// Solidity: function getWhitelist() view returns(address[])
 func (_TransferWhitelist *TransferWhitelistCaller) GetWhitelist(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -221,21 +221,21 @@ func (_TransferWhitelist *TransferWhitelistCaller) GetWhitelist(opts *bind.CallO
 
 // GetWhitelist is a free data retrieval call binding the contract method 0xd01f63f5.
 //
-// Solidity: function getWhitelist() constant returns(address[])
+// Solidity: function getWhitelist() view returns(address[])
 func (_TransferWhitelist *TransferWhitelistSession) GetWhitelist() ([]common.Address, error) {
 	return _TransferWhitelist.Contract.GetWhitelist(&_TransferWhitelist.CallOpts)
 }
 
 // GetWhitelist is a free data retrieval call binding the contract method 0xd01f63f5.
 //
-// Solidity: function getWhitelist() constant returns(address[])
+// Solidity: function getWhitelist() view returns(address[])
 func (_TransferWhitelist *TransferWhitelistCallerSession) GetWhitelist() ([]common.Address, error) {
 	return _TransferWhitelist.Contract.GetWhitelist(&_TransferWhitelist.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_TransferWhitelist *TransferWhitelistCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -247,21 +247,21 @@ func (_TransferWhitelist *TransferWhitelistCaller) IsOwner(opts *bind.CallOpts) 
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_TransferWhitelist *TransferWhitelistSession) IsOwner() (bool, error) {
 	return _TransferWhitelist.Contract.IsOwner(&_TransferWhitelist.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_TransferWhitelist *TransferWhitelistCallerSession) IsOwner() (bool, error) {
 	return _TransferWhitelist.Contract.IsOwner(&_TransferWhitelist.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_TransferWhitelist *TransferWhitelistCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -273,21 +273,21 @@ func (_TransferWhitelist *TransferWhitelistCaller) Owner(opts *bind.CallOpts) (c
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_TransferWhitelist *TransferWhitelistSession) Owner() (common.Address, error) {
 	return _TransferWhitelist.Contract.Owner(&_TransferWhitelist.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_TransferWhitelist *TransferWhitelistCallerSession) Owner() (common.Address, error) {
 	return _TransferWhitelist.Contract.Owner(&_TransferWhitelist.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_TransferWhitelist *TransferWhitelistCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -299,21 +299,21 @@ func (_TransferWhitelist *TransferWhitelistCaller) Registry(opts *bind.CallOpts)
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_TransferWhitelist *TransferWhitelistSession) Registry() (common.Address, error) {
 	return _TransferWhitelist.Contract.Registry(&_TransferWhitelist.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_TransferWhitelist *TransferWhitelistCallerSession) Registry() (common.Address, error) {
 	return _TransferWhitelist.Contract.Registry(&_TransferWhitelist.CallOpts)
 }
 
 // WhitelistedContractIdentifiers is a free data retrieval call binding the contract method 0x2ed1ce72.
 //
-// Solidity: function whitelistedContractIdentifiers(uint256 ) constant returns(bytes32)
+// Solidity: function whitelistedContractIdentifiers(uint256 ) view returns(bytes32)
 func (_TransferWhitelist *TransferWhitelistCaller) WhitelistedContractIdentifiers(opts *bind.CallOpts, arg0 *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -325,14 +325,14 @@ func (_TransferWhitelist *TransferWhitelistCaller) WhitelistedContractIdentifier
 
 // WhitelistedContractIdentifiers is a free data retrieval call binding the contract method 0x2ed1ce72.
 //
-// Solidity: function whitelistedContractIdentifiers(uint256 ) constant returns(bytes32)
+// Solidity: function whitelistedContractIdentifiers(uint256 ) view returns(bytes32)
 func (_TransferWhitelist *TransferWhitelistSession) WhitelistedContractIdentifiers(arg0 *big.Int) ([32]byte, error) {
 	return _TransferWhitelist.Contract.WhitelistedContractIdentifiers(&_TransferWhitelist.CallOpts, arg0)
 }
 
 // WhitelistedContractIdentifiers is a free data retrieval call binding the contract method 0x2ed1ce72.
 //
-// Solidity: function whitelistedContractIdentifiers(uint256 ) constant returns(bytes32)
+// Solidity: function whitelistedContractIdentifiers(uint256 ) view returns(bytes32)
 func (_TransferWhitelist *TransferWhitelistCallerSession) WhitelistedContractIdentifiers(arg0 *big.Int) ([32]byte, error) {
 	return _TransferWhitelist.Contract.WhitelistedContractIdentifiers(&_TransferWhitelist.CallOpts, arg0)
 }

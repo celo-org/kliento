@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_DowntimeSlasher *DowntimeSlasherTransactorRaw) Transact(opts *bind.Transa
 
 // Bitmaps is a free data retrieval call binding the contract method 0x91275b4f.
 //
-// Solidity: function bitmaps(address , uint256 , uint256 ) constant returns(bytes32)
+// Solidity: function bitmaps(address , uint256 , uint256 ) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCaller) Bitmaps(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int, arg2 *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -195,21 +195,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) Bitmaps(opts *bind.CallOpts, arg0
 
 // Bitmaps is a free data retrieval call binding the contract method 0x91275b4f.
 //
-// Solidity: function bitmaps(address , uint256 , uint256 ) constant returns(bytes32)
+// Solidity: function bitmaps(address , uint256 , uint256 ) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherSession) Bitmaps(arg0 common.Address, arg1 *big.Int, arg2 *big.Int) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.Bitmaps(&_DowntimeSlasher.CallOpts, arg0, arg1, arg2)
 }
 
 // Bitmaps is a free data retrieval call binding the contract method 0x91275b4f.
 //
-// Solidity: function bitmaps(address , uint256 , uint256 ) constant returns(bytes32)
+// Solidity: function bitmaps(address , uint256 , uint256 ) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) Bitmaps(arg0 common.Address, arg1 *big.Int, arg2 *big.Int) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.Bitmaps(&_DowntimeSlasher.CallOpts, arg0, arg1, arg2)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -221,21 +221,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) CheckProofOfPossession(opts *bind
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _DowntimeSlasher.Contract.CheckProofOfPossession(&_DowntimeSlasher.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _DowntimeSlasher.Contract.CheckProofOfPossession(&_DowntimeSlasher.CallOpts, sender, blsKey, blsPop)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -251,21 +251,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) FractionMulExp(opts *bind.CallOpt
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _DowntimeSlasher.Contract.FractionMulExp(&_DowntimeSlasher.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _DowntimeSlasher.Contract.FractionMulExp(&_DowntimeSlasher.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetBitmapForInterval is a free data retrieval call binding the contract method 0xa654a494.
 //
-// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) constant returns(bytes32)
+// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetBitmapForInterval(opts *bind.CallOpts, startBlock *big.Int, endBlock *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -277,21 +277,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetBitmapForInterval(opts *bind.C
 
 // GetBitmapForInterval is a free data retrieval call binding the contract method 0xa654a494.
 //
-// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) constant returns(bytes32)
+// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetBitmapForInterval(startBlock *big.Int, endBlock *big.Int) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.GetBitmapForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
 }
 
 // GetBitmapForInterval is a free data retrieval call binding the contract method 0xa654a494.
 //
-// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) constant returns(bytes32)
+// Solidity: function getBitmapForInterval(uint256 startBlock, uint256 endBlock) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetBitmapForInterval(startBlock *big.Int, endBlock *big.Int) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.GetBitmapForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -303,21 +303,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetBlockNumberFromHeader(opts *bi
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetBlockNumberFromHeader(&_DowntimeSlasher.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetBlockNumberFromHeader(&_DowntimeSlasher.CallOpts, header)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -329,21 +329,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetEpochNumber(opts *bind.CallOpt
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetEpochNumber() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetEpochNumber(&_DowntimeSlasher.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetEpochNumber(&_DowntimeSlasher.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -355,21 +355,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetEpochNumberOfBlock(opts *bind.
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetEpochNumberOfBlock(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetEpochNumberOfBlock(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -381,21 +381,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetEpochSize(opts *bind.CallOpts)
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetEpochSize() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetEpochSize(&_DowntimeSlasher.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetEpochSize() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.GetEpochSize(&_DowntimeSlasher.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -407,21 +407,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetParentSealBitmap(opts *bind.Ca
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.GetParentSealBitmap(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.GetParentSealBitmap(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -433,21 +433,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetVerifiedSealBitmapFromHeader(o
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.GetVerifiedSealBitmapFromHeader(&_DowntimeSlasher.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.GetVerifiedSealBitmapFromHeader(&_DowntimeSlasher.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -467,21 +467,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GetVersionNumber(opts *bind.CallO
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _DowntimeSlasher.Contract.GetVersionNumber(&_DowntimeSlasher.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _DowntimeSlasher.Contract.GetVersionNumber(&_DowntimeSlasher.CallOpts)
 }
 
 // GroupMembershipAtBlock is a free data retrieval call binding the contract method 0x88498aaf.
 //
-// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) constant returns(address)
+// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCaller) GroupMembershipAtBlock(opts *bind.CallOpts, validator common.Address, blockNumber *big.Int, groupMembershipHistoryIndex *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -493,21 +493,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) GroupMembershipAtBlock(opts *bind
 
 // GroupMembershipAtBlock is a free data retrieval call binding the contract method 0x88498aaf.
 //
-// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) constant returns(address)
+// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherSession) GroupMembershipAtBlock(validator common.Address, blockNumber *big.Int, groupMembershipHistoryIndex *big.Int) (common.Address, error) {
 	return _DowntimeSlasher.Contract.GroupMembershipAtBlock(&_DowntimeSlasher.CallOpts, validator, blockNumber, groupMembershipHistoryIndex)
 }
 
 // GroupMembershipAtBlock is a free data retrieval call binding the contract method 0x88498aaf.
 //
-// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) constant returns(address)
+// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) GroupMembershipAtBlock(validator common.Address, blockNumber *big.Int, groupMembershipHistoryIndex *big.Int) (common.Address, error) {
 	return _DowntimeSlasher.Contract.GroupMembershipAtBlock(&_DowntimeSlasher.CallOpts, validator, blockNumber, groupMembershipHistoryIndex)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -519,21 +519,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) HashHeader(opts *bind.CallOpts, h
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherSession) HashHeader(header []byte) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.HashHeader(&_DowntimeSlasher.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _DowntimeSlasher.Contract.HashHeader(&_DowntimeSlasher.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -545,21 +545,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) Initialized(opts *bind.CallOpts) 
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherSession) Initialized() (bool, error) {
 	return _DowntimeSlasher.Contract.Initialized(&_DowntimeSlasher.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) Initialized() (bool, error) {
 	return _DowntimeSlasher.Contract.Initialized(&_DowntimeSlasher.CallOpts)
 }
 
 // IsBitmapSetForInterval is a free data retrieval call binding the contract method 0x1bf0925b.
 //
-// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) constant returns(bool)
+// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCaller) IsBitmapSetForInterval(opts *bind.CallOpts, startBlock *big.Int, endBlock *big.Int) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -571,21 +571,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) IsBitmapSetForInterval(opts *bind
 
 // IsBitmapSetForInterval is a free data retrieval call binding the contract method 0x1bf0925b.
 //
-// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) constant returns(bool)
+// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherSession) IsBitmapSetForInterval(startBlock *big.Int, endBlock *big.Int) (bool, error) {
 	return _DowntimeSlasher.Contract.IsBitmapSetForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
 }
 
 // IsBitmapSetForInterval is a free data retrieval call binding the contract method 0x1bf0925b.
 //
-// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) constant returns(bool)
+// Solidity: function isBitmapSetForInterval(uint256 startBlock, uint256 endBlock) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) IsBitmapSetForInterval(startBlock *big.Int, endBlock *big.Int) (bool, error) {
 	return _DowntimeSlasher.Contract.IsBitmapSetForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -597,21 +597,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) IsOwner(opts *bind.CallOpts) (boo
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherSession) IsOwner() (bool, error) {
 	return _DowntimeSlasher.Contract.IsOwner(&_DowntimeSlasher.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) IsOwner() (bool, error) {
 	return _DowntimeSlasher.Contract.IsOwner(&_DowntimeSlasher.CallOpts)
 }
 
 // LastSlashedBlock is a free data retrieval call binding the contract method 0x222d6b9f.
 //
-// Solidity: function lastSlashedBlock(address ) constant returns(uint256)
+// Solidity: function lastSlashedBlock(address ) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) LastSlashedBlock(opts *bind.CallOpts, arg0 common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -623,21 +623,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) LastSlashedBlock(opts *bind.CallO
 
 // LastSlashedBlock is a free data retrieval call binding the contract method 0x222d6b9f.
 //
-// Solidity: function lastSlashedBlock(address ) constant returns(uint256)
+// Solidity: function lastSlashedBlock(address ) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) LastSlashedBlock(arg0 common.Address) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.LastSlashedBlock(&_DowntimeSlasher.CallOpts, arg0)
 }
 
 // LastSlashedBlock is a free data retrieval call binding the contract method 0x222d6b9f.
 //
-// Solidity: function lastSlashedBlock(address ) constant returns(uint256)
+// Solidity: function lastSlashedBlock(address ) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) LastSlashedBlock(arg0 common.Address) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.LastSlashedBlock(&_DowntimeSlasher.CallOpts, arg0)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -649,21 +649,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) MinQuorumSize(opts *bind.CallOpts
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.MinQuorumSize(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.MinQuorumSize(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -675,21 +675,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) MinQuorumSizeInCurrentSet(opts *b
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.MinQuorumSizeInCurrentSet(&_DowntimeSlasher.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.MinQuorumSizeInCurrentSet(&_DowntimeSlasher.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -701,21 +701,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) NumberValidatorsInCurrentSet(opts
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.NumberValidatorsInCurrentSet(&_DowntimeSlasher.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.NumberValidatorsInCurrentSet(&_DowntimeSlasher.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -727,21 +727,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) NumberValidatorsInSet(opts *bind.
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.NumberValidatorsInSet(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _DowntimeSlasher.Contract.NumberValidatorsInSet(&_DowntimeSlasher.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -753,21 +753,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) Owner(opts *bind.CallOpts) (commo
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherSession) Owner() (common.Address, error) {
 	return _DowntimeSlasher.Contract.Owner(&_DowntimeSlasher.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) Owner() (common.Address, error) {
 	return _DowntimeSlasher.Contract.Owner(&_DowntimeSlasher.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -779,21 +779,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) Registry(opts *bind.CallOpts) (co
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherSession) Registry() (common.Address, error) {
 	return _DowntimeSlasher.Contract.Registry(&_DowntimeSlasher.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) Registry() (common.Address, error) {
 	return _DowntimeSlasher.Contract.Registry(&_DowntimeSlasher.CallOpts)
 }
 
 // SlashableDowntime is a free data retrieval call binding the contract method 0x4227d971.
 //
-// Solidity: function slashableDowntime() constant returns(uint256)
+// Solidity: function slashableDowntime() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCaller) SlashableDowntime(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -805,21 +805,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) SlashableDowntime(opts *bind.Call
 
 // SlashableDowntime is a free data retrieval call binding the contract method 0x4227d971.
 //
-// Solidity: function slashableDowntime() constant returns(uint256)
+// Solidity: function slashableDowntime() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherSession) SlashableDowntime() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.SlashableDowntime(&_DowntimeSlasher.CallOpts)
 }
 
 // SlashableDowntime is a free data retrieval call binding the contract method 0x4227d971.
 //
-// Solidity: function slashableDowntime() constant returns(uint256)
+// Solidity: function slashableDowntime() view returns(uint256)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) SlashableDowntime() (*big.Int, error) {
 	return _DowntimeSlasher.Contract.SlashableDowntime(&_DowntimeSlasher.CallOpts)
 }
 
 // SlashingIncentives is a free data retrieval call binding the contract method 0x0a05cd84.
 //
-// Solidity: function slashingIncentives() constant returns(uint256 penalty, uint256 reward)
+// Solidity: function slashingIncentives() view returns(uint256 penalty, uint256 reward)
 func (_DowntimeSlasher *DowntimeSlasherCaller) SlashingIncentives(opts *bind.CallOpts) (struct {
 	Penalty *big.Int
 	Reward  *big.Int
@@ -835,7 +835,7 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) SlashingIncentives(opts *bind.Cal
 
 // SlashingIncentives is a free data retrieval call binding the contract method 0x0a05cd84.
 //
-// Solidity: function slashingIncentives() constant returns(uint256 penalty, uint256 reward)
+// Solidity: function slashingIncentives() view returns(uint256 penalty, uint256 reward)
 func (_DowntimeSlasher *DowntimeSlasherSession) SlashingIncentives() (struct {
 	Penalty *big.Int
 	Reward  *big.Int
@@ -845,7 +845,7 @@ func (_DowntimeSlasher *DowntimeSlasherSession) SlashingIncentives() (struct {
 
 // SlashingIncentives is a free data retrieval call binding the contract method 0x0a05cd84.
 //
-// Solidity: function slashingIncentives() constant returns(uint256 penalty, uint256 reward)
+// Solidity: function slashingIncentives() view returns(uint256 penalty, uint256 reward)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) SlashingIncentives() (struct {
 	Penalty *big.Int
 	Reward  *big.Int
@@ -855,7 +855,7 @@ func (_DowntimeSlasher *DowntimeSlasherCallerSession) SlashingIncentives() (stru
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -867,21 +867,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) ValidatorSignerAddressFromCurrent
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _DowntimeSlasher.Contract.ValidatorSignerAddressFromCurrentSet(&_DowntimeSlasher.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _DowntimeSlasher.Contract.ValidatorSignerAddressFromCurrentSet(&_DowntimeSlasher.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -893,21 +893,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) ValidatorSignerAddressFromSet(opt
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _DowntimeSlasher.Contract.ValidatorSignerAddressFromSet(&_DowntimeSlasher.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _DowntimeSlasher.Contract.ValidatorSignerAddressFromSet(&_DowntimeSlasher.CallOpts, index, blockNumber)
 }
 
 // WasDownForInterval is a free data retrieval call binding the contract method 0xec611ffc.
 //
-// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) constant returns(bool)
+// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCaller) WasDownForInterval(opts *bind.CallOpts, startBlock *big.Int, endBlock *big.Int, signerIndex *big.Int) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -919,21 +919,21 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) WasDownForInterval(opts *bind.Cal
 
 // WasDownForInterval is a free data retrieval call binding the contract method 0xec611ffc.
 //
-// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) constant returns(bool)
+// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherSession) WasDownForInterval(startBlock *big.Int, endBlock *big.Int, signerIndex *big.Int) (bool, error) {
 	return _DowntimeSlasher.Contract.WasDownForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock, signerIndex)
 }
 
 // WasDownForInterval is a free data retrieval call binding the contract method 0xec611ffc.
 //
-// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) constant returns(bool)
+// Solidity: function wasDownForInterval(uint256 startBlock, uint256 endBlock, uint256 signerIndex) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) WasDownForInterval(startBlock *big.Int, endBlock *big.Int, signerIndex *big.Int) (bool, error) {
 	return _DowntimeSlasher.Contract.WasDownForInterval(&_DowntimeSlasher.CallOpts, startBlock, endBlock, signerIndex)
 }
 
 // WasDownForIntervals is a free data retrieval call binding the contract method 0xe252e904.
 //
-// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) constant returns(bool)
+// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCaller) WasDownForIntervals(opts *bind.CallOpts, startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -945,14 +945,14 @@ func (_DowntimeSlasher *DowntimeSlasherCaller) WasDownForIntervals(opts *bind.Ca
 
 // WasDownForIntervals is a free data retrieval call binding the contract method 0xe252e904.
 //
-// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) constant returns(bool)
+// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherSession) WasDownForIntervals(startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int) (bool, error) {
 	return _DowntimeSlasher.Contract.WasDownForIntervals(&_DowntimeSlasher.CallOpts, startBlocks, endBlocks, signerIndices)
 }
 
 // WasDownForIntervals is a free data retrieval call binding the contract method 0xe252e904.
 //
-// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) constant returns(bool)
+// Solidity: function wasDownForIntervals(uint256[] startBlocks, uint256[] endBlocks, uint256[] signerIndices) view returns(bool)
 func (_DowntimeSlasher *DowntimeSlasherCallerSession) WasDownForIntervals(startBlocks []*big.Int, endBlocks []*big.Int, signerIndices []*big.Int) (bool, error) {
 	return _DowntimeSlasher.Contract.WasDownForIntervals(&_DowntimeSlasher.CallOpts, startBlocks, endBlocks, signerIndices)
 }

@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_GovernanceSlasher *GovernanceSlasherTransactorRaw) Transact(opts *bind.Tr
 
 // GetApprovedSlashing is a free data retrieval call binding the contract method 0xda853aed.
 //
-// Solidity: function getApprovedSlashing(address account) constant returns(uint256)
+// Solidity: function getApprovedSlashing(address account) view returns(uint256)
 func (_GovernanceSlasher *GovernanceSlasherCaller) GetApprovedSlashing(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_GovernanceSlasher *GovernanceSlasherCaller) GetApprovedSlashing(opts *bin
 
 // GetApprovedSlashing is a free data retrieval call binding the contract method 0xda853aed.
 //
-// Solidity: function getApprovedSlashing(address account) constant returns(uint256)
+// Solidity: function getApprovedSlashing(address account) view returns(uint256)
 func (_GovernanceSlasher *GovernanceSlasherSession) GetApprovedSlashing(account common.Address) (*big.Int, error) {
 	return _GovernanceSlasher.Contract.GetApprovedSlashing(&_GovernanceSlasher.CallOpts, account)
 }
 
 // GetApprovedSlashing is a free data retrieval call binding the contract method 0xda853aed.
 //
-// Solidity: function getApprovedSlashing(address account) constant returns(uint256)
+// Solidity: function getApprovedSlashing(address account) view returns(uint256)
 func (_GovernanceSlasher *GovernanceSlasherCallerSession) GetApprovedSlashing(account common.Address) (*big.Int, error) {
 	return _GovernanceSlasher.Contract.GetApprovedSlashing(&_GovernanceSlasher.CallOpts, account)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GovernanceSlasher *GovernanceSlasherCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -221,21 +221,21 @@ func (_GovernanceSlasher *GovernanceSlasherCaller) Initialized(opts *bind.CallOp
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GovernanceSlasher *GovernanceSlasherSession) Initialized() (bool, error) {
 	return _GovernanceSlasher.Contract.Initialized(&_GovernanceSlasher.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_GovernanceSlasher *GovernanceSlasherCallerSession) Initialized() (bool, error) {
 	return _GovernanceSlasher.Contract.Initialized(&_GovernanceSlasher.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_GovernanceSlasher *GovernanceSlasherCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -247,21 +247,21 @@ func (_GovernanceSlasher *GovernanceSlasherCaller) IsOwner(opts *bind.CallOpts) 
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_GovernanceSlasher *GovernanceSlasherSession) IsOwner() (bool, error) {
 	return _GovernanceSlasher.Contract.IsOwner(&_GovernanceSlasher.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_GovernanceSlasher *GovernanceSlasherCallerSession) IsOwner() (bool, error) {
 	return _GovernanceSlasher.Contract.IsOwner(&_GovernanceSlasher.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_GovernanceSlasher *GovernanceSlasherCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -273,21 +273,21 @@ func (_GovernanceSlasher *GovernanceSlasherCaller) Owner(opts *bind.CallOpts) (c
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_GovernanceSlasher *GovernanceSlasherSession) Owner() (common.Address, error) {
 	return _GovernanceSlasher.Contract.Owner(&_GovernanceSlasher.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_GovernanceSlasher *GovernanceSlasherCallerSession) Owner() (common.Address, error) {
 	return _GovernanceSlasher.Contract.Owner(&_GovernanceSlasher.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_GovernanceSlasher *GovernanceSlasherCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -299,14 +299,14 @@ func (_GovernanceSlasher *GovernanceSlasherCaller) Registry(opts *bind.CallOpts)
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_GovernanceSlasher *GovernanceSlasherSession) Registry() (common.Address, error) {
 	return _GovernanceSlasher.Contract.Registry(&_GovernanceSlasher.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_GovernanceSlasher *GovernanceSlasherCallerSession) Registry() (common.Address, error) {
 	return _GovernanceSlasher.Contract.Registry(&_GovernanceSlasher.CallOpts)
 }
