@@ -18,11 +18,11 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/celo-org/kliento/contracts"
-	"github.com/celo-org/kliento/utils/bn"
 	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
 	"github.com/celo-org/celo-blockchain/common"
 	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/kliento/contracts"
+	"github.com/celo-org/kliento/utils/bn"
 )
 
 // Election helper methods

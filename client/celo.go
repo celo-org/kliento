@@ -17,12 +17,12 @@ package client
 import (
 	"context"
 
+	"github.com/celo-org/celo-blockchain/ethclient"
+	"github.com/celo-org/celo-blockchain/rpc"
 	"github.com/celo-org/kliento/client/admin"
 	"github.com/celo-org/kliento/client/debug"
 	"github.com/celo-org/kliento/client/network"
 	"github.com/celo-org/kliento/client/txpool"
-	"github.com/celo-org/celo-blockchain/ethclient"
-	"github.com/celo-org/celo-blockchain/rpc"
 )
 
 type CeloClient struct {
