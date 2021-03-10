@@ -19,7 +19,7 @@ const (
     // CUSD - Celo Dollar
     CUSD CeloToken = "cUSD"
     // CEUR - Celo Euro
-    // CEUR CeloToken = "cEUR"
+    CEUR CeloToken = "cEUR"
 )
 
 type CeloTokenInfo struct {
@@ -39,11 +39,11 @@ var CeloTokenInfos = map[CeloToken]CeloTokenInfo{
         exchangeContractID: registry.ExchangeContractID,
         isStableToken: true,
     },
-    // CEUR: CeloTokenInfo{
-    //     contractID: registry.StableTokenEURContractID,
-    //     exchangeContractID: registry.ExchangeEURContractID,
-    //     isStableToken: true,
-    // },
+    CEUR: CeloTokenInfo{
+        contractID: registry.StableTokenEURContractID,
+        exchangeContractID: registry.ExchangeEURContractID,
+        isStableToken: true,
+    },
 }
 
 // CeloTokens provides a friendly interface for interacting with Celo tokens
