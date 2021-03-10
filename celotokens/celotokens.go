@@ -58,15 +58,6 @@ func New(reg registry.Registry) *CeloTokens {
 	}
 }
 
-// IsStableToken returns whether the provided token is a stable token
-func (ct *CeloTokens) IsStableToken(token CeloToken) bool {
-	tokenInfo, ok := CeloTokenInfos[token]
-	if !ok {
-		return false
-	}
-	return tokenInfo.isStableToken
-}
-
 // GetExchangeContract gets the exchange contract for a provided stable token
 func (ct *CeloTokens) GetExchangeContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (*contracts.Exchange, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
@@ -161,4 +152,24 @@ func (ct *CeloTokens) GetAddresses(ctx context.Context, blockNumber *big.Int, on
 		addresses[token] = address
 	}
 	return addresses, nil
+}
+
+// Helpers ---
+
+// IsStableToken returns whether the provided token is a stable token
+func IsStableToken(token CeloToken) bool {
+	tokenInfo, ok := CeloTokenInfos[token]
+	if !ok {
+		return false
+	}
+	return tokenInfo.isStableToken
+}
+
+// GetContractID gets the contract ID for a given token
+func GetContractID(token CeloToken) (registry.ContractID, error) {
+    tokenInfo, ok := CeloTokenInfos[token]
+	if !ok {
+		return "", fmt.Errorf("Token %w not found", token)
+	}
+    return tokenInfo.contractID, nil
 }

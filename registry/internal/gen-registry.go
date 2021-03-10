@@ -10,7 +10,7 @@ import (
 
 // Map of contract id (ie registry string) => generated contract struct
 // This is used to by templateStr to generate gen_registry
-var contractTypePerContractId = map[string]string{
+var contractIDToGeneratedContractType = map[string]string{
 	"Accounts":             "Accounts",
 	"Attestations":         "Attestations",
 	"BlockchainParameters": "BlockchainParameters",
@@ -106,7 +106,7 @@ func main() {
 
 	var buf bytes.Buffer
 
-	template.Execute(&buf, contractTypePerContractId)
+	template.Execute(&buf, contractIDToGeneratedContractType)
 	p, err := format.Source(buf.Bytes())
 	if err != nil {
 		panic(err)
