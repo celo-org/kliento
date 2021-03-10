@@ -10,7 +10,7 @@ import (
     "github.com/celo-org/celo-blockchain/common"
 )
 
-// CeloToken is a native token, eg CELO and stable tokens
+// CeloToken is a token native to Celo, eg CELO and stable tokens
 type CeloToken string
 
 const (
@@ -18,6 +18,8 @@ const (
     CELO CeloToken = "CELO"
     // CUSD - Celo Dollar
     CUSD CeloToken = "cUSD"
+    // CEUR - Celo Euro
+    CEUR CeloToken = "cEUR"
 )
 
 type CeloTokenInfo struct {
@@ -35,6 +37,11 @@ var CeloTokenInfos = map[CeloToken]CeloTokenInfo{
     CUSD: CeloTokenInfo{
         contractID: registry.StableTokenContractID,
         exchangeContractID: registry.ExchangeContractID,
+        isStableToken: true,
+    },
+    CEUR: CeloTokenInfo{
+        contractID: registry.StableTokenEURContractID,
+        exchangeContractID: registry.ExchangeEURContractID,
         isStableToken: true,
     },
 }

@@ -9,6 +9,3 @@ require (
 
 // DO NOT CHANGE DIRECTORY: Create a symlink so this works
 replace github.com/celo-org/celo-blockchain => ../celo-blockchain
-
-// Use this to use external build
-// replace github.com/celo-org/celo-blockchain => github.com/celo-org/celo-blockchain v0.0.0-20200519153823-adbdc7f8c27e
