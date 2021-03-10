@@ -20,7 +20,7 @@ var contractTypePerContractId = map[string]string{
 	"EpochRewards": "EpochRewards",
 	"Escrow": "Escrow",
 	"Exchange": "Exchange",
-	"ExchangeEUR": "Exchange",
+	// "ExchangeEUR": "Exchange",
 	"GasPriceMinimum": "GasPriceMinimum",
 	"GoldToken": "GoldToken",
 	"Governance": "Governance",
@@ -30,7 +30,7 @@ var contractTypePerContractId = map[string]string{
 	"Reserve": "Reserve",
 	"SortedOracles": "SortedOracles",
 	"StableToken": "StableToken",
-	"StableTokenEUR": "StableToken",
+	// "StableTokenEUR": "StableToken",
 	"Validators": "Validators",
 }
 
