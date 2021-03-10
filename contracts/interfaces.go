@@ -55,10 +55,3 @@ type CeloTokenContract interface {
     Symbol(opts *bind.CallOpts) (string, error)
     Decimals(opts *bind.CallOpts) (uint8, error)
 }
-
-// TODO figure out whether to delete these
-//     DecreaseAllowance(opts *bind.TransactOpts, spender common.Address, value *big.Int) (*types.Transaction, error)
-//     IncreaseAllowance(opts *bind.TransactOpts, spender common.Address, value *big.Int) (*types.Transaction, error)
-//     IncreaseSupply(opts *bind.TransactOpts, amount *big.Int) (*types.Transaction, error)
-//     Mint(opts *bind.TransactOpts, to common.Address, value *big.Int) (*types.Transaction, error)
-// }
