@@ -104,6 +104,8 @@ github.com/celo-org/celo-blockchain v0.0.0-20200422165556-dee2db520e23 h1:aAuuD4
 github.com/celo-org/celo-blockchain v0.0.0-20200422165556-dee2db520e23/go.mod h1:fjbKeebYSb0akEY16ozvWV9kKOTr1LpVIzjqrNidz44=
 github.com/celo-org/celo-blockchain v0.0.0-20200519153823-adbdc7f8c27e h1:MptBWnrjvhwpc/ntTSN20rBsDY3n5BCku370xyB3Oao=
 github.com/celo-org/celo-blockchain v0.0.0-20200519153823-adbdc7f8c27e/go.mod h1:6GX5rWDFQxsdozGooAztxubMiFHZFgmSkUAdOQdZksA=
+github.com/celo-org/celo-blockchain v0.0.0-20210310231833-1918831df39d h1:Dw/La8G6NtQRQTfoosD3MtgcRtSU9ZMwVTyA9vVk7i4=
+github.com/celo-org/celo-blockchain v0.0.0-20210310231833-1918831df39d/go.mod h1:4tbv23s4i0AU7+KN5UP2RaB5c9OMXedtx9F7wJ+s0Jo=
 github.com/celo-org/celo-blockchain v1.9.25/go.mod h1:vMkFiYLHI4tgPw4k2j4MHKoovchFE8plZ0M9VMk4/oM=
 github.com/celo-org/celo-blockchain v1.9.25/go.mod h1:vMkFiYLHI4tgPw4k2j4MHKoovchFE8plZ0M9VMk4/oM=
 github.com/celo-org/celo-blockchain v1.10.1 h1:bGQezu+kqqRBczcSAruEoqVzTjtkeDnUGI2I4uroyUE=

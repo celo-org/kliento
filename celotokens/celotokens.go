@@ -22,26 +22,27 @@ const (
 	CEUR CeloToken = "cEUR"
 )
 
+// CeloTokenInfo provides basic info for a Celo token
 type CeloTokenInfo struct {
-	contractID         registry.ContractID
-	exchangeContractID registry.ContractID
+	registryID         registry.ContractID
+	exchangeRegistryID registry.ContractID
 	isStableToken      bool
 }
 
 // CeloTokenInfos contains a CeloTokenInfo entry for each CeloToken key
 var CeloTokenInfos = map[CeloToken]CeloTokenInfo{
 	CELO: CeloTokenInfo{
-		contractID:    registry.StableTokenContractID,
+		registryID:    registry.StableTokenContractID,
 		isStableToken: false,
 	},
 	CUSD: CeloTokenInfo{
-		contractID:         registry.StableTokenContractID,
-		exchangeContractID: registry.ExchangeContractID,
+		registryID:         registry.StableTokenContractID,
+		exchangeRegistryID: registry.ExchangeContractID,
 		isStableToken:      true,
 	},
 	CEUR: CeloTokenInfo{
-		contractID:         registry.StableTokenEURContractID,
-		exchangeContractID: registry.ExchangeEURContractID,
+		registryID:         registry.StableTokenEURContractID,
+		exchangeRegistryID: registry.ExchangeEURContractID,
 		isStableToken:      true,
 	},
 }
@@ -67,7 +68,7 @@ func (ct *CeloTokens) GetExchangeContract(ctx context.Context, token CeloToken, 
 	if !tokenInfo.isStableToken {
 		return nil, fmt.Errorf("Token %w not a stable token", token)
 	}
-	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.exchangeContractID), blockNumber)
+	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.exchangeRegistryID), blockNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +84,7 @@ func (ct *CeloTokens) GetStableTokenContract(ctx context.Context, token CeloToke
 	if !tokenInfo.isStableToken {
 		return nil, fmt.Errorf("Token %w not a stable token", token)
 	}
-	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.contractID), blockNumber)
+	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.registryID), blockNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +97,7 @@ func (ct *CeloTokens) GetContract(ctx context.Context, token CeloToken, blockNum
 	if !ok {
 		return nil, fmt.Errorf("Token %w not found", token)
 	}
-	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.contractID), blockNumber)
+	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.registryID), blockNumber)
 	if err != nil {
 		return nil, err
 	}
@@ -145,7 +146,7 @@ func (ct *CeloTokens) GetAddresses(ctx context.Context, blockNumber *big.Int, on
 		if onlyStables && !tokenInfo.isStableToken {
 			continue
 		}
-		address, err := ct.registry.GetAddressFor(ctx, blockNumber, tokenInfo.contractID)
+		address, err := ct.registry.GetAddressFor(ctx, blockNumber, tokenInfo.registryID)
 		if err != nil {
 			return nil, err
 		}
@@ -165,11 +166,11 @@ func IsStableToken(token CeloToken) bool {
 	return tokenInfo.isStableToken
 }
 
-// GetContractID gets the contract ID for a given token
-func GetContractID(token CeloToken) (registry.ContractID, error) {
-    tokenInfo, ok := CeloTokenInfos[token]
+// GetRegistryID gets the contract's registry ID for a given token
+func GetRegistryID(token CeloToken) (registry.ContractID, error) {
+	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
 		return "", fmt.Errorf("Token %w not found", token)
 	}
-    return tokenInfo.contractID, nil
+	return tokenInfo.registryID, nil
 }
