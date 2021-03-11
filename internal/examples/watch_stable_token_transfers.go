@@ -4,12 +4,12 @@ import (
 	"context"
 	"log"
 
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
 	"github.com/celo-org/kliento/contracts/helpers"
 	"github.com/celo-org/kliento/registry"
-	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
-	"github.com/celo-org/celo-blockchain/common"
 )
 
 // Watch stable token transfers to specific address
