@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +28,7 @@ var (
 )
 
 // ValidatorsABI is the input ABI used to generate the binding from.
-const ValidatorsABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"delay\",\"type\":\"uint256\"}],\"name\":\"CommissionUpdateDelaySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"GroupLockedGoldRequirementsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"}],\"name\":\"MaxGroupSizeSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"length\",\"type\":\"uint256\"}],\"name\":\"MembershipHistoryLengthSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorAffiliated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"}],\"name\":\"ValidatorBlsPublicKeyUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorDeaffiliated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"ValidatorEcdsaPublicKeyUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"validatorPayment\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"groupPayment\",\"type\":\"uint256\"}],\"name\":\"ValidatorEpochPaymentDistributed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"commissionFactor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationBlock\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupCommissionUpdateQueued\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"commissionFactor\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupCommissionUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorGroupDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMemberAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMemberRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMemberReordered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"commissionFactor\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"ValidatorLockedGoldRequirementsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"adjustmentSpeedFactor\",\"type\":\"uint256\"}],\"name\":\"ValidatorScoreParametersSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"scoreMultiplier\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"epochScoreFraction\",\"type\":\"uint256\"}],\"name\":\"ValidatorScoreUpdated\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"commissionUpdateDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"groupLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxGroupSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"membershipHistoryLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"slashingMultiplierResetPeriod\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"validatorLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"groupRequirementValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupRequirementDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorRequirementValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorRequirementDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorScoreExponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorScoreAdjustmentSpeed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_membershipHistoryLength\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_slashingMultiplierResetPeriod\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maxGroupSize\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_commissionUpdateDelay\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"delay\",\"type\":\"uint256\"}],\"name\":\"setCommissionUpdateDelay\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"}],\"name\":\"setMaxGroupSize\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"length\",\"type\":\"uint256\"}],\"name\":\"setMembershipHistoryLength\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"setValidatorScoreParameters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getMaxGroupSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCommissionUpdateDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"setGroupLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"setValidatorLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"registerValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getValidatorScoreParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMembershipHistory\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"uptime\",\"type\":\"uint256\"}],\"name\":\"calculateEpochScore\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"uptimes\",\"type\":\"uint256[]\"}],\"name\":\"calculateGroupEpochScore\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"uptime\",\"type\":\"uint256\"}],\"name\":\"updateValidatorScoreFromSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"maxPayment\",\"type\":\"uint256\"}],\"name\":\"distributeEpochPaymentsFromSigner\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"deregisterValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"affiliate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"deaffiliate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"updateBlsPublicKey\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"updateEcdsaPublicKey\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"updatePublicKeys\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"commission\",\"type\":\"uint256\"}],\"name\":\"registerValidatorGroup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"deregisterValidatorGroup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"addMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"addFirstMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"removeMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesserMember\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greaterMember\",\"type\":\"address\"}],\"name\":\"reorderMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"commission\",\"type\":\"uint256\"}],\"name\":\"setNextCommissionUpdate\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"updateCommission\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getAccountLockedGoldRequirement\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"meetsAccountLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"getValidatorBlsPublicKeyFromSigner\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidator\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"affiliation\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"score\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidatorGroup\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getGroupNumMembers\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"n\",\"type\":\"uint256\"}],\"name\":\"getTopGroupValidators\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"accounts\",\"type\":\"address[]\"}],\"name\":\"getGroupsNumMembers\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getNumRegisteredValidators\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getValidatorLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getGroupLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRegisteredValidators\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRegisteredValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRegisteredValidatorGroups\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isValidatorGroup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"getMembershipInLastEpochFromSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMembershipInLastEpoch\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validatorAccount\",\"type\":\"address\"}],\"name\":\"forceDeaffiliateIfValidator\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setSlashingMultiplierResetPeriod\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"resetSlashingMultiplier\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"halveSlashingMultiplier\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidatorGroupSlashingMultiplier\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"epochNumber\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"groupMembershipInEpoch\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+const ValidatorsABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"delay\",\"type\":\"uint256\"}],\"name\":\"CommissionUpdateDelaySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"GroupLockedGoldRequirementsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"}],\"name\":\"MaxGroupSizeSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"length\",\"type\":\"uint256\"}],\"name\":\"MembershipHistoryLengthSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorAffiliated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"}],\"name\":\"ValidatorBlsPublicKeyUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorDeaffiliated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"ValidatorEcdsaPublicKeyUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"validatorPayment\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"groupPayment\",\"type\":\"uint256\"}],\"name\":\"ValidatorEpochPaymentDistributed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"commission\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationBlock\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupCommissionUpdateQueued\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"commission\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupCommissionUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"ValidatorGroupDeregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMemberAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMemberRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorGroupMemberReordered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"commission\",\"type\":\"uint256\"}],\"name\":\"ValidatorGroupRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"ValidatorLockedGoldRequirementsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"ValidatorRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"ValidatorScoreParametersSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"score\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"epochScore\",\"type\":\"uint256\"}],\"name\":\"ValidatorScoreUpdated\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"commissionUpdateDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"downtimeGracePeriod\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"groupLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxGroupSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"membershipHistoryLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"slashingMultiplierResetPeriod\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"validatorLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"groupRequirementValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupRequirementDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorRequirementValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorRequirementDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorScoreExponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"validatorScoreAdjustmentSpeed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_membershipHistoryLength\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_slashingMultiplierResetPeriod\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maxGroupSize\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_commissionUpdateDelay\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_downtimeGracePeriod\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"delay\",\"type\":\"uint256\"}],\"name\":\"setCommissionUpdateDelay\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"size\",\"type\":\"uint256\"}],\"name\":\"setMaxGroupSize\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"length\",\"type\":\"uint256\"}],\"name\":\"setMembershipHistoryLength\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"setValidatorScoreParameters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getMaxGroupSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCommissionUpdateDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"setGroupLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"duration\",\"type\":\"uint256\"}],\"name\":\"setValidatorLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"registerValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getValidatorScoreParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMembershipHistory\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"uptime\",\"type\":\"uint256\"}],\"name\":\"calculateEpochScore\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"uptimes\",\"type\":\"uint256[]\"}],\"name\":\"calculateGroupEpochScore\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"uptime\",\"type\":\"uint256\"}],\"name\":\"updateValidatorScoreFromSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"maxPayment\",\"type\":\"uint256\"}],\"name\":\"distributeEpochPaymentsFromSigner\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"deregisterValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"}],\"name\":\"affiliate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"deaffiliate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"updateBlsPublicKey\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"updateEcdsaPublicKey\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"updatePublicKeys\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"commission\",\"type\":\"uint256\"}],\"name\":\"registerValidatorGroup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"deregisterValidatorGroup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"addMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"}],\"name\":\"addFirstMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"}],\"name\":\"removeMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validator\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"lesserMember\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greaterMember\",\"type\":\"address\"}],\"name\":\"reorderMember\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"commission\",\"type\":\"uint256\"}],\"name\":\"setNextCommissionUpdate\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"updateCommission\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getAccountLockedGoldRequirement\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"meetsAccountLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"getValidatorBlsPublicKeyFromSigner\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidator\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"affiliation\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"score\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidatorGroup\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getGroupNumMembers\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"n\",\"type\":\"uint256\"}],\"name\":\"getTopGroupValidators\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"accounts\",\"type\":\"address[]\"}],\"name\":\"getGroupsNumMembers\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getNumRegisteredValidators\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getValidatorLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getGroupLockedGoldRequirements\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRegisteredValidators\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRegisteredValidatorSigners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRegisteredValidatorGroups\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isValidatorGroup\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isValidator\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"getMembershipInLastEpochFromSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMembershipInLastEpoch\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"validatorAccount\",\"type\":\"address\"}],\"name\":\"forceDeaffiliateIfValidator\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setSlashingMultiplierResetPeriod\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setDowntimeGracePeriod\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"resetSlashingMultiplier\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"halveSlashingMultiplier\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidatorGroupSlashingMultiplier\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"epochNumber\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"groupMembershipInEpoch\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
 
 // Validators is an auto generated Go binding around an Ethereum contract.
 type Validators struct {
@@ -183,7 +183,7 @@ func (_Validators *ValidatorsTransactorRaw) Transact(opts *bind.TransactOpts, me
 
 // CalculateEpochScore is a free data retrieval call binding the contract method 0x94903a97.
 //
-// Solidity: function calculateEpochScore(uint256 uptime) constant returns(uint256)
+// Solidity: function calculateEpochScore(uint256 uptime) view returns(uint256)
 func (_Validators *ValidatorsCaller) CalculateEpochScore(opts *bind.CallOpts, uptime *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_Validators *ValidatorsCaller) CalculateEpochScore(opts *bind.CallOpts, up
 
 // CalculateEpochScore is a free data retrieval call binding the contract method 0x94903a97.
 //
-// Solidity: function calculateEpochScore(uint256 uptime) constant returns(uint256)
+// Solidity: function calculateEpochScore(uint256 uptime) view returns(uint256)
 func (_Validators *ValidatorsSession) CalculateEpochScore(uptime *big.Int) (*big.Int, error) {
 	return _Validators.Contract.CalculateEpochScore(&_Validators.CallOpts, uptime)
 }
 
 // CalculateEpochScore is a free data retrieval call binding the contract method 0x94903a97.
 //
-// Solidity: function calculateEpochScore(uint256 uptime) constant returns(uint256)
+// Solidity: function calculateEpochScore(uint256 uptime) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) CalculateEpochScore(uptime *big.Int) (*big.Int, error) {
 	return _Validators.Contract.CalculateEpochScore(&_Validators.CallOpts, uptime)
 }
 
 // CalculateGroupEpochScore is a free data retrieval call binding the contract method 0x76f7425d.
 //
-// Solidity: function calculateGroupEpochScore(uint256[] uptimes) constant returns(uint256)
+// Solidity: function calculateGroupEpochScore(uint256[] uptimes) view returns(uint256)
 func (_Validators *ValidatorsCaller) CalculateGroupEpochScore(opts *bind.CallOpts, uptimes []*big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -221,21 +221,21 @@ func (_Validators *ValidatorsCaller) CalculateGroupEpochScore(opts *bind.CallOpt
 
 // CalculateGroupEpochScore is a free data retrieval call binding the contract method 0x76f7425d.
 //
-// Solidity: function calculateGroupEpochScore(uint256[] uptimes) constant returns(uint256)
+// Solidity: function calculateGroupEpochScore(uint256[] uptimes) view returns(uint256)
 func (_Validators *ValidatorsSession) CalculateGroupEpochScore(uptimes []*big.Int) (*big.Int, error) {
 	return _Validators.Contract.CalculateGroupEpochScore(&_Validators.CallOpts, uptimes)
 }
 
 // CalculateGroupEpochScore is a free data retrieval call binding the contract method 0x76f7425d.
 //
-// Solidity: function calculateGroupEpochScore(uint256[] uptimes) constant returns(uint256)
+// Solidity: function calculateGroupEpochScore(uint256[] uptimes) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) CalculateGroupEpochScore(uptimes []*big.Int) (*big.Int, error) {
 	return _Validators.Contract.CalculateGroupEpochScore(&_Validators.CallOpts, uptimes)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Validators *ValidatorsCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -247,21 +247,21 @@ func (_Validators *ValidatorsCaller) CheckProofOfPossession(opts *bind.CallOpts,
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Validators *ValidatorsSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Validators.Contract.CheckProofOfPossession(&_Validators.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Validators *ValidatorsCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Validators.Contract.CheckProofOfPossession(&_Validators.CallOpts, sender, blsKey, blsPop)
 }
 
 // CommissionUpdateDelay is a free data retrieval call binding the contract method 0xe0e3ffe6.
 //
-// Solidity: function commissionUpdateDelay() constant returns(uint256)
+// Solidity: function commissionUpdateDelay() view returns(uint256)
 func (_Validators *ValidatorsCaller) CommissionUpdateDelay(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -273,21 +273,47 @@ func (_Validators *ValidatorsCaller) CommissionUpdateDelay(opts *bind.CallOpts) 
 
 // CommissionUpdateDelay is a free data retrieval call binding the contract method 0xe0e3ffe6.
 //
-// Solidity: function commissionUpdateDelay() constant returns(uint256)
+// Solidity: function commissionUpdateDelay() view returns(uint256)
 func (_Validators *ValidatorsSession) CommissionUpdateDelay() (*big.Int, error) {
 	return _Validators.Contract.CommissionUpdateDelay(&_Validators.CallOpts)
 }
 
 // CommissionUpdateDelay is a free data retrieval call binding the contract method 0xe0e3ffe6.
 //
-// Solidity: function commissionUpdateDelay() constant returns(uint256)
+// Solidity: function commissionUpdateDelay() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) CommissionUpdateDelay() (*big.Int, error) {
 	return _Validators.Contract.CommissionUpdateDelay(&_Validators.CallOpts)
 }
 
+// DowntimeGracePeriod is a free data retrieval call binding the contract method 0x0352a592.
+//
+// Solidity: function downtimeGracePeriod() view returns(uint256)
+func (_Validators *ValidatorsCaller) DowntimeGracePeriod(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _Validators.contract.Call(opts, out, "downtimeGracePeriod")
+	return *ret0, err
+}
+
+// DowntimeGracePeriod is a free data retrieval call binding the contract method 0x0352a592.
+//
+// Solidity: function downtimeGracePeriod() view returns(uint256)
+func (_Validators *ValidatorsSession) DowntimeGracePeriod() (*big.Int, error) {
+	return _Validators.Contract.DowntimeGracePeriod(&_Validators.CallOpts)
+}
+
+// DowntimeGracePeriod is a free data retrieval call binding the contract method 0x0352a592.
+//
+// Solidity: function downtimeGracePeriod() view returns(uint256)
+func (_Validators *ValidatorsCallerSession) DowntimeGracePeriod() (*big.Int, error) {
+	return _Validators.Contract.DowntimeGracePeriod(&_Validators.CallOpts)
+}
+
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Validators *ValidatorsCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -303,21 +329,21 @@ func (_Validators *ValidatorsCaller) FractionMulExp(opts *bind.CallOpts, aNumera
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Validators *ValidatorsSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Validators.Contract.FractionMulExp(&_Validators.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Validators *ValidatorsCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Validators.Contract.FractionMulExp(&_Validators.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetAccountLockedGoldRequirement is a free data retrieval call binding the contract method 0xdcff4cf6.
 //
-// Solidity: function getAccountLockedGoldRequirement(address account) constant returns(uint256)
+// Solidity: function getAccountLockedGoldRequirement(address account) view returns(uint256)
 func (_Validators *ValidatorsCaller) GetAccountLockedGoldRequirement(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -329,21 +355,21 @@ func (_Validators *ValidatorsCaller) GetAccountLockedGoldRequirement(opts *bind.
 
 // GetAccountLockedGoldRequirement is a free data retrieval call binding the contract method 0xdcff4cf6.
 //
-// Solidity: function getAccountLockedGoldRequirement(address account) constant returns(uint256)
+// Solidity: function getAccountLockedGoldRequirement(address account) view returns(uint256)
 func (_Validators *ValidatorsSession) GetAccountLockedGoldRequirement(account common.Address) (*big.Int, error) {
 	return _Validators.Contract.GetAccountLockedGoldRequirement(&_Validators.CallOpts, account)
 }
 
 // GetAccountLockedGoldRequirement is a free data retrieval call binding the contract method 0xdcff4cf6.
 //
-// Solidity: function getAccountLockedGoldRequirement(address account) constant returns(uint256)
+// Solidity: function getAccountLockedGoldRequirement(address account) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetAccountLockedGoldRequirement(account common.Address) (*big.Int, error) {
 	return _Validators.Contract.GetAccountLockedGoldRequirement(&_Validators.CallOpts, account)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Validators *ValidatorsCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -355,21 +381,21 @@ func (_Validators *ValidatorsCaller) GetBlockNumberFromHeader(opts *bind.CallOpt
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Validators *ValidatorsSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Validators.Contract.GetBlockNumberFromHeader(&_Validators.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Validators.Contract.GetBlockNumberFromHeader(&_Validators.CallOpts, header)
 }
 
 // GetCommissionUpdateDelay is a free data retrieval call binding the contract method 0xb915f530.
 //
-// Solidity: function getCommissionUpdateDelay() constant returns(uint256)
+// Solidity: function getCommissionUpdateDelay() view returns(uint256)
 func (_Validators *ValidatorsCaller) GetCommissionUpdateDelay(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -381,21 +407,21 @@ func (_Validators *ValidatorsCaller) GetCommissionUpdateDelay(opts *bind.CallOpt
 
 // GetCommissionUpdateDelay is a free data retrieval call binding the contract method 0xb915f530.
 //
-// Solidity: function getCommissionUpdateDelay() constant returns(uint256)
+// Solidity: function getCommissionUpdateDelay() view returns(uint256)
 func (_Validators *ValidatorsSession) GetCommissionUpdateDelay() (*big.Int, error) {
 	return _Validators.Contract.GetCommissionUpdateDelay(&_Validators.CallOpts)
 }
 
 // GetCommissionUpdateDelay is a free data retrieval call binding the contract method 0xb915f530.
 //
-// Solidity: function getCommissionUpdateDelay() constant returns(uint256)
+// Solidity: function getCommissionUpdateDelay() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetCommissionUpdateDelay() (*big.Int, error) {
 	return _Validators.Contract.GetCommissionUpdateDelay(&_Validators.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Validators *ValidatorsCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -407,21 +433,21 @@ func (_Validators *ValidatorsCaller) GetEpochNumber(opts *bind.CallOpts) (*big.I
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Validators *ValidatorsSession) GetEpochNumber() (*big.Int, error) {
 	return _Validators.Contract.GetEpochNumber(&_Validators.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _Validators.Contract.GetEpochNumber(&_Validators.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -433,21 +459,21 @@ func (_Validators *ValidatorsCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, 
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Validators.Contract.GetEpochNumberOfBlock(&_Validators.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Validators.Contract.GetEpochNumberOfBlock(&_Validators.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Validators *ValidatorsCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -459,21 +485,21 @@ func (_Validators *ValidatorsCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Validators *ValidatorsSession) GetEpochSize() (*big.Int, error) {
 	return _Validators.Contract.GetEpochSize(&_Validators.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetEpochSize() (*big.Int, error) {
 	return _Validators.Contract.GetEpochSize(&_Validators.CallOpts)
 }
 
 // GetGroupLockedGoldRequirements is a free data retrieval call binding the contract method 0x6fa47647.
 //
-// Solidity: function getGroupLockedGoldRequirements() constant returns(uint256, uint256)
+// Solidity: function getGroupLockedGoldRequirements() view returns(uint256, uint256)
 func (_Validators *ValidatorsCaller) GetGroupLockedGoldRequirements(opts *bind.CallOpts) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -489,21 +515,21 @@ func (_Validators *ValidatorsCaller) GetGroupLockedGoldRequirements(opts *bind.C
 
 // GetGroupLockedGoldRequirements is a free data retrieval call binding the contract method 0x6fa47647.
 //
-// Solidity: function getGroupLockedGoldRequirements() constant returns(uint256, uint256)
+// Solidity: function getGroupLockedGoldRequirements() view returns(uint256, uint256)
 func (_Validators *ValidatorsSession) GetGroupLockedGoldRequirements() (*big.Int, *big.Int, error) {
 	return _Validators.Contract.GetGroupLockedGoldRequirements(&_Validators.CallOpts)
 }
 
 // GetGroupLockedGoldRequirements is a free data retrieval call binding the contract method 0x6fa47647.
 //
-// Solidity: function getGroupLockedGoldRequirements() constant returns(uint256, uint256)
+// Solidity: function getGroupLockedGoldRequirements() view returns(uint256, uint256)
 func (_Validators *ValidatorsCallerSession) GetGroupLockedGoldRequirements() (*big.Int, *big.Int, error) {
 	return _Validators.Contract.GetGroupLockedGoldRequirements(&_Validators.CallOpts)
 }
 
 // GetGroupNumMembers is a free data retrieval call binding the contract method 0x39e618e8.
 //
-// Solidity: function getGroupNumMembers(address account) constant returns(uint256)
+// Solidity: function getGroupNumMembers(address account) view returns(uint256)
 func (_Validators *ValidatorsCaller) GetGroupNumMembers(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -515,21 +541,21 @@ func (_Validators *ValidatorsCaller) GetGroupNumMembers(opts *bind.CallOpts, acc
 
 // GetGroupNumMembers is a free data retrieval call binding the contract method 0x39e618e8.
 //
-// Solidity: function getGroupNumMembers(address account) constant returns(uint256)
+// Solidity: function getGroupNumMembers(address account) view returns(uint256)
 func (_Validators *ValidatorsSession) GetGroupNumMembers(account common.Address) (*big.Int, error) {
 	return _Validators.Contract.GetGroupNumMembers(&_Validators.CallOpts, account)
 }
 
 // GetGroupNumMembers is a free data retrieval call binding the contract method 0x39e618e8.
 //
-// Solidity: function getGroupNumMembers(address account) constant returns(uint256)
+// Solidity: function getGroupNumMembers(address account) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetGroupNumMembers(account common.Address) (*big.Int, error) {
 	return _Validators.Contract.GetGroupNumMembers(&_Validators.CallOpts, account)
 }
 
 // GetGroupsNumMembers is a free data retrieval call binding the contract method 0x70447754.
 //
-// Solidity: function getGroupsNumMembers(address[] accounts) constant returns(uint256[])
+// Solidity: function getGroupsNumMembers(address[] accounts) view returns(uint256[])
 func (_Validators *ValidatorsCaller) GetGroupsNumMembers(opts *bind.CallOpts, accounts []common.Address) ([]*big.Int, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -541,21 +567,21 @@ func (_Validators *ValidatorsCaller) GetGroupsNumMembers(opts *bind.CallOpts, ac
 
 // GetGroupsNumMembers is a free data retrieval call binding the contract method 0x70447754.
 //
-// Solidity: function getGroupsNumMembers(address[] accounts) constant returns(uint256[])
+// Solidity: function getGroupsNumMembers(address[] accounts) view returns(uint256[])
 func (_Validators *ValidatorsSession) GetGroupsNumMembers(accounts []common.Address) ([]*big.Int, error) {
 	return _Validators.Contract.GetGroupsNumMembers(&_Validators.CallOpts, accounts)
 }
 
 // GetGroupsNumMembers is a free data retrieval call binding the contract method 0x70447754.
 //
-// Solidity: function getGroupsNumMembers(address[] accounts) constant returns(uint256[])
+// Solidity: function getGroupsNumMembers(address[] accounts) view returns(uint256[])
 func (_Validators *ValidatorsCallerSession) GetGroupsNumMembers(accounts []common.Address) ([]*big.Int, error) {
 	return _Validators.Contract.GetGroupsNumMembers(&_Validators.CallOpts, accounts)
 }
 
 // GetMaxGroupSize is a free data retrieval call binding the contract method 0x43d96699.
 //
-// Solidity: function getMaxGroupSize() constant returns(uint256)
+// Solidity: function getMaxGroupSize() view returns(uint256)
 func (_Validators *ValidatorsCaller) GetMaxGroupSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -567,21 +593,21 @@ func (_Validators *ValidatorsCaller) GetMaxGroupSize(opts *bind.CallOpts) (*big.
 
 // GetMaxGroupSize is a free data retrieval call binding the contract method 0x43d96699.
 //
-// Solidity: function getMaxGroupSize() constant returns(uint256)
+// Solidity: function getMaxGroupSize() view returns(uint256)
 func (_Validators *ValidatorsSession) GetMaxGroupSize() (*big.Int, error) {
 	return _Validators.Contract.GetMaxGroupSize(&_Validators.CallOpts)
 }
 
 // GetMaxGroupSize is a free data retrieval call binding the contract method 0x43d96699.
 //
-// Solidity: function getMaxGroupSize() constant returns(uint256)
+// Solidity: function getMaxGroupSize() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetMaxGroupSize() (*big.Int, error) {
 	return _Validators.Contract.GetMaxGroupSize(&_Validators.CallOpts)
 }
 
 // GetMembershipHistory is a free data retrieval call binding the contract method 0x35244f51.
 //
-// Solidity: function getMembershipHistory(address account) constant returns(uint256[], address[], uint256, uint256)
+// Solidity: function getMembershipHistory(address account) view returns(uint256[], address[], uint256, uint256)
 func (_Validators *ValidatorsCaller) GetMembershipHistory(opts *bind.CallOpts, account common.Address) ([]*big.Int, []common.Address, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -601,21 +627,21 @@ func (_Validators *ValidatorsCaller) GetMembershipHistory(opts *bind.CallOpts, a
 
 // GetMembershipHistory is a free data retrieval call binding the contract method 0x35244f51.
 //
-// Solidity: function getMembershipHistory(address account) constant returns(uint256[], address[], uint256, uint256)
+// Solidity: function getMembershipHistory(address account) view returns(uint256[], address[], uint256, uint256)
 func (_Validators *ValidatorsSession) GetMembershipHistory(account common.Address) ([]*big.Int, []common.Address, *big.Int, *big.Int, error) {
 	return _Validators.Contract.GetMembershipHistory(&_Validators.CallOpts, account)
 }
 
 // GetMembershipHistory is a free data retrieval call binding the contract method 0x35244f51.
 //
-// Solidity: function getMembershipHistory(address account) constant returns(uint256[], address[], uint256, uint256)
+// Solidity: function getMembershipHistory(address account) view returns(uint256[], address[], uint256, uint256)
 func (_Validators *ValidatorsCallerSession) GetMembershipHistory(account common.Address) ([]*big.Int, []common.Address, *big.Int, *big.Int, error) {
 	return _Validators.Contract.GetMembershipHistory(&_Validators.CallOpts, account)
 }
 
 // GetMembershipInLastEpoch is a free data retrieval call binding the contract method 0x0d1312b8.
 //
-// Solidity: function getMembershipInLastEpoch(address account) constant returns(address)
+// Solidity: function getMembershipInLastEpoch(address account) view returns(address)
 func (_Validators *ValidatorsCaller) GetMembershipInLastEpoch(opts *bind.CallOpts, account common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -627,21 +653,21 @@ func (_Validators *ValidatorsCaller) GetMembershipInLastEpoch(opts *bind.CallOpt
 
 // GetMembershipInLastEpoch is a free data retrieval call binding the contract method 0x0d1312b8.
 //
-// Solidity: function getMembershipInLastEpoch(address account) constant returns(address)
+// Solidity: function getMembershipInLastEpoch(address account) view returns(address)
 func (_Validators *ValidatorsSession) GetMembershipInLastEpoch(account common.Address) (common.Address, error) {
 	return _Validators.Contract.GetMembershipInLastEpoch(&_Validators.CallOpts, account)
 }
 
 // GetMembershipInLastEpoch is a free data retrieval call binding the contract method 0x0d1312b8.
 //
-// Solidity: function getMembershipInLastEpoch(address account) constant returns(address)
+// Solidity: function getMembershipInLastEpoch(address account) view returns(address)
 func (_Validators *ValidatorsCallerSession) GetMembershipInLastEpoch(account common.Address) (common.Address, error) {
 	return _Validators.Contract.GetMembershipInLastEpoch(&_Validators.CallOpts, account)
 }
 
 // GetMembershipInLastEpochFromSigner is a free data retrieval call binding the contract method 0x51b52225.
 //
-// Solidity: function getMembershipInLastEpochFromSigner(address signer) constant returns(address)
+// Solidity: function getMembershipInLastEpochFromSigner(address signer) view returns(address)
 func (_Validators *ValidatorsCaller) GetMembershipInLastEpochFromSigner(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -653,21 +679,21 @@ func (_Validators *ValidatorsCaller) GetMembershipInLastEpochFromSigner(opts *bi
 
 // GetMembershipInLastEpochFromSigner is a free data retrieval call binding the contract method 0x51b52225.
 //
-// Solidity: function getMembershipInLastEpochFromSigner(address signer) constant returns(address)
+// Solidity: function getMembershipInLastEpochFromSigner(address signer) view returns(address)
 func (_Validators *ValidatorsSession) GetMembershipInLastEpochFromSigner(signer common.Address) (common.Address, error) {
 	return _Validators.Contract.GetMembershipInLastEpochFromSigner(&_Validators.CallOpts, signer)
 }
 
 // GetMembershipInLastEpochFromSigner is a free data retrieval call binding the contract method 0x51b52225.
 //
-// Solidity: function getMembershipInLastEpochFromSigner(address signer) constant returns(address)
+// Solidity: function getMembershipInLastEpochFromSigner(address signer) view returns(address)
 func (_Validators *ValidatorsCallerSession) GetMembershipInLastEpochFromSigner(signer common.Address) (common.Address, error) {
 	return _Validators.Contract.GetMembershipInLastEpochFromSigner(&_Validators.CallOpts, signer)
 }
 
 // GetNumRegisteredValidators is a free data retrieval call binding the contract method 0x517f6d33.
 //
-// Solidity: function getNumRegisteredValidators() constant returns(uint256)
+// Solidity: function getNumRegisteredValidators() view returns(uint256)
 func (_Validators *ValidatorsCaller) GetNumRegisteredValidators(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -679,21 +705,21 @@ func (_Validators *ValidatorsCaller) GetNumRegisteredValidators(opts *bind.CallO
 
 // GetNumRegisteredValidators is a free data retrieval call binding the contract method 0x517f6d33.
 //
-// Solidity: function getNumRegisteredValidators() constant returns(uint256)
+// Solidity: function getNumRegisteredValidators() view returns(uint256)
 func (_Validators *ValidatorsSession) GetNumRegisteredValidators() (*big.Int, error) {
 	return _Validators.Contract.GetNumRegisteredValidators(&_Validators.CallOpts)
 }
 
 // GetNumRegisteredValidators is a free data retrieval call binding the contract method 0x517f6d33.
 //
-// Solidity: function getNumRegisteredValidators() constant returns(uint256)
+// Solidity: function getNumRegisteredValidators() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetNumRegisteredValidators() (*big.Int, error) {
 	return _Validators.Contract.GetNumRegisteredValidators(&_Validators.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Validators *ValidatorsCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -705,21 +731,21 @@ func (_Validators *ValidatorsCaller) GetParentSealBitmap(opts *bind.CallOpts, bl
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Validators *ValidatorsSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Validators.Contract.GetParentSealBitmap(&_Validators.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Validators *ValidatorsCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Validators.Contract.GetParentSealBitmap(&_Validators.CallOpts, blockNumber)
 }
 
 // GetRegisteredValidatorGroups is a free data retrieval call binding the contract method 0x3f270898.
 //
-// Solidity: function getRegisteredValidatorGroups() constant returns(address[])
+// Solidity: function getRegisteredValidatorGroups() view returns(address[])
 func (_Validators *ValidatorsCaller) GetRegisteredValidatorGroups(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -731,21 +757,21 @@ func (_Validators *ValidatorsCaller) GetRegisteredValidatorGroups(opts *bind.Cal
 
 // GetRegisteredValidatorGroups is a free data retrieval call binding the contract method 0x3f270898.
 //
-// Solidity: function getRegisteredValidatorGroups() constant returns(address[])
+// Solidity: function getRegisteredValidatorGroups() view returns(address[])
 func (_Validators *ValidatorsSession) GetRegisteredValidatorGroups() ([]common.Address, error) {
 	return _Validators.Contract.GetRegisteredValidatorGroups(&_Validators.CallOpts)
 }
 
 // GetRegisteredValidatorGroups is a free data retrieval call binding the contract method 0x3f270898.
 //
-// Solidity: function getRegisteredValidatorGroups() constant returns(address[])
+// Solidity: function getRegisteredValidatorGroups() view returns(address[])
 func (_Validators *ValidatorsCallerSession) GetRegisteredValidatorGroups() ([]common.Address, error) {
 	return _Validators.Contract.GetRegisteredValidatorGroups(&_Validators.CallOpts)
 }
 
 // GetRegisteredValidatorSigners is a free data retrieval call binding the contract method 0xd55dcbcf.
 //
-// Solidity: function getRegisteredValidatorSigners() constant returns(address[])
+// Solidity: function getRegisteredValidatorSigners() view returns(address[])
 func (_Validators *ValidatorsCaller) GetRegisteredValidatorSigners(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -757,21 +783,21 @@ func (_Validators *ValidatorsCaller) GetRegisteredValidatorSigners(opts *bind.Ca
 
 // GetRegisteredValidatorSigners is a free data retrieval call binding the contract method 0xd55dcbcf.
 //
-// Solidity: function getRegisteredValidatorSigners() constant returns(address[])
+// Solidity: function getRegisteredValidatorSigners() view returns(address[])
 func (_Validators *ValidatorsSession) GetRegisteredValidatorSigners() ([]common.Address, error) {
 	return _Validators.Contract.GetRegisteredValidatorSigners(&_Validators.CallOpts)
 }
 
 // GetRegisteredValidatorSigners is a free data retrieval call binding the contract method 0xd55dcbcf.
 //
-// Solidity: function getRegisteredValidatorSigners() constant returns(address[])
+// Solidity: function getRegisteredValidatorSigners() view returns(address[])
 func (_Validators *ValidatorsCallerSession) GetRegisteredValidatorSigners() ([]common.Address, error) {
 	return _Validators.Contract.GetRegisteredValidatorSigners(&_Validators.CallOpts)
 }
 
 // GetRegisteredValidators is a free data retrieval call binding the contract method 0xd93ab5ad.
 //
-// Solidity: function getRegisteredValidators() constant returns(address[])
+// Solidity: function getRegisteredValidators() view returns(address[])
 func (_Validators *ValidatorsCaller) GetRegisteredValidators(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -783,21 +809,21 @@ func (_Validators *ValidatorsCaller) GetRegisteredValidators(opts *bind.CallOpts
 
 // GetRegisteredValidators is a free data retrieval call binding the contract method 0xd93ab5ad.
 //
-// Solidity: function getRegisteredValidators() constant returns(address[])
+// Solidity: function getRegisteredValidators() view returns(address[])
 func (_Validators *ValidatorsSession) GetRegisteredValidators() ([]common.Address, error) {
 	return _Validators.Contract.GetRegisteredValidators(&_Validators.CallOpts)
 }
 
 // GetRegisteredValidators is a free data retrieval call binding the contract method 0xd93ab5ad.
 //
-// Solidity: function getRegisteredValidators() constant returns(address[])
+// Solidity: function getRegisteredValidators() view returns(address[])
 func (_Validators *ValidatorsCallerSession) GetRegisteredValidators() ([]common.Address, error) {
 	return _Validators.Contract.GetRegisteredValidators(&_Validators.CallOpts)
 }
 
 // GetTopGroupValidators is a free data retrieval call binding the contract method 0x8dd31e39.
 //
-// Solidity: function getTopGroupValidators(address account, uint256 n) constant returns(address[])
+// Solidity: function getTopGroupValidators(address account, uint256 n) view returns(address[])
 func (_Validators *ValidatorsCaller) GetTopGroupValidators(opts *bind.CallOpts, account common.Address, n *big.Int) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -809,21 +835,21 @@ func (_Validators *ValidatorsCaller) GetTopGroupValidators(opts *bind.CallOpts, 
 
 // GetTopGroupValidators is a free data retrieval call binding the contract method 0x8dd31e39.
 //
-// Solidity: function getTopGroupValidators(address account, uint256 n) constant returns(address[])
+// Solidity: function getTopGroupValidators(address account, uint256 n) view returns(address[])
 func (_Validators *ValidatorsSession) GetTopGroupValidators(account common.Address, n *big.Int) ([]common.Address, error) {
 	return _Validators.Contract.GetTopGroupValidators(&_Validators.CallOpts, account, n)
 }
 
 // GetTopGroupValidators is a free data retrieval call binding the contract method 0x8dd31e39.
 //
-// Solidity: function getTopGroupValidators(address account, uint256 n) constant returns(address[])
+// Solidity: function getTopGroupValidators(address account, uint256 n) view returns(address[])
 func (_Validators *ValidatorsCallerSession) GetTopGroupValidators(account common.Address, n *big.Int) ([]common.Address, error) {
 	return _Validators.Contract.GetTopGroupValidators(&_Validators.CallOpts, account, n)
 }
 
 // GetValidator is a free data retrieval call binding the contract method 0x1904bb2e.
 //
-// Solidity: function getValidator(address account) constant returns(bytes ecdsaPublicKey, bytes blsPublicKey, address affiliation, uint256 score, address signer)
+// Solidity: function getValidator(address account) view returns(bytes ecdsaPublicKey, bytes blsPublicKey, address affiliation, uint256 score, address signer)
 func (_Validators *ValidatorsCaller) GetValidator(opts *bind.CallOpts, account common.Address) (struct {
 	EcdsaPublicKey []byte
 	BlsPublicKey   []byte
@@ -845,7 +871,7 @@ func (_Validators *ValidatorsCaller) GetValidator(opts *bind.CallOpts, account c
 
 // GetValidator is a free data retrieval call binding the contract method 0x1904bb2e.
 //
-// Solidity: function getValidator(address account) constant returns(bytes ecdsaPublicKey, bytes blsPublicKey, address affiliation, uint256 score, address signer)
+// Solidity: function getValidator(address account) view returns(bytes ecdsaPublicKey, bytes blsPublicKey, address affiliation, uint256 score, address signer)
 func (_Validators *ValidatorsSession) GetValidator(account common.Address) (struct {
 	EcdsaPublicKey []byte
 	BlsPublicKey   []byte
@@ -858,7 +884,7 @@ func (_Validators *ValidatorsSession) GetValidator(account common.Address) (stru
 
 // GetValidator is a free data retrieval call binding the contract method 0x1904bb2e.
 //
-// Solidity: function getValidator(address account) constant returns(bytes ecdsaPublicKey, bytes blsPublicKey, address affiliation, uint256 score, address signer)
+// Solidity: function getValidator(address account) view returns(bytes ecdsaPublicKey, bytes blsPublicKey, address affiliation, uint256 score, address signer)
 func (_Validators *ValidatorsCallerSession) GetValidator(account common.Address) (struct {
 	EcdsaPublicKey []byte
 	BlsPublicKey   []byte
@@ -871,7 +897,7 @@ func (_Validators *ValidatorsCallerSession) GetValidator(account common.Address)
 
 // GetValidatorBlsPublicKeyFromSigner is a free data retrieval call binding the contract method 0xb730a299.
 //
-// Solidity: function getValidatorBlsPublicKeyFromSigner(address signer) constant returns(bytes blsPublicKey)
+// Solidity: function getValidatorBlsPublicKeyFromSigner(address signer) view returns(bytes blsPublicKey)
 func (_Validators *ValidatorsCaller) GetValidatorBlsPublicKeyFromSigner(opts *bind.CallOpts, signer common.Address) ([]byte, error) {
 	var (
 		ret0 = new([]byte)
@@ -883,21 +909,21 @@ func (_Validators *ValidatorsCaller) GetValidatorBlsPublicKeyFromSigner(opts *bi
 
 // GetValidatorBlsPublicKeyFromSigner is a free data retrieval call binding the contract method 0xb730a299.
 //
-// Solidity: function getValidatorBlsPublicKeyFromSigner(address signer) constant returns(bytes blsPublicKey)
+// Solidity: function getValidatorBlsPublicKeyFromSigner(address signer) view returns(bytes blsPublicKey)
 func (_Validators *ValidatorsSession) GetValidatorBlsPublicKeyFromSigner(signer common.Address) ([]byte, error) {
 	return _Validators.Contract.GetValidatorBlsPublicKeyFromSigner(&_Validators.CallOpts, signer)
 }
 
 // GetValidatorBlsPublicKeyFromSigner is a free data retrieval call binding the contract method 0xb730a299.
 //
-// Solidity: function getValidatorBlsPublicKeyFromSigner(address signer) constant returns(bytes blsPublicKey)
+// Solidity: function getValidatorBlsPublicKeyFromSigner(address signer) view returns(bytes blsPublicKey)
 func (_Validators *ValidatorsCallerSession) GetValidatorBlsPublicKeyFromSigner(signer common.Address) ([]byte, error) {
 	return _Validators.Contract.GetValidatorBlsPublicKeyFromSigner(&_Validators.CallOpts, signer)
 }
 
 // GetValidatorGroup is a free data retrieval call binding the contract method 0x9b9d5161.
 //
-// Solidity: function getValidatorGroup(address account) constant returns(address[], uint256, uint256, uint256, uint256[], uint256, uint256)
+// Solidity: function getValidatorGroup(address account) view returns(address[], uint256, uint256, uint256, uint256[], uint256, uint256)
 func (_Validators *ValidatorsCaller) GetValidatorGroup(opts *bind.CallOpts, account common.Address) ([]common.Address, *big.Int, *big.Int, *big.Int, []*big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -923,21 +949,21 @@ func (_Validators *ValidatorsCaller) GetValidatorGroup(opts *bind.CallOpts, acco
 
 // GetValidatorGroup is a free data retrieval call binding the contract method 0x9b9d5161.
 //
-// Solidity: function getValidatorGroup(address account) constant returns(address[], uint256, uint256, uint256, uint256[], uint256, uint256)
+// Solidity: function getValidatorGroup(address account) view returns(address[], uint256, uint256, uint256, uint256[], uint256, uint256)
 func (_Validators *ValidatorsSession) GetValidatorGroup(account common.Address) ([]common.Address, *big.Int, *big.Int, *big.Int, []*big.Int, *big.Int, *big.Int, error) {
 	return _Validators.Contract.GetValidatorGroup(&_Validators.CallOpts, account)
 }
 
 // GetValidatorGroup is a free data retrieval call binding the contract method 0x9b9d5161.
 //
-// Solidity: function getValidatorGroup(address account) constant returns(address[], uint256, uint256, uint256, uint256[], uint256, uint256)
+// Solidity: function getValidatorGroup(address account) view returns(address[], uint256, uint256, uint256, uint256[], uint256, uint256)
 func (_Validators *ValidatorsCallerSession) GetValidatorGroup(account common.Address) ([]common.Address, *big.Int, *big.Int, *big.Int, []*big.Int, *big.Int, *big.Int, error) {
 	return _Validators.Contract.GetValidatorGroup(&_Validators.CallOpts, account)
 }
 
 // GetValidatorGroupSlashingMultiplier is a free data retrieval call binding the contract method 0xdba94fcd.
 //
-// Solidity: function getValidatorGroupSlashingMultiplier(address account) constant returns(uint256)
+// Solidity: function getValidatorGroupSlashingMultiplier(address account) view returns(uint256)
 func (_Validators *ValidatorsCaller) GetValidatorGroupSlashingMultiplier(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -949,21 +975,21 @@ func (_Validators *ValidatorsCaller) GetValidatorGroupSlashingMultiplier(opts *b
 
 // GetValidatorGroupSlashingMultiplier is a free data retrieval call binding the contract method 0xdba94fcd.
 //
-// Solidity: function getValidatorGroupSlashingMultiplier(address account) constant returns(uint256)
+// Solidity: function getValidatorGroupSlashingMultiplier(address account) view returns(uint256)
 func (_Validators *ValidatorsSession) GetValidatorGroupSlashingMultiplier(account common.Address) (*big.Int, error) {
 	return _Validators.Contract.GetValidatorGroupSlashingMultiplier(&_Validators.CallOpts, account)
 }
 
 // GetValidatorGroupSlashingMultiplier is a free data retrieval call binding the contract method 0xdba94fcd.
 //
-// Solidity: function getValidatorGroupSlashingMultiplier(address account) constant returns(uint256)
+// Solidity: function getValidatorGroupSlashingMultiplier(address account) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) GetValidatorGroupSlashingMultiplier(account common.Address) (*big.Int, error) {
 	return _Validators.Contract.GetValidatorGroupSlashingMultiplier(&_Validators.CallOpts, account)
 }
 
 // GetValidatorLockedGoldRequirements is a free data retrieval call binding the contract method 0xc10c96ef.
 //
-// Solidity: function getValidatorLockedGoldRequirements() constant returns(uint256, uint256)
+// Solidity: function getValidatorLockedGoldRequirements() view returns(uint256, uint256)
 func (_Validators *ValidatorsCaller) GetValidatorLockedGoldRequirements(opts *bind.CallOpts) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -979,21 +1005,21 @@ func (_Validators *ValidatorsCaller) GetValidatorLockedGoldRequirements(opts *bi
 
 // GetValidatorLockedGoldRequirements is a free data retrieval call binding the contract method 0xc10c96ef.
 //
-// Solidity: function getValidatorLockedGoldRequirements() constant returns(uint256, uint256)
+// Solidity: function getValidatorLockedGoldRequirements() view returns(uint256, uint256)
 func (_Validators *ValidatorsSession) GetValidatorLockedGoldRequirements() (*big.Int, *big.Int, error) {
 	return _Validators.Contract.GetValidatorLockedGoldRequirements(&_Validators.CallOpts)
 }
 
 // GetValidatorLockedGoldRequirements is a free data retrieval call binding the contract method 0xc10c96ef.
 //
-// Solidity: function getValidatorLockedGoldRequirements() constant returns(uint256, uint256)
+// Solidity: function getValidatorLockedGoldRequirements() view returns(uint256, uint256)
 func (_Validators *ValidatorsCallerSession) GetValidatorLockedGoldRequirements() (*big.Int, *big.Int, error) {
 	return _Validators.Contract.GetValidatorLockedGoldRequirements(&_Validators.CallOpts)
 }
 
 // GetValidatorScoreParameters is a free data retrieval call binding the contract method 0x19113e3b.
 //
-// Solidity: function getValidatorScoreParameters() constant returns(uint256, uint256)
+// Solidity: function getValidatorScoreParameters() view returns(uint256, uint256)
 func (_Validators *ValidatorsCaller) GetValidatorScoreParameters(opts *bind.CallOpts) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1009,21 +1035,21 @@ func (_Validators *ValidatorsCaller) GetValidatorScoreParameters(opts *bind.Call
 
 // GetValidatorScoreParameters is a free data retrieval call binding the contract method 0x19113e3b.
 //
-// Solidity: function getValidatorScoreParameters() constant returns(uint256, uint256)
+// Solidity: function getValidatorScoreParameters() view returns(uint256, uint256)
 func (_Validators *ValidatorsSession) GetValidatorScoreParameters() (*big.Int, *big.Int, error) {
 	return _Validators.Contract.GetValidatorScoreParameters(&_Validators.CallOpts)
 }
 
 // GetValidatorScoreParameters is a free data retrieval call binding the contract method 0x19113e3b.
 //
-// Solidity: function getValidatorScoreParameters() constant returns(uint256, uint256)
+// Solidity: function getValidatorScoreParameters() view returns(uint256, uint256)
 func (_Validators *ValidatorsCallerSession) GetValidatorScoreParameters() (*big.Int, *big.Int, error) {
 	return _Validators.Contract.GetValidatorScoreParameters(&_Validators.CallOpts)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Validators *ValidatorsCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -1035,21 +1061,21 @@ func (_Validators *ValidatorsCaller) GetVerifiedSealBitmapFromHeader(opts *bind.
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Validators *ValidatorsSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Validators.Contract.GetVerifiedSealBitmapFromHeader(&_Validators.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Validators *ValidatorsCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Validators.Contract.GetVerifiedSealBitmapFromHeader(&_Validators.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Validators *ValidatorsCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1069,21 +1095,21 @@ func (_Validators *ValidatorsCaller) GetVersionNumber(opts *bind.CallOpts) (*big
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Validators *ValidatorsSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Validators.Contract.GetVersionNumber(&_Validators.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Validators *ValidatorsCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Validators.Contract.GetVersionNumber(&_Validators.CallOpts)
 }
 
 // GroupLockedGoldRequirements is a free data retrieval call binding the contract method 0xc5805140.
 //
-// Solidity: function groupLockedGoldRequirements() constant returns(uint256 value, uint256 duration)
+// Solidity: function groupLockedGoldRequirements() view returns(uint256 value, uint256 duration)
 func (_Validators *ValidatorsCaller) GroupLockedGoldRequirements(opts *bind.CallOpts) (struct {
 	Value    *big.Int
 	Duration *big.Int
@@ -1099,7 +1125,7 @@ func (_Validators *ValidatorsCaller) GroupLockedGoldRequirements(opts *bind.Call
 
 // GroupLockedGoldRequirements is a free data retrieval call binding the contract method 0xc5805140.
 //
-// Solidity: function groupLockedGoldRequirements() constant returns(uint256 value, uint256 duration)
+// Solidity: function groupLockedGoldRequirements() view returns(uint256 value, uint256 duration)
 func (_Validators *ValidatorsSession) GroupLockedGoldRequirements() (struct {
 	Value    *big.Int
 	Duration *big.Int
@@ -1109,7 +1135,7 @@ func (_Validators *ValidatorsSession) GroupLockedGoldRequirements() (struct {
 
 // GroupLockedGoldRequirements is a free data retrieval call binding the contract method 0xc5805140.
 //
-// Solidity: function groupLockedGoldRequirements() constant returns(uint256 value, uint256 duration)
+// Solidity: function groupLockedGoldRequirements() view returns(uint256 value, uint256 duration)
 func (_Validators *ValidatorsCallerSession) GroupLockedGoldRequirements() (struct {
 	Value    *big.Int
 	Duration *big.Int
@@ -1119,7 +1145,7 @@ func (_Validators *ValidatorsCallerSession) GroupLockedGoldRequirements() (struc
 
 // GroupMembershipInEpoch is a free data retrieval call binding the contract method 0xeb1d0b42.
 //
-// Solidity: function groupMembershipInEpoch(address account, uint256 epochNumber, uint256 index) constant returns(address)
+// Solidity: function groupMembershipInEpoch(address account, uint256 epochNumber, uint256 index) view returns(address)
 func (_Validators *ValidatorsCaller) GroupMembershipInEpoch(opts *bind.CallOpts, account common.Address, epochNumber *big.Int, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1131,21 +1157,21 @@ func (_Validators *ValidatorsCaller) GroupMembershipInEpoch(opts *bind.CallOpts,
 
 // GroupMembershipInEpoch is a free data retrieval call binding the contract method 0xeb1d0b42.
 //
-// Solidity: function groupMembershipInEpoch(address account, uint256 epochNumber, uint256 index) constant returns(address)
+// Solidity: function groupMembershipInEpoch(address account, uint256 epochNumber, uint256 index) view returns(address)
 func (_Validators *ValidatorsSession) GroupMembershipInEpoch(account common.Address, epochNumber *big.Int, index *big.Int) (common.Address, error) {
 	return _Validators.Contract.GroupMembershipInEpoch(&_Validators.CallOpts, account, epochNumber, index)
 }
 
 // GroupMembershipInEpoch is a free data retrieval call binding the contract method 0xeb1d0b42.
 //
-// Solidity: function groupMembershipInEpoch(address account, uint256 epochNumber, uint256 index) constant returns(address)
+// Solidity: function groupMembershipInEpoch(address account, uint256 epochNumber, uint256 index) view returns(address)
 func (_Validators *ValidatorsCallerSession) GroupMembershipInEpoch(account common.Address, epochNumber *big.Int, index *big.Int) (common.Address, error) {
 	return _Validators.Contract.GroupMembershipInEpoch(&_Validators.CallOpts, account, epochNumber, index)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Validators *ValidatorsCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -1157,21 +1183,21 @@ func (_Validators *ValidatorsCaller) HashHeader(opts *bind.CallOpts, header []by
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Validators *ValidatorsSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Validators.Contract.HashHeader(&_Validators.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Validators *ValidatorsCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Validators.Contract.HashHeader(&_Validators.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Validators *ValidatorsCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1183,21 +1209,21 @@ func (_Validators *ValidatorsCaller) Initialized(opts *bind.CallOpts) (bool, err
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Validators *ValidatorsSession) Initialized() (bool, error) {
 	return _Validators.Contract.Initialized(&_Validators.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Validators *ValidatorsCallerSession) Initialized() (bool, error) {
 	return _Validators.Contract.Initialized(&_Validators.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Validators *ValidatorsCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1209,21 +1235,21 @@ func (_Validators *ValidatorsCaller) IsOwner(opts *bind.CallOpts) (bool, error) 
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Validators *ValidatorsSession) IsOwner() (bool, error) {
 	return _Validators.Contract.IsOwner(&_Validators.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Validators *ValidatorsCallerSession) IsOwner() (bool, error) {
 	return _Validators.Contract.IsOwner(&_Validators.CallOpts)
 }
 
 // IsValidator is a free data retrieval call binding the contract method 0xfacd743b.
 //
-// Solidity: function isValidator(address account) constant returns(bool)
+// Solidity: function isValidator(address account) view returns(bool)
 func (_Validators *ValidatorsCaller) IsValidator(opts *bind.CallOpts, account common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1235,21 +1261,21 @@ func (_Validators *ValidatorsCaller) IsValidator(opts *bind.CallOpts, account co
 
 // IsValidator is a free data retrieval call binding the contract method 0xfacd743b.
 //
-// Solidity: function isValidator(address account) constant returns(bool)
+// Solidity: function isValidator(address account) view returns(bool)
 func (_Validators *ValidatorsSession) IsValidator(account common.Address) (bool, error) {
 	return _Validators.Contract.IsValidator(&_Validators.CallOpts, account)
 }
 
 // IsValidator is a free data retrieval call binding the contract method 0xfacd743b.
 //
-// Solidity: function isValidator(address account) constant returns(bool)
+// Solidity: function isValidator(address account) view returns(bool)
 func (_Validators *ValidatorsCallerSession) IsValidator(account common.Address) (bool, error) {
 	return _Validators.Contract.IsValidator(&_Validators.CallOpts, account)
 }
 
 // IsValidatorGroup is a free data retrieval call binding the contract method 0x52f13a4e.
 //
-// Solidity: function isValidatorGroup(address account) constant returns(bool)
+// Solidity: function isValidatorGroup(address account) view returns(bool)
 func (_Validators *ValidatorsCaller) IsValidatorGroup(opts *bind.CallOpts, account common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1261,21 +1287,21 @@ func (_Validators *ValidatorsCaller) IsValidatorGroup(opts *bind.CallOpts, accou
 
 // IsValidatorGroup is a free data retrieval call binding the contract method 0x52f13a4e.
 //
-// Solidity: function isValidatorGroup(address account) constant returns(bool)
+// Solidity: function isValidatorGroup(address account) view returns(bool)
 func (_Validators *ValidatorsSession) IsValidatorGroup(account common.Address) (bool, error) {
 	return _Validators.Contract.IsValidatorGroup(&_Validators.CallOpts, account)
 }
 
 // IsValidatorGroup is a free data retrieval call binding the contract method 0x52f13a4e.
 //
-// Solidity: function isValidatorGroup(address account) constant returns(bool)
+// Solidity: function isValidatorGroup(address account) view returns(bool)
 func (_Validators *ValidatorsCallerSession) IsValidatorGroup(account common.Address) (bool, error) {
 	return _Validators.Contract.IsValidatorGroup(&_Validators.CallOpts, account)
 }
 
 // MaxGroupSize is a free data retrieval call binding the contract method 0x5779e93d.
 //
-// Solidity: function maxGroupSize() constant returns(uint256)
+// Solidity: function maxGroupSize() view returns(uint256)
 func (_Validators *ValidatorsCaller) MaxGroupSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1287,21 +1313,21 @@ func (_Validators *ValidatorsCaller) MaxGroupSize(opts *bind.CallOpts) (*big.Int
 
 // MaxGroupSize is a free data retrieval call binding the contract method 0x5779e93d.
 //
-// Solidity: function maxGroupSize() constant returns(uint256)
+// Solidity: function maxGroupSize() view returns(uint256)
 func (_Validators *ValidatorsSession) MaxGroupSize() (*big.Int, error) {
 	return _Validators.Contract.MaxGroupSize(&_Validators.CallOpts)
 }
 
 // MaxGroupSize is a free data retrieval call binding the contract method 0x5779e93d.
 //
-// Solidity: function maxGroupSize() constant returns(uint256)
+// Solidity: function maxGroupSize() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) MaxGroupSize() (*big.Int, error) {
 	return _Validators.Contract.MaxGroupSize(&_Validators.CallOpts)
 }
 
 // MeetsAccountLockedGoldRequirements is a free data retrieval call binding the contract method 0xc54c1cd4.
 //
-// Solidity: function meetsAccountLockedGoldRequirements(address account) constant returns(bool)
+// Solidity: function meetsAccountLockedGoldRequirements(address account) view returns(bool)
 func (_Validators *ValidatorsCaller) MeetsAccountLockedGoldRequirements(opts *bind.CallOpts, account common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -1313,21 +1339,21 @@ func (_Validators *ValidatorsCaller) MeetsAccountLockedGoldRequirements(opts *bi
 
 // MeetsAccountLockedGoldRequirements is a free data retrieval call binding the contract method 0xc54c1cd4.
 //
-// Solidity: function meetsAccountLockedGoldRequirements(address account) constant returns(bool)
+// Solidity: function meetsAccountLockedGoldRequirements(address account) view returns(bool)
 func (_Validators *ValidatorsSession) MeetsAccountLockedGoldRequirements(account common.Address) (bool, error) {
 	return _Validators.Contract.MeetsAccountLockedGoldRequirements(&_Validators.CallOpts, account)
 }
 
 // MeetsAccountLockedGoldRequirements is a free data retrieval call binding the contract method 0xc54c1cd4.
 //
-// Solidity: function meetsAccountLockedGoldRequirements(address account) constant returns(bool)
+// Solidity: function meetsAccountLockedGoldRequirements(address account) view returns(bool)
 func (_Validators *ValidatorsCallerSession) MeetsAccountLockedGoldRequirements(account common.Address) (bool, error) {
 	return _Validators.Contract.MeetsAccountLockedGoldRequirements(&_Validators.CallOpts, account)
 }
 
 // MembershipHistoryLength is a free data retrieval call binding the contract method 0x4cd76db4.
 //
-// Solidity: function membershipHistoryLength() constant returns(uint256)
+// Solidity: function membershipHistoryLength() view returns(uint256)
 func (_Validators *ValidatorsCaller) MembershipHistoryLength(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1339,21 +1365,21 @@ func (_Validators *ValidatorsCaller) MembershipHistoryLength(opts *bind.CallOpts
 
 // MembershipHistoryLength is a free data retrieval call binding the contract method 0x4cd76db4.
 //
-// Solidity: function membershipHistoryLength() constant returns(uint256)
+// Solidity: function membershipHistoryLength() view returns(uint256)
 func (_Validators *ValidatorsSession) MembershipHistoryLength() (*big.Int, error) {
 	return _Validators.Contract.MembershipHistoryLength(&_Validators.CallOpts)
 }
 
 // MembershipHistoryLength is a free data retrieval call binding the contract method 0x4cd76db4.
 //
-// Solidity: function membershipHistoryLength() constant returns(uint256)
+// Solidity: function membershipHistoryLength() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) MembershipHistoryLength() (*big.Int, error) {
 	return _Validators.Contract.MembershipHistoryLength(&_Validators.CallOpts)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1365,21 +1391,21 @@ func (_Validators *ValidatorsCaller) MinQuorumSize(opts *bind.CallOpts, blockNum
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Validators.Contract.MinQuorumSize(&_Validators.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Validators.Contract.MinQuorumSize(&_Validators.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Validators *ValidatorsCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1391,21 +1417,21 @@ func (_Validators *ValidatorsCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOp
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Validators *ValidatorsSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Validators.Contract.MinQuorumSizeInCurrentSet(&_Validators.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Validators.Contract.MinQuorumSizeInCurrentSet(&_Validators.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Validators *ValidatorsCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1417,21 +1443,21 @@ func (_Validators *ValidatorsCaller) NumberValidatorsInCurrentSet(opts *bind.Cal
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Validators *ValidatorsSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Validators.Contract.NumberValidatorsInCurrentSet(&_Validators.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Validators.Contract.NumberValidatorsInCurrentSet(&_Validators.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1443,21 +1469,21 @@ func (_Validators *ValidatorsCaller) NumberValidatorsInSet(opts *bind.CallOpts, 
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Validators.Contract.NumberValidatorsInSet(&_Validators.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Validators *ValidatorsCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Validators.Contract.NumberValidatorsInSet(&_Validators.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Validators *ValidatorsCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1469,21 +1495,21 @@ func (_Validators *ValidatorsCaller) Owner(opts *bind.CallOpts) (common.Address,
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Validators *ValidatorsSession) Owner() (common.Address, error) {
 	return _Validators.Contract.Owner(&_Validators.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Validators *ValidatorsCallerSession) Owner() (common.Address, error) {
 	return _Validators.Contract.Owner(&_Validators.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Validators *ValidatorsCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1495,21 +1521,21 @@ func (_Validators *ValidatorsCaller) Registry(opts *bind.CallOpts) (common.Addre
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Validators *ValidatorsSession) Registry() (common.Address, error) {
 	return _Validators.Contract.Registry(&_Validators.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Validators *ValidatorsCallerSession) Registry() (common.Address, error) {
 	return _Validators.Contract.Registry(&_Validators.CallOpts)
 }
 
 // SlashingMultiplierResetPeriod is a free data retrieval call binding the contract method 0x36407b70.
 //
-// Solidity: function slashingMultiplierResetPeriod() constant returns(uint256)
+// Solidity: function slashingMultiplierResetPeriod() view returns(uint256)
 func (_Validators *ValidatorsCaller) SlashingMultiplierResetPeriod(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1521,21 +1547,21 @@ func (_Validators *ValidatorsCaller) SlashingMultiplierResetPeriod(opts *bind.Ca
 
 // SlashingMultiplierResetPeriod is a free data retrieval call binding the contract method 0x36407b70.
 //
-// Solidity: function slashingMultiplierResetPeriod() constant returns(uint256)
+// Solidity: function slashingMultiplierResetPeriod() view returns(uint256)
 func (_Validators *ValidatorsSession) SlashingMultiplierResetPeriod() (*big.Int, error) {
 	return _Validators.Contract.SlashingMultiplierResetPeriod(&_Validators.CallOpts)
 }
 
 // SlashingMultiplierResetPeriod is a free data retrieval call binding the contract method 0x36407b70.
 //
-// Solidity: function slashingMultiplierResetPeriod() constant returns(uint256)
+// Solidity: function slashingMultiplierResetPeriod() view returns(uint256)
 func (_Validators *ValidatorsCallerSession) SlashingMultiplierResetPeriod() (*big.Int, error) {
 	return _Validators.Contract.SlashingMultiplierResetPeriod(&_Validators.CallOpts)
 }
 
 // ValidatorLockedGoldRequirements is a free data retrieval call binding the contract method 0xbd9e9d94.
 //
-// Solidity: function validatorLockedGoldRequirements() constant returns(uint256 value, uint256 duration)
+// Solidity: function validatorLockedGoldRequirements() view returns(uint256 value, uint256 duration)
 func (_Validators *ValidatorsCaller) ValidatorLockedGoldRequirements(opts *bind.CallOpts) (struct {
 	Value    *big.Int
 	Duration *big.Int
@@ -1551,7 +1577,7 @@ func (_Validators *ValidatorsCaller) ValidatorLockedGoldRequirements(opts *bind.
 
 // ValidatorLockedGoldRequirements is a free data retrieval call binding the contract method 0xbd9e9d94.
 //
-// Solidity: function validatorLockedGoldRequirements() constant returns(uint256 value, uint256 duration)
+// Solidity: function validatorLockedGoldRequirements() view returns(uint256 value, uint256 duration)
 func (_Validators *ValidatorsSession) ValidatorLockedGoldRequirements() (struct {
 	Value    *big.Int
 	Duration *big.Int
@@ -1561,7 +1587,7 @@ func (_Validators *ValidatorsSession) ValidatorLockedGoldRequirements() (struct 
 
 // ValidatorLockedGoldRequirements is a free data retrieval call binding the contract method 0xbd9e9d94.
 //
-// Solidity: function validatorLockedGoldRequirements() constant returns(uint256 value, uint256 duration)
+// Solidity: function validatorLockedGoldRequirements() view returns(uint256 value, uint256 duration)
 func (_Validators *ValidatorsCallerSession) ValidatorLockedGoldRequirements() (struct {
 	Value    *big.Int
 	Duration *big.Int
@@ -1571,7 +1597,7 @@ func (_Validators *ValidatorsCallerSession) ValidatorLockedGoldRequirements() (s
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Validators *ValidatorsCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1583,21 +1609,21 @@ func (_Validators *ValidatorsCaller) ValidatorSignerAddressFromCurrentSet(opts *
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Validators *ValidatorsSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Validators.Contract.ValidatorSignerAddressFromCurrentSet(&_Validators.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Validators *ValidatorsCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Validators.Contract.ValidatorSignerAddressFromCurrentSet(&_Validators.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Validators *ValidatorsCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1609,14 +1635,14 @@ func (_Validators *ValidatorsCaller) ValidatorSignerAddressFromSet(opts *bind.Ca
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Validators *ValidatorsSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Validators.Contract.ValidatorSignerAddressFromSet(&_Validators.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Validators *ValidatorsCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Validators.Contract.ValidatorSignerAddressFromSet(&_Validators.CallOpts, index, blockNumber)
 }
@@ -1810,25 +1836,25 @@ func (_Validators *ValidatorsTransactorSession) HalveSlashingMultiplier(account 
 	return _Validators.Contract.HalveSlashingMultiplier(&_Validators.TransactOpts, account)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x78d25456.
+// Initialize is a paid mutator transaction binding the contract method 0x757d0380.
 //
-// Solidity: function initialize(address registryAddress, uint256 groupRequirementValue, uint256 groupRequirementDuration, uint256 validatorRequirementValue, uint256 validatorRequirementDuration, uint256 validatorScoreExponent, uint256 validatorScoreAdjustmentSpeed, uint256 _membershipHistoryLength, uint256 _slashingMultiplierResetPeriod, uint256 _maxGroupSize, uint256 _commissionUpdateDelay) returns()
-func (_Validators *ValidatorsTransactor) Initialize(opts *bind.TransactOpts, registryAddress common.Address, groupRequirementValue *big.Int, groupRequirementDuration *big.Int, validatorRequirementValue *big.Int, validatorRequirementDuration *big.Int, validatorScoreExponent *big.Int, validatorScoreAdjustmentSpeed *big.Int, _membershipHistoryLength *big.Int, _slashingMultiplierResetPeriod *big.Int, _maxGroupSize *big.Int, _commissionUpdateDelay *big.Int) (*types.Transaction, error) {
-	return _Validators.contract.Transact(opts, "initialize", registryAddress, groupRequirementValue, groupRequirementDuration, validatorRequirementValue, validatorRequirementDuration, validatorScoreExponent, validatorScoreAdjustmentSpeed, _membershipHistoryLength, _slashingMultiplierResetPeriod, _maxGroupSize, _commissionUpdateDelay)
+// Solidity: function initialize(address registryAddress, uint256 groupRequirementValue, uint256 groupRequirementDuration, uint256 validatorRequirementValue, uint256 validatorRequirementDuration, uint256 validatorScoreExponent, uint256 validatorScoreAdjustmentSpeed, uint256 _membershipHistoryLength, uint256 _slashingMultiplierResetPeriod, uint256 _maxGroupSize, uint256 _commissionUpdateDelay, uint256 _downtimeGracePeriod) returns()
+func (_Validators *ValidatorsTransactor) Initialize(opts *bind.TransactOpts, registryAddress common.Address, groupRequirementValue *big.Int, groupRequirementDuration *big.Int, validatorRequirementValue *big.Int, validatorRequirementDuration *big.Int, validatorScoreExponent *big.Int, validatorScoreAdjustmentSpeed *big.Int, _membershipHistoryLength *big.Int, _slashingMultiplierResetPeriod *big.Int, _maxGroupSize *big.Int, _commissionUpdateDelay *big.Int, _downtimeGracePeriod *big.Int) (*types.Transaction, error) {
+	return _Validators.contract.Transact(opts, "initialize", registryAddress, groupRequirementValue, groupRequirementDuration, validatorRequirementValue, validatorRequirementDuration, validatorScoreExponent, validatorScoreAdjustmentSpeed, _membershipHistoryLength, _slashingMultiplierResetPeriod, _maxGroupSize, _commissionUpdateDelay, _downtimeGracePeriod)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x78d25456.
+// Initialize is a paid mutator transaction binding the contract method 0x757d0380.
 //
-// Solidity: function initialize(address registryAddress, uint256 groupRequirementValue, uint256 groupRequirementDuration, uint256 validatorRequirementValue, uint256 validatorRequirementDuration, uint256 validatorScoreExponent, uint256 validatorScoreAdjustmentSpeed, uint256 _membershipHistoryLength, uint256 _slashingMultiplierResetPeriod, uint256 _maxGroupSize, uint256 _commissionUpdateDelay) returns()
-func (_Validators *ValidatorsSession) Initialize(registryAddress common.Address, groupRequirementValue *big.Int, groupRequirementDuration *big.Int, validatorRequirementValue *big.Int, validatorRequirementDuration *big.Int, validatorScoreExponent *big.Int, validatorScoreAdjustmentSpeed *big.Int, _membershipHistoryLength *big.Int, _slashingMultiplierResetPeriod *big.Int, _maxGroupSize *big.Int, _commissionUpdateDelay *big.Int) (*types.Transaction, error) {
-	return _Validators.Contract.Initialize(&_Validators.TransactOpts, registryAddress, groupRequirementValue, groupRequirementDuration, validatorRequirementValue, validatorRequirementDuration, validatorScoreExponent, validatorScoreAdjustmentSpeed, _membershipHistoryLength, _slashingMultiplierResetPeriod, _maxGroupSize, _commissionUpdateDelay)
+// Solidity: function initialize(address registryAddress, uint256 groupRequirementValue, uint256 groupRequirementDuration, uint256 validatorRequirementValue, uint256 validatorRequirementDuration, uint256 validatorScoreExponent, uint256 validatorScoreAdjustmentSpeed, uint256 _membershipHistoryLength, uint256 _slashingMultiplierResetPeriod, uint256 _maxGroupSize, uint256 _commissionUpdateDelay, uint256 _downtimeGracePeriod) returns()
+func (_Validators *ValidatorsSession) Initialize(registryAddress common.Address, groupRequirementValue *big.Int, groupRequirementDuration *big.Int, validatorRequirementValue *big.Int, validatorRequirementDuration *big.Int, validatorScoreExponent *big.Int, validatorScoreAdjustmentSpeed *big.Int, _membershipHistoryLength *big.Int, _slashingMultiplierResetPeriod *big.Int, _maxGroupSize *big.Int, _commissionUpdateDelay *big.Int, _downtimeGracePeriod *big.Int) (*types.Transaction, error) {
+	return _Validators.Contract.Initialize(&_Validators.TransactOpts, registryAddress, groupRequirementValue, groupRequirementDuration, validatorRequirementValue, validatorRequirementDuration, validatorScoreExponent, validatorScoreAdjustmentSpeed, _membershipHistoryLength, _slashingMultiplierResetPeriod, _maxGroupSize, _commissionUpdateDelay, _downtimeGracePeriod)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x78d25456.
+// Initialize is a paid mutator transaction binding the contract method 0x757d0380.
 //
-// Solidity: function initialize(address registryAddress, uint256 groupRequirementValue, uint256 groupRequirementDuration, uint256 validatorRequirementValue, uint256 validatorRequirementDuration, uint256 validatorScoreExponent, uint256 validatorScoreAdjustmentSpeed, uint256 _membershipHistoryLength, uint256 _slashingMultiplierResetPeriod, uint256 _maxGroupSize, uint256 _commissionUpdateDelay) returns()
-func (_Validators *ValidatorsTransactorSession) Initialize(registryAddress common.Address, groupRequirementValue *big.Int, groupRequirementDuration *big.Int, validatorRequirementValue *big.Int, validatorRequirementDuration *big.Int, validatorScoreExponent *big.Int, validatorScoreAdjustmentSpeed *big.Int, _membershipHistoryLength *big.Int, _slashingMultiplierResetPeriod *big.Int, _maxGroupSize *big.Int, _commissionUpdateDelay *big.Int) (*types.Transaction, error) {
-	return _Validators.Contract.Initialize(&_Validators.TransactOpts, registryAddress, groupRequirementValue, groupRequirementDuration, validatorRequirementValue, validatorRequirementDuration, validatorScoreExponent, validatorScoreAdjustmentSpeed, _membershipHistoryLength, _slashingMultiplierResetPeriod, _maxGroupSize, _commissionUpdateDelay)
+// Solidity: function initialize(address registryAddress, uint256 groupRequirementValue, uint256 groupRequirementDuration, uint256 validatorRequirementValue, uint256 validatorRequirementDuration, uint256 validatorScoreExponent, uint256 validatorScoreAdjustmentSpeed, uint256 _membershipHistoryLength, uint256 _slashingMultiplierResetPeriod, uint256 _maxGroupSize, uint256 _commissionUpdateDelay, uint256 _downtimeGracePeriod) returns()
+func (_Validators *ValidatorsTransactorSession) Initialize(registryAddress common.Address, groupRequirementValue *big.Int, groupRequirementDuration *big.Int, validatorRequirementValue *big.Int, validatorRequirementDuration *big.Int, validatorScoreExponent *big.Int, validatorScoreAdjustmentSpeed *big.Int, _membershipHistoryLength *big.Int, _slashingMultiplierResetPeriod *big.Int, _maxGroupSize *big.Int, _commissionUpdateDelay *big.Int, _downtimeGracePeriod *big.Int) (*types.Transaction, error) {
+	return _Validators.Contract.Initialize(&_Validators.TransactOpts, registryAddress, groupRequirementValue, groupRequirementDuration, validatorRequirementValue, validatorRequirementDuration, validatorScoreExponent, validatorScoreAdjustmentSpeed, _membershipHistoryLength, _slashingMultiplierResetPeriod, _maxGroupSize, _commissionUpdateDelay, _downtimeGracePeriod)
 }
 
 // RegisterValidator is a paid mutator transaction binding the contract method 0xea684f77.
@@ -1976,6 +2002,27 @@ func (_Validators *ValidatorsSession) SetCommissionUpdateDelay(delay *big.Int) (
 // Solidity: function setCommissionUpdateDelay(uint256 delay) returns()
 func (_Validators *ValidatorsTransactorSession) SetCommissionUpdateDelay(delay *big.Int) (*types.Transaction, error) {
 	return _Validators.Contract.SetCommissionUpdateDelay(&_Validators.TransactOpts, delay)
+}
+
+// SetDowntimeGracePeriod is a paid mutator transaction binding the contract method 0xa57bff90.
+//
+// Solidity: function setDowntimeGracePeriod(uint256 value) returns()
+func (_Validators *ValidatorsTransactor) SetDowntimeGracePeriod(opts *bind.TransactOpts, value *big.Int) (*types.Transaction, error) {
+	return _Validators.contract.Transact(opts, "setDowntimeGracePeriod", value)
+}
+
+// SetDowntimeGracePeriod is a paid mutator transaction binding the contract method 0xa57bff90.
+//
+// Solidity: function setDowntimeGracePeriod(uint256 value) returns()
+func (_Validators *ValidatorsSession) SetDowntimeGracePeriod(value *big.Int) (*types.Transaction, error) {
+	return _Validators.Contract.SetDowntimeGracePeriod(&_Validators.TransactOpts, value)
+}
+
+// SetDowntimeGracePeriod is a paid mutator transaction binding the contract method 0xa57bff90.
+//
+// Solidity: function setDowntimeGracePeriod(uint256 value) returns()
+func (_Validators *ValidatorsTransactorSession) SetDowntimeGracePeriod(value *big.Int) (*types.Transaction, error) {
+	return _Validators.Contract.SetDowntimeGracePeriod(&_Validators.TransactOpts, value)
 }
 
 // SetGroupLockedGoldRequirements is a paid mutator transaction binding the contract method 0x5a61d15b.
@@ -4122,15 +4169,15 @@ func (it *ValidatorsValidatorGroupCommissionUpdateQueuedIterator) Close() error 
 
 // ValidatorsValidatorGroupCommissionUpdateQueued represents a ValidatorGroupCommissionUpdateQueued event raised by the Validators contract.
 type ValidatorsValidatorGroupCommissionUpdateQueued struct {
-	Group            common.Address
-	CommissionFactor *big.Int
-	ActivationBlock  *big.Int
-	Raw              types.Log // Blockchain specific contextual infos
+	Group           common.Address
+	Commission      *big.Int
+	ActivationBlock *big.Int
+	Raw             types.Log // Blockchain specific contextual infos
 }
 
 // FilterValidatorGroupCommissionUpdateQueued is a free log retrieval operation binding the contract event 0x557d39a57520d9835859d4b7eda805a7f4115a59c3a374eeed488436fc62a152.
 //
-// Solidity: event ValidatorGroupCommissionUpdateQueued(address indexed group, uint256 commissionFactor, uint256 activationBlock)
+// Solidity: event ValidatorGroupCommissionUpdateQueued(address indexed group, uint256 commission, uint256 activationBlock)
 func (_Validators *ValidatorsFilterer) FilterValidatorGroupCommissionUpdateQueued(opts *bind.FilterOpts, group []common.Address) (*ValidatorsValidatorGroupCommissionUpdateQueuedIterator, error) {
 
 	var groupRule []interface{}
@@ -4147,7 +4194,7 @@ func (_Validators *ValidatorsFilterer) FilterValidatorGroupCommissionUpdateQueue
 
 // WatchValidatorGroupCommissionUpdateQueued is a free log subscription operation binding the contract event 0x557d39a57520d9835859d4b7eda805a7f4115a59c3a374eeed488436fc62a152.
 //
-// Solidity: event ValidatorGroupCommissionUpdateQueued(address indexed group, uint256 commissionFactor, uint256 activationBlock)
+// Solidity: event ValidatorGroupCommissionUpdateQueued(address indexed group, uint256 commission, uint256 activationBlock)
 func (_Validators *ValidatorsFilterer) WatchValidatorGroupCommissionUpdateQueued(opts *bind.WatchOpts, sink chan<- *ValidatorsValidatorGroupCommissionUpdateQueued, group []common.Address) (event.Subscription, error) {
 
 	var groupRule []interface{}
@@ -4189,7 +4236,7 @@ func (_Validators *ValidatorsFilterer) WatchValidatorGroupCommissionUpdateQueued
 
 // ParseValidatorGroupCommissionUpdateQueued is a log parse operation binding the contract event 0x557d39a57520d9835859d4b7eda805a7f4115a59c3a374eeed488436fc62a152.
 //
-// Solidity: event ValidatorGroupCommissionUpdateQueued(address indexed group, uint256 commissionFactor, uint256 activationBlock)
+// Solidity: event ValidatorGroupCommissionUpdateQueued(address indexed group, uint256 commission, uint256 activationBlock)
 func (_Validators *ValidatorsFilterer) ParseValidatorGroupCommissionUpdateQueued(log types.Log) (*ValidatorsValidatorGroupCommissionUpdateQueued, error) {
 	event := new(ValidatorsValidatorGroupCommissionUpdateQueued)
 	if err := _Validators.contract.UnpackLog(event, "ValidatorGroupCommissionUpdateQueued", log); err != nil {
@@ -4267,14 +4314,14 @@ func (it *ValidatorsValidatorGroupCommissionUpdatedIterator) Close() error {
 
 // ValidatorsValidatorGroupCommissionUpdated represents a ValidatorGroupCommissionUpdated event raised by the Validators contract.
 type ValidatorsValidatorGroupCommissionUpdated struct {
-	Group            common.Address
-	CommissionFactor *big.Int
-	Raw              types.Log // Blockchain specific contextual infos
+	Group      common.Address
+	Commission *big.Int
+	Raw        types.Log // Blockchain specific contextual infos
 }
 
 // FilterValidatorGroupCommissionUpdated is a free log retrieval operation binding the contract event 0x815d292dbc1a08dfb3103aabb6611233dd2393903e57bdf4c5b3db91198a826c.
 //
-// Solidity: event ValidatorGroupCommissionUpdated(address indexed group, uint256 commissionFactor)
+// Solidity: event ValidatorGroupCommissionUpdated(address indexed group, uint256 commission)
 func (_Validators *ValidatorsFilterer) FilterValidatorGroupCommissionUpdated(opts *bind.FilterOpts, group []common.Address) (*ValidatorsValidatorGroupCommissionUpdatedIterator, error) {
 
 	var groupRule []interface{}
@@ -4291,7 +4338,7 @@ func (_Validators *ValidatorsFilterer) FilterValidatorGroupCommissionUpdated(opt
 
 // WatchValidatorGroupCommissionUpdated is a free log subscription operation binding the contract event 0x815d292dbc1a08dfb3103aabb6611233dd2393903e57bdf4c5b3db91198a826c.
 //
-// Solidity: event ValidatorGroupCommissionUpdated(address indexed group, uint256 commissionFactor)
+// Solidity: event ValidatorGroupCommissionUpdated(address indexed group, uint256 commission)
 func (_Validators *ValidatorsFilterer) WatchValidatorGroupCommissionUpdated(opts *bind.WatchOpts, sink chan<- *ValidatorsValidatorGroupCommissionUpdated, group []common.Address) (event.Subscription, error) {
 
 	var groupRule []interface{}
@@ -4333,7 +4380,7 @@ func (_Validators *ValidatorsFilterer) WatchValidatorGroupCommissionUpdated(opts
 
 // ParseValidatorGroupCommissionUpdated is a log parse operation binding the contract event 0x815d292dbc1a08dfb3103aabb6611233dd2393903e57bdf4c5b3db91198a826c.
 //
-// Solidity: event ValidatorGroupCommissionUpdated(address indexed group, uint256 commissionFactor)
+// Solidity: event ValidatorGroupCommissionUpdated(address indexed group, uint256 commission)
 func (_Validators *ValidatorsFilterer) ParseValidatorGroupCommissionUpdated(log types.Log) (*ValidatorsValidatorGroupCommissionUpdated, error) {
 	event := new(ValidatorsValidatorGroupCommissionUpdated)
 	if err := _Validators.contract.UnpackLog(event, "ValidatorGroupCommissionUpdated", log); err != nil {
@@ -5010,14 +5057,14 @@ func (it *ValidatorsValidatorGroupRegisteredIterator) Close() error {
 
 // ValidatorsValidatorGroupRegistered represents a ValidatorGroupRegistered event raised by the Validators contract.
 type ValidatorsValidatorGroupRegistered struct {
-	Group            common.Address
-	CommissionFactor *big.Int
-	Raw              types.Log // Blockchain specific contextual infos
+	Group      common.Address
+	Commission *big.Int
+	Raw        types.Log // Blockchain specific contextual infos
 }
 
 // FilterValidatorGroupRegistered is a free log retrieval operation binding the contract event 0xbf4b45570f1907a94775f8449817051a492a676918e38108bb762e991e6b58dc.
 //
-// Solidity: event ValidatorGroupRegistered(address indexed group, uint256 commissionFactor)
+// Solidity: event ValidatorGroupRegistered(address indexed group, uint256 commission)
 func (_Validators *ValidatorsFilterer) FilterValidatorGroupRegistered(opts *bind.FilterOpts, group []common.Address) (*ValidatorsValidatorGroupRegisteredIterator, error) {
 
 	var groupRule []interface{}
@@ -5034,7 +5081,7 @@ func (_Validators *ValidatorsFilterer) FilterValidatorGroupRegistered(opts *bind
 
 // WatchValidatorGroupRegistered is a free log subscription operation binding the contract event 0xbf4b45570f1907a94775f8449817051a492a676918e38108bb762e991e6b58dc.
 //
-// Solidity: event ValidatorGroupRegistered(address indexed group, uint256 commissionFactor)
+// Solidity: event ValidatorGroupRegistered(address indexed group, uint256 commission)
 func (_Validators *ValidatorsFilterer) WatchValidatorGroupRegistered(opts *bind.WatchOpts, sink chan<- *ValidatorsValidatorGroupRegistered, group []common.Address) (event.Subscription, error) {
 
 	var groupRule []interface{}
@@ -5076,7 +5123,7 @@ func (_Validators *ValidatorsFilterer) WatchValidatorGroupRegistered(opts *bind.
 
 // ParseValidatorGroupRegistered is a log parse operation binding the contract event 0xbf4b45570f1907a94775f8449817051a492a676918e38108bb762e991e6b58dc.
 //
-// Solidity: event ValidatorGroupRegistered(address indexed group, uint256 commissionFactor)
+// Solidity: event ValidatorGroupRegistered(address indexed group, uint256 commission)
 func (_Validators *ValidatorsFilterer) ParseValidatorGroupRegistered(log types.Log) (*ValidatorsValidatorGroupRegistered, error) {
 	event := new(ValidatorsValidatorGroupRegistered)
 	if err := _Validators.contract.UnpackLog(event, "ValidatorGroupRegistered", log); err != nil {
@@ -5431,14 +5478,14 @@ func (it *ValidatorsValidatorScoreParametersSetIterator) Close() error {
 
 // ValidatorsValidatorScoreParametersSet represents a ValidatorScoreParametersSet event raised by the Validators contract.
 type ValidatorsValidatorScoreParametersSet struct {
-	Exponent              *big.Int
-	AdjustmentSpeedFactor *big.Int
-	Raw                   types.Log // Blockchain specific contextual infos
+	Exponent        *big.Int
+	AdjustmentSpeed *big.Int
+	Raw             types.Log // Blockchain specific contextual infos
 }
 
 // FilterValidatorScoreParametersSet is a free log retrieval operation binding the contract event 0x4b48724280029c2ea7a445c9cea30838525342e7a9ea9468f630b52e75d6c536.
 //
-// Solidity: event ValidatorScoreParametersSet(uint256 exponent, uint256 adjustmentSpeedFactor)
+// Solidity: event ValidatorScoreParametersSet(uint256 exponent, uint256 adjustmentSpeed)
 func (_Validators *ValidatorsFilterer) FilterValidatorScoreParametersSet(opts *bind.FilterOpts) (*ValidatorsValidatorScoreParametersSetIterator, error) {
 
 	logs, sub, err := _Validators.contract.FilterLogs(opts, "ValidatorScoreParametersSet")
@@ -5450,7 +5497,7 @@ func (_Validators *ValidatorsFilterer) FilterValidatorScoreParametersSet(opts *b
 
 // WatchValidatorScoreParametersSet is a free log subscription operation binding the contract event 0x4b48724280029c2ea7a445c9cea30838525342e7a9ea9468f630b52e75d6c536.
 //
-// Solidity: event ValidatorScoreParametersSet(uint256 exponent, uint256 adjustmentSpeedFactor)
+// Solidity: event ValidatorScoreParametersSet(uint256 exponent, uint256 adjustmentSpeed)
 func (_Validators *ValidatorsFilterer) WatchValidatorScoreParametersSet(opts *bind.WatchOpts, sink chan<- *ValidatorsValidatorScoreParametersSet) (event.Subscription, error) {
 
 	logs, sub, err := _Validators.contract.WatchLogs(opts, "ValidatorScoreParametersSet")
@@ -5487,7 +5534,7 @@ func (_Validators *ValidatorsFilterer) WatchValidatorScoreParametersSet(opts *bi
 
 // ParseValidatorScoreParametersSet is a log parse operation binding the contract event 0x4b48724280029c2ea7a445c9cea30838525342e7a9ea9468f630b52e75d6c536.
 //
-// Solidity: event ValidatorScoreParametersSet(uint256 exponent, uint256 adjustmentSpeedFactor)
+// Solidity: event ValidatorScoreParametersSet(uint256 exponent, uint256 adjustmentSpeed)
 func (_Validators *ValidatorsFilterer) ParseValidatorScoreParametersSet(log types.Log) (*ValidatorsValidatorScoreParametersSet, error) {
 	event := new(ValidatorsValidatorScoreParametersSet)
 	if err := _Validators.contract.UnpackLog(event, "ValidatorScoreParametersSet", log); err != nil {
@@ -5565,15 +5612,15 @@ func (it *ValidatorsValidatorScoreUpdatedIterator) Close() error {
 
 // ValidatorsValidatorScoreUpdated represents a ValidatorScoreUpdated event raised by the Validators contract.
 type ValidatorsValidatorScoreUpdated struct {
-	Validator          common.Address
-	ScoreMultiplier    *big.Int
-	EpochScoreFraction *big.Int
-	Raw                types.Log // Blockchain specific contextual infos
+	Validator  common.Address
+	Score      *big.Int
+	EpochScore *big.Int
+	Raw        types.Log // Blockchain specific contextual infos
 }
 
 // FilterValidatorScoreUpdated is a free log retrieval operation binding the contract event 0xedf9f87e50e10c533bf3ae7f5a7894ae66c23e6cbbe8773d7765d20ad6f995e9.
 //
-// Solidity: event ValidatorScoreUpdated(address indexed validator, uint256 scoreMultiplier, uint256 epochScoreFraction)
+// Solidity: event ValidatorScoreUpdated(address indexed validator, uint256 score, uint256 epochScore)
 func (_Validators *ValidatorsFilterer) FilterValidatorScoreUpdated(opts *bind.FilterOpts, validator []common.Address) (*ValidatorsValidatorScoreUpdatedIterator, error) {
 
 	var validatorRule []interface{}
@@ -5590,7 +5637,7 @@ func (_Validators *ValidatorsFilterer) FilterValidatorScoreUpdated(opts *bind.Fi
 
 // WatchValidatorScoreUpdated is a free log subscription operation binding the contract event 0xedf9f87e50e10c533bf3ae7f5a7894ae66c23e6cbbe8773d7765d20ad6f995e9.
 //
-// Solidity: event ValidatorScoreUpdated(address indexed validator, uint256 scoreMultiplier, uint256 epochScoreFraction)
+// Solidity: event ValidatorScoreUpdated(address indexed validator, uint256 score, uint256 epochScore)
 func (_Validators *ValidatorsFilterer) WatchValidatorScoreUpdated(opts *bind.WatchOpts, sink chan<- *ValidatorsValidatorScoreUpdated, validator []common.Address) (event.Subscription, error) {
 
 	var validatorRule []interface{}
@@ -5632,7 +5679,7 @@ func (_Validators *ValidatorsFilterer) WatchValidatorScoreUpdated(opts *bind.Wat
 
 // ParseValidatorScoreUpdated is a log parse operation binding the contract event 0xedf9f87e50e10c533bf3ae7f5a7894ae66c23e6cbbe8773d7765d20ad6f995e9.
 //
-// Solidity: event ValidatorScoreUpdated(address indexed validator, uint256 scoreMultiplier, uint256 epochScoreFraction)
+// Solidity: event ValidatorScoreUpdated(address indexed validator, uint256 score, uint256 epochScore)
 func (_Validators *ValidatorsFilterer) ParseValidatorScoreUpdated(log types.Log) (*ValidatorsValidatorScoreUpdated, error) {
 	event := new(ValidatorsValidatorScoreUpdated)
 	if err := _Validators.contract.UnpackLog(event, "ValidatorScoreUpdated", log); err != nil {

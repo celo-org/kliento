@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_Random *RandomTransactorRaw) Transact(opts *bind.TransactOpts, method str
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Random *RandomCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -195,21 +195,21 @@ func (_Random *RandomCaller) CheckProofOfPossession(opts *bind.CallOpts, sender 
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Random *RandomSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Random.Contract.CheckProofOfPossession(&_Random.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_Random *RandomCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _Random.Contract.CheckProofOfPossession(&_Random.CallOpts, sender, blsKey, blsPop)
 }
 
 // Commitments is a free data retrieval call binding the contract method 0xe8fcf723.
 //
-// Solidity: function commitments(address ) constant returns(bytes32)
+// Solidity: function commitments(address ) view returns(bytes32)
 func (_Random *RandomCaller) Commitments(opts *bind.CallOpts, arg0 common.Address) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -221,21 +221,21 @@ func (_Random *RandomCaller) Commitments(opts *bind.CallOpts, arg0 common.Addres
 
 // Commitments is a free data retrieval call binding the contract method 0xe8fcf723.
 //
-// Solidity: function commitments(address ) constant returns(bytes32)
+// Solidity: function commitments(address ) view returns(bytes32)
 func (_Random *RandomSession) Commitments(arg0 common.Address) ([32]byte, error) {
 	return _Random.Contract.Commitments(&_Random.CallOpts, arg0)
 }
 
 // Commitments is a free data retrieval call binding the contract method 0xe8fcf723.
 //
-// Solidity: function commitments(address ) constant returns(bytes32)
+// Solidity: function commitments(address ) view returns(bytes32)
 func (_Random *RandomCallerSession) Commitments(arg0 common.Address) ([32]byte, error) {
 	return _Random.Contract.Commitments(&_Random.CallOpts, arg0)
 }
 
 // ComputeCommitment is a free data retrieval call binding the contract method 0xc387742b.
 //
-// Solidity: function computeCommitment(bytes32 randomness) constant returns(bytes32)
+// Solidity: function computeCommitment(bytes32 randomness) pure returns(bytes32)
 func (_Random *RandomCaller) ComputeCommitment(opts *bind.CallOpts, randomness [32]byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -247,21 +247,21 @@ func (_Random *RandomCaller) ComputeCommitment(opts *bind.CallOpts, randomness [
 
 // ComputeCommitment is a free data retrieval call binding the contract method 0xc387742b.
 //
-// Solidity: function computeCommitment(bytes32 randomness) constant returns(bytes32)
+// Solidity: function computeCommitment(bytes32 randomness) pure returns(bytes32)
 func (_Random *RandomSession) ComputeCommitment(randomness [32]byte) ([32]byte, error) {
 	return _Random.Contract.ComputeCommitment(&_Random.CallOpts, randomness)
 }
 
 // ComputeCommitment is a free data retrieval call binding the contract method 0xc387742b.
 //
-// Solidity: function computeCommitment(bytes32 randomness) constant returns(bytes32)
+// Solidity: function computeCommitment(bytes32 randomness) pure returns(bytes32)
 func (_Random *RandomCallerSession) ComputeCommitment(randomness [32]byte) ([32]byte, error) {
 	return _Random.Contract.ComputeCommitment(&_Random.CallOpts, randomness)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Random *RandomCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -277,21 +277,21 @@ func (_Random *RandomCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Random *RandomSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Random.Contract.FractionMulExp(&_Random.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_Random *RandomCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _Random.Contract.FractionMulExp(&_Random.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Random *RandomCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -303,21 +303,21 @@ func (_Random *RandomCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, heade
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Random *RandomSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Random.Contract.GetBlockNumberFromHeader(&_Random.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_Random *RandomCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _Random.Contract.GetBlockNumberFromHeader(&_Random.CallOpts, header)
 }
 
 // GetBlockRandomness is a free data retrieval call binding the contract method 0xfc484726.
 //
-// Solidity: function getBlockRandomness(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getBlockRandomness(uint256 blockNumber) view returns(bytes32)
 func (_Random *RandomCaller) GetBlockRandomness(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -329,21 +329,21 @@ func (_Random *RandomCaller) GetBlockRandomness(opts *bind.CallOpts, blockNumber
 
 // GetBlockRandomness is a free data retrieval call binding the contract method 0xfc484726.
 //
-// Solidity: function getBlockRandomness(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getBlockRandomness(uint256 blockNumber) view returns(bytes32)
 func (_Random *RandomSession) GetBlockRandomness(blockNumber *big.Int) ([32]byte, error) {
 	return _Random.Contract.GetBlockRandomness(&_Random.CallOpts, blockNumber)
 }
 
 // GetBlockRandomness is a free data retrieval call binding the contract method 0xfc484726.
 //
-// Solidity: function getBlockRandomness(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getBlockRandomness(uint256 blockNumber) view returns(bytes32)
 func (_Random *RandomCallerSession) GetBlockRandomness(blockNumber *big.Int) ([32]byte, error) {
 	return _Random.Contract.GetBlockRandomness(&_Random.CallOpts, blockNumber)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Random *RandomCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -355,21 +355,21 @@ func (_Random *RandomCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, erro
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Random *RandomSession) GetEpochNumber() (*big.Int, error) {
 	return _Random.Contract.GetEpochNumber(&_Random.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_Random *RandomCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _Random.Contract.GetEpochNumber(&_Random.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -381,21 +381,21 @@ func (_Random *RandomCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNum
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Random.Contract.GetEpochNumberOfBlock(&_Random.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _Random.Contract.GetEpochNumberOfBlock(&_Random.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Random *RandomCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -407,21 +407,21 @@ func (_Random *RandomCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error)
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Random *RandomSession) GetEpochSize() (*big.Int, error) {
 	return _Random.Contract.GetEpochSize(&_Random.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_Random *RandomCallerSession) GetEpochSize() (*big.Int, error) {
 	return _Random.Contract.GetEpochSize(&_Random.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Random *RandomCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -433,21 +433,21 @@ func (_Random *RandomCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumbe
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Random *RandomSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Random.Contract.GetParentSealBitmap(&_Random.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_Random *RandomCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _Random.Contract.GetParentSealBitmap(&_Random.CallOpts, blockNumber)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Random *RandomCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -459,21 +459,21 @@ func (_Random *RandomCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Random *RandomSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Random.Contract.GetVerifiedSealBitmapFromHeader(&_Random.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_Random *RandomCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _Random.Contract.GetVerifiedSealBitmapFromHeader(&_Random.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Random *RandomCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -493,21 +493,21 @@ func (_Random *RandomCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *b
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Random *RandomSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Random.Contract.GetVersionNumber(&_Random.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Random *RandomCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Random.Contract.GetVersionNumber(&_Random.CallOpts)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Random *RandomCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -519,21 +519,21 @@ func (_Random *RandomCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Random *RandomSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Random.Contract.HashHeader(&_Random.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_Random *RandomCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _Random.Contract.HashHeader(&_Random.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Random *RandomCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -545,21 +545,21 @@ func (_Random *RandomCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Random *RandomSession) Initialized() (bool, error) {
 	return _Random.Contract.Initialized(&_Random.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Random *RandomCallerSession) Initialized() (bool, error) {
 	return _Random.Contract.Initialized(&_Random.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Random *RandomCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -571,21 +571,21 @@ func (_Random *RandomCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Random *RandomSession) IsOwner() (bool, error) {
 	return _Random.Contract.IsOwner(&_Random.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Random *RandomCallerSession) IsOwner() (bool, error) {
 	return _Random.Contract.IsOwner(&_Random.CallOpts)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -597,21 +597,21 @@ func (_Random *RandomCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Random.Contract.MinQuorumSize(&_Random.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _Random.Contract.MinQuorumSize(&_Random.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Random *RandomCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -623,21 +623,21 @@ func (_Random *RandomCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*bi
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Random *RandomSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Random.Contract.MinQuorumSizeInCurrentSet(&_Random.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_Random *RandomCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _Random.Contract.MinQuorumSizeInCurrentSet(&_Random.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Random *RandomCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -649,21 +649,21 @@ func (_Random *RandomCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Random *RandomSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Random.Contract.NumberValidatorsInCurrentSet(&_Random.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_Random *RandomCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _Random.Contract.NumberValidatorsInCurrentSet(&_Random.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -675,21 +675,21 @@ func (_Random *RandomCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNum
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Random.Contract.NumberValidatorsInSet(&_Random.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_Random *RandomCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _Random.Contract.NumberValidatorsInSet(&_Random.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Random *RandomCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -701,21 +701,21 @@ func (_Random *RandomCaller) Owner(opts *bind.CallOpts) (common.Address, error) 
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Random *RandomSession) Owner() (common.Address, error) {
 	return _Random.Contract.Owner(&_Random.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Random *RandomCallerSession) Owner() (common.Address, error) {
 	return _Random.Contract.Owner(&_Random.CallOpts)
 }
 
 // Random is a free data retrieval call binding the contract method 0x5ec01e4d.
 //
-// Solidity: function random() constant returns(bytes32)
+// Solidity: function random() view returns(bytes32)
 func (_Random *RandomCaller) Random(opts *bind.CallOpts) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -727,21 +727,21 @@ func (_Random *RandomCaller) Random(opts *bind.CallOpts) ([32]byte, error) {
 
 // Random is a free data retrieval call binding the contract method 0x5ec01e4d.
 //
-// Solidity: function random() constant returns(bytes32)
+// Solidity: function random() view returns(bytes32)
 func (_Random *RandomSession) Random() ([32]byte, error) {
 	return _Random.Contract.Random(&_Random.CallOpts)
 }
 
 // Random is a free data retrieval call binding the contract method 0x5ec01e4d.
 //
-// Solidity: function random() constant returns(bytes32)
+// Solidity: function random() view returns(bytes32)
 func (_Random *RandomCallerSession) Random() ([32]byte, error) {
 	return _Random.Contract.Random(&_Random.CallOpts)
 }
 
 // RandomnessBlockRetentionWindow is a free data retrieval call binding the contract method 0xe45def95.
 //
-// Solidity: function randomnessBlockRetentionWindow() constant returns(uint256)
+// Solidity: function randomnessBlockRetentionWindow() view returns(uint256)
 func (_Random *RandomCaller) RandomnessBlockRetentionWindow(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -753,21 +753,21 @@ func (_Random *RandomCaller) RandomnessBlockRetentionWindow(opts *bind.CallOpts)
 
 // RandomnessBlockRetentionWindow is a free data retrieval call binding the contract method 0xe45def95.
 //
-// Solidity: function randomnessBlockRetentionWindow() constant returns(uint256)
+// Solidity: function randomnessBlockRetentionWindow() view returns(uint256)
 func (_Random *RandomSession) RandomnessBlockRetentionWindow() (*big.Int, error) {
 	return _Random.Contract.RandomnessBlockRetentionWindow(&_Random.CallOpts)
 }
 
 // RandomnessBlockRetentionWindow is a free data retrieval call binding the contract method 0xe45def95.
 //
-// Solidity: function randomnessBlockRetentionWindow() constant returns(uint256)
+// Solidity: function randomnessBlockRetentionWindow() view returns(uint256)
 func (_Random *RandomCallerSession) RandomnessBlockRetentionWindow() (*big.Int, error) {
 	return _Random.Contract.RandomnessBlockRetentionWindow(&_Random.CallOpts)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Random *RandomCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -779,21 +779,21 @@ func (_Random *RandomCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.Cal
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Random *RandomSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Random.Contract.ValidatorSignerAddressFromCurrentSet(&_Random.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_Random *RandomCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _Random.Contract.ValidatorSignerAddressFromCurrentSet(&_Random.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Random *RandomCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -805,14 +805,14 @@ func (_Random *RandomCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, 
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Random *RandomSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Random.Contract.ValidatorSignerAddressFromSet(&_Random.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_Random *RandomCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _Random.Contract.ValidatorSignerAddressFromSet(&_Random.CallOpts, index, blockNumber)
 }

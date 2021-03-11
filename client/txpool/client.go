@@ -17,7 +17,7 @@ package txpool
 import (
 	"context"
 
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/celo-org/celo-blockchain/rpc"
 )
 
 // TxPoolClient defines typed wrappers for the TxPool RPC API.

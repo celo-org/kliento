@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_MultiSig *MultiSigTransactorRaw) Transact(opts *bind.TransactOpts, method
 
 // MAXOWNERCOUNT is a free data retrieval call binding the contract method 0xd74f8edd.
 //
-// Solidity: function MAX_OWNER_COUNT() constant returns(uint256)
+// Solidity: function MAX_OWNER_COUNT() view returns(uint256)
 func (_MultiSig *MultiSigCaller) MAXOWNERCOUNT(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_MultiSig *MultiSigCaller) MAXOWNERCOUNT(opts *bind.CallOpts) (*big.Int, e
 
 // MAXOWNERCOUNT is a free data retrieval call binding the contract method 0xd74f8edd.
 //
-// Solidity: function MAX_OWNER_COUNT() constant returns(uint256)
+// Solidity: function MAX_OWNER_COUNT() view returns(uint256)
 func (_MultiSig *MultiSigSession) MAXOWNERCOUNT() (*big.Int, error) {
 	return _MultiSig.Contract.MAXOWNERCOUNT(&_MultiSig.CallOpts)
 }
 
 // MAXOWNERCOUNT is a free data retrieval call binding the contract method 0xd74f8edd.
 //
-// Solidity: function MAX_OWNER_COUNT() constant returns(uint256)
+// Solidity: function MAX_OWNER_COUNT() view returns(uint256)
 func (_MultiSig *MultiSigCallerSession) MAXOWNERCOUNT() (*big.Int, error) {
 	return _MultiSig.Contract.MAXOWNERCOUNT(&_MultiSig.CallOpts)
 }
 
 // Confirmations is a free data retrieval call binding the contract method 0x3411c81c.
 //
-// Solidity: function confirmations(uint256 , address ) constant returns(bool)
+// Solidity: function confirmations(uint256 , address ) view returns(bool)
 func (_MultiSig *MultiSigCaller) Confirmations(opts *bind.CallOpts, arg0 *big.Int, arg1 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -221,21 +221,21 @@ func (_MultiSig *MultiSigCaller) Confirmations(opts *bind.CallOpts, arg0 *big.In
 
 // Confirmations is a free data retrieval call binding the contract method 0x3411c81c.
 //
-// Solidity: function confirmations(uint256 , address ) constant returns(bool)
+// Solidity: function confirmations(uint256 , address ) view returns(bool)
 func (_MultiSig *MultiSigSession) Confirmations(arg0 *big.Int, arg1 common.Address) (bool, error) {
 	return _MultiSig.Contract.Confirmations(&_MultiSig.CallOpts, arg0, arg1)
 }
 
 // Confirmations is a free data retrieval call binding the contract method 0x3411c81c.
 //
-// Solidity: function confirmations(uint256 , address ) constant returns(bool)
+// Solidity: function confirmations(uint256 , address ) view returns(bool)
 func (_MultiSig *MultiSigCallerSession) Confirmations(arg0 *big.Int, arg1 common.Address) (bool, error) {
 	return _MultiSig.Contract.Confirmations(&_MultiSig.CallOpts, arg0, arg1)
 }
 
 // GetConfirmationCount is a free data retrieval call binding the contract method 0x8b51d13f.
 //
-// Solidity: function getConfirmationCount(uint256 transactionId) constant returns(uint256 count)
+// Solidity: function getConfirmationCount(uint256 transactionId) view returns(uint256 count)
 func (_MultiSig *MultiSigCaller) GetConfirmationCount(opts *bind.CallOpts, transactionId *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -247,21 +247,21 @@ func (_MultiSig *MultiSigCaller) GetConfirmationCount(opts *bind.CallOpts, trans
 
 // GetConfirmationCount is a free data retrieval call binding the contract method 0x8b51d13f.
 //
-// Solidity: function getConfirmationCount(uint256 transactionId) constant returns(uint256 count)
+// Solidity: function getConfirmationCount(uint256 transactionId) view returns(uint256 count)
 func (_MultiSig *MultiSigSession) GetConfirmationCount(transactionId *big.Int) (*big.Int, error) {
 	return _MultiSig.Contract.GetConfirmationCount(&_MultiSig.CallOpts, transactionId)
 }
 
 // GetConfirmationCount is a free data retrieval call binding the contract method 0x8b51d13f.
 //
-// Solidity: function getConfirmationCount(uint256 transactionId) constant returns(uint256 count)
+// Solidity: function getConfirmationCount(uint256 transactionId) view returns(uint256 count)
 func (_MultiSig *MultiSigCallerSession) GetConfirmationCount(transactionId *big.Int) (*big.Int, error) {
 	return _MultiSig.Contract.GetConfirmationCount(&_MultiSig.CallOpts, transactionId)
 }
 
 // GetConfirmations is a free data retrieval call binding the contract method 0xb5dc40c3.
 //
-// Solidity: function getConfirmations(uint256 transactionId) constant returns(address[] _confirmations)
+// Solidity: function getConfirmations(uint256 transactionId) view returns(address[] _confirmations)
 func (_MultiSig *MultiSigCaller) GetConfirmations(opts *bind.CallOpts, transactionId *big.Int) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -273,21 +273,21 @@ func (_MultiSig *MultiSigCaller) GetConfirmations(opts *bind.CallOpts, transacti
 
 // GetConfirmations is a free data retrieval call binding the contract method 0xb5dc40c3.
 //
-// Solidity: function getConfirmations(uint256 transactionId) constant returns(address[] _confirmations)
+// Solidity: function getConfirmations(uint256 transactionId) view returns(address[] _confirmations)
 func (_MultiSig *MultiSigSession) GetConfirmations(transactionId *big.Int) ([]common.Address, error) {
 	return _MultiSig.Contract.GetConfirmations(&_MultiSig.CallOpts, transactionId)
 }
 
 // GetConfirmations is a free data retrieval call binding the contract method 0xb5dc40c3.
 //
-// Solidity: function getConfirmations(uint256 transactionId) constant returns(address[] _confirmations)
+// Solidity: function getConfirmations(uint256 transactionId) view returns(address[] _confirmations)
 func (_MultiSig *MultiSigCallerSession) GetConfirmations(transactionId *big.Int) ([]common.Address, error) {
 	return _MultiSig.Contract.GetConfirmations(&_MultiSig.CallOpts, transactionId)
 }
 
 // GetOwners is a free data retrieval call binding the contract method 0xa0e67e2b.
 //
-// Solidity: function getOwners() constant returns(address[])
+// Solidity: function getOwners() view returns(address[])
 func (_MultiSig *MultiSigCaller) GetOwners(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -299,21 +299,21 @@ func (_MultiSig *MultiSigCaller) GetOwners(opts *bind.CallOpts) ([]common.Addres
 
 // GetOwners is a free data retrieval call binding the contract method 0xa0e67e2b.
 //
-// Solidity: function getOwners() constant returns(address[])
+// Solidity: function getOwners() view returns(address[])
 func (_MultiSig *MultiSigSession) GetOwners() ([]common.Address, error) {
 	return _MultiSig.Contract.GetOwners(&_MultiSig.CallOpts)
 }
 
 // GetOwners is a free data retrieval call binding the contract method 0xa0e67e2b.
 //
-// Solidity: function getOwners() constant returns(address[])
+// Solidity: function getOwners() view returns(address[])
 func (_MultiSig *MultiSigCallerSession) GetOwners() ([]common.Address, error) {
 	return _MultiSig.Contract.GetOwners(&_MultiSig.CallOpts)
 }
 
 // GetTransactionCount is a free data retrieval call binding the contract method 0x54741525.
 //
-// Solidity: function getTransactionCount(bool pending, bool executed) constant returns(uint256 count)
+// Solidity: function getTransactionCount(bool pending, bool executed) view returns(uint256 count)
 func (_MultiSig *MultiSigCaller) GetTransactionCount(opts *bind.CallOpts, pending bool, executed bool) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -325,21 +325,21 @@ func (_MultiSig *MultiSigCaller) GetTransactionCount(opts *bind.CallOpts, pendin
 
 // GetTransactionCount is a free data retrieval call binding the contract method 0x54741525.
 //
-// Solidity: function getTransactionCount(bool pending, bool executed) constant returns(uint256 count)
+// Solidity: function getTransactionCount(bool pending, bool executed) view returns(uint256 count)
 func (_MultiSig *MultiSigSession) GetTransactionCount(pending bool, executed bool) (*big.Int, error) {
 	return _MultiSig.Contract.GetTransactionCount(&_MultiSig.CallOpts, pending, executed)
 }
 
 // GetTransactionCount is a free data retrieval call binding the contract method 0x54741525.
 //
-// Solidity: function getTransactionCount(bool pending, bool executed) constant returns(uint256 count)
+// Solidity: function getTransactionCount(bool pending, bool executed) view returns(uint256 count)
 func (_MultiSig *MultiSigCallerSession) GetTransactionCount(pending bool, executed bool) (*big.Int, error) {
 	return _MultiSig.Contract.GetTransactionCount(&_MultiSig.CallOpts, pending, executed)
 }
 
 // GetTransactionIds is a free data retrieval call binding the contract method 0xa8abe69a.
 //
-// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) constant returns(uint256[] _transactionIds)
+// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) view returns(uint256[] _transactionIds)
 func (_MultiSig *MultiSigCaller) GetTransactionIds(opts *bind.CallOpts, from *big.Int, to *big.Int, pending bool, executed bool) ([]*big.Int, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -351,21 +351,21 @@ func (_MultiSig *MultiSigCaller) GetTransactionIds(opts *bind.CallOpts, from *bi
 
 // GetTransactionIds is a free data retrieval call binding the contract method 0xa8abe69a.
 //
-// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) constant returns(uint256[] _transactionIds)
+// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) view returns(uint256[] _transactionIds)
 func (_MultiSig *MultiSigSession) GetTransactionIds(from *big.Int, to *big.Int, pending bool, executed bool) ([]*big.Int, error) {
 	return _MultiSig.Contract.GetTransactionIds(&_MultiSig.CallOpts, from, to, pending, executed)
 }
 
 // GetTransactionIds is a free data retrieval call binding the contract method 0xa8abe69a.
 //
-// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) constant returns(uint256[] _transactionIds)
+// Solidity: function getTransactionIds(uint256 from, uint256 to, bool pending, bool executed) view returns(uint256[] _transactionIds)
 func (_MultiSig *MultiSigCallerSession) GetTransactionIds(from *big.Int, to *big.Int, pending bool, executed bool) ([]*big.Int, error) {
 	return _MultiSig.Contract.GetTransactionIds(&_MultiSig.CallOpts, from, to, pending, executed)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_MultiSig *MultiSigCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -377,21 +377,21 @@ func (_MultiSig *MultiSigCaller) Initialized(opts *bind.CallOpts) (bool, error) 
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_MultiSig *MultiSigSession) Initialized() (bool, error) {
 	return _MultiSig.Contract.Initialized(&_MultiSig.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_MultiSig *MultiSigCallerSession) Initialized() (bool, error) {
 	return _MultiSig.Contract.Initialized(&_MultiSig.CallOpts)
 }
 
 // InternalRequired is a free data retrieval call binding the contract method 0xa24efcdf.
 //
-// Solidity: function internalRequired() constant returns(uint256)
+// Solidity: function internalRequired() view returns(uint256)
 func (_MultiSig *MultiSigCaller) InternalRequired(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -403,21 +403,21 @@ func (_MultiSig *MultiSigCaller) InternalRequired(opts *bind.CallOpts) (*big.Int
 
 // InternalRequired is a free data retrieval call binding the contract method 0xa24efcdf.
 //
-// Solidity: function internalRequired() constant returns(uint256)
+// Solidity: function internalRequired() view returns(uint256)
 func (_MultiSig *MultiSigSession) InternalRequired() (*big.Int, error) {
 	return _MultiSig.Contract.InternalRequired(&_MultiSig.CallOpts)
 }
 
 // InternalRequired is a free data retrieval call binding the contract method 0xa24efcdf.
 //
-// Solidity: function internalRequired() constant returns(uint256)
+// Solidity: function internalRequired() view returns(uint256)
 func (_MultiSig *MultiSigCallerSession) InternalRequired() (*big.Int, error) {
 	return _MultiSig.Contract.InternalRequired(&_MultiSig.CallOpts)
 }
 
 // IsConfirmed is a free data retrieval call binding the contract method 0x784547a7.
 //
-// Solidity: function isConfirmed(uint256 transactionId) constant returns(bool)
+// Solidity: function isConfirmed(uint256 transactionId) view returns(bool)
 func (_MultiSig *MultiSigCaller) IsConfirmed(opts *bind.CallOpts, transactionId *big.Int) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -429,21 +429,21 @@ func (_MultiSig *MultiSigCaller) IsConfirmed(opts *bind.CallOpts, transactionId 
 
 // IsConfirmed is a free data retrieval call binding the contract method 0x784547a7.
 //
-// Solidity: function isConfirmed(uint256 transactionId) constant returns(bool)
+// Solidity: function isConfirmed(uint256 transactionId) view returns(bool)
 func (_MultiSig *MultiSigSession) IsConfirmed(transactionId *big.Int) (bool, error) {
 	return _MultiSig.Contract.IsConfirmed(&_MultiSig.CallOpts, transactionId)
 }
 
 // IsConfirmed is a free data retrieval call binding the contract method 0x784547a7.
 //
-// Solidity: function isConfirmed(uint256 transactionId) constant returns(bool)
+// Solidity: function isConfirmed(uint256 transactionId) view returns(bool)
 func (_MultiSig *MultiSigCallerSession) IsConfirmed(transactionId *big.Int) (bool, error) {
 	return _MultiSig.Contract.IsConfirmed(&_MultiSig.CallOpts, transactionId)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x2f54bf6e.
 //
-// Solidity: function isOwner(address ) constant returns(bool)
+// Solidity: function isOwner(address ) view returns(bool)
 func (_MultiSig *MultiSigCaller) IsOwner(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -455,21 +455,21 @@ func (_MultiSig *MultiSigCaller) IsOwner(opts *bind.CallOpts, arg0 common.Addres
 
 // IsOwner is a free data retrieval call binding the contract method 0x2f54bf6e.
 //
-// Solidity: function isOwner(address ) constant returns(bool)
+// Solidity: function isOwner(address ) view returns(bool)
 func (_MultiSig *MultiSigSession) IsOwner(arg0 common.Address) (bool, error) {
 	return _MultiSig.Contract.IsOwner(&_MultiSig.CallOpts, arg0)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x2f54bf6e.
 //
-// Solidity: function isOwner(address ) constant returns(bool)
+// Solidity: function isOwner(address ) view returns(bool)
 func (_MultiSig *MultiSigCallerSession) IsOwner(arg0 common.Address) (bool, error) {
 	return _MultiSig.Contract.IsOwner(&_MultiSig.CallOpts, arg0)
 }
 
 // Owners is a free data retrieval call binding the contract method 0x025e7c27.
 //
-// Solidity: function owners(uint256 ) constant returns(address)
+// Solidity: function owners(uint256 ) view returns(address)
 func (_MultiSig *MultiSigCaller) Owners(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -481,21 +481,21 @@ func (_MultiSig *MultiSigCaller) Owners(opts *bind.CallOpts, arg0 *big.Int) (com
 
 // Owners is a free data retrieval call binding the contract method 0x025e7c27.
 //
-// Solidity: function owners(uint256 ) constant returns(address)
+// Solidity: function owners(uint256 ) view returns(address)
 func (_MultiSig *MultiSigSession) Owners(arg0 *big.Int) (common.Address, error) {
 	return _MultiSig.Contract.Owners(&_MultiSig.CallOpts, arg0)
 }
 
 // Owners is a free data retrieval call binding the contract method 0x025e7c27.
 //
-// Solidity: function owners(uint256 ) constant returns(address)
+// Solidity: function owners(uint256 ) view returns(address)
 func (_MultiSig *MultiSigCallerSession) Owners(arg0 *big.Int) (common.Address, error) {
 	return _MultiSig.Contract.Owners(&_MultiSig.CallOpts, arg0)
 }
 
 // Required is a free data retrieval call binding the contract method 0xdc8452cd.
 //
-// Solidity: function required() constant returns(uint256)
+// Solidity: function required() view returns(uint256)
 func (_MultiSig *MultiSigCaller) Required(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -507,21 +507,21 @@ func (_MultiSig *MultiSigCaller) Required(opts *bind.CallOpts) (*big.Int, error)
 
 // Required is a free data retrieval call binding the contract method 0xdc8452cd.
 //
-// Solidity: function required() constant returns(uint256)
+// Solidity: function required() view returns(uint256)
 func (_MultiSig *MultiSigSession) Required() (*big.Int, error) {
 	return _MultiSig.Contract.Required(&_MultiSig.CallOpts)
 }
 
 // Required is a free data retrieval call binding the contract method 0xdc8452cd.
 //
-// Solidity: function required() constant returns(uint256)
+// Solidity: function required() view returns(uint256)
 func (_MultiSig *MultiSigCallerSession) Required() (*big.Int, error) {
 	return _MultiSig.Contract.Required(&_MultiSig.CallOpts)
 }
 
 // TransactionCount is a free data retrieval call binding the contract method 0xb77bf600.
 //
-// Solidity: function transactionCount() constant returns(uint256)
+// Solidity: function transactionCount() view returns(uint256)
 func (_MultiSig *MultiSigCaller) TransactionCount(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -533,21 +533,21 @@ func (_MultiSig *MultiSigCaller) TransactionCount(opts *bind.CallOpts) (*big.Int
 
 // TransactionCount is a free data retrieval call binding the contract method 0xb77bf600.
 //
-// Solidity: function transactionCount() constant returns(uint256)
+// Solidity: function transactionCount() view returns(uint256)
 func (_MultiSig *MultiSigSession) TransactionCount() (*big.Int, error) {
 	return _MultiSig.Contract.TransactionCount(&_MultiSig.CallOpts)
 }
 
 // TransactionCount is a free data retrieval call binding the contract method 0xb77bf600.
 //
-// Solidity: function transactionCount() constant returns(uint256)
+// Solidity: function transactionCount() view returns(uint256)
 func (_MultiSig *MultiSigCallerSession) TransactionCount() (*big.Int, error) {
 	return _MultiSig.Contract.TransactionCount(&_MultiSig.CallOpts)
 }
 
 // Transactions is a free data retrieval call binding the contract method 0x9ace38c2.
 //
-// Solidity: function transactions(uint256 ) constant returns(address destination, uint256 value, bytes data, bool executed)
+// Solidity: function transactions(uint256 ) view returns(address destination, uint256 value, bytes data, bool executed)
 func (_MultiSig *MultiSigCaller) Transactions(opts *bind.CallOpts, arg0 *big.Int) (struct {
 	Destination common.Address
 	Value       *big.Int
@@ -567,7 +567,7 @@ func (_MultiSig *MultiSigCaller) Transactions(opts *bind.CallOpts, arg0 *big.Int
 
 // Transactions is a free data retrieval call binding the contract method 0x9ace38c2.
 //
-// Solidity: function transactions(uint256 ) constant returns(address destination, uint256 value, bytes data, bool executed)
+// Solidity: function transactions(uint256 ) view returns(address destination, uint256 value, bytes data, bool executed)
 func (_MultiSig *MultiSigSession) Transactions(arg0 *big.Int) (struct {
 	Destination common.Address
 	Value       *big.Int
@@ -579,7 +579,7 @@ func (_MultiSig *MultiSigSession) Transactions(arg0 *big.Int) (struct {
 
 // Transactions is a free data retrieval call binding the contract method 0x9ace38c2.
 //
-// Solidity: function transactions(uint256 ) constant returns(address destination, uint256 value, bytes data, bool executed)
+// Solidity: function transactions(uint256 ) view returns(address destination, uint256 value, bytes data, bool executed)
 func (_MultiSig *MultiSigCallerSession) Transactions(arg0 *big.Int) (struct {
 	Destination common.Address
 	Value       *big.Int
@@ -831,6 +831,27 @@ func (_MultiSig *MultiSigFilterer) TryParseLog(log types.Log) (eventName string,
 	}
 
 	return eventName, event, ok, nil
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_MultiSig *MultiSigTransactor) Fallback(opts *bind.TransactOpts, calldata []byte) (*types.Transaction, error) {
+	return _MultiSig.contract.RawTransact(opts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_MultiSig *MultiSigSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _MultiSig.Contract.Fallback(&_MultiSig.TransactOpts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_MultiSig *MultiSigTransactorSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _MultiSig.Contract.Fallback(&_MultiSig.TransactOpts, calldata)
 }
 
 // MultiSigConfirmationIterator is returned from FilterConfirmation and is used to iterate over the raw logs and unpacked data for Confirmation events raised by the MultiSig contract.

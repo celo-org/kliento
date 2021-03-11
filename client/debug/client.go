@@ -18,9 +18,9 @@ import (
 	"context"
 	"io/ioutil"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/eth"
+	"github.com/celo-org/celo-blockchain/rpc"
 )
 
 // DebugClient defines typed wrappers for the Debug RPC API.

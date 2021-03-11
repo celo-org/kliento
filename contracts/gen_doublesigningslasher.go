@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherTransactorRaw) Transact(opts *b
 
 // CheckForDoubleSigning is a free data retrieval call binding the contract method 0x09f99447.
 //
-// Solidity: function checkForDoubleSigning(address signer, uint256 index, bytes headerA, bytes headerB) constant returns(uint256)
+// Solidity: function checkForDoubleSigning(address signer, uint256 index, bytes headerA, bytes headerB) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) CheckForDoubleSigning(opts *bind.CallOpts, signer common.Address, index *big.Int, headerA []byte, headerB []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) CheckForDoubleSigning(o
 
 // CheckForDoubleSigning is a free data retrieval call binding the contract method 0x09f99447.
 //
-// Solidity: function checkForDoubleSigning(address signer, uint256 index, bytes headerA, bytes headerB) constant returns(uint256)
+// Solidity: function checkForDoubleSigning(address signer, uint256 index, bytes headerA, bytes headerB) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) CheckForDoubleSigning(signer common.Address, index *big.Int, headerA []byte, headerB []byte) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.CheckForDoubleSigning(&_DoubleSigningSlasher.CallOpts, signer, index, headerA, headerB)
 }
 
 // CheckForDoubleSigning is a free data retrieval call binding the contract method 0x09f99447.
 //
-// Solidity: function checkForDoubleSigning(address signer, uint256 index, bytes headerA, bytes headerB) constant returns(uint256)
+// Solidity: function checkForDoubleSigning(address signer, uint256 index, bytes headerA, bytes headerB) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) CheckForDoubleSigning(signer common.Address, index *big.Int, headerA []byte, headerB []byte) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.CheckForDoubleSigning(&_DoubleSigningSlasher.CallOpts, signer, index, headerA, headerB)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -221,21 +221,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) CheckProofOfPossession(
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _DoubleSigningSlasher.Contract.CheckProofOfPossession(&_DoubleSigningSlasher.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _DoubleSigningSlasher.Contract.CheckProofOfPossession(&_DoubleSigningSlasher.CallOpts, sender, blsKey, blsPop)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -251,21 +251,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) FractionMulExp(opts *bi
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _DoubleSigningSlasher.Contract.FractionMulExp(&_DoubleSigningSlasher.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _DoubleSigningSlasher.Contract.FractionMulExp(&_DoubleSigningSlasher.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -277,21 +277,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetBlockNumberFromHeade
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetBlockNumberFromHeader(&_DoubleSigningSlasher.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetBlockNumberFromHeader(&_DoubleSigningSlasher.CallOpts, header)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -303,21 +303,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetEpochNumber(opts *bi
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GetEpochNumber() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetEpochNumber(&_DoubleSigningSlasher.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetEpochNumber(&_DoubleSigningSlasher.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -329,21 +329,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetEpochNumberOfBlock(o
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetEpochNumberOfBlock(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetEpochNumberOfBlock(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -355,21 +355,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetEpochSize(opts *bind
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GetEpochSize() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetEpochSize(&_DoubleSigningSlasher.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GetEpochSize() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetEpochSize(&_DoubleSigningSlasher.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -381,21 +381,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetParentSealBitmap(opt
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _DoubleSigningSlasher.Contract.GetParentSealBitmap(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _DoubleSigningSlasher.Contract.GetParentSealBitmap(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -407,21 +407,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetVerifiedSealBitmapFr
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _DoubleSigningSlasher.Contract.GetVerifiedSealBitmapFromHeader(&_DoubleSigningSlasher.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _DoubleSigningSlasher.Contract.GetVerifiedSealBitmapFromHeader(&_DoubleSigningSlasher.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -441,21 +441,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GetVersionNumber(opts *
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetVersionNumber(&_DoubleSigningSlasher.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _DoubleSigningSlasher.Contract.GetVersionNumber(&_DoubleSigningSlasher.CallOpts)
 }
 
 // GroupMembershipAtBlock is a free data retrieval call binding the contract method 0x88498aaf.
 //
-// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) constant returns(address)
+// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GroupMembershipAtBlock(opts *bind.CallOpts, validator common.Address, blockNumber *big.Int, groupMembershipHistoryIndex *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -467,21 +467,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) GroupMembershipAtBlock(
 
 // GroupMembershipAtBlock is a free data retrieval call binding the contract method 0x88498aaf.
 //
-// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) constant returns(address)
+// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) GroupMembershipAtBlock(validator common.Address, blockNumber *big.Int, groupMembershipHistoryIndex *big.Int) (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.GroupMembershipAtBlock(&_DoubleSigningSlasher.CallOpts, validator, blockNumber, groupMembershipHistoryIndex)
 }
 
 // GroupMembershipAtBlock is a free data retrieval call binding the contract method 0x88498aaf.
 //
-// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) constant returns(address)
+// Solidity: function groupMembershipAtBlock(address validator, uint256 blockNumber, uint256 groupMembershipHistoryIndex) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) GroupMembershipAtBlock(validator common.Address, blockNumber *big.Int, groupMembershipHistoryIndex *big.Int) (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.GroupMembershipAtBlock(&_DoubleSigningSlasher.CallOpts, validator, blockNumber, groupMembershipHistoryIndex)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -493,21 +493,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) HashHeader(opts *bind.C
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) HashHeader(header []byte) ([32]byte, error) {
 	return _DoubleSigningSlasher.Contract.HashHeader(&_DoubleSigningSlasher.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _DoubleSigningSlasher.Contract.HashHeader(&_DoubleSigningSlasher.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -519,21 +519,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) Initialized(opts *bind.
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) Initialized() (bool, error) {
 	return _DoubleSigningSlasher.Contract.Initialized(&_DoubleSigningSlasher.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) Initialized() (bool, error) {
 	return _DoubleSigningSlasher.Contract.Initialized(&_DoubleSigningSlasher.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -545,21 +545,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) IsOwner(opts *bind.Call
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) IsOwner() (bool, error) {
 	return _DoubleSigningSlasher.Contract.IsOwner(&_DoubleSigningSlasher.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) IsOwner() (bool, error) {
 	return _DoubleSigningSlasher.Contract.IsOwner(&_DoubleSigningSlasher.CallOpts)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -571,21 +571,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) MinQuorumSize(opts *bin
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.MinQuorumSize(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.MinQuorumSize(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -597,21 +597,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) MinQuorumSizeInCurrentS
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.MinQuorumSizeInCurrentSet(&_DoubleSigningSlasher.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.MinQuorumSizeInCurrentSet(&_DoubleSigningSlasher.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -623,21 +623,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) NumberValidatorsInCurre
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.NumberValidatorsInCurrentSet(&_DoubleSigningSlasher.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.NumberValidatorsInCurrentSet(&_DoubleSigningSlasher.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -649,21 +649,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) NumberValidatorsInSet(o
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.NumberValidatorsInSet(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _DoubleSigningSlasher.Contract.NumberValidatorsInSet(&_DoubleSigningSlasher.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -675,21 +675,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) Owner(opts *bind.CallOp
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) Owner() (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.Owner(&_DoubleSigningSlasher.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) Owner() (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.Owner(&_DoubleSigningSlasher.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -701,21 +701,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) Registry(opts *bind.Cal
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) Registry() (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.Registry(&_DoubleSigningSlasher.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) Registry() (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.Registry(&_DoubleSigningSlasher.CallOpts)
 }
 
 // SlashingIncentives is a free data retrieval call binding the contract method 0x0a05cd84.
 //
-// Solidity: function slashingIncentives() constant returns(uint256 penalty, uint256 reward)
+// Solidity: function slashingIncentives() view returns(uint256 penalty, uint256 reward)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) SlashingIncentives(opts *bind.CallOpts) (struct {
 	Penalty *big.Int
 	Reward  *big.Int
@@ -731,7 +731,7 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) SlashingIncentives(opts
 
 // SlashingIncentives is a free data retrieval call binding the contract method 0x0a05cd84.
 //
-// Solidity: function slashingIncentives() constant returns(uint256 penalty, uint256 reward)
+// Solidity: function slashingIncentives() view returns(uint256 penalty, uint256 reward)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) SlashingIncentives() (struct {
 	Penalty *big.Int
 	Reward  *big.Int
@@ -741,7 +741,7 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherSession) SlashingIncentives() (
 
 // SlashingIncentives is a free data retrieval call binding the contract method 0x0a05cd84.
 //
-// Solidity: function slashingIncentives() constant returns(uint256 penalty, uint256 reward)
+// Solidity: function slashingIncentives() view returns(uint256 penalty, uint256 reward)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) SlashingIncentives() (struct {
 	Penalty *big.Int
 	Reward  *big.Int
@@ -751,7 +751,7 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) SlashingIncentiv
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -763,21 +763,21 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) ValidatorSignerAddressF
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.ValidatorSignerAddressFromCurrentSet(&_DoubleSigningSlasher.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.ValidatorSignerAddressFromCurrentSet(&_DoubleSigningSlasher.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -789,14 +789,14 @@ func (_DoubleSigningSlasher *DoubleSigningSlasherCaller) ValidatorSignerAddressF
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.ValidatorSignerAddressFromSet(&_DoubleSigningSlasher.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_DoubleSigningSlasher *DoubleSigningSlasherCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _DoubleSigningSlasher.Contract.ValidatorSignerAddressFromSet(&_DoubleSigningSlasher.CallOpts, index, blockNumber)
 }

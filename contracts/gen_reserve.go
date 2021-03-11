@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +28,7 @@ var (
 )
 
 // ReserveABI is the input ABI used to generate the binding from.
-const ReserveABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"symbols\",\"type\":\"bytes32[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"weights\",\"type\":\"uint256[]\"}],\"name\":\"AssetAllocationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ratio\",\"type\":\"uint256\"}],\"name\":\"DailySpendingRatioSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"otherReserveAddress\",\"type\":\"address\"}],\"name\":\"OtherReserveAddressAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"otherReserveAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"OtherReserveAddressRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ReserveGoldTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"SpenderAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"SpenderRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ratio\",\"type\":\"uint256\"}],\"name\":\"TobinTaxReserveRatioSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"factor\",\"type\":\"uint256\"}],\"name\":\"TobinTaxSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"TobinTaxStalenessThresholdSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"TokenAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"TokenRemoved\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"assetAllocationSymbols\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"assetAllocationWeights\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"frozenReserveGoldDays\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"frozenReserveGoldStartBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"frozenReserveGoldStartDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isOtherReserveAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isSpender\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastSpendingDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"otherReserveAddresses\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"spendingLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTax\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTaxCache\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"numerator\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"timestamp\",\"type\":\"uint128\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTaxReserveRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTaxStalenessThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tobinTaxStalenessThreshold\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_spendingRatio\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_frozenGold\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_frozenDays\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"_assetAllocationSymbols\",\"type\":\"bytes32[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_assetAllocationWeights\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"_tobinTax\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_tobinTaxReserveRatio\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTobinTaxStalenessThreshold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTobinTax\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTobinTaxReserveRatio\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"ratio\",\"type\":\"uint256\"}],\"name\":\"setDailySpendingRatio\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getDailySpendingRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"frozenGold\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"frozenDays\",\"type\":\"uint256\"}],\"name\":\"setFrozenGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"symbols\",\"type\":\"bytes32[]\"},{\"internalType\":\"uint256[]\",\"name\":\"weights\",\"type\":\"uint256[]\"}],\"name\":\"setAssetAllocations\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"addToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"reserveAddress\",\"type\":\"address\"}],\"name\":\"addOtherReserveAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"reserveAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeOtherReserveAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"addSpender\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"removeSpender\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferGold\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferExchangeGold\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"getOrComputeTobinTax\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTokens\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getOtherReserveAddresses\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getAssetAllocationSymbols\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"\",\"type\":\"bytes32[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getAssetAllocationWeights\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUnfrozenBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getReserveGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getOtherReserveAddressesGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUnfrozenReserveGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getFrozenReserveGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getReserveRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+const ReserveABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32[]\",\"name\":\"symbols\",\"type\":\"bytes32[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"weights\",\"type\":\"uint256[]\"}],\"name\":\"AssetAllocationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"ratio\",\"type\":\"uint256\"}],\"name\":\"DailySpendingRatioSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"exchangeSpender\",\"type\":\"address\"}],\"name\":\"ExchangeSpenderAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"exchangeSpender\",\"type\":\"address\"}],\"name\":\"ExchangeSpenderRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"otherReserveAddress\",\"type\":\"address\"}],\"name\":\"OtherReserveAddressAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"otherReserveAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"OtherReserveAddressRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"ReserveGoldTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"SpenderAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"SpenderRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"TobinTaxReserveRatioSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"TobinTaxSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"TobinTaxStalenessThresholdSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"TokenAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"TokenRemoved\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"assetAllocationSymbols\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"assetAllocationWeights\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"exchangeSpenderAddresses\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"frozenReserveGoldDays\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"frozenReserveGoldStartBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"frozenReserveGoldStartDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isExchangeSpender\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isOtherReserveAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isSpender\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastSpendingDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"otherReserveAddresses\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"spendingLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTax\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTaxCache\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"numerator\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"timestamp\",\"type\":\"uint128\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTaxReserveRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"tobinTaxStalenessThreshold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tobinTaxStalenessThreshold\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_spendingRatio\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_frozenGold\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_frozenDays\",\"type\":\"uint256\"},{\"internalType\":\"bytes32[]\",\"name\":\"_assetAllocationSymbols\",\"type\":\"bytes32[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_assetAllocationWeights\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256\",\"name\":\"_tobinTax\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_tobinTaxReserveRatio\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTobinTaxStalenessThreshold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTobinTax\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTobinTaxReserveRatio\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"ratio\",\"type\":\"uint256\"}],\"name\":\"setDailySpendingRatio\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getDailySpendingRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"frozenGold\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"frozenDays\",\"type\":\"uint256\"}],\"name\":\"setFrozenGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"symbols\",\"type\":\"bytes32[]\"},{\"internalType\":\"uint256[]\",\"name\":\"weights\",\"type\":\"uint256[]\"}],\"name\":\"setAssetAllocations\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"addToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeToken\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"reserveAddress\",\"type\":\"address\"}],\"name\":\"addOtherReserveAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"reserveAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeOtherReserveAddress\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"addSpender\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"removeSpender\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"addExchangeSpender\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeExchangeSpender\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getExchangeSpenders\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferGold\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferExchangeGold\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"getOrComputeTobinTax\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTokens\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getOtherReserveAddresses\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getAssetAllocationSymbols\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"\",\"type\":\"bytes32[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getAssetAllocationWeights\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUnfrozenBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getReserveGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getOtherReserveAddressesGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUnfrozenReserveGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getFrozenReserveGoldBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getReserveRatio\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
 
 // Reserve is an auto generated Go binding around an Ethereum contract.
 type Reserve struct {
@@ -183,7 +183,7 @@ func (_Reserve *ReserveTransactorRaw) Transact(opts *bind.TransactOpts, method s
 
 // AssetAllocationSymbols is a free data retrieval call binding the contract method 0x0db279be.
 //
-// Solidity: function assetAllocationSymbols(uint256 ) constant returns(bytes32)
+// Solidity: function assetAllocationSymbols(uint256 ) view returns(bytes32)
 func (_Reserve *ReserveCaller) AssetAllocationSymbols(opts *bind.CallOpts, arg0 *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -195,21 +195,21 @@ func (_Reserve *ReserveCaller) AssetAllocationSymbols(opts *bind.CallOpts, arg0 
 
 // AssetAllocationSymbols is a free data retrieval call binding the contract method 0x0db279be.
 //
-// Solidity: function assetAllocationSymbols(uint256 ) constant returns(bytes32)
+// Solidity: function assetAllocationSymbols(uint256 ) view returns(bytes32)
 func (_Reserve *ReserveSession) AssetAllocationSymbols(arg0 *big.Int) ([32]byte, error) {
 	return _Reserve.Contract.AssetAllocationSymbols(&_Reserve.CallOpts, arg0)
 }
 
 // AssetAllocationSymbols is a free data retrieval call binding the contract method 0x0db279be.
 //
-// Solidity: function assetAllocationSymbols(uint256 ) constant returns(bytes32)
+// Solidity: function assetAllocationSymbols(uint256 ) view returns(bytes32)
 func (_Reserve *ReserveCallerSession) AssetAllocationSymbols(arg0 *big.Int) ([32]byte, error) {
 	return _Reserve.Contract.AssetAllocationSymbols(&_Reserve.CallOpts, arg0)
 }
 
 // AssetAllocationWeights is a free data retrieval call binding the contract method 0xec4f797b.
 //
-// Solidity: function assetAllocationWeights(bytes32 ) constant returns(uint256)
+// Solidity: function assetAllocationWeights(bytes32 ) view returns(uint256)
 func (_Reserve *ReserveCaller) AssetAllocationWeights(opts *bind.CallOpts, arg0 [32]byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -221,21 +221,47 @@ func (_Reserve *ReserveCaller) AssetAllocationWeights(opts *bind.CallOpts, arg0 
 
 // AssetAllocationWeights is a free data retrieval call binding the contract method 0xec4f797b.
 //
-// Solidity: function assetAllocationWeights(bytes32 ) constant returns(uint256)
+// Solidity: function assetAllocationWeights(bytes32 ) view returns(uint256)
 func (_Reserve *ReserveSession) AssetAllocationWeights(arg0 [32]byte) (*big.Int, error) {
 	return _Reserve.Contract.AssetAllocationWeights(&_Reserve.CallOpts, arg0)
 }
 
 // AssetAllocationWeights is a free data retrieval call binding the contract method 0xec4f797b.
 //
-// Solidity: function assetAllocationWeights(bytes32 ) constant returns(uint256)
+// Solidity: function assetAllocationWeights(bytes32 ) view returns(uint256)
 func (_Reserve *ReserveCallerSession) AssetAllocationWeights(arg0 [32]byte) (*big.Int, error) {
 	return _Reserve.Contract.AssetAllocationWeights(&_Reserve.CallOpts, arg0)
 }
 
+// ExchangeSpenderAddresses is a free data retrieval call binding the contract method 0x5a18b08b.
+//
+// Solidity: function exchangeSpenderAddresses(uint256 ) view returns(address)
+func (_Reserve *ReserveCaller) ExchangeSpenderAddresses(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _Reserve.contract.Call(opts, out, "exchangeSpenderAddresses", arg0)
+	return *ret0, err
+}
+
+// ExchangeSpenderAddresses is a free data retrieval call binding the contract method 0x5a18b08b.
+//
+// Solidity: function exchangeSpenderAddresses(uint256 ) view returns(address)
+func (_Reserve *ReserveSession) ExchangeSpenderAddresses(arg0 *big.Int) (common.Address, error) {
+	return _Reserve.Contract.ExchangeSpenderAddresses(&_Reserve.CallOpts, arg0)
+}
+
+// ExchangeSpenderAddresses is a free data retrieval call binding the contract method 0x5a18b08b.
+//
+// Solidity: function exchangeSpenderAddresses(uint256 ) view returns(address)
+func (_Reserve *ReserveCallerSession) ExchangeSpenderAddresses(arg0 *big.Int) (common.Address, error) {
+	return _Reserve.Contract.ExchangeSpenderAddresses(&_Reserve.CallOpts, arg0)
+}
+
 // FrozenReserveGoldDays is a free data retrieval call binding the contract method 0x7090db4e.
 //
-// Solidity: function frozenReserveGoldDays() constant returns(uint256)
+// Solidity: function frozenReserveGoldDays() view returns(uint256)
 func (_Reserve *ReserveCaller) FrozenReserveGoldDays(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -247,21 +273,21 @@ func (_Reserve *ReserveCaller) FrozenReserveGoldDays(opts *bind.CallOpts) (*big.
 
 // FrozenReserveGoldDays is a free data retrieval call binding the contract method 0x7090db4e.
 //
-// Solidity: function frozenReserveGoldDays() constant returns(uint256)
+// Solidity: function frozenReserveGoldDays() view returns(uint256)
 func (_Reserve *ReserveSession) FrozenReserveGoldDays() (*big.Int, error) {
 	return _Reserve.Contract.FrozenReserveGoldDays(&_Reserve.CallOpts)
 }
 
 // FrozenReserveGoldDays is a free data retrieval call binding the contract method 0x7090db4e.
 //
-// Solidity: function frozenReserveGoldDays() constant returns(uint256)
+// Solidity: function frozenReserveGoldDays() view returns(uint256)
 func (_Reserve *ReserveCallerSession) FrozenReserveGoldDays() (*big.Int, error) {
 	return _Reserve.Contract.FrozenReserveGoldDays(&_Reserve.CallOpts)
 }
 
 // FrozenReserveGoldStartBalance is a free data retrieval call binding the contract method 0x03d835f3.
 //
-// Solidity: function frozenReserveGoldStartBalance() constant returns(uint256)
+// Solidity: function frozenReserveGoldStartBalance() view returns(uint256)
 func (_Reserve *ReserveCaller) FrozenReserveGoldStartBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -273,21 +299,21 @@ func (_Reserve *ReserveCaller) FrozenReserveGoldStartBalance(opts *bind.CallOpts
 
 // FrozenReserveGoldStartBalance is a free data retrieval call binding the contract method 0x03d835f3.
 //
-// Solidity: function frozenReserveGoldStartBalance() constant returns(uint256)
+// Solidity: function frozenReserveGoldStartBalance() view returns(uint256)
 func (_Reserve *ReserveSession) FrozenReserveGoldStartBalance() (*big.Int, error) {
 	return _Reserve.Contract.FrozenReserveGoldStartBalance(&_Reserve.CallOpts)
 }
 
 // FrozenReserveGoldStartBalance is a free data retrieval call binding the contract method 0x03d835f3.
 //
-// Solidity: function frozenReserveGoldStartBalance() constant returns(uint256)
+// Solidity: function frozenReserveGoldStartBalance() view returns(uint256)
 func (_Reserve *ReserveCallerSession) FrozenReserveGoldStartBalance() (*big.Int, error) {
 	return _Reserve.Contract.FrozenReserveGoldStartBalance(&_Reserve.CallOpts)
 }
 
 // FrozenReserveGoldStartDay is a free data retrieval call binding the contract method 0x81b861a6.
 //
-// Solidity: function frozenReserveGoldStartDay() constant returns(uint256)
+// Solidity: function frozenReserveGoldStartDay() view returns(uint256)
 func (_Reserve *ReserveCaller) FrozenReserveGoldStartDay(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -299,21 +325,21 @@ func (_Reserve *ReserveCaller) FrozenReserveGoldStartDay(opts *bind.CallOpts) (*
 
 // FrozenReserveGoldStartDay is a free data retrieval call binding the contract method 0x81b861a6.
 //
-// Solidity: function frozenReserveGoldStartDay() constant returns(uint256)
+// Solidity: function frozenReserveGoldStartDay() view returns(uint256)
 func (_Reserve *ReserveSession) FrozenReserveGoldStartDay() (*big.Int, error) {
 	return _Reserve.Contract.FrozenReserveGoldStartDay(&_Reserve.CallOpts)
 }
 
 // FrozenReserveGoldStartDay is a free data retrieval call binding the contract method 0x81b861a6.
 //
-// Solidity: function frozenReserveGoldStartDay() constant returns(uint256)
+// Solidity: function frozenReserveGoldStartDay() view returns(uint256)
 func (_Reserve *ReserveCallerSession) FrozenReserveGoldStartDay() (*big.Int, error) {
 	return _Reserve.Contract.FrozenReserveGoldStartDay(&_Reserve.CallOpts)
 }
 
 // GetAssetAllocationSymbols is a free data retrieval call binding the contract method 0x8438796a.
 //
-// Solidity: function getAssetAllocationSymbols() constant returns(bytes32[])
+// Solidity: function getAssetAllocationSymbols() view returns(bytes32[])
 func (_Reserve *ReserveCaller) GetAssetAllocationSymbols(opts *bind.CallOpts) ([][32]byte, error) {
 	var (
 		ret0 = new([][32]byte)
@@ -325,21 +351,21 @@ func (_Reserve *ReserveCaller) GetAssetAllocationSymbols(opts *bind.CallOpts) ([
 
 // GetAssetAllocationSymbols is a free data retrieval call binding the contract method 0x8438796a.
 //
-// Solidity: function getAssetAllocationSymbols() constant returns(bytes32[])
+// Solidity: function getAssetAllocationSymbols() view returns(bytes32[])
 func (_Reserve *ReserveSession) GetAssetAllocationSymbols() ([][32]byte, error) {
 	return _Reserve.Contract.GetAssetAllocationSymbols(&_Reserve.CallOpts)
 }
 
 // GetAssetAllocationSymbols is a free data retrieval call binding the contract method 0x8438796a.
 //
-// Solidity: function getAssetAllocationSymbols() constant returns(bytes32[])
+// Solidity: function getAssetAllocationSymbols() view returns(bytes32[])
 func (_Reserve *ReserveCallerSession) GetAssetAllocationSymbols() ([][32]byte, error) {
 	return _Reserve.Contract.GetAssetAllocationSymbols(&_Reserve.CallOpts)
 }
 
 // GetAssetAllocationWeights is a free data retrieval call binding the contract method 0xe50a6c1e.
 //
-// Solidity: function getAssetAllocationWeights() constant returns(uint256[])
+// Solidity: function getAssetAllocationWeights() view returns(uint256[])
 func (_Reserve *ReserveCaller) GetAssetAllocationWeights(opts *bind.CallOpts) ([]*big.Int, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -351,21 +377,21 @@ func (_Reserve *ReserveCaller) GetAssetAllocationWeights(opts *bind.CallOpts) ([
 
 // GetAssetAllocationWeights is a free data retrieval call binding the contract method 0xe50a6c1e.
 //
-// Solidity: function getAssetAllocationWeights() constant returns(uint256[])
+// Solidity: function getAssetAllocationWeights() view returns(uint256[])
 func (_Reserve *ReserveSession) GetAssetAllocationWeights() ([]*big.Int, error) {
 	return _Reserve.Contract.GetAssetAllocationWeights(&_Reserve.CallOpts)
 }
 
 // GetAssetAllocationWeights is a free data retrieval call binding the contract method 0xe50a6c1e.
 //
-// Solidity: function getAssetAllocationWeights() constant returns(uint256[])
+// Solidity: function getAssetAllocationWeights() view returns(uint256[])
 func (_Reserve *ReserveCallerSession) GetAssetAllocationWeights() ([]*big.Int, error) {
 	return _Reserve.Contract.GetAssetAllocationWeights(&_Reserve.CallOpts)
 }
 
 // GetDailySpendingRatio is a free data retrieval call binding the contract method 0x7897a78e.
 //
-// Solidity: function getDailySpendingRatio() constant returns(uint256)
+// Solidity: function getDailySpendingRatio() view returns(uint256)
 func (_Reserve *ReserveCaller) GetDailySpendingRatio(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -377,21 +403,47 @@ func (_Reserve *ReserveCaller) GetDailySpendingRatio(opts *bind.CallOpts) (*big.
 
 // GetDailySpendingRatio is a free data retrieval call binding the contract method 0x7897a78e.
 //
-// Solidity: function getDailySpendingRatio() constant returns(uint256)
+// Solidity: function getDailySpendingRatio() view returns(uint256)
 func (_Reserve *ReserveSession) GetDailySpendingRatio() (*big.Int, error) {
 	return _Reserve.Contract.GetDailySpendingRatio(&_Reserve.CallOpts)
 }
 
 // GetDailySpendingRatio is a free data retrieval call binding the contract method 0x7897a78e.
 //
-// Solidity: function getDailySpendingRatio() constant returns(uint256)
+// Solidity: function getDailySpendingRatio() view returns(uint256)
 func (_Reserve *ReserveCallerSession) GetDailySpendingRatio() (*big.Int, error) {
 	return _Reserve.Contract.GetDailySpendingRatio(&_Reserve.CallOpts)
 }
 
+// GetExchangeSpenders is a free data retrieval call binding the contract method 0x1218f982.
+//
+// Solidity: function getExchangeSpenders() view returns(address[])
+func (_Reserve *ReserveCaller) GetExchangeSpenders(opts *bind.CallOpts) ([]common.Address, error) {
+	var (
+		ret0 = new([]common.Address)
+	)
+	out := ret0
+	err := _Reserve.contract.Call(opts, out, "getExchangeSpenders")
+	return *ret0, err
+}
+
+// GetExchangeSpenders is a free data retrieval call binding the contract method 0x1218f982.
+//
+// Solidity: function getExchangeSpenders() view returns(address[])
+func (_Reserve *ReserveSession) GetExchangeSpenders() ([]common.Address, error) {
+	return _Reserve.Contract.GetExchangeSpenders(&_Reserve.CallOpts)
+}
+
+// GetExchangeSpenders is a free data retrieval call binding the contract method 0x1218f982.
+//
+// Solidity: function getExchangeSpenders() view returns(address[])
+func (_Reserve *ReserveCallerSession) GetExchangeSpenders() ([]common.Address, error) {
+	return _Reserve.Contract.GetExchangeSpenders(&_Reserve.CallOpts)
+}
+
 // GetFrozenReserveGoldBalance is a free data retrieval call binding the contract method 0x2aa1c16d.
 //
-// Solidity: function getFrozenReserveGoldBalance() constant returns(uint256)
+// Solidity: function getFrozenReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCaller) GetFrozenReserveGoldBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -403,21 +455,21 @@ func (_Reserve *ReserveCaller) GetFrozenReserveGoldBalance(opts *bind.CallOpts) 
 
 // GetFrozenReserveGoldBalance is a free data retrieval call binding the contract method 0x2aa1c16d.
 //
-// Solidity: function getFrozenReserveGoldBalance() constant returns(uint256)
+// Solidity: function getFrozenReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveSession) GetFrozenReserveGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetFrozenReserveGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetFrozenReserveGoldBalance is a free data retrieval call binding the contract method 0x2aa1c16d.
 //
-// Solidity: function getFrozenReserveGoldBalance() constant returns(uint256)
+// Solidity: function getFrozenReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCallerSession) GetFrozenReserveGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetFrozenReserveGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetOtherReserveAddresses is a free data retrieval call binding the contract method 0x9c3e2f0f.
 //
-// Solidity: function getOtherReserveAddresses() constant returns(address[])
+// Solidity: function getOtherReserveAddresses() view returns(address[])
 func (_Reserve *ReserveCaller) GetOtherReserveAddresses(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -429,21 +481,21 @@ func (_Reserve *ReserveCaller) GetOtherReserveAddresses(opts *bind.CallOpts) ([]
 
 // GetOtherReserveAddresses is a free data retrieval call binding the contract method 0x9c3e2f0f.
 //
-// Solidity: function getOtherReserveAddresses() constant returns(address[])
+// Solidity: function getOtherReserveAddresses() view returns(address[])
 func (_Reserve *ReserveSession) GetOtherReserveAddresses() ([]common.Address, error) {
 	return _Reserve.Contract.GetOtherReserveAddresses(&_Reserve.CallOpts)
 }
 
 // GetOtherReserveAddresses is a free data retrieval call binding the contract method 0x9c3e2f0f.
 //
-// Solidity: function getOtherReserveAddresses() constant returns(address[])
+// Solidity: function getOtherReserveAddresses() view returns(address[])
 func (_Reserve *ReserveCallerSession) GetOtherReserveAddresses() ([]common.Address, error) {
 	return _Reserve.Contract.GetOtherReserveAddresses(&_Reserve.CallOpts)
 }
 
 // GetOtherReserveAddressesGoldBalance is a free data retrieval call binding the contract method 0x765c1fe9.
 //
-// Solidity: function getOtherReserveAddressesGoldBalance() constant returns(uint256)
+// Solidity: function getOtherReserveAddressesGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCaller) GetOtherReserveAddressesGoldBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -455,21 +507,21 @@ func (_Reserve *ReserveCaller) GetOtherReserveAddressesGoldBalance(opts *bind.Ca
 
 // GetOtherReserveAddressesGoldBalance is a free data retrieval call binding the contract method 0x765c1fe9.
 //
-// Solidity: function getOtherReserveAddressesGoldBalance() constant returns(uint256)
+// Solidity: function getOtherReserveAddressesGoldBalance() view returns(uint256)
 func (_Reserve *ReserveSession) GetOtherReserveAddressesGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetOtherReserveAddressesGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetOtherReserveAddressesGoldBalance is a free data retrieval call binding the contract method 0x765c1fe9.
 //
-// Solidity: function getOtherReserveAddressesGoldBalance() constant returns(uint256)
+// Solidity: function getOtherReserveAddressesGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCallerSession) GetOtherReserveAddressesGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetOtherReserveAddressesGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetReserveGoldBalance is a free data retrieval call binding the contract method 0x8d9a5e6f.
 //
-// Solidity: function getReserveGoldBalance() constant returns(uint256)
+// Solidity: function getReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCaller) GetReserveGoldBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -481,21 +533,21 @@ func (_Reserve *ReserveCaller) GetReserveGoldBalance(opts *bind.CallOpts) (*big.
 
 // GetReserveGoldBalance is a free data retrieval call binding the contract method 0x8d9a5e6f.
 //
-// Solidity: function getReserveGoldBalance() constant returns(uint256)
+// Solidity: function getReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveSession) GetReserveGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetReserveGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetReserveGoldBalance is a free data retrieval call binding the contract method 0x8d9a5e6f.
 //
-// Solidity: function getReserveGoldBalance() constant returns(uint256)
+// Solidity: function getReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCallerSession) GetReserveGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetReserveGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetReserveRatio is a free data retrieval call binding the contract method 0x56b6d0d5.
 //
-// Solidity: function getReserveRatio() constant returns(uint256)
+// Solidity: function getReserveRatio() view returns(uint256)
 func (_Reserve *ReserveCaller) GetReserveRatio(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -507,21 +559,21 @@ func (_Reserve *ReserveCaller) GetReserveRatio(opts *bind.CallOpts) (*big.Int, e
 
 // GetReserveRatio is a free data retrieval call binding the contract method 0x56b6d0d5.
 //
-// Solidity: function getReserveRatio() constant returns(uint256)
+// Solidity: function getReserveRatio() view returns(uint256)
 func (_Reserve *ReserveSession) GetReserveRatio() (*big.Int, error) {
 	return _Reserve.Contract.GetReserveRatio(&_Reserve.CallOpts)
 }
 
 // GetReserveRatio is a free data retrieval call binding the contract method 0x56b6d0d5.
 //
-// Solidity: function getReserveRatio() constant returns(uint256)
+// Solidity: function getReserveRatio() view returns(uint256)
 func (_Reserve *ReserveCallerSession) GetReserveRatio() (*big.Int, error) {
 	return _Reserve.Contract.GetReserveRatio(&_Reserve.CallOpts)
 }
 
 // GetTokens is a free data retrieval call binding the contract method 0xaa6ca808.
 //
-// Solidity: function getTokens() constant returns(address[])
+// Solidity: function getTokens() view returns(address[])
 func (_Reserve *ReserveCaller) GetTokens(opts *bind.CallOpts) ([]common.Address, error) {
 	var (
 		ret0 = new([]common.Address)
@@ -533,21 +585,21 @@ func (_Reserve *ReserveCaller) GetTokens(opts *bind.CallOpts) ([]common.Address,
 
 // GetTokens is a free data retrieval call binding the contract method 0xaa6ca808.
 //
-// Solidity: function getTokens() constant returns(address[])
+// Solidity: function getTokens() view returns(address[])
 func (_Reserve *ReserveSession) GetTokens() ([]common.Address, error) {
 	return _Reserve.Contract.GetTokens(&_Reserve.CallOpts)
 }
 
 // GetTokens is a free data retrieval call binding the contract method 0xaa6ca808.
 //
-// Solidity: function getTokens() constant returns(address[])
+// Solidity: function getTokens() view returns(address[])
 func (_Reserve *ReserveCallerSession) GetTokens() ([]common.Address, error) {
 	return _Reserve.Contract.GetTokens(&_Reserve.CallOpts)
 }
 
 // GetUnfrozenBalance is a free data retrieval call binding the contract method 0xe30f579d.
 //
-// Solidity: function getUnfrozenBalance() constant returns(uint256)
+// Solidity: function getUnfrozenBalance() view returns(uint256)
 func (_Reserve *ReserveCaller) GetUnfrozenBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -559,21 +611,21 @@ func (_Reserve *ReserveCaller) GetUnfrozenBalance(opts *bind.CallOpts) (*big.Int
 
 // GetUnfrozenBalance is a free data retrieval call binding the contract method 0xe30f579d.
 //
-// Solidity: function getUnfrozenBalance() constant returns(uint256)
+// Solidity: function getUnfrozenBalance() view returns(uint256)
 func (_Reserve *ReserveSession) GetUnfrozenBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetUnfrozenBalance(&_Reserve.CallOpts)
 }
 
 // GetUnfrozenBalance is a free data retrieval call binding the contract method 0xe30f579d.
 //
-// Solidity: function getUnfrozenBalance() constant returns(uint256)
+// Solidity: function getUnfrozenBalance() view returns(uint256)
 func (_Reserve *ReserveCallerSession) GetUnfrozenBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetUnfrozenBalance(&_Reserve.CallOpts)
 }
 
 // GetUnfrozenReserveGoldBalance is a free data retrieval call binding the contract method 0x8b7df8d4.
 //
-// Solidity: function getUnfrozenReserveGoldBalance() constant returns(uint256)
+// Solidity: function getUnfrozenReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCaller) GetUnfrozenReserveGoldBalance(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -585,21 +637,21 @@ func (_Reserve *ReserveCaller) GetUnfrozenReserveGoldBalance(opts *bind.CallOpts
 
 // GetUnfrozenReserveGoldBalance is a free data retrieval call binding the contract method 0x8b7df8d4.
 //
-// Solidity: function getUnfrozenReserveGoldBalance() constant returns(uint256)
+// Solidity: function getUnfrozenReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveSession) GetUnfrozenReserveGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetUnfrozenReserveGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetUnfrozenReserveGoldBalance is a free data retrieval call binding the contract method 0x8b7df8d4.
 //
-// Solidity: function getUnfrozenReserveGoldBalance() constant returns(uint256)
+// Solidity: function getUnfrozenReserveGoldBalance() view returns(uint256)
 func (_Reserve *ReserveCallerSession) GetUnfrozenReserveGoldBalance() (*big.Int, error) {
 	return _Reserve.Contract.GetUnfrozenReserveGoldBalance(&_Reserve.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Reserve *ReserveCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -619,21 +671,21 @@ func (_Reserve *ReserveCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, 
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Reserve *ReserveSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Reserve.Contract.GetVersionNumber(&_Reserve.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Reserve *ReserveCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Reserve.Contract.GetVersionNumber(&_Reserve.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Reserve *ReserveCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -645,21 +697,47 @@ func (_Reserve *ReserveCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Reserve *ReserveSession) Initialized() (bool, error) {
 	return _Reserve.Contract.Initialized(&_Reserve.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_Reserve *ReserveCallerSession) Initialized() (bool, error) {
 	return _Reserve.Contract.Initialized(&_Reserve.CallOpts)
 }
 
+// IsExchangeSpender is a free data retrieval call binding the contract method 0x4cea8ded.
+//
+// Solidity: function isExchangeSpender(address ) view returns(bool)
+func (_Reserve *ReserveCaller) IsExchangeSpender(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _Reserve.contract.Call(opts, out, "isExchangeSpender", arg0)
+	return *ret0, err
+}
+
+// IsExchangeSpender is a free data retrieval call binding the contract method 0x4cea8ded.
+//
+// Solidity: function isExchangeSpender(address ) view returns(bool)
+func (_Reserve *ReserveSession) IsExchangeSpender(arg0 common.Address) (bool, error) {
+	return _Reserve.Contract.IsExchangeSpender(&_Reserve.CallOpts, arg0)
+}
+
+// IsExchangeSpender is a free data retrieval call binding the contract method 0x4cea8ded.
+//
+// Solidity: function isExchangeSpender(address ) view returns(bool)
+func (_Reserve *ReserveCallerSession) IsExchangeSpender(arg0 common.Address) (bool, error) {
+	return _Reserve.Contract.IsExchangeSpender(&_Reserve.CallOpts, arg0)
+}
+
 // IsOtherReserveAddress is a free data retrieval call binding the contract method 0x7b522075.
 //
-// Solidity: function isOtherReserveAddress(address ) constant returns(bool)
+// Solidity: function isOtherReserveAddress(address ) view returns(bool)
 func (_Reserve *ReserveCaller) IsOtherReserveAddress(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -671,21 +749,21 @@ func (_Reserve *ReserveCaller) IsOtherReserveAddress(opts *bind.CallOpts, arg0 c
 
 // IsOtherReserveAddress is a free data retrieval call binding the contract method 0x7b522075.
 //
-// Solidity: function isOtherReserveAddress(address ) constant returns(bool)
+// Solidity: function isOtherReserveAddress(address ) view returns(bool)
 func (_Reserve *ReserveSession) IsOtherReserveAddress(arg0 common.Address) (bool, error) {
 	return _Reserve.Contract.IsOtherReserveAddress(&_Reserve.CallOpts, arg0)
 }
 
 // IsOtherReserveAddress is a free data retrieval call binding the contract method 0x7b522075.
 //
-// Solidity: function isOtherReserveAddress(address ) constant returns(bool)
+// Solidity: function isOtherReserveAddress(address ) view returns(bool)
 func (_Reserve *ReserveCallerSession) IsOtherReserveAddress(arg0 common.Address) (bool, error) {
 	return _Reserve.Contract.IsOtherReserveAddress(&_Reserve.CallOpts, arg0)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Reserve *ReserveCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -697,21 +775,21 @@ func (_Reserve *ReserveCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Reserve *ReserveSession) IsOwner() (bool, error) {
 	return _Reserve.Contract.IsOwner(&_Reserve.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_Reserve *ReserveCallerSession) IsOwner() (bool, error) {
 	return _Reserve.Contract.IsOwner(&_Reserve.CallOpts)
 }
 
 // IsSpender is a free data retrieval call binding the contract method 0x9a206ece.
 //
-// Solidity: function isSpender(address ) constant returns(bool)
+// Solidity: function isSpender(address ) view returns(bool)
 func (_Reserve *ReserveCaller) IsSpender(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -723,21 +801,21 @@ func (_Reserve *ReserveCaller) IsSpender(opts *bind.CallOpts, arg0 common.Addres
 
 // IsSpender is a free data retrieval call binding the contract method 0x9a206ece.
 //
-// Solidity: function isSpender(address ) constant returns(bool)
+// Solidity: function isSpender(address ) view returns(bool)
 func (_Reserve *ReserveSession) IsSpender(arg0 common.Address) (bool, error) {
 	return _Reserve.Contract.IsSpender(&_Reserve.CallOpts, arg0)
 }
 
 // IsSpender is a free data retrieval call binding the contract method 0x9a206ece.
 //
-// Solidity: function isSpender(address ) constant returns(bool)
+// Solidity: function isSpender(address ) view returns(bool)
 func (_Reserve *ReserveCallerSession) IsSpender(arg0 common.Address) (bool, error) {
 	return _Reserve.Contract.IsSpender(&_Reserve.CallOpts, arg0)
 }
 
 // IsToken is a free data retrieval call binding the contract method 0x19f37361.
 //
-// Solidity: function isToken(address ) constant returns(bool)
+// Solidity: function isToken(address ) view returns(bool)
 func (_Reserve *ReserveCaller) IsToken(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -749,21 +827,21 @@ func (_Reserve *ReserveCaller) IsToken(opts *bind.CallOpts, arg0 common.Address)
 
 // IsToken is a free data retrieval call binding the contract method 0x19f37361.
 //
-// Solidity: function isToken(address ) constant returns(bool)
+// Solidity: function isToken(address ) view returns(bool)
 func (_Reserve *ReserveSession) IsToken(arg0 common.Address) (bool, error) {
 	return _Reserve.Contract.IsToken(&_Reserve.CallOpts, arg0)
 }
 
 // IsToken is a free data retrieval call binding the contract method 0x19f37361.
 //
-// Solidity: function isToken(address ) constant returns(bool)
+// Solidity: function isToken(address ) view returns(bool)
 func (_Reserve *ReserveCallerSession) IsToken(arg0 common.Address) (bool, error) {
 	return _Reserve.Contract.IsToken(&_Reserve.CallOpts, arg0)
 }
 
 // LastSpendingDay is a free data retrieval call binding the contract method 0xfa9ed95a.
 //
-// Solidity: function lastSpendingDay() constant returns(uint256)
+// Solidity: function lastSpendingDay() view returns(uint256)
 func (_Reserve *ReserveCaller) LastSpendingDay(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -775,21 +853,21 @@ func (_Reserve *ReserveCaller) LastSpendingDay(opts *bind.CallOpts) (*big.Int, e
 
 // LastSpendingDay is a free data retrieval call binding the contract method 0xfa9ed95a.
 //
-// Solidity: function lastSpendingDay() constant returns(uint256)
+// Solidity: function lastSpendingDay() view returns(uint256)
 func (_Reserve *ReserveSession) LastSpendingDay() (*big.Int, error) {
 	return _Reserve.Contract.LastSpendingDay(&_Reserve.CallOpts)
 }
 
 // LastSpendingDay is a free data retrieval call binding the contract method 0xfa9ed95a.
 //
-// Solidity: function lastSpendingDay() constant returns(uint256)
+// Solidity: function lastSpendingDay() view returns(uint256)
 func (_Reserve *ReserveCallerSession) LastSpendingDay() (*big.Int, error) {
 	return _Reserve.Contract.LastSpendingDay(&_Reserve.CallOpts)
 }
 
 // OtherReserveAddresses is a free data retrieval call binding the contract method 0x40899365.
 //
-// Solidity: function otherReserveAddresses(uint256 ) constant returns(address)
+// Solidity: function otherReserveAddresses(uint256 ) view returns(address)
 func (_Reserve *ReserveCaller) OtherReserveAddresses(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -801,21 +879,21 @@ func (_Reserve *ReserveCaller) OtherReserveAddresses(opts *bind.CallOpts, arg0 *
 
 // OtherReserveAddresses is a free data retrieval call binding the contract method 0x40899365.
 //
-// Solidity: function otherReserveAddresses(uint256 ) constant returns(address)
+// Solidity: function otherReserveAddresses(uint256 ) view returns(address)
 func (_Reserve *ReserveSession) OtherReserveAddresses(arg0 *big.Int) (common.Address, error) {
 	return _Reserve.Contract.OtherReserveAddresses(&_Reserve.CallOpts, arg0)
 }
 
 // OtherReserveAddresses is a free data retrieval call binding the contract method 0x40899365.
 //
-// Solidity: function otherReserveAddresses(uint256 ) constant returns(address)
+// Solidity: function otherReserveAddresses(uint256 ) view returns(address)
 func (_Reserve *ReserveCallerSession) OtherReserveAddresses(arg0 *big.Int) (common.Address, error) {
 	return _Reserve.Contract.OtherReserveAddresses(&_Reserve.CallOpts, arg0)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Reserve *ReserveCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -827,21 +905,21 @@ func (_Reserve *ReserveCaller) Owner(opts *bind.CallOpts) (common.Address, error
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Reserve *ReserveSession) Owner() (common.Address, error) {
 	return _Reserve.Contract.Owner(&_Reserve.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_Reserve *ReserveCallerSession) Owner() (common.Address, error) {
 	return _Reserve.Contract.Owner(&_Reserve.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Reserve *ReserveCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -853,21 +931,21 @@ func (_Reserve *ReserveCaller) Registry(opts *bind.CallOpts) (common.Address, er
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Reserve *ReserveSession) Registry() (common.Address, error) {
 	return _Reserve.Contract.Registry(&_Reserve.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_Reserve *ReserveCallerSession) Registry() (common.Address, error) {
 	return _Reserve.Contract.Registry(&_Reserve.CallOpts)
 }
 
 // SpendingLimit is a free data retrieval call binding the contract method 0x39d7f76e.
 //
-// Solidity: function spendingLimit() constant returns(uint256)
+// Solidity: function spendingLimit() view returns(uint256)
 func (_Reserve *ReserveCaller) SpendingLimit(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -879,21 +957,21 @@ func (_Reserve *ReserveCaller) SpendingLimit(opts *bind.CallOpts) (*big.Int, err
 
 // SpendingLimit is a free data retrieval call binding the contract method 0x39d7f76e.
 //
-// Solidity: function spendingLimit() constant returns(uint256)
+// Solidity: function spendingLimit() view returns(uint256)
 func (_Reserve *ReserveSession) SpendingLimit() (*big.Int, error) {
 	return _Reserve.Contract.SpendingLimit(&_Reserve.CallOpts)
 }
 
 // SpendingLimit is a free data retrieval call binding the contract method 0x39d7f76e.
 //
-// Solidity: function spendingLimit() constant returns(uint256)
+// Solidity: function spendingLimit() view returns(uint256)
 func (_Reserve *ReserveCallerSession) SpendingLimit() (*big.Int, error) {
 	return _Reserve.Contract.SpendingLimit(&_Reserve.CallOpts)
 }
 
 // TobinTax is a free data retrieval call binding the contract method 0x894098d6.
 //
-// Solidity: function tobinTax() constant returns(uint256)
+// Solidity: function tobinTax() view returns(uint256)
 func (_Reserve *ReserveCaller) TobinTax(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -905,21 +983,21 @@ func (_Reserve *ReserveCaller) TobinTax(opts *bind.CallOpts) (*big.Int, error) {
 
 // TobinTax is a free data retrieval call binding the contract method 0x894098d6.
 //
-// Solidity: function tobinTax() constant returns(uint256)
+// Solidity: function tobinTax() view returns(uint256)
 func (_Reserve *ReserveSession) TobinTax() (*big.Int, error) {
 	return _Reserve.Contract.TobinTax(&_Reserve.CallOpts)
 }
 
 // TobinTax is a free data retrieval call binding the contract method 0x894098d6.
 //
-// Solidity: function tobinTax() constant returns(uint256)
+// Solidity: function tobinTax() view returns(uint256)
 func (_Reserve *ReserveCallerSession) TobinTax() (*big.Int, error) {
 	return _Reserve.Contract.TobinTax(&_Reserve.CallOpts)
 }
 
 // TobinTaxCache is a free data retrieval call binding the contract method 0x22796e83.
 //
-// Solidity: function tobinTaxCache() constant returns(uint128 numerator, uint128 timestamp)
+// Solidity: function tobinTaxCache() view returns(uint128 numerator, uint128 timestamp)
 func (_Reserve *ReserveCaller) TobinTaxCache(opts *bind.CallOpts) (struct {
 	Numerator *big.Int
 	Timestamp *big.Int
@@ -935,7 +1013,7 @@ func (_Reserve *ReserveCaller) TobinTaxCache(opts *bind.CallOpts) (struct {
 
 // TobinTaxCache is a free data retrieval call binding the contract method 0x22796e83.
 //
-// Solidity: function tobinTaxCache() constant returns(uint128 numerator, uint128 timestamp)
+// Solidity: function tobinTaxCache() view returns(uint128 numerator, uint128 timestamp)
 func (_Reserve *ReserveSession) TobinTaxCache() (struct {
 	Numerator *big.Int
 	Timestamp *big.Int
@@ -945,7 +1023,7 @@ func (_Reserve *ReserveSession) TobinTaxCache() (struct {
 
 // TobinTaxCache is a free data retrieval call binding the contract method 0x22796e83.
 //
-// Solidity: function tobinTaxCache() constant returns(uint128 numerator, uint128 timestamp)
+// Solidity: function tobinTaxCache() view returns(uint128 numerator, uint128 timestamp)
 func (_Reserve *ReserveCallerSession) TobinTaxCache() (struct {
 	Numerator *big.Int
 	Timestamp *big.Int
@@ -955,7 +1033,7 @@ func (_Reserve *ReserveCallerSession) TobinTaxCache() (struct {
 
 // TobinTaxReserveRatio is a free data retrieval call binding the contract method 0x76769a60.
 //
-// Solidity: function tobinTaxReserveRatio() constant returns(uint256)
+// Solidity: function tobinTaxReserveRatio() view returns(uint256)
 func (_Reserve *ReserveCaller) TobinTaxReserveRatio(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -967,21 +1045,21 @@ func (_Reserve *ReserveCaller) TobinTaxReserveRatio(opts *bind.CallOpts) (*big.I
 
 // TobinTaxReserveRatio is a free data retrieval call binding the contract method 0x76769a60.
 //
-// Solidity: function tobinTaxReserveRatio() constant returns(uint256)
+// Solidity: function tobinTaxReserveRatio() view returns(uint256)
 func (_Reserve *ReserveSession) TobinTaxReserveRatio() (*big.Int, error) {
 	return _Reserve.Contract.TobinTaxReserveRatio(&_Reserve.CallOpts)
 }
 
 // TobinTaxReserveRatio is a free data retrieval call binding the contract method 0x76769a60.
 //
-// Solidity: function tobinTaxReserveRatio() constant returns(uint256)
+// Solidity: function tobinTaxReserveRatio() view returns(uint256)
 func (_Reserve *ReserveCallerSession) TobinTaxReserveRatio() (*big.Int, error) {
 	return _Reserve.Contract.TobinTaxReserveRatio(&_Reserve.CallOpts)
 }
 
 // TobinTaxStalenessThreshold is a free data retrieval call binding the contract method 0xe33a88e7.
 //
-// Solidity: function tobinTaxStalenessThreshold() constant returns(uint256)
+// Solidity: function tobinTaxStalenessThreshold() view returns(uint256)
 func (_Reserve *ReserveCaller) TobinTaxStalenessThreshold(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -993,16 +1071,37 @@ func (_Reserve *ReserveCaller) TobinTaxStalenessThreshold(opts *bind.CallOpts) (
 
 // TobinTaxStalenessThreshold is a free data retrieval call binding the contract method 0xe33a88e7.
 //
-// Solidity: function tobinTaxStalenessThreshold() constant returns(uint256)
+// Solidity: function tobinTaxStalenessThreshold() view returns(uint256)
 func (_Reserve *ReserveSession) TobinTaxStalenessThreshold() (*big.Int, error) {
 	return _Reserve.Contract.TobinTaxStalenessThreshold(&_Reserve.CallOpts)
 }
 
 // TobinTaxStalenessThreshold is a free data retrieval call binding the contract method 0xe33a88e7.
 //
-// Solidity: function tobinTaxStalenessThreshold() constant returns(uint256)
+// Solidity: function tobinTaxStalenessThreshold() view returns(uint256)
 func (_Reserve *ReserveCallerSession) TobinTaxStalenessThreshold() (*big.Int, error) {
 	return _Reserve.Contract.TobinTaxStalenessThreshold(&_Reserve.CallOpts)
+}
+
+// AddExchangeSpender is a paid mutator transaction binding the contract method 0xf0b7182b.
+//
+// Solidity: function addExchangeSpender(address spender) returns()
+func (_Reserve *ReserveTransactor) AddExchangeSpender(opts *bind.TransactOpts, spender common.Address) (*types.Transaction, error) {
+	return _Reserve.contract.Transact(opts, "addExchangeSpender", spender)
+}
+
+// AddExchangeSpender is a paid mutator transaction binding the contract method 0xf0b7182b.
+//
+// Solidity: function addExchangeSpender(address spender) returns()
+func (_Reserve *ReserveSession) AddExchangeSpender(spender common.Address) (*types.Transaction, error) {
+	return _Reserve.Contract.AddExchangeSpender(&_Reserve.TransactOpts, spender)
+}
+
+// AddExchangeSpender is a paid mutator transaction binding the contract method 0xf0b7182b.
+//
+// Solidity: function addExchangeSpender(address spender) returns()
+func (_Reserve *ReserveTransactorSession) AddExchangeSpender(spender common.Address) (*types.Transaction, error) {
+	return _Reserve.Contract.AddExchangeSpender(&_Reserve.TransactOpts, spender)
 }
 
 // AddOtherReserveAddress is a paid mutator transaction binding the contract method 0x22015968.
@@ -1108,6 +1207,27 @@ func (_Reserve *ReserveSession) Initialize(registryAddress common.Address, _tobi
 // Solidity: function initialize(address registryAddress, uint256 _tobinTaxStalenessThreshold, uint256 _spendingRatio, uint256 _frozenGold, uint256 _frozenDays, bytes32[] _assetAllocationSymbols, uint256[] _assetAllocationWeights, uint256 _tobinTax, uint256 _tobinTaxReserveRatio) returns()
 func (_Reserve *ReserveTransactorSession) Initialize(registryAddress common.Address, _tobinTaxStalenessThreshold *big.Int, _spendingRatio *big.Int, _frozenGold *big.Int, _frozenDays *big.Int, _assetAllocationSymbols [][32]byte, _assetAllocationWeights []*big.Int, _tobinTax *big.Int, _tobinTaxReserveRatio *big.Int) (*types.Transaction, error) {
 	return _Reserve.Contract.Initialize(&_Reserve.TransactOpts, registryAddress, _tobinTaxStalenessThreshold, _spendingRatio, _frozenGold, _frozenDays, _assetAllocationSymbols, _assetAllocationWeights, _tobinTax, _tobinTaxReserveRatio)
+}
+
+// RemoveExchangeSpender is a paid mutator transaction binding the contract method 0xb003dcf1.
+//
+// Solidity: function removeExchangeSpender(address spender, uint256 index) returns()
+func (_Reserve *ReserveTransactor) RemoveExchangeSpender(opts *bind.TransactOpts, spender common.Address, index *big.Int) (*types.Transaction, error) {
+	return _Reserve.contract.Transact(opts, "removeExchangeSpender", spender, index)
+}
+
+// RemoveExchangeSpender is a paid mutator transaction binding the contract method 0xb003dcf1.
+//
+// Solidity: function removeExchangeSpender(address spender, uint256 index) returns()
+func (_Reserve *ReserveSession) RemoveExchangeSpender(spender common.Address, index *big.Int) (*types.Transaction, error) {
+	return _Reserve.Contract.RemoveExchangeSpender(&_Reserve.TransactOpts, spender, index)
+}
+
+// RemoveExchangeSpender is a paid mutator transaction binding the contract method 0xb003dcf1.
+//
+// Solidity: function removeExchangeSpender(address spender, uint256 index) returns()
+func (_Reserve *ReserveTransactorSession) RemoveExchangeSpender(spender common.Address, index *big.Int) (*types.Transaction, error) {
+	return _Reserve.Contract.RemoveExchangeSpender(&_Reserve.TransactOpts, spender, index)
 }
 
 // RemoveOtherReserveAddress is a paid mutator transaction binding the contract method 0x5c4a3145.
@@ -1416,6 +1536,10 @@ func (_Reserve *ReserveFilterer) TryParseLog(log types.Log) (eventName string, e
 		event, err = _Reserve.ParseAssetAllocationSet(log)
 	case "DailySpendingRatioSet":
 		event, err = _Reserve.ParseDailySpendingRatioSet(log)
+	case "ExchangeSpenderAdded":
+		event, err = _Reserve.ParseExchangeSpenderAdded(log)
+	case "ExchangeSpenderRemoved":
+		event, err = _Reserve.ParseExchangeSpenderRemoved(log)
 	case "OtherReserveAddressAdded":
 		event, err = _Reserve.ParseOtherReserveAddressAdded(log)
 	case "OtherReserveAddressRemoved":
@@ -1446,6 +1570,27 @@ func (_Reserve *ReserveFilterer) TryParseLog(log types.Log) (eventName string, e
 	}
 
 	return eventName, event, ok, nil
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_Reserve *ReserveTransactor) Fallback(opts *bind.TransactOpts, calldata []byte) (*types.Transaction, error) {
+	return _Reserve.contract.RawTransact(opts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_Reserve *ReserveSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _Reserve.Contract.Fallback(&_Reserve.TransactOpts, calldata)
+}
+
+// Fallback is a paid mutator transaction binding the contract fallback function.
+//
+// Solidity: fallback() payable returns()
+func (_Reserve *ReserveTransactorSession) Fallback(calldata []byte) (*types.Transaction, error) {
+	return _Reserve.Contract.Fallback(&_Reserve.TransactOpts, calldata)
 }
 
 // ReserveAssetAllocationSetIterator is returned from FilterAssetAllocationSet and is used to iterate over the raw logs and unpacked data for AssetAllocationSet events raised by the Reserve contract.
@@ -1710,6 +1855,292 @@ func (_Reserve *ReserveFilterer) WatchDailySpendingRatioSet(opts *bind.WatchOpts
 func (_Reserve *ReserveFilterer) ParseDailySpendingRatioSet(log types.Log) (*ReserveDailySpendingRatioSet, error) {
 	event := new(ReserveDailySpendingRatioSet)
 	if err := _Reserve.contract.UnpackLog(event, "DailySpendingRatioSet", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+// ReserveExchangeSpenderAddedIterator is returned from FilterExchangeSpenderAdded and is used to iterate over the raw logs and unpacked data for ExchangeSpenderAdded events raised by the Reserve contract.
+type ReserveExchangeSpenderAddedIterator struct {
+	Event *ReserveExchangeSpenderAdded // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *ReserveExchangeSpenderAddedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(ReserveExchangeSpenderAdded)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(ReserveExchangeSpenderAdded)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *ReserveExchangeSpenderAddedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *ReserveExchangeSpenderAddedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// ReserveExchangeSpenderAdded represents a ExchangeSpenderAdded event raised by the Reserve contract.
+type ReserveExchangeSpenderAdded struct {
+	ExchangeSpender common.Address
+	Raw             types.Log // Blockchain specific contextual infos
+}
+
+// FilterExchangeSpenderAdded is a free log retrieval operation binding the contract event 0x71bccdb89fff4d914e3d2e472b327e3debaf4c4d6f1dfe528f430447e4cbcf5f.
+//
+// Solidity: event ExchangeSpenderAdded(address indexed exchangeSpender)
+func (_Reserve *ReserveFilterer) FilterExchangeSpenderAdded(opts *bind.FilterOpts, exchangeSpender []common.Address) (*ReserveExchangeSpenderAddedIterator, error) {
+
+	var exchangeSpenderRule []interface{}
+	for _, exchangeSpenderItem := range exchangeSpender {
+		exchangeSpenderRule = append(exchangeSpenderRule, exchangeSpenderItem)
+	}
+
+	logs, sub, err := _Reserve.contract.FilterLogs(opts, "ExchangeSpenderAdded", exchangeSpenderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &ReserveExchangeSpenderAddedIterator{contract: _Reserve.contract, event: "ExchangeSpenderAdded", logs: logs, sub: sub}, nil
+}
+
+// WatchExchangeSpenderAdded is a free log subscription operation binding the contract event 0x71bccdb89fff4d914e3d2e472b327e3debaf4c4d6f1dfe528f430447e4cbcf5f.
+//
+// Solidity: event ExchangeSpenderAdded(address indexed exchangeSpender)
+func (_Reserve *ReserveFilterer) WatchExchangeSpenderAdded(opts *bind.WatchOpts, sink chan<- *ReserveExchangeSpenderAdded, exchangeSpender []common.Address) (event.Subscription, error) {
+
+	var exchangeSpenderRule []interface{}
+	for _, exchangeSpenderItem := range exchangeSpender {
+		exchangeSpenderRule = append(exchangeSpenderRule, exchangeSpenderItem)
+	}
+
+	logs, sub, err := _Reserve.contract.WatchLogs(opts, "ExchangeSpenderAdded", exchangeSpenderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(ReserveExchangeSpenderAdded)
+				if err := _Reserve.contract.UnpackLog(event, "ExchangeSpenderAdded", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseExchangeSpenderAdded is a log parse operation binding the contract event 0x71bccdb89fff4d914e3d2e472b327e3debaf4c4d6f1dfe528f430447e4cbcf5f.
+//
+// Solidity: event ExchangeSpenderAdded(address indexed exchangeSpender)
+func (_Reserve *ReserveFilterer) ParseExchangeSpenderAdded(log types.Log) (*ReserveExchangeSpenderAdded, error) {
+	event := new(ReserveExchangeSpenderAdded)
+	if err := _Reserve.contract.UnpackLog(event, "ExchangeSpenderAdded", log); err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+// ReserveExchangeSpenderRemovedIterator is returned from FilterExchangeSpenderRemoved and is used to iterate over the raw logs and unpacked data for ExchangeSpenderRemoved events raised by the Reserve contract.
+type ReserveExchangeSpenderRemovedIterator struct {
+	Event *ReserveExchangeSpenderRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *ReserveExchangeSpenderRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(ReserveExchangeSpenderRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(ReserveExchangeSpenderRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *ReserveExchangeSpenderRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *ReserveExchangeSpenderRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// ReserveExchangeSpenderRemoved represents a ExchangeSpenderRemoved event raised by the Reserve contract.
+type ReserveExchangeSpenderRemoved struct {
+	ExchangeSpender common.Address
+	Raw             types.Log // Blockchain specific contextual infos
+}
+
+// FilterExchangeSpenderRemoved is a free log retrieval operation binding the contract event 0x20aaa18caa668680a42b328a15fd50d580bac65d8bd346e104355473c6373ff3.
+//
+// Solidity: event ExchangeSpenderRemoved(address indexed exchangeSpender)
+func (_Reserve *ReserveFilterer) FilterExchangeSpenderRemoved(opts *bind.FilterOpts, exchangeSpender []common.Address) (*ReserveExchangeSpenderRemovedIterator, error) {
+
+	var exchangeSpenderRule []interface{}
+	for _, exchangeSpenderItem := range exchangeSpender {
+		exchangeSpenderRule = append(exchangeSpenderRule, exchangeSpenderItem)
+	}
+
+	logs, sub, err := _Reserve.contract.FilterLogs(opts, "ExchangeSpenderRemoved", exchangeSpenderRule)
+	if err != nil {
+		return nil, err
+	}
+	return &ReserveExchangeSpenderRemovedIterator{contract: _Reserve.contract, event: "ExchangeSpenderRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchExchangeSpenderRemoved is a free log subscription operation binding the contract event 0x20aaa18caa668680a42b328a15fd50d580bac65d8bd346e104355473c6373ff3.
+//
+// Solidity: event ExchangeSpenderRemoved(address indexed exchangeSpender)
+func (_Reserve *ReserveFilterer) WatchExchangeSpenderRemoved(opts *bind.WatchOpts, sink chan<- *ReserveExchangeSpenderRemoved, exchangeSpender []common.Address) (event.Subscription, error) {
+
+	var exchangeSpenderRule []interface{}
+	for _, exchangeSpenderItem := range exchangeSpender {
+		exchangeSpenderRule = append(exchangeSpenderRule, exchangeSpenderItem)
+	}
+
+	logs, sub, err := _Reserve.contract.WatchLogs(opts, "ExchangeSpenderRemoved", exchangeSpenderRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(ReserveExchangeSpenderRemoved)
+				if err := _Reserve.contract.UnpackLog(event, "ExchangeSpenderRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseExchangeSpenderRemoved is a log parse operation binding the contract event 0x20aaa18caa668680a42b328a15fd50d580bac65d8bd346e104355473c6373ff3.
+//
+// Solidity: event ExchangeSpenderRemoved(address indexed exchangeSpender)
+func (_Reserve *ReserveFilterer) ParseExchangeSpenderRemoved(log types.Log) (*ReserveExchangeSpenderRemoved, error) {
+	event := new(ReserveExchangeSpenderRemoved)
+	if err := _Reserve.contract.UnpackLog(event, "ExchangeSpenderRemoved", log); err != nil {
 		return nil, err
 	}
 	return event, nil
@@ -2805,13 +3236,13 @@ func (it *ReserveTobinTaxReserveRatioSetIterator) Close() error {
 
 // ReserveTobinTaxReserveRatioSet represents a TobinTaxReserveRatioSet event raised by the Reserve contract.
 type ReserveTobinTaxReserveRatioSet struct {
-	Ratio *big.Int
+	Value *big.Int
 	Raw   types.Log // Blockchain specific contextual infos
 }
 
 // FilterTobinTaxReserveRatioSet is a free log retrieval operation binding the contract event 0x4da8e8b2223fbbb897200fb9dfb6b986c1b4188621114d407ee8ec363569fc37.
 //
-// Solidity: event TobinTaxReserveRatioSet(uint256 ratio)
+// Solidity: event TobinTaxReserveRatioSet(uint256 value)
 func (_Reserve *ReserveFilterer) FilterTobinTaxReserveRatioSet(opts *bind.FilterOpts) (*ReserveTobinTaxReserveRatioSetIterator, error) {
 
 	logs, sub, err := _Reserve.contract.FilterLogs(opts, "TobinTaxReserveRatioSet")
@@ -2823,7 +3254,7 @@ func (_Reserve *ReserveFilterer) FilterTobinTaxReserveRatioSet(opts *bind.Filter
 
 // WatchTobinTaxReserveRatioSet is a free log subscription operation binding the contract event 0x4da8e8b2223fbbb897200fb9dfb6b986c1b4188621114d407ee8ec363569fc37.
 //
-// Solidity: event TobinTaxReserveRatioSet(uint256 ratio)
+// Solidity: event TobinTaxReserveRatioSet(uint256 value)
 func (_Reserve *ReserveFilterer) WatchTobinTaxReserveRatioSet(opts *bind.WatchOpts, sink chan<- *ReserveTobinTaxReserveRatioSet) (event.Subscription, error) {
 
 	logs, sub, err := _Reserve.contract.WatchLogs(opts, "TobinTaxReserveRatioSet")
@@ -2860,7 +3291,7 @@ func (_Reserve *ReserveFilterer) WatchTobinTaxReserveRatioSet(opts *bind.WatchOp
 
 // ParseTobinTaxReserveRatioSet is a log parse operation binding the contract event 0x4da8e8b2223fbbb897200fb9dfb6b986c1b4188621114d407ee8ec363569fc37.
 //
-// Solidity: event TobinTaxReserveRatioSet(uint256 ratio)
+// Solidity: event TobinTaxReserveRatioSet(uint256 value)
 func (_Reserve *ReserveFilterer) ParseTobinTaxReserveRatioSet(log types.Log) (*ReserveTobinTaxReserveRatioSet, error) {
 	event := new(ReserveTobinTaxReserveRatioSet)
 	if err := _Reserve.contract.UnpackLog(event, "TobinTaxReserveRatioSet", log); err != nil {
@@ -2938,13 +3369,13 @@ func (it *ReserveTobinTaxSetIterator) Close() error {
 
 // ReserveTobinTaxSet represents a TobinTaxSet event raised by the Reserve contract.
 type ReserveTobinTaxSet struct {
-	Factor *big.Int
-	Raw    types.Log // Blockchain specific contextual infos
+	Value *big.Int
+	Raw   types.Log // Blockchain specific contextual infos
 }
 
 // FilterTobinTaxSet is a free log retrieval operation binding the contract event 0xfe69856ffb1b1d6cb00c1d8151726e6e95032b1666282eeb293ecadd58b29a6e.
 //
-// Solidity: event TobinTaxSet(uint256 factor)
+// Solidity: event TobinTaxSet(uint256 value)
 func (_Reserve *ReserveFilterer) FilterTobinTaxSet(opts *bind.FilterOpts) (*ReserveTobinTaxSetIterator, error) {
 
 	logs, sub, err := _Reserve.contract.FilterLogs(opts, "TobinTaxSet")
@@ -2956,7 +3387,7 @@ func (_Reserve *ReserveFilterer) FilterTobinTaxSet(opts *bind.FilterOpts) (*Rese
 
 // WatchTobinTaxSet is a free log subscription operation binding the contract event 0xfe69856ffb1b1d6cb00c1d8151726e6e95032b1666282eeb293ecadd58b29a6e.
 //
-// Solidity: event TobinTaxSet(uint256 factor)
+// Solidity: event TobinTaxSet(uint256 value)
 func (_Reserve *ReserveFilterer) WatchTobinTaxSet(opts *bind.WatchOpts, sink chan<- *ReserveTobinTaxSet) (event.Subscription, error) {
 
 	logs, sub, err := _Reserve.contract.WatchLogs(opts, "TobinTaxSet")
@@ -2993,7 +3424,7 @@ func (_Reserve *ReserveFilterer) WatchTobinTaxSet(opts *bind.WatchOpts, sink cha
 
 // ParseTobinTaxSet is a log parse operation binding the contract event 0xfe69856ffb1b1d6cb00c1d8151726e6e95032b1666282eeb293ecadd58b29a6e.
 //
-// Solidity: event TobinTaxSet(uint256 factor)
+// Solidity: event TobinTaxSet(uint256 value)
 func (_Reserve *ReserveFilterer) ParseTobinTaxSet(log types.Log) (*ReserveTobinTaxSet, error) {
 	event := new(ReserveTobinTaxSet)
 	if err := _Reserve.contract.UnpackLog(event, "TobinTaxSet", log); err != nil {

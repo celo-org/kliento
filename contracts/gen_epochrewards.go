@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -28,7 +28,7 @@ var (
 )
 
 // EpochRewardsABI is the input ABI used to generate the binding from.
-const EpochRewardsABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"partner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"CarbonOffsettingFundSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"CommunityRewardFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"maxMultiplier\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"underspendAdjustmentFactor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"overspendAdjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"RewardsMultiplierParametersSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"payment\",\"type\":\"uint256\"}],\"name\":\"TargetValidatorEpochPaymentSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"TargetVotingGoldFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"maxMultiplier\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"adjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"TargetVotingYieldParametersSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"targetFactor\",\"type\":\"uint256\"}],\"name\":\"TargetVotingYieldSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"TargetVotingYieldUpdated\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"carbonOffsettingPartner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"startTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"targetValidatorEpochPayment\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"targetVotingYieldInitial\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"targetVotingYieldMax\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"targetVotingYieldAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardsMultiplierMax\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardsMultiplierUnderspendAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardsMultiplierOverspendAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_targetVotingGoldFraction\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_targetValidatorEpochPayment\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_communityRewardFraction\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_carbonOffsettingPartner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_carbonOffsettingFraction\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetVotingYieldParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRewardsMultiplierParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setCommunityRewardFraction\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCommunityRewardFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"partner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setCarbonOffsettingFund\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCarbonOffsettingFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTargetVotingGoldFraction\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetVotingGoldFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTargetValidatorEpochPayment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"underspendAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"overspendAdjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"setRewardsMultiplierParameters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"adjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"setTargetVotingYieldParameters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"targetVotingYield\",\"type\":\"uint256\"}],\"name\":\"setTargetVotingYield\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetGoldTotalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetVoterRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetTotalEpochPaymentsInGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRewardsMultiplier\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVotingGoldFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"updateTargetVotingYield\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isReserveLow\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"calculateTargetEpochRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+const EpochRewardsABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"partner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"CarbonOffsettingFundSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"CommunityRewardFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"underspendAdjustmentFactor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"overspendAdjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"RewardsMultiplierParametersSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"payment\",\"type\":\"uint256\"}],\"name\":\"TargetValidatorEpochPaymentSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"TargetVotingGoldFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"adjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"TargetVotingYieldParametersSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"target\",\"type\":\"uint256\"}],\"name\":\"TargetVotingYieldSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"fraction\",\"type\":\"uint256\"}],\"name\":\"TargetVotingYieldUpdated\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"carbonOffsettingPartner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"startTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"targetValidatorEpochPayment\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"targetVotingYieldInitial\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"targetVotingYieldMax\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"targetVotingYieldAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardsMultiplierMax\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardsMultiplierUnderspendAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"rewardsMultiplierOverspendAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_targetVotingGoldFraction\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_targetValidatorEpochPayment\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_communityRewardFraction\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_carbonOffsettingPartner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_carbonOffsettingFraction\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetVotingYieldParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRewardsMultiplierParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setCommunityRewardFraction\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCommunityRewardFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"partner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setCarbonOffsettingFund\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCarbonOffsettingFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTargetVotingGoldFraction\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetVotingGoldFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"setTargetValidatorEpochPayment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"underspendAdjustmentFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"overspendAdjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"setRewardsMultiplierParameters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"adjustmentFactor\",\"type\":\"uint256\"}],\"name\":\"setTargetVotingYieldParameters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"targetVotingYield\",\"type\":\"uint256\"}],\"name\":\"setTargetVotingYield\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetGoldTotalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetVoterRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTargetTotalEpochPaymentsInGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRewardsMultiplier\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVotingGoldFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"updateTargetVotingYield\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isReserveLow\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"calculateTargetEpochRewards\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
 
 // EpochRewards is an auto generated Go binding around an Ethereum contract.
 type EpochRewards struct {
@@ -183,7 +183,7 @@ func (_EpochRewards *EpochRewardsTransactorRaw) Transact(opts *bind.TransactOpts
 
 // CalculateTargetEpochRewards is a free data retrieval call binding the contract method 0x64347043.
 //
-// Solidity: function calculateTargetEpochRewards() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function calculateTargetEpochRewards() view returns(uint256, uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCaller) CalculateTargetEpochRewards(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -203,21 +203,21 @@ func (_EpochRewards *EpochRewardsCaller) CalculateTargetEpochRewards(opts *bind.
 
 // CalculateTargetEpochRewards is a free data retrieval call binding the contract method 0x64347043.
 //
-// Solidity: function calculateTargetEpochRewards() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function calculateTargetEpochRewards() view returns(uint256, uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsSession) CalculateTargetEpochRewards() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.CalculateTargetEpochRewards(&_EpochRewards.CallOpts)
 }
 
 // CalculateTargetEpochRewards is a free data retrieval call binding the contract method 0x64347043.
 //
-// Solidity: function calculateTargetEpochRewards() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function calculateTargetEpochRewards() view returns(uint256, uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCallerSession) CalculateTargetEpochRewards() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.CalculateTargetEpochRewards(&_EpochRewards.CallOpts)
 }
 
 // CarbonOffsettingPartner is a free data retrieval call binding the contract method 0x22dae21f.
 //
-// Solidity: function carbonOffsettingPartner() constant returns(address)
+// Solidity: function carbonOffsettingPartner() view returns(address)
 func (_EpochRewards *EpochRewardsCaller) CarbonOffsettingPartner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -229,21 +229,21 @@ func (_EpochRewards *EpochRewardsCaller) CarbonOffsettingPartner(opts *bind.Call
 
 // CarbonOffsettingPartner is a free data retrieval call binding the contract method 0x22dae21f.
 //
-// Solidity: function carbonOffsettingPartner() constant returns(address)
+// Solidity: function carbonOffsettingPartner() view returns(address)
 func (_EpochRewards *EpochRewardsSession) CarbonOffsettingPartner() (common.Address, error) {
 	return _EpochRewards.Contract.CarbonOffsettingPartner(&_EpochRewards.CallOpts)
 }
 
 // CarbonOffsettingPartner is a free data retrieval call binding the contract method 0x22dae21f.
 //
-// Solidity: function carbonOffsettingPartner() constant returns(address)
+// Solidity: function carbonOffsettingPartner() view returns(address)
 func (_EpochRewards *EpochRewardsCallerSession) CarbonOffsettingPartner() (common.Address, error) {
 	return _EpochRewards.Contract.CarbonOffsettingPartner(&_EpochRewards.CallOpts)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_EpochRewards *EpochRewardsCaller) CheckProofOfPossession(opts *bind.CallOpts, sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -255,21 +255,21 @@ func (_EpochRewards *EpochRewardsCaller) CheckProofOfPossession(opts *bind.CallO
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_EpochRewards *EpochRewardsSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _EpochRewards.Contract.CheckProofOfPossession(&_EpochRewards.CallOpts, sender, blsKey, blsPop)
 }
 
 // CheckProofOfPossession is a free data retrieval call binding the contract method 0x23f0ab65.
 //
-// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) constant returns(bool)
+// Solidity: function checkProofOfPossession(address sender, bytes blsKey, bytes blsPop) view returns(bool)
 func (_EpochRewards *EpochRewardsCallerSession) CheckProofOfPossession(sender common.Address, blsKey []byte, blsPop []byte) (bool, error) {
 	return _EpochRewards.Contract.CheckProofOfPossession(&_EpochRewards.CallOpts, sender, blsKey, blsPop)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_EpochRewards *EpochRewardsCaller) FractionMulExp(opts *bind.CallOpts, aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -285,21 +285,21 @@ func (_EpochRewards *EpochRewardsCaller) FractionMulExp(opts *bind.CallOpts, aNu
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_EpochRewards *EpochRewardsSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.FractionMulExp(&_EpochRewards.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // FractionMulExp is a free data retrieval call binding the contract method 0xec683072.
 //
-// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) constant returns(uint256, uint256)
+// Solidity: function fractionMulExp(uint256 aNumerator, uint256 aDenominator, uint256 bNumerator, uint256 bDenominator, uint256 exponent, uint256 _decimals) view returns(uint256, uint256)
 func (_EpochRewards *EpochRewardsCallerSession) FractionMulExp(aNumerator *big.Int, aDenominator *big.Int, bNumerator *big.Int, bDenominator *big.Int, exponent *big.Int, _decimals *big.Int) (*big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.FractionMulExp(&_EpochRewards.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetBlockNumberFromHeader(opts *bind.CallOpts, header []byte) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -311,21 +311,21 @@ func (_EpochRewards *EpochRewardsCaller) GetBlockNumberFromHeader(opts *bind.Cal
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _EpochRewards.Contract.GetBlockNumberFromHeader(&_EpochRewards.CallOpts, header)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
 //
-// Solidity: function getBlockNumberFromHeader(bytes header) constant returns(uint256)
+// Solidity: function getBlockNumberFromHeader(bytes header) view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetBlockNumberFromHeader(header []byte) (*big.Int, error) {
 	return _EpochRewards.Contract.GetBlockNumberFromHeader(&_EpochRewards.CallOpts, header)
 }
 
 // GetCarbonOffsettingFraction is a free data retrieval call binding the contract method 0x7d164125.
 //
-// Solidity: function getCarbonOffsettingFraction() constant returns(uint256)
+// Solidity: function getCarbonOffsettingFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetCarbonOffsettingFraction(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -337,21 +337,21 @@ func (_EpochRewards *EpochRewardsCaller) GetCarbonOffsettingFraction(opts *bind.
 
 // GetCarbonOffsettingFraction is a free data retrieval call binding the contract method 0x7d164125.
 //
-// Solidity: function getCarbonOffsettingFraction() constant returns(uint256)
+// Solidity: function getCarbonOffsettingFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetCarbonOffsettingFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetCarbonOffsettingFraction(&_EpochRewards.CallOpts)
 }
 
 // GetCarbonOffsettingFraction is a free data retrieval call binding the contract method 0x7d164125.
 //
-// Solidity: function getCarbonOffsettingFraction() constant returns(uint256)
+// Solidity: function getCarbonOffsettingFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetCarbonOffsettingFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetCarbonOffsettingFraction(&_EpochRewards.CallOpts)
 }
 
 // GetCommunityRewardFraction is a free data retrieval call binding the contract method 0x9917907f.
 //
-// Solidity: function getCommunityRewardFraction() constant returns(uint256)
+// Solidity: function getCommunityRewardFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetCommunityRewardFraction(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -363,21 +363,21 @@ func (_EpochRewards *EpochRewardsCaller) GetCommunityRewardFraction(opts *bind.C
 
 // GetCommunityRewardFraction is a free data retrieval call binding the contract method 0x9917907f.
 //
-// Solidity: function getCommunityRewardFraction() constant returns(uint256)
+// Solidity: function getCommunityRewardFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetCommunityRewardFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetCommunityRewardFraction(&_EpochRewards.CallOpts)
 }
 
 // GetCommunityRewardFraction is a free data retrieval call binding the contract method 0x9917907f.
 //
-// Solidity: function getCommunityRewardFraction() constant returns(uint256)
+// Solidity: function getCommunityRewardFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetCommunityRewardFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetCommunityRewardFraction(&_EpochRewards.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetEpochNumber(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -389,21 +389,21 @@ func (_EpochRewards *EpochRewardsCaller) GetEpochNumber(opts *bind.CallOpts) (*b
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetEpochNumber() (*big.Int, error) {
 	return _EpochRewards.Contract.GetEpochNumber(&_EpochRewards.CallOpts)
 }
 
 // GetEpochNumber is a free data retrieval call binding the contract method 0x9a7b3be7.
 //
-// Solidity: function getEpochNumber() constant returns(uint256)
+// Solidity: function getEpochNumber() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetEpochNumber() (*big.Int, error) {
 	return _EpochRewards.Contract.GetEpochNumber(&_EpochRewards.CallOpts)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetEpochNumberOfBlock(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -415,21 +415,21 @@ func (_EpochRewards *EpochRewardsCaller) GetEpochNumberOfBlock(opts *bind.CallOp
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _EpochRewards.Contract.GetEpochNumberOfBlock(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // GetEpochNumberOfBlock is a free data retrieval call binding the contract method 0x3b1eb4bf.
 //
-// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) constant returns(uint256)
+// Solidity: function getEpochNumberOfBlock(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetEpochNumberOfBlock(blockNumber *big.Int) (*big.Int, error) {
 	return _EpochRewards.Contract.GetEpochNumberOfBlock(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetEpochSize(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -441,21 +441,21 @@ func (_EpochRewards *EpochRewardsCaller) GetEpochSize(opts *bind.CallOpts) (*big
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetEpochSize() (*big.Int, error) {
 	return _EpochRewards.Contract.GetEpochSize(&_EpochRewards.CallOpts)
 }
 
 // GetEpochSize is a free data retrieval call binding the contract method 0xdf4da461.
 //
-// Solidity: function getEpochSize() constant returns(uint256)
+// Solidity: function getEpochSize() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetEpochSize() (*big.Int, error) {
 	return _EpochRewards.Contract.GetEpochSize(&_EpochRewards.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_EpochRewards *EpochRewardsCaller) GetParentSealBitmap(opts *bind.CallOpts, blockNumber *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -467,21 +467,21 @@ func (_EpochRewards *EpochRewardsCaller) GetParentSealBitmap(opts *bind.CallOpts
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_EpochRewards *EpochRewardsSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _EpochRewards.Contract.GetParentSealBitmap(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
 //
-// Solidity: function getParentSealBitmap(uint256 blockNumber) constant returns(bytes32)
+// Solidity: function getParentSealBitmap(uint256 blockNumber) view returns(bytes32)
 func (_EpochRewards *EpochRewardsCallerSession) GetParentSealBitmap(blockNumber *big.Int) ([32]byte, error) {
 	return _EpochRewards.Contract.GetParentSealBitmap(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // GetRewardsMultiplier is a free data retrieval call binding the contract method 0x0203ab24.
 //
-// Solidity: function getRewardsMultiplier() constant returns(uint256)
+// Solidity: function getRewardsMultiplier() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetRewardsMultiplier(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -493,21 +493,21 @@ func (_EpochRewards *EpochRewardsCaller) GetRewardsMultiplier(opts *bind.CallOpt
 
 // GetRewardsMultiplier is a free data retrieval call binding the contract method 0x0203ab24.
 //
-// Solidity: function getRewardsMultiplier() constant returns(uint256)
+// Solidity: function getRewardsMultiplier() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetRewardsMultiplier() (*big.Int, error) {
 	return _EpochRewards.Contract.GetRewardsMultiplier(&_EpochRewards.CallOpts)
 }
 
 // GetRewardsMultiplier is a free data retrieval call binding the contract method 0x0203ab24.
 //
-// Solidity: function getRewardsMultiplier() constant returns(uint256)
+// Solidity: function getRewardsMultiplier() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetRewardsMultiplier() (*big.Int, error) {
 	return _EpochRewards.Contract.GetRewardsMultiplier(&_EpochRewards.CallOpts)
 }
 
 // GetRewardsMultiplierParameters is a free data retrieval call binding the contract method 0x5f396e48.
 //
-// Solidity: function getRewardsMultiplierParameters() constant returns(uint256, uint256, uint256)
+// Solidity: function getRewardsMultiplierParameters() view returns(uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCaller) GetRewardsMultiplierParameters(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -525,21 +525,21 @@ func (_EpochRewards *EpochRewardsCaller) GetRewardsMultiplierParameters(opts *bi
 
 // GetRewardsMultiplierParameters is a free data retrieval call binding the contract method 0x5f396e48.
 //
-// Solidity: function getRewardsMultiplierParameters() constant returns(uint256, uint256, uint256)
+// Solidity: function getRewardsMultiplierParameters() view returns(uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsSession) GetRewardsMultiplierParameters() (*big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.GetRewardsMultiplierParameters(&_EpochRewards.CallOpts)
 }
 
 // GetRewardsMultiplierParameters is a free data retrieval call binding the contract method 0x5f396e48.
 //
-// Solidity: function getRewardsMultiplierParameters() constant returns(uint256, uint256, uint256)
+// Solidity: function getRewardsMultiplierParameters() view returns(uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetRewardsMultiplierParameters() (*big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.GetRewardsMultiplierParameters(&_EpochRewards.CallOpts)
 }
 
 // GetTargetGoldTotalSupply is a free data retrieval call binding the contract method 0x5049890f.
 //
-// Solidity: function getTargetGoldTotalSupply() constant returns(uint256)
+// Solidity: function getTargetGoldTotalSupply() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetTargetGoldTotalSupply(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -551,21 +551,21 @@ func (_EpochRewards *EpochRewardsCaller) GetTargetGoldTotalSupply(opts *bind.Cal
 
 // GetTargetGoldTotalSupply is a free data retrieval call binding the contract method 0x5049890f.
 //
-// Solidity: function getTargetGoldTotalSupply() constant returns(uint256)
+// Solidity: function getTargetGoldTotalSupply() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetTargetGoldTotalSupply() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetGoldTotalSupply(&_EpochRewards.CallOpts)
 }
 
 // GetTargetGoldTotalSupply is a free data retrieval call binding the contract method 0x5049890f.
 //
-// Solidity: function getTargetGoldTotalSupply() constant returns(uint256)
+// Solidity: function getTargetGoldTotalSupply() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetTargetGoldTotalSupply() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetGoldTotalSupply(&_EpochRewards.CallOpts)
 }
 
 // GetTargetTotalEpochPaymentsInGold is a free data retrieval call binding the contract method 0x4901c725.
 //
-// Solidity: function getTargetTotalEpochPaymentsInGold() constant returns(uint256)
+// Solidity: function getTargetTotalEpochPaymentsInGold() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetTargetTotalEpochPaymentsInGold(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -577,21 +577,21 @@ func (_EpochRewards *EpochRewardsCaller) GetTargetTotalEpochPaymentsInGold(opts 
 
 // GetTargetTotalEpochPaymentsInGold is a free data retrieval call binding the contract method 0x4901c725.
 //
-// Solidity: function getTargetTotalEpochPaymentsInGold() constant returns(uint256)
+// Solidity: function getTargetTotalEpochPaymentsInGold() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetTargetTotalEpochPaymentsInGold() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetTotalEpochPaymentsInGold(&_EpochRewards.CallOpts)
 }
 
 // GetTargetTotalEpochPaymentsInGold is a free data retrieval call binding the contract method 0x4901c725.
 //
-// Solidity: function getTargetTotalEpochPaymentsInGold() constant returns(uint256)
+// Solidity: function getTargetTotalEpochPaymentsInGold() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetTargetTotalEpochPaymentsInGold() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetTotalEpochPaymentsInGold(&_EpochRewards.CallOpts)
 }
 
 // GetTargetVoterRewards is a free data retrieval call binding the contract method 0x2848f9e3.
 //
-// Solidity: function getTargetVoterRewards() constant returns(uint256)
+// Solidity: function getTargetVoterRewards() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetTargetVoterRewards(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -603,21 +603,21 @@ func (_EpochRewards *EpochRewardsCaller) GetTargetVoterRewards(opts *bind.CallOp
 
 // GetTargetVoterRewards is a free data retrieval call binding the contract method 0x2848f9e3.
 //
-// Solidity: function getTargetVoterRewards() constant returns(uint256)
+// Solidity: function getTargetVoterRewards() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetTargetVoterRewards() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetVoterRewards(&_EpochRewards.CallOpts)
 }
 
 // GetTargetVoterRewards is a free data retrieval call binding the contract method 0x2848f9e3.
 //
-// Solidity: function getTargetVoterRewards() constant returns(uint256)
+// Solidity: function getTargetVoterRewards() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetTargetVoterRewards() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetVoterRewards(&_EpochRewards.CallOpts)
 }
 
 // GetTargetVotingGoldFraction is a free data retrieval call binding the contract method 0xae098de2.
 //
-// Solidity: function getTargetVotingGoldFraction() constant returns(uint256)
+// Solidity: function getTargetVotingGoldFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetTargetVotingGoldFraction(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -629,21 +629,21 @@ func (_EpochRewards *EpochRewardsCaller) GetTargetVotingGoldFraction(opts *bind.
 
 // GetTargetVotingGoldFraction is a free data retrieval call binding the contract method 0xae098de2.
 //
-// Solidity: function getTargetVotingGoldFraction() constant returns(uint256)
+// Solidity: function getTargetVotingGoldFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetTargetVotingGoldFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetVotingGoldFraction(&_EpochRewards.CallOpts)
 }
 
 // GetTargetVotingGoldFraction is a free data retrieval call binding the contract method 0xae098de2.
 //
-// Solidity: function getTargetVotingGoldFraction() constant returns(uint256)
+// Solidity: function getTargetVotingGoldFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetTargetVotingGoldFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetTargetVotingGoldFraction(&_EpochRewards.CallOpts)
 }
 
 // GetTargetVotingYieldParameters is a free data retrieval call binding the contract method 0x171af90f.
 //
-// Solidity: function getTargetVotingYieldParameters() constant returns(uint256, uint256, uint256)
+// Solidity: function getTargetVotingYieldParameters() view returns(uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCaller) GetTargetVotingYieldParameters(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -661,21 +661,21 @@ func (_EpochRewards *EpochRewardsCaller) GetTargetVotingYieldParameters(opts *bi
 
 // GetTargetVotingYieldParameters is a free data retrieval call binding the contract method 0x171af90f.
 //
-// Solidity: function getTargetVotingYieldParameters() constant returns(uint256, uint256, uint256)
+// Solidity: function getTargetVotingYieldParameters() view returns(uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsSession) GetTargetVotingYieldParameters() (*big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.GetTargetVotingYieldParameters(&_EpochRewards.CallOpts)
 }
 
 // GetTargetVotingYieldParameters is a free data retrieval call binding the contract method 0x171af90f.
 //
-// Solidity: function getTargetVotingYieldParameters() constant returns(uint256, uint256, uint256)
+// Solidity: function getTargetVotingYieldParameters() view returns(uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetTargetVotingYieldParameters() (*big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.GetTargetVotingYieldParameters(&_EpochRewards.CallOpts)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_EpochRewards *EpochRewardsCaller) GetVerifiedSealBitmapFromHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -687,21 +687,21 @@ func (_EpochRewards *EpochRewardsCaller) GetVerifiedSealBitmapFromHeader(opts *b
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_EpochRewards *EpochRewardsSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _EpochRewards.Contract.GetVerifiedSealBitmapFromHeader(&_EpochRewards.CallOpts, header)
 }
 
 // GetVerifiedSealBitmapFromHeader is a free data retrieval call binding the contract method 0x4b2c2f44.
 //
-// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) constant returns(bytes32)
+// Solidity: function getVerifiedSealBitmapFromHeader(bytes header) view returns(bytes32)
 func (_EpochRewards *EpochRewardsCallerSession) GetVerifiedSealBitmapFromHeader(header []byte) ([32]byte, error) {
 	return _EpochRewards.Contract.GetVerifiedSealBitmapFromHeader(&_EpochRewards.CallOpts, header)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -721,21 +721,21 @@ func (_EpochRewards *EpochRewardsCaller) GetVersionNumber(opts *bind.CallOpts) (
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.GetVersionNumber(&_EpochRewards.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _EpochRewards.Contract.GetVersionNumber(&_EpochRewards.CallOpts)
 }
 
 // GetVotingGoldFraction is a free data retrieval call binding the contract method 0xa1b95962.
 //
-// Solidity: function getVotingGoldFraction() constant returns(uint256)
+// Solidity: function getVotingGoldFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) GetVotingGoldFraction(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -747,21 +747,21 @@ func (_EpochRewards *EpochRewardsCaller) GetVotingGoldFraction(opts *bind.CallOp
 
 // GetVotingGoldFraction is a free data retrieval call binding the contract method 0xa1b95962.
 //
-// Solidity: function getVotingGoldFraction() constant returns(uint256)
+// Solidity: function getVotingGoldFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) GetVotingGoldFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetVotingGoldFraction(&_EpochRewards.CallOpts)
 }
 
 // GetVotingGoldFraction is a free data retrieval call binding the contract method 0xa1b95962.
 //
-// Solidity: function getVotingGoldFraction() constant returns(uint256)
+// Solidity: function getVotingGoldFraction() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) GetVotingGoldFraction() (*big.Int, error) {
 	return _EpochRewards.Contract.GetVotingGoldFraction(&_EpochRewards.CallOpts)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_EpochRewards *EpochRewardsCaller) HashHeader(opts *bind.CallOpts, header []byte) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -773,21 +773,21 @@ func (_EpochRewards *EpochRewardsCaller) HashHeader(opts *bind.CallOpts, header 
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_EpochRewards *EpochRewardsSession) HashHeader(header []byte) ([32]byte, error) {
 	return _EpochRewards.Contract.HashHeader(&_EpochRewards.CallOpts, header)
 }
 
 // HashHeader is a free data retrieval call binding the contract method 0x67960e91.
 //
-// Solidity: function hashHeader(bytes header) constant returns(bytes32)
+// Solidity: function hashHeader(bytes header) view returns(bytes32)
 func (_EpochRewards *EpochRewardsCallerSession) HashHeader(header []byte) ([32]byte, error) {
 	return _EpochRewards.Contract.HashHeader(&_EpochRewards.CallOpts, header)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_EpochRewards *EpochRewardsCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -799,21 +799,21 @@ func (_EpochRewards *EpochRewardsCaller) Initialized(opts *bind.CallOpts) (bool,
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_EpochRewards *EpochRewardsSession) Initialized() (bool, error) {
 	return _EpochRewards.Contract.Initialized(&_EpochRewards.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_EpochRewards *EpochRewardsCallerSession) Initialized() (bool, error) {
 	return _EpochRewards.Contract.Initialized(&_EpochRewards.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_EpochRewards *EpochRewardsCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -825,21 +825,21 @@ func (_EpochRewards *EpochRewardsCaller) IsOwner(opts *bind.CallOpts) (bool, err
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_EpochRewards *EpochRewardsSession) IsOwner() (bool, error) {
 	return _EpochRewards.Contract.IsOwner(&_EpochRewards.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_EpochRewards *EpochRewardsCallerSession) IsOwner() (bool, error) {
 	return _EpochRewards.Contract.IsOwner(&_EpochRewards.CallOpts)
 }
 
 // IsReserveLow is a free data retrieval call binding the contract method 0x9ad0cce7.
 //
-// Solidity: function isReserveLow() constant returns(bool)
+// Solidity: function isReserveLow() view returns(bool)
 func (_EpochRewards *EpochRewardsCaller) IsReserveLow(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -851,21 +851,21 @@ func (_EpochRewards *EpochRewardsCaller) IsReserveLow(opts *bind.CallOpts) (bool
 
 // IsReserveLow is a free data retrieval call binding the contract method 0x9ad0cce7.
 //
-// Solidity: function isReserveLow() constant returns(bool)
+// Solidity: function isReserveLow() view returns(bool)
 func (_EpochRewards *EpochRewardsSession) IsReserveLow() (bool, error) {
 	return _EpochRewards.Contract.IsReserveLow(&_EpochRewards.CallOpts)
 }
 
 // IsReserveLow is a free data retrieval call binding the contract method 0x9ad0cce7.
 //
-// Solidity: function isReserveLow() constant returns(bool)
+// Solidity: function isReserveLow() view returns(bool)
 func (_EpochRewards *EpochRewardsCallerSession) IsReserveLow() (bool, error) {
 	return _EpochRewards.Contract.IsReserveLow(&_EpochRewards.CallOpts)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) MinQuorumSize(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -877,21 +877,21 @@ func (_EpochRewards *EpochRewardsCaller) MinQuorumSize(opts *bind.CallOpts, bloc
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _EpochRewards.Contract.MinQuorumSize(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // MinQuorumSize is a free data retrieval call binding the contract method 0xe50e652d.
 //
-// Solidity: function minQuorumSize(uint256 blockNumber) constant returns(uint256)
+// Solidity: function minQuorumSize(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) MinQuorumSize(blockNumber *big.Int) (*big.Int, error) {
 	return _EpochRewards.Contract.MinQuorumSize(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) MinQuorumSizeInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -903,21 +903,21 @@ func (_EpochRewards *EpochRewardsCaller) MinQuorumSizeInCurrentSet(opts *bind.Ca
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _EpochRewards.Contract.MinQuorumSizeInCurrentSet(&_EpochRewards.CallOpts)
 }
 
 // MinQuorumSizeInCurrentSet is a free data retrieval call binding the contract method 0x7385e5da.
 //
-// Solidity: function minQuorumSizeInCurrentSet() constant returns(uint256)
+// Solidity: function minQuorumSizeInCurrentSet() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) MinQuorumSizeInCurrentSet() (*big.Int, error) {
 	return _EpochRewards.Contract.MinQuorumSizeInCurrentSet(&_EpochRewards.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) NumberValidatorsInCurrentSet(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -929,21 +929,21 @@ func (_EpochRewards *EpochRewardsCaller) NumberValidatorsInCurrentSet(opts *bind
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _EpochRewards.Contract.NumberValidatorsInCurrentSet(&_EpochRewards.CallOpts)
 }
 
 // NumberValidatorsInCurrentSet is a free data retrieval call binding the contract method 0x87ee8a0f.
 //
-// Solidity: function numberValidatorsInCurrentSet() constant returns(uint256)
+// Solidity: function numberValidatorsInCurrentSet() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) NumberValidatorsInCurrentSet() (*big.Int, error) {
 	return _EpochRewards.Contract.NumberValidatorsInCurrentSet(&_EpochRewards.CallOpts)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) NumberValidatorsInSet(opts *bind.CallOpts, blockNumber *big.Int) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -955,21 +955,21 @@ func (_EpochRewards *EpochRewardsCaller) NumberValidatorsInSet(opts *bind.CallOp
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _EpochRewards.Contract.NumberValidatorsInSet(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // NumberValidatorsInSet is a free data retrieval call binding the contract method 0x9b2b592f.
 //
-// Solidity: function numberValidatorsInSet(uint256 blockNumber) constant returns(uint256)
+// Solidity: function numberValidatorsInSet(uint256 blockNumber) view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) NumberValidatorsInSet(blockNumber *big.Int) (*big.Int, error) {
 	return _EpochRewards.Contract.NumberValidatorsInSet(&_EpochRewards.CallOpts, blockNumber)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_EpochRewards *EpochRewardsCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -981,21 +981,21 @@ func (_EpochRewards *EpochRewardsCaller) Owner(opts *bind.CallOpts) (common.Addr
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_EpochRewards *EpochRewardsSession) Owner() (common.Address, error) {
 	return _EpochRewards.Contract.Owner(&_EpochRewards.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_EpochRewards *EpochRewardsCallerSession) Owner() (common.Address, error) {
 	return _EpochRewards.Contract.Owner(&_EpochRewards.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_EpochRewards *EpochRewardsCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1007,21 +1007,21 @@ func (_EpochRewards *EpochRewardsCaller) Registry(opts *bind.CallOpts) (common.A
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_EpochRewards *EpochRewardsSession) Registry() (common.Address, error) {
 	return _EpochRewards.Contract.Registry(&_EpochRewards.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_EpochRewards *EpochRewardsCallerSession) Registry() (common.Address, error) {
 	return _EpochRewards.Contract.Registry(&_EpochRewards.CallOpts)
 }
 
 // StartTime is a free data retrieval call binding the contract method 0x78e97925.
 //
-// Solidity: function startTime() constant returns(uint256)
+// Solidity: function startTime() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) StartTime(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1033,21 +1033,21 @@ func (_EpochRewards *EpochRewardsCaller) StartTime(opts *bind.CallOpts) (*big.In
 
 // StartTime is a free data retrieval call binding the contract method 0x78e97925.
 //
-// Solidity: function startTime() constant returns(uint256)
+// Solidity: function startTime() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) StartTime() (*big.Int, error) {
 	return _EpochRewards.Contract.StartTime(&_EpochRewards.CallOpts)
 }
 
 // StartTime is a free data retrieval call binding the contract method 0x78e97925.
 //
-// Solidity: function startTime() constant returns(uint256)
+// Solidity: function startTime() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) StartTime() (*big.Int, error) {
 	return _EpochRewards.Contract.StartTime(&_EpochRewards.CallOpts)
 }
 
 // TargetValidatorEpochPayment is a free data retrieval call binding the contract method 0xe185aaa8.
 //
-// Solidity: function targetValidatorEpochPayment() constant returns(uint256)
+// Solidity: function targetValidatorEpochPayment() view returns(uint256)
 func (_EpochRewards *EpochRewardsCaller) TargetValidatorEpochPayment(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -1059,21 +1059,21 @@ func (_EpochRewards *EpochRewardsCaller) TargetValidatorEpochPayment(opts *bind.
 
 // TargetValidatorEpochPayment is a free data retrieval call binding the contract method 0xe185aaa8.
 //
-// Solidity: function targetValidatorEpochPayment() constant returns(uint256)
+// Solidity: function targetValidatorEpochPayment() view returns(uint256)
 func (_EpochRewards *EpochRewardsSession) TargetValidatorEpochPayment() (*big.Int, error) {
 	return _EpochRewards.Contract.TargetValidatorEpochPayment(&_EpochRewards.CallOpts)
 }
 
 // TargetValidatorEpochPayment is a free data retrieval call binding the contract method 0xe185aaa8.
 //
-// Solidity: function targetValidatorEpochPayment() constant returns(uint256)
+// Solidity: function targetValidatorEpochPayment() view returns(uint256)
 func (_EpochRewards *EpochRewardsCallerSession) TargetValidatorEpochPayment() (*big.Int, error) {
 	return _EpochRewards.Contract.TargetValidatorEpochPayment(&_EpochRewards.CallOpts)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_EpochRewards *EpochRewardsCaller) ValidatorSignerAddressFromCurrentSet(opts *bind.CallOpts, index *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1085,21 +1085,21 @@ func (_EpochRewards *EpochRewardsCaller) ValidatorSignerAddressFromCurrentSet(op
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_EpochRewards *EpochRewardsSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _EpochRewards.Contract.ValidatorSignerAddressFromCurrentSet(&_EpochRewards.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromCurrentSet is a free data retrieval call binding the contract method 0x123633ea.
 //
-// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) constant returns(address)
+// Solidity: function validatorSignerAddressFromCurrentSet(uint256 index) view returns(address)
 func (_EpochRewards *EpochRewardsCallerSession) ValidatorSignerAddressFromCurrentSet(index *big.Int) (common.Address, error) {
 	return _EpochRewards.Contract.ValidatorSignerAddressFromCurrentSet(&_EpochRewards.CallOpts, index)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_EpochRewards *EpochRewardsCaller) ValidatorSignerAddressFromSet(opts *bind.CallOpts, index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -1111,14 +1111,14 @@ func (_EpochRewards *EpochRewardsCaller) ValidatorSignerAddressFromSet(opts *bin
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_EpochRewards *EpochRewardsSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _EpochRewards.Contract.ValidatorSignerAddressFromSet(&_EpochRewards.CallOpts, index, blockNumber)
 }
 
 // ValidatorSignerAddressFromSet is a free data retrieval call binding the contract method 0x5d180adb.
 //
-// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) constant returns(address)
+// Solidity: function validatorSignerAddressFromSet(uint256 index, uint256 blockNumber) view returns(address)
 func (_EpochRewards *EpochRewardsCallerSession) ValidatorSignerAddressFromSet(index *big.Int, blockNumber *big.Int) (common.Address, error) {
 	return _EpochRewards.Contract.ValidatorSignerAddressFromSet(&_EpochRewards.CallOpts, index, blockNumber)
 }
@@ -2052,7 +2052,7 @@ func (it *EpochRewardsRewardsMultiplierParametersSetIterator) Close() error {
 
 // EpochRewardsRewardsMultiplierParametersSet represents a RewardsMultiplierParametersSet event raised by the EpochRewards contract.
 type EpochRewardsRewardsMultiplierParametersSet struct {
-	MaxMultiplier              *big.Int
+	Max                        *big.Int
 	UnderspendAdjustmentFactor *big.Int
 	OverspendAdjustmentFactor  *big.Int
 	Raw                        types.Log // Blockchain specific contextual infos
@@ -2060,7 +2060,7 @@ type EpochRewardsRewardsMultiplierParametersSet struct {
 
 // FilterRewardsMultiplierParametersSet is a free log retrieval operation binding the contract event 0x191445ee0115396c9725b9c642b985d63820ca57d54e42e5eb38faec4022f05d.
 //
-// Solidity: event RewardsMultiplierParametersSet(uint256 maxMultiplier, uint256 underspendAdjustmentFactor, uint256 overspendAdjustmentFactor)
+// Solidity: event RewardsMultiplierParametersSet(uint256 max, uint256 underspendAdjustmentFactor, uint256 overspendAdjustmentFactor)
 func (_EpochRewards *EpochRewardsFilterer) FilterRewardsMultiplierParametersSet(opts *bind.FilterOpts) (*EpochRewardsRewardsMultiplierParametersSetIterator, error) {
 
 	logs, sub, err := _EpochRewards.contract.FilterLogs(opts, "RewardsMultiplierParametersSet")
@@ -2072,7 +2072,7 @@ func (_EpochRewards *EpochRewardsFilterer) FilterRewardsMultiplierParametersSet(
 
 // WatchRewardsMultiplierParametersSet is a free log subscription operation binding the contract event 0x191445ee0115396c9725b9c642b985d63820ca57d54e42e5eb38faec4022f05d.
 //
-// Solidity: event RewardsMultiplierParametersSet(uint256 maxMultiplier, uint256 underspendAdjustmentFactor, uint256 overspendAdjustmentFactor)
+// Solidity: event RewardsMultiplierParametersSet(uint256 max, uint256 underspendAdjustmentFactor, uint256 overspendAdjustmentFactor)
 func (_EpochRewards *EpochRewardsFilterer) WatchRewardsMultiplierParametersSet(opts *bind.WatchOpts, sink chan<- *EpochRewardsRewardsMultiplierParametersSet) (event.Subscription, error) {
 
 	logs, sub, err := _EpochRewards.contract.WatchLogs(opts, "RewardsMultiplierParametersSet")
@@ -2109,7 +2109,7 @@ func (_EpochRewards *EpochRewardsFilterer) WatchRewardsMultiplierParametersSet(o
 
 // ParseRewardsMultiplierParametersSet is a log parse operation binding the contract event 0x191445ee0115396c9725b9c642b985d63820ca57d54e42e5eb38faec4022f05d.
 //
-// Solidity: event RewardsMultiplierParametersSet(uint256 maxMultiplier, uint256 underspendAdjustmentFactor, uint256 overspendAdjustmentFactor)
+// Solidity: event RewardsMultiplierParametersSet(uint256 max, uint256 underspendAdjustmentFactor, uint256 overspendAdjustmentFactor)
 func (_EpochRewards *EpochRewardsFilterer) ParseRewardsMultiplierParametersSet(log types.Log) (*EpochRewardsRewardsMultiplierParametersSet, error) {
 	event := new(EpochRewardsRewardsMultiplierParametersSet)
 	if err := _EpochRewards.contract.UnpackLog(event, "RewardsMultiplierParametersSet", log); err != nil {
@@ -2453,14 +2453,14 @@ func (it *EpochRewardsTargetVotingYieldParametersSetIterator) Close() error {
 
 // EpochRewardsTargetVotingYieldParametersSet represents a TargetVotingYieldParametersSet event raised by the EpochRewards contract.
 type EpochRewardsTargetVotingYieldParametersSet struct {
-	MaxMultiplier    *big.Int
+	Max              *big.Int
 	AdjustmentFactor *big.Int
 	Raw              types.Log // Blockchain specific contextual infos
 }
 
 // FilterTargetVotingYieldParametersSet is a free log retrieval operation binding the contract event 0x1b76e38f3fdd1f284ed4d47c9d50ff407748c516ff9761616ff638c233107625.
 //
-// Solidity: event TargetVotingYieldParametersSet(uint256 maxMultiplier, uint256 adjustmentFactor)
+// Solidity: event TargetVotingYieldParametersSet(uint256 max, uint256 adjustmentFactor)
 func (_EpochRewards *EpochRewardsFilterer) FilterTargetVotingYieldParametersSet(opts *bind.FilterOpts) (*EpochRewardsTargetVotingYieldParametersSetIterator, error) {
 
 	logs, sub, err := _EpochRewards.contract.FilterLogs(opts, "TargetVotingYieldParametersSet")
@@ -2472,7 +2472,7 @@ func (_EpochRewards *EpochRewardsFilterer) FilterTargetVotingYieldParametersSet(
 
 // WatchTargetVotingYieldParametersSet is a free log subscription operation binding the contract event 0x1b76e38f3fdd1f284ed4d47c9d50ff407748c516ff9761616ff638c233107625.
 //
-// Solidity: event TargetVotingYieldParametersSet(uint256 maxMultiplier, uint256 adjustmentFactor)
+// Solidity: event TargetVotingYieldParametersSet(uint256 max, uint256 adjustmentFactor)
 func (_EpochRewards *EpochRewardsFilterer) WatchTargetVotingYieldParametersSet(opts *bind.WatchOpts, sink chan<- *EpochRewardsTargetVotingYieldParametersSet) (event.Subscription, error) {
 
 	logs, sub, err := _EpochRewards.contract.WatchLogs(opts, "TargetVotingYieldParametersSet")
@@ -2509,7 +2509,7 @@ func (_EpochRewards *EpochRewardsFilterer) WatchTargetVotingYieldParametersSet(o
 
 // ParseTargetVotingYieldParametersSet is a log parse operation binding the contract event 0x1b76e38f3fdd1f284ed4d47c9d50ff407748c516ff9761616ff638c233107625.
 //
-// Solidity: event TargetVotingYieldParametersSet(uint256 maxMultiplier, uint256 adjustmentFactor)
+// Solidity: event TargetVotingYieldParametersSet(uint256 max, uint256 adjustmentFactor)
 func (_EpochRewards *EpochRewardsFilterer) ParseTargetVotingYieldParametersSet(log types.Log) (*EpochRewardsTargetVotingYieldParametersSet, error) {
 	event := new(EpochRewardsTargetVotingYieldParametersSet)
 	if err := _EpochRewards.contract.UnpackLog(event, "TargetVotingYieldParametersSet", log); err != nil {
@@ -2587,13 +2587,13 @@ func (it *EpochRewardsTargetVotingYieldSetIterator) Close() error {
 
 // EpochRewardsTargetVotingYieldSet represents a TargetVotingYieldSet event raised by the EpochRewards contract.
 type EpochRewardsTargetVotingYieldSet struct {
-	TargetFactor *big.Int
-	Raw          types.Log // Blockchain specific contextual infos
+	Target *big.Int
+	Raw    types.Log // Blockchain specific contextual infos
 }
 
 // FilterTargetVotingYieldSet is a free log retrieval operation binding the contract event 0x152c3fc1e1cd415804bc9ae15876b37e62d8909358b940e6f4847ca927f46637.
 //
-// Solidity: event TargetVotingYieldSet(uint256 targetFactor)
+// Solidity: event TargetVotingYieldSet(uint256 target)
 func (_EpochRewards *EpochRewardsFilterer) FilterTargetVotingYieldSet(opts *bind.FilterOpts) (*EpochRewardsTargetVotingYieldSetIterator, error) {
 
 	logs, sub, err := _EpochRewards.contract.FilterLogs(opts, "TargetVotingYieldSet")
@@ -2605,7 +2605,7 @@ func (_EpochRewards *EpochRewardsFilterer) FilterTargetVotingYieldSet(opts *bind
 
 // WatchTargetVotingYieldSet is a free log subscription operation binding the contract event 0x152c3fc1e1cd415804bc9ae15876b37e62d8909358b940e6f4847ca927f46637.
 //
-// Solidity: event TargetVotingYieldSet(uint256 targetFactor)
+// Solidity: event TargetVotingYieldSet(uint256 target)
 func (_EpochRewards *EpochRewardsFilterer) WatchTargetVotingYieldSet(opts *bind.WatchOpts, sink chan<- *EpochRewardsTargetVotingYieldSet) (event.Subscription, error) {
 
 	logs, sub, err := _EpochRewards.contract.WatchLogs(opts, "TargetVotingYieldSet")
@@ -2642,7 +2642,7 @@ func (_EpochRewards *EpochRewardsFilterer) WatchTargetVotingYieldSet(opts *bind.
 
 // ParseTargetVotingYieldSet is a log parse operation binding the contract event 0x152c3fc1e1cd415804bc9ae15876b37e62d8909358b940e6f4847ca927f46637.
 //
-// Solidity: event TargetVotingYieldSet(uint256 targetFactor)
+// Solidity: event TargetVotingYieldSet(uint256 target)
 func (_EpochRewards *EpochRewardsFilterer) ParseTargetVotingYieldSet(log types.Log) (*EpochRewardsTargetVotingYieldSet, error) {
 	event := new(EpochRewardsTargetVotingYieldSet)
 	if err := _EpochRewards.contract.UnpackLog(event, "TargetVotingYieldSet", log); err != nil {

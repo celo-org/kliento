@@ -17,7 +17,7 @@ package chain
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/consensus/istanbul"
+	"github.com/celo-org/celo-blockchain/consensus/istanbul"
 )
 
 type ChainParameters struct {

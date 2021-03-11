@@ -7,12 +7,12 @@ import (
 	"math/big"
 	"strings"
 
-	ethereum "github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/event"
+	ethereum "github.com/celo-org/celo-blockchain"
+	"github.com/celo-org/celo-blockchain/accounts/abi"
+	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
+	"github.com/celo-org/celo-blockchain/common"
+	"github.com/celo-org/celo-blockchain/core/types"
+	"github.com/celo-org/celo-blockchain/event"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -183,7 +183,7 @@ func (_LockedGold *LockedGoldTransactorRaw) Transact(opts *bind.TransactOpts, me
 
 // GetAccountNonvotingLockedGold is a free data retrieval call binding the contract method 0x3f199b40.
 //
-// Solidity: function getAccountNonvotingLockedGold(address account) constant returns(uint256)
+// Solidity: function getAccountNonvotingLockedGold(address account) view returns(uint256)
 func (_LockedGold *LockedGoldCaller) GetAccountNonvotingLockedGold(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -195,21 +195,21 @@ func (_LockedGold *LockedGoldCaller) GetAccountNonvotingLockedGold(opts *bind.Ca
 
 // GetAccountNonvotingLockedGold is a free data retrieval call binding the contract method 0x3f199b40.
 //
-// Solidity: function getAccountNonvotingLockedGold(address account) constant returns(uint256)
+// Solidity: function getAccountNonvotingLockedGold(address account) view returns(uint256)
 func (_LockedGold *LockedGoldSession) GetAccountNonvotingLockedGold(account common.Address) (*big.Int, error) {
 	return _LockedGold.Contract.GetAccountNonvotingLockedGold(&_LockedGold.CallOpts, account)
 }
 
 // GetAccountNonvotingLockedGold is a free data retrieval call binding the contract method 0x3f199b40.
 //
-// Solidity: function getAccountNonvotingLockedGold(address account) constant returns(uint256)
+// Solidity: function getAccountNonvotingLockedGold(address account) view returns(uint256)
 func (_LockedGold *LockedGoldCallerSession) GetAccountNonvotingLockedGold(account common.Address) (*big.Int, error) {
 	return _LockedGold.Contract.GetAccountNonvotingLockedGold(&_LockedGold.CallOpts, account)
 }
 
 // GetAccountTotalLockedGold is a free data retrieval call binding the contract method 0x30ec70f5.
 //
-// Solidity: function getAccountTotalLockedGold(address account) constant returns(uint256)
+// Solidity: function getAccountTotalLockedGold(address account) view returns(uint256)
 func (_LockedGold *LockedGoldCaller) GetAccountTotalLockedGold(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -221,21 +221,21 @@ func (_LockedGold *LockedGoldCaller) GetAccountTotalLockedGold(opts *bind.CallOp
 
 // GetAccountTotalLockedGold is a free data retrieval call binding the contract method 0x30ec70f5.
 //
-// Solidity: function getAccountTotalLockedGold(address account) constant returns(uint256)
+// Solidity: function getAccountTotalLockedGold(address account) view returns(uint256)
 func (_LockedGold *LockedGoldSession) GetAccountTotalLockedGold(account common.Address) (*big.Int, error) {
 	return _LockedGold.Contract.GetAccountTotalLockedGold(&_LockedGold.CallOpts, account)
 }
 
 // GetAccountTotalLockedGold is a free data retrieval call binding the contract method 0x30ec70f5.
 //
-// Solidity: function getAccountTotalLockedGold(address account) constant returns(uint256)
+// Solidity: function getAccountTotalLockedGold(address account) view returns(uint256)
 func (_LockedGold *LockedGoldCallerSession) GetAccountTotalLockedGold(account common.Address) (*big.Int, error) {
 	return _LockedGold.Contract.GetAccountTotalLockedGold(&_LockedGold.CallOpts, account)
 }
 
 // GetNonvotingLockedGold is a free data retrieval call binding the contract method 0x807876b7.
 //
-// Solidity: function getNonvotingLockedGold() constant returns(uint256)
+// Solidity: function getNonvotingLockedGold() view returns(uint256)
 func (_LockedGold *LockedGoldCaller) GetNonvotingLockedGold(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -247,21 +247,21 @@ func (_LockedGold *LockedGoldCaller) GetNonvotingLockedGold(opts *bind.CallOpts)
 
 // GetNonvotingLockedGold is a free data retrieval call binding the contract method 0x807876b7.
 //
-// Solidity: function getNonvotingLockedGold() constant returns(uint256)
+// Solidity: function getNonvotingLockedGold() view returns(uint256)
 func (_LockedGold *LockedGoldSession) GetNonvotingLockedGold() (*big.Int, error) {
 	return _LockedGold.Contract.GetNonvotingLockedGold(&_LockedGold.CallOpts)
 }
 
 // GetNonvotingLockedGold is a free data retrieval call binding the contract method 0x807876b7.
 //
-// Solidity: function getNonvotingLockedGold() constant returns(uint256)
+// Solidity: function getNonvotingLockedGold() view returns(uint256)
 func (_LockedGold *LockedGoldCallerSession) GetNonvotingLockedGold() (*big.Int, error) {
 	return _LockedGold.Contract.GetNonvotingLockedGold(&_LockedGold.CallOpts)
 }
 
 // GetPendingWithdrawals is a free data retrieval call binding the contract method 0xf340c0d0.
 //
-// Solidity: function getPendingWithdrawals(address account) constant returns(uint256[], uint256[])
+// Solidity: function getPendingWithdrawals(address account) view returns(uint256[], uint256[])
 func (_LockedGold *LockedGoldCaller) GetPendingWithdrawals(opts *bind.CallOpts, account common.Address) ([]*big.Int, []*big.Int, error) {
 	var (
 		ret0 = new([]*big.Int)
@@ -277,21 +277,21 @@ func (_LockedGold *LockedGoldCaller) GetPendingWithdrawals(opts *bind.CallOpts, 
 
 // GetPendingWithdrawals is a free data retrieval call binding the contract method 0xf340c0d0.
 //
-// Solidity: function getPendingWithdrawals(address account) constant returns(uint256[], uint256[])
+// Solidity: function getPendingWithdrawals(address account) view returns(uint256[], uint256[])
 func (_LockedGold *LockedGoldSession) GetPendingWithdrawals(account common.Address) ([]*big.Int, []*big.Int, error) {
 	return _LockedGold.Contract.GetPendingWithdrawals(&_LockedGold.CallOpts, account)
 }
 
 // GetPendingWithdrawals is a free data retrieval call binding the contract method 0xf340c0d0.
 //
-// Solidity: function getPendingWithdrawals(address account) constant returns(uint256[], uint256[])
+// Solidity: function getPendingWithdrawals(address account) view returns(uint256[], uint256[])
 func (_LockedGold *LockedGoldCallerSession) GetPendingWithdrawals(account common.Address) ([]*big.Int, []*big.Int, error) {
 	return _LockedGold.Contract.GetPendingWithdrawals(&_LockedGold.CallOpts, account)
 }
 
 // GetSlashingWhitelist is a free data retrieval call binding the contract method 0x08764ee2.
 //
-// Solidity: function getSlashingWhitelist() constant returns(bytes32[])
+// Solidity: function getSlashingWhitelist() view returns(bytes32[])
 func (_LockedGold *LockedGoldCaller) GetSlashingWhitelist(opts *bind.CallOpts) ([][32]byte, error) {
 	var (
 		ret0 = new([][32]byte)
@@ -303,21 +303,21 @@ func (_LockedGold *LockedGoldCaller) GetSlashingWhitelist(opts *bind.CallOpts) (
 
 // GetSlashingWhitelist is a free data retrieval call binding the contract method 0x08764ee2.
 //
-// Solidity: function getSlashingWhitelist() constant returns(bytes32[])
+// Solidity: function getSlashingWhitelist() view returns(bytes32[])
 func (_LockedGold *LockedGoldSession) GetSlashingWhitelist() ([][32]byte, error) {
 	return _LockedGold.Contract.GetSlashingWhitelist(&_LockedGold.CallOpts)
 }
 
 // GetSlashingWhitelist is a free data retrieval call binding the contract method 0x08764ee2.
 //
-// Solidity: function getSlashingWhitelist() constant returns(bytes32[])
+// Solidity: function getSlashingWhitelist() view returns(bytes32[])
 func (_LockedGold *LockedGoldCallerSession) GetSlashingWhitelist() ([][32]byte, error) {
 	return _LockedGold.Contract.GetSlashingWhitelist(&_LockedGold.CallOpts)
 }
 
 // GetTotalLockedGold is a free data retrieval call binding the contract method 0x30a61d59.
 //
-// Solidity: function getTotalLockedGold() constant returns(uint256)
+// Solidity: function getTotalLockedGold() view returns(uint256)
 func (_LockedGold *LockedGoldCaller) GetTotalLockedGold(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -329,21 +329,21 @@ func (_LockedGold *LockedGoldCaller) GetTotalLockedGold(opts *bind.CallOpts) (*b
 
 // GetTotalLockedGold is a free data retrieval call binding the contract method 0x30a61d59.
 //
-// Solidity: function getTotalLockedGold() constant returns(uint256)
+// Solidity: function getTotalLockedGold() view returns(uint256)
 func (_LockedGold *LockedGoldSession) GetTotalLockedGold() (*big.Int, error) {
 	return _LockedGold.Contract.GetTotalLockedGold(&_LockedGold.CallOpts)
 }
 
 // GetTotalLockedGold is a free data retrieval call binding the contract method 0x30a61d59.
 //
-// Solidity: function getTotalLockedGold() constant returns(uint256)
+// Solidity: function getTotalLockedGold() view returns(uint256)
 func (_LockedGold *LockedGoldCallerSession) GetTotalLockedGold() (*big.Int, error) {
 	return _LockedGold.Contract.GetTotalLockedGold(&_LockedGold.CallOpts)
 }
 
 // GetTotalPendingWithdrawals is a free data retrieval call binding the contract method 0xb6e1e49d.
 //
-// Solidity: function getTotalPendingWithdrawals(address account) constant returns(uint256)
+// Solidity: function getTotalPendingWithdrawals(address account) view returns(uint256)
 func (_LockedGold *LockedGoldCaller) GetTotalPendingWithdrawals(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -355,21 +355,21 @@ func (_LockedGold *LockedGoldCaller) GetTotalPendingWithdrawals(opts *bind.CallO
 
 // GetTotalPendingWithdrawals is a free data retrieval call binding the contract method 0xb6e1e49d.
 //
-// Solidity: function getTotalPendingWithdrawals(address account) constant returns(uint256)
+// Solidity: function getTotalPendingWithdrawals(address account) view returns(uint256)
 func (_LockedGold *LockedGoldSession) GetTotalPendingWithdrawals(account common.Address) (*big.Int, error) {
 	return _LockedGold.Contract.GetTotalPendingWithdrawals(&_LockedGold.CallOpts, account)
 }
 
 // GetTotalPendingWithdrawals is a free data retrieval call binding the contract method 0xb6e1e49d.
 //
-// Solidity: function getTotalPendingWithdrawals(address account) constant returns(uint256)
+// Solidity: function getTotalPendingWithdrawals(address account) view returns(uint256)
 func (_LockedGold *LockedGoldCallerSession) GetTotalPendingWithdrawals(account common.Address) (*big.Int, error) {
 	return _LockedGold.Contract.GetTotalPendingWithdrawals(&_LockedGold.CallOpts, account)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_LockedGold *LockedGoldCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -389,21 +389,21 @@ func (_LockedGold *LockedGoldCaller) GetVersionNumber(opts *bind.CallOpts) (*big
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_LockedGold *LockedGoldSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _LockedGold.Contract.GetVersionNumber(&_LockedGold.CallOpts)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
 //
-// Solidity: function getVersionNumber() constant returns(uint256, uint256, uint256, uint256)
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_LockedGold *LockedGoldCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _LockedGold.Contract.GetVersionNumber(&_LockedGold.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_LockedGold *LockedGoldCaller) Initialized(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -415,21 +415,21 @@ func (_LockedGold *LockedGoldCaller) Initialized(opts *bind.CallOpts) (bool, err
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_LockedGold *LockedGoldSession) Initialized() (bool, error) {
 	return _LockedGold.Contract.Initialized(&_LockedGold.CallOpts)
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
-// Solidity: function initialized() constant returns(bool)
+// Solidity: function initialized() view returns(bool)
 func (_LockedGold *LockedGoldCallerSession) Initialized() (bool, error) {
 	return _LockedGold.Contract.Initialized(&_LockedGold.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_LockedGold *LockedGoldCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -441,21 +441,21 @@ func (_LockedGold *LockedGoldCaller) IsOwner(opts *bind.CallOpts) (bool, error) 
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_LockedGold *LockedGoldSession) IsOwner() (bool, error) {
 	return _LockedGold.Contract.IsOwner(&_LockedGold.CallOpts)
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
-// Solidity: function isOwner() constant returns(bool)
+// Solidity: function isOwner() view returns(bool)
 func (_LockedGold *LockedGoldCallerSession) IsOwner() (bool, error) {
 	return _LockedGold.Contract.IsOwner(&_LockedGold.CallOpts)
 }
 
 // IsSlasher is a free data retrieval call binding the contract method 0x57601c5d.
 //
-// Solidity: function isSlasher(address slasher) constant returns(bool)
+// Solidity: function isSlasher(address slasher) view returns(bool)
 func (_LockedGold *LockedGoldCaller) IsSlasher(opts *bind.CallOpts, slasher common.Address) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -467,21 +467,21 @@ func (_LockedGold *LockedGoldCaller) IsSlasher(opts *bind.CallOpts, slasher comm
 
 // IsSlasher is a free data retrieval call binding the contract method 0x57601c5d.
 //
-// Solidity: function isSlasher(address slasher) constant returns(bool)
+// Solidity: function isSlasher(address slasher) view returns(bool)
 func (_LockedGold *LockedGoldSession) IsSlasher(slasher common.Address) (bool, error) {
 	return _LockedGold.Contract.IsSlasher(&_LockedGold.CallOpts, slasher)
 }
 
 // IsSlasher is a free data retrieval call binding the contract method 0x57601c5d.
 //
-// Solidity: function isSlasher(address slasher) constant returns(bool)
+// Solidity: function isSlasher(address slasher) view returns(bool)
 func (_LockedGold *LockedGoldCallerSession) IsSlasher(slasher common.Address) (bool, error) {
 	return _LockedGold.Contract.IsSlasher(&_LockedGold.CallOpts, slasher)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_LockedGold *LockedGoldCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -493,21 +493,21 @@ func (_LockedGold *LockedGoldCaller) Owner(opts *bind.CallOpts) (common.Address,
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_LockedGold *LockedGoldSession) Owner() (common.Address, error) {
 	return _LockedGold.Contract.Owner(&_LockedGold.CallOpts)
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function owner() constant returns(address)
+// Solidity: function owner() view returns(address)
 func (_LockedGold *LockedGoldCallerSession) Owner() (common.Address, error) {
 	return _LockedGold.Contract.Owner(&_LockedGold.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_LockedGold *LockedGoldCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -519,21 +519,21 @@ func (_LockedGold *LockedGoldCaller) Registry(opts *bind.CallOpts) (common.Addre
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_LockedGold *LockedGoldSession) Registry() (common.Address, error) {
 	return _LockedGold.Contract.Registry(&_LockedGold.CallOpts)
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
 //
-// Solidity: function registry() constant returns(address)
+// Solidity: function registry() view returns(address)
 func (_LockedGold *LockedGoldCallerSession) Registry() (common.Address, error) {
 	return _LockedGold.Contract.Registry(&_LockedGold.CallOpts)
 }
 
 // SlashingWhitelist is a free data retrieval call binding the contract method 0x6adcc938.
 //
-// Solidity: function slashingWhitelist(uint256 ) constant returns(bytes32)
+// Solidity: function slashingWhitelist(uint256 ) view returns(bytes32)
 func (_LockedGold *LockedGoldCaller) SlashingWhitelist(opts *bind.CallOpts, arg0 *big.Int) ([32]byte, error) {
 	var (
 		ret0 = new([32]byte)
@@ -545,21 +545,21 @@ func (_LockedGold *LockedGoldCaller) SlashingWhitelist(opts *bind.CallOpts, arg0
 
 // SlashingWhitelist is a free data retrieval call binding the contract method 0x6adcc938.
 //
-// Solidity: function slashingWhitelist(uint256 ) constant returns(bytes32)
+// Solidity: function slashingWhitelist(uint256 ) view returns(bytes32)
 func (_LockedGold *LockedGoldSession) SlashingWhitelist(arg0 *big.Int) ([32]byte, error) {
 	return _LockedGold.Contract.SlashingWhitelist(&_LockedGold.CallOpts, arg0)
 }
 
 // SlashingWhitelist is a free data retrieval call binding the contract method 0x6adcc938.
 //
-// Solidity: function slashingWhitelist(uint256 ) constant returns(bytes32)
+// Solidity: function slashingWhitelist(uint256 ) view returns(bytes32)
 func (_LockedGold *LockedGoldCallerSession) SlashingWhitelist(arg0 *big.Int) ([32]byte, error) {
 	return _LockedGold.Contract.SlashingWhitelist(&_LockedGold.CallOpts, arg0)
 }
 
 // TotalNonvoting is a free data retrieval call binding the contract method 0xc1867f6d.
 //
-// Solidity: function totalNonvoting() constant returns(uint256)
+// Solidity: function totalNonvoting() view returns(uint256)
 func (_LockedGold *LockedGoldCaller) TotalNonvoting(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -571,21 +571,21 @@ func (_LockedGold *LockedGoldCaller) TotalNonvoting(opts *bind.CallOpts) (*big.I
 
 // TotalNonvoting is a free data retrieval call binding the contract method 0xc1867f6d.
 //
-// Solidity: function totalNonvoting() constant returns(uint256)
+// Solidity: function totalNonvoting() view returns(uint256)
 func (_LockedGold *LockedGoldSession) TotalNonvoting() (*big.Int, error) {
 	return _LockedGold.Contract.TotalNonvoting(&_LockedGold.CallOpts)
 }
 
 // TotalNonvoting is a free data retrieval call binding the contract method 0xc1867f6d.
 //
-// Solidity: function totalNonvoting() constant returns(uint256)
+// Solidity: function totalNonvoting() view returns(uint256)
 func (_LockedGold *LockedGoldCallerSession) TotalNonvoting() (*big.Int, error) {
 	return _LockedGold.Contract.TotalNonvoting(&_LockedGold.CallOpts)
 }
 
 // UnlockingPeriod is a free data retrieval call binding the contract method 0x20637d8e.
 //
-// Solidity: function unlockingPeriod() constant returns(uint256)
+// Solidity: function unlockingPeriod() view returns(uint256)
 func (_LockedGold *LockedGoldCaller) UnlockingPeriod(opts *bind.CallOpts) (*big.Int, error) {
 	var (
 		ret0 = new(*big.Int)
@@ -597,14 +597,14 @@ func (_LockedGold *LockedGoldCaller) UnlockingPeriod(opts *bind.CallOpts) (*big.
 
 // UnlockingPeriod is a free data retrieval call binding the contract method 0x20637d8e.
 //
-// Solidity: function unlockingPeriod() constant returns(uint256)
+// Solidity: function unlockingPeriod() view returns(uint256)
 func (_LockedGold *LockedGoldSession) UnlockingPeriod() (*big.Int, error) {
 	return _LockedGold.Contract.UnlockingPeriod(&_LockedGold.CallOpts)
 }
 
 // UnlockingPeriod is a free data retrieval call binding the contract method 0x20637d8e.
 //
-// Solidity: function unlockingPeriod() constant returns(uint256)
+// Solidity: function unlockingPeriod() view returns(uint256)
 func (_LockedGold *LockedGoldCallerSession) UnlockingPeriod() (*big.Int, error) {
 	return _LockedGold.Contract.UnlockingPeriod(&_LockedGold.CallOpts)
 }
@@ -695,21 +695,21 @@ func (_LockedGold *LockedGoldTransactorSession) Initialize(registryAddress commo
 
 // Lock is a paid mutator transaction binding the contract method 0xf83d08ba.
 //
-// Solidity: function lock() returns()
+// Solidity: function lock() payable returns()
 func (_LockedGold *LockedGoldTransactor) Lock(opts *bind.TransactOpts) (*types.Transaction, error) {
 	return _LockedGold.contract.Transact(opts, "lock")
 }
 
 // Lock is a paid mutator transaction binding the contract method 0xf83d08ba.
 //
-// Solidity: function lock() returns()
+// Solidity: function lock() payable returns()
 func (_LockedGold *LockedGoldSession) Lock() (*types.Transaction, error) {
 	return _LockedGold.Contract.Lock(&_LockedGold.TransactOpts)
 }
 
 // Lock is a paid mutator transaction binding the contract method 0xf83d08ba.
 //
-// Solidity: function lock() returns()
+// Solidity: function lock() payable returns()
 func (_LockedGold *LockedGoldTransactorSession) Lock() (*types.Transaction, error) {
 	return _LockedGold.Contract.Lock(&_LockedGold.TransactOpts)
 }
