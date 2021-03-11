@@ -37,9 +37,6 @@ var EscrowContractID ContractID = "Escrow"
 // ExchangeContractID is the registry identifier for 'Exchange' contract
 var ExchangeContractID ContractID = "Exchange"
 
-// ExchangeEURContractID is the registry identifier for 'ExchangeEUR' contract
-var ExchangeEURContractID ContractID = "ExchangeEUR"
-
 // GasPriceMinimumContractID is the registry identifier for 'GasPriceMinimum' contract
 var GasPriceMinimumContractID ContractID = "GasPriceMinimum"
 
@@ -67,9 +64,6 @@ var SortedOraclesContractID ContractID = "SortedOracles"
 // StableTokenContractID is the registry identifier for 'StableToken' contract
 var StableTokenContractID ContractID = "StableToken"
 
-// StableTokenEURContractID is the registry identifier for 'StableTokenEUR' contract
-var StableTokenEURContractID ContractID = "StableTokenEUR"
-
 // ValidatorsContractID is the registry identifier for 'Validators' contract
 var ValidatorsContractID ContractID = "Validators"
 
@@ -94,8 +88,6 @@ var RegisteredContractIDs = []ContractID{
 
 	ExchangeContractID,
 
-	ExchangeEURContractID,
-
 	GasPriceMinimumContractID,
 
 	GoldTokenContractID,
@@ -113,8 +105,6 @@ var RegisteredContractIDs = []ContractID{
 	SortedOraclesContractID,
 
 	StableTokenContractID,
-
-	StableTokenEURContractID,
 
 	ValidatorsContractID,
 }
@@ -138,8 +128,6 @@ type boundContracts struct {
 
 	ExchangeContract *contracts.Exchange
 
-	ExchangeEURContract *contracts.Exchange
-
 	GasPriceMinimumContract *contracts.GasPriceMinimum
 
 	GoldTokenContract *contracts.GoldToken
@@ -157,8 +145,6 @@ type boundContracts struct {
 	SortedOraclesContract *contracts.SortedOracles
 
 	StableTokenContract *contracts.StableToken
-
-	StableTokenEURContract *contracts.StableToken
 
 	ValidatorsContract *contracts.Validators
 }
@@ -184,8 +170,6 @@ type generatedRegistry interface {
 
 	GetExchangeContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error)
 
-	GetExchangeEURContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error)
-
 	GetGasPriceMinimumContract(ctx context.Context, blockNumber *big.Int) (*contracts.GasPriceMinimum, error)
 
 	GetGoldTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.GoldToken, error)
@@ -203,8 +187,6 @@ type generatedRegistry interface {
 	GetSortedOraclesContract(ctx context.Context, blockNumber *big.Int) (*contracts.SortedOracles, error)
 
 	GetStableTokenContract(ctx context.Context, blockNumber *big.Int) (*contracts.StableToken, error)
-
-	GetStableTokenEURContract(ctx context.Context, blockNumber *big.Int) (*contracts.StableToken, error)
 
 	GetValidatorsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Validators, error)
 }
@@ -239,9 +221,6 @@ func (r *registryImpl) GetContractByID(ctx context.Context, identifier string, b
 	case ExchangeContractID.String():
 		return r.GetExchangeContract(ctx, blockNumber)
 
-	case ExchangeEURContractID.String():
-		return r.GetExchangeEURContract(ctx, blockNumber)
-
 	case GasPriceMinimumContractID.String():
 		return r.GetGasPriceMinimumContract(ctx, blockNumber)
 
@@ -268,9 +247,6 @@ func (r *registryImpl) GetContractByID(ctx context.Context, identifier string, b
 
 	case StableTokenContractID.String():
 		return r.GetStableTokenContract(ctx, blockNumber)
-
-	case StableTokenEURContractID.String():
-		return r.GetStableTokenEURContract(ctx, blockNumber)
 
 	case ValidatorsContractID.String():
 		return r.GetValidatorsContract(ctx, blockNumber)
@@ -423,22 +399,6 @@ func (r *registryImpl) GetExchangeContract(ctx context.Context, blockNumber *big
 	return r.ExchangeContract, nil
 }
 
-func (r *registryImpl) GetExchangeEURContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error) {
-	identifier := ExchangeEURContractID.String()
-	if r.ExchangeEURContract == nil || r.cache.isDirty(identifier) {
-		address, err := r.GetAddressFor(ctx, blockNumber, ExchangeEURContractID)
-		if err != nil {
-			return nil, err
-		}
-		contract, err := contracts.NewExchange(address, r.cc.Eth)
-		if err != nil {
-			return nil, err
-		}
-		r.ExchangeEURContract = contract
-	}
-	return r.ExchangeEURContract, nil
-}
-
 func (r *registryImpl) GetGasPriceMinimumContract(ctx context.Context, blockNumber *big.Int) (*contracts.GasPriceMinimum, error) {
 	identifier := GasPriceMinimumContractID.String()
 	if r.GasPriceMinimumContract == nil || r.cache.isDirty(identifier) {
@@ -581,22 +541,6 @@ func (r *registryImpl) GetStableTokenContract(ctx context.Context, blockNumber *
 		r.StableTokenContract = contract
 	}
 	return r.StableTokenContract, nil
-}
-
-func (r *registryImpl) GetStableTokenEURContract(ctx context.Context, blockNumber *big.Int) (*contracts.StableToken, error) {
-	identifier := StableTokenEURContractID.String()
-	if r.StableTokenEURContract == nil || r.cache.isDirty(identifier) {
-		address, err := r.GetAddressFor(ctx, blockNumber, StableTokenEURContractID)
-		if err != nil {
-			return nil, err
-		}
-		contract, err := contracts.NewStableToken(address, r.cc.Eth)
-		if err != nil {
-			return nil, err
-		}
-		r.StableTokenEURContract = contract
-	}
-	return r.StableTokenEURContract, nil
 }
 
 func (r *registryImpl) GetValidatorsContract(ctx context.Context, blockNumber *big.Int) (*contracts.Validators, error) {

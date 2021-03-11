@@ -34,23 +34,6 @@ type ContractID string
 
 func (cid ContractID) String() string { return string(cid) }
 
-// // or stable tokens
-// type CeloToken string
-//
-// const (
-//     CELO CeloToken = "CELO"
-//     CUSD CeloToken = "cUSD"
-// 	CEUR CeloToken = "cEUR"
-// )
-//
-// struct CeloTokenInfo {
-// 	contractId ContractID
-// }
-
-// const celoTokenInfo map[CeloToken]CeloTokenInfo{
-// 	CELO: StableTokenContractID
-// }
-
 // RegistryAddress is the address of the registry which is the same on any celo network
 var RegistryAddress = params.RegistrySmartContractAddress
 
