@@ -29,22 +29,33 @@ type CeloTokenInfo struct {
 	isStableToken      bool
 }
 
-// CeloTokenInfos contains a CeloTokenInfo entry for each CeloToken key
+// CELOInfo contains info on the CELO token
+var CELOInfo = CeloTokenInfo{
+	registryID:    registry.StableTokenContractID,
+	isStableToken: false,
+}
+
+// CUSDInfo contains info on the cUSD token
+var CUSDInfo = CeloTokenInfo{
+	registryID:         registry.StableTokenContractID,
+	exchangeRegistryID: registry.ExchangeContractID,
+	isStableToken:      true,
+}
+
+// CEURInfo contains info on the cEUR token
+var CEURInfo = CeloTokenInfo{
+	registryID:         registry.StableTokenEURContractID,
+	exchangeRegistryID: registry.ExchangeEURContractID,
+	isStableToken:      true,
+}
+
+// CeloTokenInfos contains a CeloTokenInfo entry for each CeloToken key.
+// This is used for functions that iterate on all tokens or stable tokens.
 var CeloTokenInfos = map[CeloToken]CeloTokenInfo{
-	CELO: CeloTokenInfo{
-		registryID:    registry.StableTokenContractID,
-		isStableToken: false,
-	},
-	CUSD: CeloTokenInfo{
-		registryID:         registry.StableTokenContractID,
-		exchangeRegistryID: registry.ExchangeContractID,
-		isStableToken:      true,
-	},
-	CEUR: CeloTokenInfo{
-		registryID:         registry.StableTokenEURContractID,
-		exchangeRegistryID: registry.ExchangeEURContractID,
-		isStableToken:      true,
-	},
+	CELO: CELOInfo,
+	CUSD: CUSDInfo,
+	// TODO: uncomment when cEUR is live on mainnet
+	// CEUR: CEURInfo,
 }
 
 // CeloTokens provides a friendly interface for interacting with Celo tokens
