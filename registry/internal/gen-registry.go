@@ -9,7 +9,7 @@ import (
 )
 
 // Map of contract id (ie registry string) => generated contract struct
-// This is used to by templateStr to generate gen_registry
+// This is used by templateStr to generate gen_registry
 var contractIDToGeneratedContractType = map[string]string{
 	"Accounts":             "Accounts",
 	"Attestations":         "Attestations",
