@@ -8,26 +8,30 @@ import (
 	"text/template"
 )
 
-var contractsToGenerate = []string{
-	"Accounts",
-	"Attestations",
-	"BlockchainParameters",
-	"DoubleSigningSlasher",
-	"DowntimeSlasher",
-	"Election",
-	"EpochRewards",
-	"Escrow",
-	"Exchange",
-	"GasPriceMinimum",
-	"GoldToken",
-	"Governance",
-	"GovernanceSlasher",
-	"LockedGold",
-	"Random",
-	"Reserve",
-	"SortedOracles",
-	"StableToken",
-	"Validators",
+// Map of contract id (ie registry string) => generated contract struct
+// This is used by templateStr to generate gen_registry
+var contractIDToGeneratedContractType = map[string]string{
+	"Accounts":             "Accounts",
+	"Attestations":         "Attestations",
+	"BlockchainParameters": "BlockchainParameters",
+	"DoubleSigningSlasher": "DoubleSigningSlasher",
+	"DowntimeSlasher":      "DowntimeSlasher",
+	"Election":             "Election",
+	"EpochRewards":         "EpochRewards",
+	"Escrow":               "Escrow",
+	"Exchange":             "Exchange",
+	"ExchangeEUR":          "Exchange",
+	"GasPriceMinimum":      "GasPriceMinimum",
+	"GoldToken":            "GoldToken",
+	"Governance":           "Governance",
+	"GovernanceSlasher":    "GovernanceSlasher",
+	"LockedGold":           "LockedGold",
+	"Random":               "Random",
+	"Reserve":              "Reserve",
+	"SortedOracles":        "SortedOracles",
+	"StableToken":          "StableToken",
+	"StableTokenEUR":       "StableToken",
+	"Validators":           "Validators",
 }
 
 var templateStr = `
@@ -43,58 +47,58 @@ import (
 	"github.com/celo-org/kliento/contracts"
 )
 
-{{range .}}
-// {{.}}ContractID is the registry identifier for '{{.}}' contract
-var {{.}}ContractID ContractID = "{{.}}"
-{{end}}
+{{ range $contractId, $generatedContract := . }}
+// {{ $contractId }}ContractID is the registry identifier for '{{ $contractId }}' contract
+var {{ $contractId }}ContractID ContractID = "{{ $contractId }}"
+{{ end }}
 
 // RegisteredContractIDs are all (known) registered contract identifiers
 var RegisteredContractIDs = []ContractID{
-	{{range .}}
-	{{.}}ContractID,
-	{{end}}
+	{{ range $contractId, $generatedContract := . }}
+	{{ $contractId }}ContractID,
+	{{ end }}
 }
 
 type boundContracts struct {
-	{{range .}}
-	{{.}}Contract *contracts.{{.}}
-	{{end}}
+	{{ range $contractId, $generatedContract := . }}
+	{{ $contractId }}Contract *contracts.{{ $generatedContract }}
+	{{ end }}
 }
 
 type generatedRegistry interface {
 	GetContractByID(ctx context.Context, identifier string, blockNumber *big.Int) (interface{}, error)
-	{{range .}}
-	Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error)
-	{{end}}
+	{{ range $contractId, $generatedContract := . }}
+	Get{{ $contractId }}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{ $generatedContract }}, error)
+	{{ end }}
 }
 
 func (r *registryImpl) GetContractByID(ctx context.Context, identifier string, blockNumber *big.Int) (interface{}, error) {
 	switch identifier {
-		{{range .}}
-		case {{.}}ContractID.String():
-			return r.Get{{.}}Contract(ctx, blockNumber)
-		{{end}}
+		{{ range $contractId, $generatedContract := . }}
+		case {{ $contractId }}ContractID.String():
+			return r.Get{{ $contractId }}Contract(ctx, blockNumber)
+		{{ end }}
 	}
 	return nil, fmt.Errorf("identifier '%s' not found", identifier)
 }
 
-{{range .}}
-func (r *registryImpl) Get{{.}}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{.}}, error) {
-	identifier := {{.}}ContractID.String()
-	if (r.{{.}}Contract == nil || r.cache.isDirty(identifier)) {
-		address, err := r.GetAddressFor(ctx, blockNumber, {{.}}ContractID)
+{{ range $contractId, $generatedContract := . }}
+func (r *registryImpl) Get{{ $contractId }}Contract(ctx context.Context, blockNumber *big.Int) (*contracts.{{ $generatedContract }}, error) {
+	identifier := {{ $contractId }}ContractID.String()
+	if (r.{{ $contractId }}Contract == nil || r.cache.isDirty(identifier)) {
+		address, err := r.GetAddressFor(ctx, blockNumber, {{ $contractId }}ContractID)
 		if err != nil {
 			return nil, err
 		}
-		contract, err := contracts.New{{.}}(address, r.cc.Eth)
+		contract, err := contracts.New{{ $generatedContract }}(address, r.cc.Eth)
 		if err != nil {
 			return nil, err
 		}
-		r.{{.}}Contract = contract
+		r.{{ $contractId }}Contract = contract
 	}
-	return r.{{.}}Contract, nil
+	return r.{{ $contractId }}Contract, nil
 }
-{{end}}
+{{ end }}
 `
 
 func main() {
@@ -102,7 +106,7 @@ func main() {
 
 	var buf bytes.Buffer
 
-	template.Execute(&buf, contractsToGenerate)
+	template.Execute(&buf, contractIDToGeneratedContractType)
 	p, err := format.Source(buf.Bytes())
 	if err != nil {
 		panic(err)
