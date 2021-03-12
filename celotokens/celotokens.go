@@ -54,8 +54,7 @@ var CEURInfo = CeloTokenInfo{
 var CeloTokenInfos = map[CeloToken]CeloTokenInfo{
 	CELO: CELOInfo,
 	CUSD: CUSDInfo,
-	// TODO: uncomment when cEUR is live on mainnet
-	// CEUR: CEURInfo,
+	CEUR: CEURInfo,
 }
 
 // CeloTokens provides a friendly interface for interacting with Celo tokens
