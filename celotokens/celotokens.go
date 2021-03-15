@@ -69,7 +69,9 @@ func New(reg registry.Registry) *CeloTokens {
 	}
 }
 
-// GetExchangeContract gets the exchange contract for a provided stable token
+// GetExchangeContract gets the exchange contract for a provided stable token.
+// Note that if the contract has not been registered with the Registry as of
+// blockNumber, an error is returned.
 func (ct *CeloTokens) GetExchangeContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (*contracts.Exchange, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
@@ -85,7 +87,9 @@ func (ct *CeloTokens) GetExchangeContract(ctx context.Context, token CeloToken, 
 	return contract.(*contracts.Exchange), nil
 }
 
-// GetStableTokenContract gets the stabletoken contract for a provided stable token
+// GetStableTokenContract gets the stabletoken contract for a provided stable token.
+// Note that if the contract has not been registered with the Registry as of
+// blockNumber, an error is returned.
 func (ct *CeloTokens) GetStableTokenContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (*contracts.StableToken, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
@@ -101,7 +105,9 @@ func (ct *CeloTokens) GetStableTokenContract(ctx context.Context, token CeloToke
 	return contract.(*contracts.StableToken), nil
 }
 
-// GetContract gets the contract for a provided celo token
+// GetContract gets the contract for a provided celo token.
+// Note that if the contract has not been registered with the Registry as of
+// blockNumber, an error is returned.
 func (ct *CeloTokens) GetContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (contracts.CeloTokenContract, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
@@ -114,7 +120,9 @@ func (ct *CeloTokens) GetContract(ctx context.Context, token CeloToken, blockNum
 	return contract.(contracts.CeloTokenContract), nil
 }
 
-// GetExchangeContracts gets the exchange contracts for all stable tokens
+// GetExchangeContracts gets the exchange contracts for all stable tokens.
+// If an exchange contract has not been registered with the Registry as of blockNumber,
+// the contract is set to nil and no error is returned.
 func (ct *CeloTokens) GetExchangeContracts(ctx context.Context, blockNumber *big.Int) (map[CeloToken]*contracts.Exchange, error) {
 	exchangeContracts := make(map[CeloToken]*contracts.Exchange)
 	for token, tokenInfo := range CeloTokenInfos {
@@ -124,7 +132,10 @@ func (ct *CeloTokens) GetExchangeContracts(ctx context.Context, blockNumber *big
 		}
 		exchangeContract, err := ct.GetExchangeContract(ctx, token, blockNumber)
 		if err != nil {
-			return nil, err
+			if !registry.IsExpectedBeforeContractsDeployed(err) {
+				return nil, err
+			}
+			exchangeContract = nil
 		}
 		exchangeContracts[token] = exchangeContract
 	}
@@ -133,6 +144,8 @@ func (ct *CeloTokens) GetExchangeContracts(ctx context.Context, blockNumber *big
 
 // GetContracts gets the contracts for all tokens. If onlyStables is true, contracts
 // for only stable tokens are provided.
+// If a contract has not been registered with the Registry as of blockNumber,
+// the contract is set to nil and no error is returned.
 func (ct *CeloTokens) GetContracts(ctx context.Context, blockNumber *big.Int, onlyStables bool) (map[CeloToken]contracts.CeloTokenContract, error) {
 	contracts := make(map[CeloToken]contracts.CeloTokenContract)
 	for token, tokenInfo := range CeloTokenInfos {
@@ -141,7 +154,10 @@ func (ct *CeloTokens) GetContracts(ctx context.Context, blockNumber *big.Int, on
 		}
 		contract, err := ct.GetContract(ctx, token, blockNumber)
 		if err != nil {
-			return nil, err
+			if !registry.IsExpectedBeforeContractsDeployed(err) {
+				return nil, err
+			}
+			contract = nil
 		}
 		contracts[token] = contract
 	}
@@ -150,6 +166,8 @@ func (ct *CeloTokens) GetContracts(ctx context.Context, blockNumber *big.Int, on
 
 // GetAddresses gets the addresses for all token contracts. If onlyStables is true, addresses
 // for only stable tokens are provided.
+// If a contract has not been registered with the Registry as of blockNumber,
+// the address is set to the zero address and no error is returned.
 func (ct *CeloTokens) GetAddresses(ctx context.Context, blockNumber *big.Int, onlyStables bool) (map[CeloToken]common.Address, error) {
 	addresses := make(map[CeloToken]common.Address)
 	for token, tokenInfo := range CeloTokenInfos {
@@ -158,7 +176,10 @@ func (ct *CeloTokens) GetAddresses(ctx context.Context, blockNumber *big.Int, on
 		}
 		address, err := ct.registry.GetAddressFor(ctx, blockNumber, tokenInfo.registryID)
 		if err != nil {
-			return nil, err
+			if !registry.IsExpectedBeforeContractsDeployed(err) {
+				return nil, err
+			}
+			address = common.ZeroAddress
 		}
 		addresses[token] = address
 	}
