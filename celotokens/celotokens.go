@@ -31,7 +31,7 @@ type CeloTokenInfo struct {
 
 // CELOInfo contains info on the CELO token
 var CELOInfo = CeloTokenInfo{
-	registryID:    registry.StableTokenContractID,
+	registryID:    registry.GoldTokenContractID,
 	isStableToken: false,
 }
 
