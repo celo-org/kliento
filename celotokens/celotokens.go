@@ -206,14 +206,14 @@ func GetRegistryID(token CeloToken) (registry.ContractID, error) {
 	return tokenInfo.registryID, nil
 }
 
-// GetRegistryID gets the contract's registry ID for a given token
+// GetExchangeRegistryID gets the exchange contract's registry ID for a given token
 func GetExchangeRegistryID(token CeloToken) (registry.ContractID, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
-		return nil, fmt.Errorf("Token %w not found", token)
+		return "", fmt.Errorf("Token %w not found", token)
 	}
 	if !tokenInfo.isStableToken {
-		return nil, fmt.Errorf("Token %w not a stable token", token)
+		return "", fmt.Errorf("Token %w not a stable token", token)
 	}
 	return tokenInfo.exchangeRegistryID, nil
 }
