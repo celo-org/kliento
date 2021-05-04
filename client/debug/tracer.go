@@ -18,7 +18,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"math/big"
 
 	"github.com/celo-org/celo-blockchain/common"
@@ -232,119 +231,8 @@ var transferTracer = `
   },
 }`
 
-var transferTracerDebug = `
-{
-  addrSender: toAddress("0xedb01dd335611ee1e86033d973442409ac34b0da"),
-  addrContract: toAddress("0x2036cacd81b658c3237928b8afff68ca7d570d16"),
-  addrReceiver: toAddress("0xf36a5c550a943741e1da707c3c81010baad01abc"),
-
-  balanceSender: undefined,
-  balanceContract: undefined,
-  balanceReceiver: undefined,
-  balancesSender: [],
-  balancesContract: [],
-  balancesReceiver: [],
-  balanceSenderChanges: 0,
-  balanceContractChanges: 0,
-  balanceReceiverChanges: 0,
-  wasAFault: false,
-  prevOpWhereChangeHappened: "",
-  opWhereChangeHappened: "",
-  prevOp: "",
-
-  fault(log, db) {
-    this.wasAFault = true
-  },
-
-  // step() is invoked for every opcode that the VM executes.
-  step(log, db) {
-    const error = log.getError();
-    if (error !== undefined) {
-      this.fault(log, db);
-    }
-
-    // TODO check if there's a change here
-    const currBalSender = db.getBalance(this.addrSender).toString();
-    const currBalContract = db.getBalance(this.addrContract).toString();
-    const currBalReceiver = db.getBalance(this.addrReceiver).toString();
-
-    if (this.balanceSender !== undefined) {
-      if (currBalSender != this.balanceSender) {
-        this.balanceSenderChanges += 1;
-        this.opWhereChangeHappened = log.op.toString();
-        this.prevOpWhereChangeHappened = this.prevOp;
-      }
-    }
-    if (this.balanceContract !== undefined) {
-      if (currBalContract != this.balanceContract) {
-        this.balanceContractChanges += 1;
-      }
-    }
-    if (this.balanceReceiver !== undefined) {
-      if (currBalReceiver != this.balanceReceiver) {
-        this.balanceReceiverChanges += 1;
-      }
-    }
-    this.balanceSender = currBalSender;
-    this.balancesSender.push(currBalSender);
-    this.balanceContract = currBalContract;
-    this.balancesContract.push(currBalContract);
-    this.balanceReceiver = currBalReceiver;
-    this.balancesReceiver.push(currBalReceiver);
-    this.prevOp = log.op.toString();
-  },
-
-  result(ctx, db) {
-
-    // TODO return all the fields that we want to see out of this, create a Go type to add these fields in
-    return {
-      type:      ctx.type,
-      from:      toHex(ctx.from),
-      to:        toHex(ctx.to),
-      value:     '0x' + ctx.value.toString(16),
-      gas:       '0x' + bigInt(ctx.gas).toString(16),
-      gasUsed:   '0x' + bigInt(ctx.gasUsed).toString(16),
-      block:     ctx.block,
-      time:      ctx.time,
-      endBalanceSender: this.balanceSender,
-      endBalanceContract: this.balanceContract,
-      endBalanceReceiver: this.balanceReceiver,
-      balanceSenderChanges: this.balanceSenderChanges,
-      balanceContractChanges: this.balanceContractChanges,
-      balanceReceiverChanges: this.balanceReceiverChanges,
-      wasAFault: this.wasAFault,
-      balancesSender: this.balancesSender,
-      balancesContract: this.balancesContract,
-      balancesReceiver: this.balancesReceiver,
-      prevOpWhereChangeHappened: this.prevOpWhereChangeHappened,
-      opWhereChangeHappened: this.opWhereChangeHappened,
-      prevOp: this.prevOp,
-    
-    };
-  },
-}
-`
-
 type transferTracerResponse struct {
 	Transfers []Transfer `json:"transfers"`
-}
-
-type transferTracerDebugResponse struct {
-  Gas string `json:"gas"`
-  GasUsed string `json:"gasUsed"`
-  EndBalanceSender string `json:"endBalanceSender"`
-  EndBalanceContract string `json:"endBalanceContract"`
-  EndBalanceReceiver string `json:"endBalanceReceiver"`
-  BalanceSenderChanges int `json:"balanceSenderChanges"`
-  BalanceContractChanges int `json:"balanceContractChanges"`
-  BalanceReceiverChanges int `json:"balanceReceiverChanges"`
-  WasAFault bool `json:"wasAFault"`
-  BalancesSender []string `json:"balancesSender"`
-  BalancesContract[] string `json:"balancesContract"`
-  BalancesReceiver[] string `json:"balancesReceiver"`
-  PrevOpWhereChangeHappened string `json:"prevOpWhereChangeHappened"`
-  OpWhereChangeHappened string `json:"opWhereChangeHappened"`
-  PrevOp string `json:"prevOp"`
 }
 
 type TransferStatus string
@@ -394,49 +282,9 @@ func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.H
 	tracerConfig := &eth.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracer}
 	var response transferTracerResponse
 
-  fmt.Println("Within kliento TransactionTransfers")
 	err := dc.TraceTransaction(ctx, &response, txhash, tracerConfig)
 	if err != nil {
 		return nil, err
-	}
-  for _, transfer := range response.Transfers {
-    fmt.Printf("Value: %d\n", transfer.Value)
-    fmt.Printf("From: %x\n", transfer.From)
-    fmt.Printf("To: %x\n", transfer.To)
-    fmt.Printf("Status: %s\n", transfer.Status)
-    fmt.Printf("Type: %s\n", transfer.Type)
-  }
-
-  // DEBUG
-  tracerConfigDebug := &eth.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracerDebug}
-	var debugResponse transferTracerDebugResponse
-
-  fmt.Println("Within kliento TransactionTransfers")
-	errDebug := dc.TraceTransaction(ctx, &debugResponse, txhash, tracerConfigDebug)
-	if errDebug != nil {
-		return nil, errDebug
-	}
-
-  // fmt.Printf("EndBalanceSender: %s\n", debugResponse.EndBalanceSender)
-  // fmt.Printf("EndBalanceContract: %s\n", debugResponse.EndBalanceContract)
-  // fmt.Printf("EndBalanceReceiver: %s\n", debugResponse.EndBalanceReceiver)
-  // fmt.Printf("BalanceSenderChanges: %d\n", debugResponse.BalanceSenderChanges)
-  // fmt.Printf("BalanceContractChanges: %d\n", debugResponse.BalanceContractChanges)
-  // fmt.Printf("BalanceReceiverChanges: %d\n", debugResponse.BalanceReceiverChanges)
-  // fmt.Printf("WasAFault: %t\n", debugResponse.WasAFault)
-  // fmt.Printf("PrevOpWhereChangeHappened: %s\n", debugResponse.PrevOpWhereChangeHappened)
-  // fmt.Printf("OpWhereChangeHappened: %s\n", debugResponse.OpWhereChangeHappened)
-  // fmt.Printf("PrevOp: %s\n", debugResponse.PrevOp)
-  
-  // // fmt.Printf("BalancesSender: %v\n", debugResponse.BalancesSender)
-  // // fmt.Printf("BalancesContract: %v\n", debugResponse.BalancesContract)
-  // // fmt.Printf("BalancesReceiver: %v\n", debugResponse.BalancesReceiver)
-
-  // fmt.Printf("Gas: %s\n", debugResponse.Gas)
-  // fmt.Printf("GasUsed: %s\n", debugResponse.GasUsed)
-
-
-  // END DEBUG
-	
+	}	
 	return response.Transfers, nil
 }
