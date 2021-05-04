@@ -37,6 +37,8 @@ var transferTracer = `
   callStack: [ { transfers: [] } ],
   statusRevert: 'revert',
   statusSuccess: 'success',
+  testOpOut: '',
+  testOpLen: '',
 
   topCall() {
     return this.callStack[this.callStack.length - 1];
@@ -193,10 +195,12 @@ var transferTracer = `
     this.assertStackHeightEquals(1, true, "");
     const rootCall = this.topCall();
 
-    // Execution of root call failed and returned no bytes as output
-    if (!ctx.output.length) {
-      rootCall.reverted = true
-    }
+    // // Execution of root call failed and returned no bytes as output
+    // if (!ctx.output.length) {
+    //   // rootCall.reverted = true;
+    // }
+    // this.testOpOut = ctx.type;
+    // this.testOpLen = ctx.output.length;
 
     const transfers = []
     this.pushTransfers(transfers, rootCall.transfers,
@@ -227,12 +231,16 @@ var transferTracer = `
       block:     ctx.block,
       time:      ctx.time,
       transfers: transfers,
+      // testOpOut: this.testOpOut,
+      // testOpLen: this.testOpLen,
     };
   },
 }`
 
 type transferTracerResponse struct {
 	Transfers []Transfer `json:"transfers"`
+  // TestOpOut string `json:"testOpOut"`
+  // TestOpLen int `json:"testOpLen"`
 }
 
 type TransferStatus string
@@ -285,6 +293,8 @@ func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.H
 	err := dc.TraceTransaction(ctx, &response, txhash, tracerConfig)
 	if err != nil {
 		return nil, err
-	}	
+	}
+  // fmt.Printf("TestOpOut: %s\n", response.TestOpOut)
+  // fmt.Printf("TestOpLen: %d\n", response.TestOpLen)
 	return response.Transfers, nil
 }
