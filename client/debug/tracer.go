@@ -37,8 +37,6 @@ var transferTracer = `
   callStack: [ { transfers: [] } ],
   statusRevert: 'revert',
   statusSuccess: 'success',
-  testOpOut: '',
-  testOpLen: '',
 
   topCall() {
     return this.callStack[this.callStack.length - 1];
@@ -194,14 +192,6 @@ var transferTracer = `
   result(ctx, db) {
     this.assertStackHeightEquals(1, true, "");
     const rootCall = this.topCall();
-
-    // // Execution of root call failed and returned no bytes as output
-    // if (!ctx.output.length) {
-    //   // rootCall.reverted = true;
-    // }
-    // this.testOpOut = ctx.type;
-    // this.testOpLen = ctx.output.length;
-
     const transfers = []
     this.pushTransfers(transfers, rootCall.transfers,
                        rootCall.reverted ? this.statusRevert : this.statusSuccess);
@@ -231,16 +221,12 @@ var transferTracer = `
       block:     ctx.block,
       time:      ctx.time,
       transfers: transfers,
-      // testOpOut: this.testOpOut,
-      // testOpLen: this.testOpLen,
     };
   },
 }`
 
 type transferTracerResponse struct {
 	Transfers []Transfer `json:"transfers"`
-  // TestOpOut string `json:"testOpOut"`
-  // TestOpLen int `json:"testOpLen"`
 }
 
 type TransferStatus string
@@ -257,7 +243,7 @@ type Transfer struct {
 	To     common.Address `json:"to"`
 	Value  *big.Int       `json:"value"`
 	Status TransferStatus `json:"status"`
-  Type   string         `json:"type"`
+	Type   string         `json:"type"`
 }
 
 // UnmarshalJSON unmarshals from JSON.
@@ -267,7 +253,7 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 		To     common.Address `json:"to"`
 		Value  *hexutil.Big   `json:"value"`
 		Status TransferStatus `json:"status"`
-    Type   string         `json:"type"`
+		Type   string         `json:"type"`
 	}
 	var dec Transfer
 	if err := json.Unmarshal(input, &dec); err != nil {
@@ -278,7 +264,7 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 	t.To = dec.To
 	t.Value = (*big.Int)(dec.Value)
 	t.Status = dec.Status
-  t.Type = dec.Type
+	t.Type = dec.Type
 
 	if dec.Value == nil {
 		return errors.New("missing required field 'value' for Transfer")
@@ -294,7 +280,5 @@ func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.H
 	if err != nil {
 		return nil, err
 	}
-  // fmt.Printf("TestOpOut: %s\n", response.TestOpOut)
-  // fmt.Printf("TestOpLen: %d\n", response.TestOpLen)
 	return response.Transfers, nil
 }
