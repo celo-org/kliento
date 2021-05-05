@@ -243,7 +243,6 @@ type Transfer struct {
 	To     common.Address `json:"to"`
 	Value  *big.Int       `json:"value"`
 	Status TransferStatus `json:"status"`
-	Type   string         `json:"type"`
 }
 
 // UnmarshalJSON unmarshals from JSON.
@@ -253,7 +252,6 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 		To     common.Address `json:"to"`
 		Value  *hexutil.Big   `json:"value"`
 		Status TransferStatus `json:"status"`
-		Type   string         `json:"type"`
 	}
 	var dec Transfer
 	if err := json.Unmarshal(input, &dec); err != nil {
@@ -264,8 +262,6 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 	t.To = dec.To
 	t.Value = (*big.Int)(dec.Value)
 	t.Status = dec.Status
-	t.Type = dec.Type
-
 	if dec.Value == nil {
 		return errors.New("missing required field 'value' for Transfer")
 	}
