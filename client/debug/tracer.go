@@ -75,14 +75,19 @@ var transferTracer = `
 
     if (this.callStack.length > depth) {
       const finishedCall = this.callStack.pop();
+      const ret = log.stack.peek(0);
+
+      // Execution of opcode failed and returned 0
+      if (ret.equals(0)) {
+        finishedCall.reverted = true;
+      }
 
       // Find to address for nested contract create with value.
       if ((finishedCall.op == 'CREATE' || finishedCall.op == 'CREATE2') &&
           finishedCall.transfers.length > 0 && !finishedCall.transfers[0].to) {
         const createTransfer = finishedCall.transfers[0];
-        const ret = log.stack.peek(0);
         createTransfer.to = toHex(toAddress(ret.toString(16)));
-        createTransfer.status = ret.equals(0) ? this.statusRevert : this.statusSuccess;
+        createTransfer.status = finishedCall.reverted ? this.statusRevert : this.statusSuccess;
       }
 
       // Propagate transfers made during the successful call.
