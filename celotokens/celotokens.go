@@ -75,10 +75,10 @@ func New(reg registry.Registry) *CeloTokens {
 func (ct *CeloTokens) GetExchangeContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (*contracts.Exchange, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
-		return nil, fmt.Errorf("Token %w not found", token)
+		return nil, fmt.Errorf("Token %s not found", token)
 	}
 	if !tokenInfo.isStableToken {
-		return nil, fmt.Errorf("Token %w not a stable token", token)
+		return nil, fmt.Errorf("Token %s not a stable token", token)
 	}
 	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.exchangeRegistryID), blockNumber)
 	if err != nil {
@@ -93,10 +93,10 @@ func (ct *CeloTokens) GetExchangeContract(ctx context.Context, token CeloToken, 
 func (ct *CeloTokens) GetStableTokenContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (*contracts.StableToken, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
-		return nil, fmt.Errorf("Token %w not found", token)
+		return nil, fmt.Errorf("Token %s not found", token)
 	}
 	if !tokenInfo.isStableToken {
-		return nil, fmt.Errorf("Token %w not a stable token", token)
+		return nil, fmt.Errorf("Token %s not a stable token", token)
 	}
 	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.registryID), blockNumber)
 	if err != nil {
@@ -111,7 +111,7 @@ func (ct *CeloTokens) GetStableTokenContract(ctx context.Context, token CeloToke
 func (ct *CeloTokens) GetContract(ctx context.Context, token CeloToken, blockNumber *big.Int) (contracts.CeloTokenContract, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
-		return nil, fmt.Errorf("Token %w not found", token)
+		return nil, fmt.Errorf("Token %s not found", token)
 	}
 	contract, err := ct.registry.GetContractByID(ctx, string(tokenInfo.registryID), blockNumber)
 	if err != nil {
@@ -201,7 +201,7 @@ func IsStableToken(token CeloToken) bool {
 func GetRegistryID(token CeloToken) (registry.ContractID, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
-		return "", fmt.Errorf("Token %w not found", token)
+		return "", fmt.Errorf("Token %s not found", token)
 	}
 	return tokenInfo.registryID, nil
 }
@@ -210,10 +210,10 @@ func GetRegistryID(token CeloToken) (registry.ContractID, error) {
 func GetExchangeRegistryID(token CeloToken) (registry.ContractID, error) {
 	tokenInfo, ok := CeloTokenInfos[token]
 	if !ok {
-		return "", fmt.Errorf("Token %w not found", token)
+		return "", fmt.Errorf("Token %s not found", token)
 	}
 	if !tokenInfo.isStableToken {
-		return "", fmt.Errorf("Token %w not a stable token", token)
+		return "", fmt.Errorf("Token %s not a stable token", token)
 	}
 	return tokenInfo.exchangeRegistryID, nil
 }
