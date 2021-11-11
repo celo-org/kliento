@@ -5,6 +5,6 @@ COPY . .
 RUN cd examples/check_node_health/ && go build
 
 FROM ubuntu:latest
-RUN apt update && apt install -y ca-certificates && apt clean
+RUN apt update && apt install -y curl jq bc ca-certificates && apt clean
 COPY --from=builder /app/examples/check_node_health/check_node_health /
 CMD ["/check_node_health"]

@@ -26,6 +26,7 @@ type VictoropsReport struct {
 	Peers             string `json:"peers,omitempty"`
 	DebugStacks       string `json:"debug_stack,omitempty"`
 	ErrorMessage      string `json:"error_message,omitempty"`
+	JobCount          string `json:"job_count,omitempty"`
 }
 
 type SlackReport struct {

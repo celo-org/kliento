@@ -36,11 +36,16 @@ func generateErrorReport(firstBlock, lastBlock int64, peers *[]p2p.PeerInfo, deb
 		PeersCount:        len(*peers),
 		Peers:             fmt.Sprintf("%#v", peers),
 		DebugStacks:       debug,
+		JobCount:          fmt.Sprintf("job %s of %s", getenv("RID", "no_replica"), getenv("TOTAL_REPLICAS", "no_total_replicas")),
 	}
-	reportVictorops(report)
+	err := reportVictorops(report)
+	if err != nil {
+		log.Error("Error reporting to slack", "err", err)
+		os.Exit(-1)
+	}
 }
 
-func generateErrorReportInitial(err error) {
+func generateErrorReportInitial(sync_error error) {
 	log.Debug("Sending report to Victorops")
 	report := VictoropsReport{
 		MessageType:       "CRITICAL",
@@ -50,15 +55,20 @@ func generateErrorReportInitial(err error) {
 		StateMessage:      "failed to sync mainnet. Pod could not start",
 		PodName:           getenv("HOSTNAME", "no hostname detected"),
 		ClusterName:       "integration-tests",
-		ErrorMessage:      err.Error(),
+		ErrorMessage:      sync_error.Error(),
+		JobCount:          fmt.Sprintf("job %s of %s", getenv("RID", "no_replica"), getenv("TOTAL_REPLICAS", "no_total_replicas")),
 	}
-	reportVictorops(report)
+	err := reportVictorops(report)
+	if err != nil {
+		log.Error("Error reporting to slack", "err", err)
+		os.Exit(-1)
+	}
 }
 
 func generateSuccessReport(firstBlock, lastBlock int64) {
 	log.Debug("Sending report to Slack")
 	report := SlackReport{
-		Text: fmt.Sprintf("Successfully mainnet sync %v from block %v to %v", getenv("HOSTNAME", "NO_HOSTNAME"), firstBlock, lastBlock),
+		Text: fmt.Sprintf("Successfully mainnet sync %v from block %v to %v. Job %v from a total of %v", getenv("HOSTNAME", "NO_HOSTNAME"), firstBlock, lastBlock, getenv("RID", "no_replica"), getenv("TOTAL_REPLICAS", "no_total_replicas")),
 	}
 	err := reportSlack(report)
 	if err != nil {
