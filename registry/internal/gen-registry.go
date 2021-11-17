@@ -21,6 +21,7 @@ var contractIDToGeneratedContractType = map[string]string{
 	"Escrow":               "Escrow",
 	"Exchange":             "Exchange",
 	"ExchangeEUR":          "Exchange",
+	"ExchangeBRL":          "Exchange",
 	"GasPriceMinimum":      "GasPriceMinimum",
 	"GoldToken":            "GoldToken",
 	"Governance":           "Governance",
@@ -31,6 +32,7 @@ var contractIDToGeneratedContractType = map[string]string{
 	"SortedOracles":        "SortedOracles",
 	"StableToken":          "StableToken",
 	"StableTokenEUR":       "StableToken",
+	"StableTokenBRL":       "StableToken",
 	"Validators":           "Validators",
 }
 

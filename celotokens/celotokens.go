@@ -20,6 +20,8 @@ const (
 	CUSD CeloToken = "cUSD"
 	// CEUR - Celo Euro
 	CEUR CeloToken = "cEUR"
+	// CREAL - Celo Real
+	CREAL CeloToken = "cREAL"
 )
 
 // CeloTokenInfo provides basic info for a Celo token
@@ -49,12 +51,20 @@ var CEURInfo = CeloTokenInfo{
 	isStableToken:      true,
 }
 
+// CREALInfo contains info on the cREAL token
+var CREALInfo = CeloTokenInfo{
+	registryID:         registry.StableTokenBRLContractID,
+	exchangeRegistryID: registry.ExchangeBRLContractID,
+	isStableToken:      true,
+}
+
 // CeloTokenInfos contains a CeloTokenInfo entry for each CeloToken key.
 // This is used for functions that iterate on all tokens or stable tokens.
 var CeloTokenInfos = map[CeloToken]CeloTokenInfo{
-	CELO: CELOInfo,
-	CUSD: CUSDInfo,
-	CEUR: CEURInfo,
+	CELO:  CELOInfo,
+	CUSD:  CUSDInfo,
+	CEUR:  CEURInfo,
+	CREAL: CREALInfo,
 }
 
 // CeloTokens provides a friendly interface for interacting with Celo tokens
