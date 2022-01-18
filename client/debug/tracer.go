@@ -189,8 +189,11 @@ var transferTracer = `
 
   // result() is invoked when all the opcodes have been iterated over and returns
   // the final result of the tracing.
+  //
+  // Note that no errors should be thrown from this function because they will
+  // override any other errors thrown from this script and timeout errors
+  // managed by geth.
   result(ctx, db) {
-    this.assertStackHeightEquals(1, true, "");
     const rootCall = this.topCall();
     const transfers = []
     this.pushTransfers(transfers, rootCall.transfers,
