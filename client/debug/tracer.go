@@ -27,7 +27,7 @@ import (
 
 var transferTracerTimeout = `50s`
 
-var transferTracer = `
+var TransferTracer = `
 // Geth Tracer that outputs cGLD transfers.
 //
 // Additional details (e.g. transaction hash & gas used) can be obtained from 
@@ -228,7 +228,7 @@ var transferTracer = `
   },
 }`
 
-type transferTracerResponse struct {
+type TransferTracerResponse struct {
 	Transfers []Transfer `json:"transfers"`
 }
 
@@ -271,9 +271,15 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 	return nil
 }
 
+// TransactionTransfers is deprecated, use DebugClient.TraceTransaction with TransferTracer and TransferTracerResponse instead.
+// e.g.
+//  var res TransferTracerResponse
+//  var timeout = "50s"
+//  conf := &eth.TraceConfig{Tracer: &TransferTracer, Timeout: &timeout}
+//  err := dc.TraceTransaction(ctx, &res, txhash, conf)
 func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.Hash) ([]Transfer, error) {
-	tracerConfig := &eth.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracer}
-	var response transferTracerResponse
+	tracerConfig := &eth.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &TransferTracer}
+	var response TransferTracerResponse
 
 	err := dc.TraceTransaction(ctx, &response, txhash, tracerConfig)
 	if err != nil {
