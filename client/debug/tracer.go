@@ -27,7 +27,7 @@ import (
 
 var transferTracerTimeout = `50s`
 
-var transferTracer = `
+var TransferTracer = `
 // Geth Tracer that outputs cGLD transfers.
 //
 // Additional details (e.g. transaction hash & gas used) can be obtained from 
@@ -189,8 +189,11 @@ var transferTracer = `
 
   // result() is invoked when all the opcodes have been iterated over and returns
   // the final result of the tracing.
+  //
+  // Note that no errors should be thrown from this function because they will
+  // override any other errors thrown from this script and timeout errors
+  // managed by geth.
   result(ctx, db) {
-    this.assertStackHeightEquals(1, true, "");
     const rootCall = this.topCall();
     const transfers = []
     this.pushTransfers(transfers, rootCall.transfers,
@@ -225,7 +228,7 @@ var transferTracer = `
   },
 }`
 
-type transferTracerResponse struct {
+type TransferTracerResponse struct {
 	Transfers []Transfer `json:"transfers"`
 }
 
@@ -268,6 +271,12 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 	return nil
 }
 
+// TransactionTransfers is deprecated, use DebugClient.TraceTransaction with TransferTracer and TransferTracerResponse instead.
+// e.g.
+//  var res TransferTracerResponse
+//  var timeout = "50s"
+//  conf := &eth.TraceConfig{Tracer: &TransferTracer, Timeout: &timeout}
+//  err := dc.TraceTransaction(ctx, &res, txhash, conf)
 func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.Hash) ([]Transfer, error) {
 	tracerConfig := &tracers.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracer}
 	var response transferTracerResponse
