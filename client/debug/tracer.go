@@ -22,7 +22,7 @@ import (
 
 	"github.com/celo-org/celo-blockchain/common"
 	"github.com/celo-org/celo-blockchain/common/hexutil"
-	"github.com/celo-org/celo-blockchain/eth"
+	"github.com/celo-org/celo-blockchain/eth/tracers"
 )
 
 var transferTracerTimeout = `50s`
@@ -269,7 +269,7 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 }
 
 func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.Hash) ([]Transfer, error) {
-	tracerConfig := &eth.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracer}
+	tracerConfig := &tracers.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracer}
 	var response transferTracerResponse
 
 	err := dc.TraceTransaction(ctx, &response, txhash, tracerConfig)
