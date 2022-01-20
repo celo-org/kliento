@@ -4,6 +4,7 @@
 package contracts
 
 import (
+	"errors"
 	"math/big"
 	"strings"
 
@@ -17,18 +18,24 @@ import (
 
 // Reference imports to suppress errors if they are not otherwise used.
 var (
+	_ = errors.New
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
-	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
 	_ = event.NewSubscription
 )
 
+// ExchangeMetaData contains all meta data concerning the Exchange contract.
+var ExchangeMetaData = &bind.MetaData{
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"goldBucket\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"stableBucket\",\"type\":\"uint256\"}],\"name\":\"BucketsUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"exchanger\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"soldGold\",\"type\":\"bool\"}],\"name\":\"Exchanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minimumReports\",\"type\":\"uint256\"}],\"name\":\"MinimumReportsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reserveFraction\",\"type\":\"uint256\"}],\"name\":\"ReserveFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"spread\",\"type\":\"uint256\"}],\"name\":\"SpreadSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"stable\",\"type\":\"address\"}],\"name\":\"StableTokenSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"updateFrequency\",\"type\":\"uint256\"}],\"name\":\"UpdateFrequencySet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"goldBucket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastBucketUpdate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minimumReports\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserveFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"spread\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stable\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stableBucket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"updateFrequency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"stableToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_spread\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_reserveFraction\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_updateFrequency\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_minimumReports\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minBuyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"sell\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minBuyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"exchange\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxSellAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"buyGold\",\"type\":\"bool\"}],\"name\":\"buy\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyTokenAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getSellTokenAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyAndSellBuckets\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newUpdateFrequency\",\"type\":\"uint256\"}],\"name\":\"setUpdateFrequency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newMininumReports\",\"type\":\"uint256\"}],\"name\":\"setMinimumReports\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newStableToken\",\"type\":\"address\"}],\"name\":\"setStableToken\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newSpread\",\"type\":\"uint256\"}],\"name\":\"setSpread\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newReserveFraction\",\"type\":\"uint256\"}],\"name\":\"setReserveFraction\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+}
+
 // ExchangeABI is the input ABI used to generate the binding from.
-const ExchangeABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"goldBucket\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"stableBucket\",\"type\":\"uint256\"}],\"name\":\"BucketsUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"exchanger\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"soldGold\",\"type\":\"bool\"}],\"name\":\"Exchanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minimumReports\",\"type\":\"uint256\"}],\"name\":\"MinimumReportsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reserveFraction\",\"type\":\"uint256\"}],\"name\":\"ReserveFractionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"spread\",\"type\":\"uint256\"}],\"name\":\"SpreadSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"stable\",\"type\":\"address\"}],\"name\":\"StableTokenSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"updateFrequency\",\"type\":\"uint256\"}],\"name\":\"UpdateFrequencySet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"goldBucket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastBucketUpdate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minimumReports\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"reserveFraction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"spread\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stable\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stableBucket\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"updateFrequency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"stableToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_spread\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_reserveFraction\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_updateFrequency\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_minimumReports\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minBuyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"sell\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minBuyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"exchange\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxSellAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"buyGold\",\"type\":\"bool\"}],\"name\":\"buy\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"sellAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyTokenAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"buyAmount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getSellTokenAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bool\",\"name\":\"sellGold\",\"type\":\"bool\"}],\"name\":\"getBuyAndSellBuckets\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newUpdateFrequency\",\"type\":\"uint256\"}],\"name\":\"setUpdateFrequency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newMininumReports\",\"type\":\"uint256\"}],\"name\":\"setMinimumReports\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newStableToken\",\"type\":\"address\"}],\"name\":\"setStableToken\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newSpread\",\"type\":\"uint256\"}],\"name\":\"setSpread\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newReserveFraction\",\"type\":\"uint256\"}],\"name\":\"setReserveFraction\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+// Deprecated: Use ExchangeMetaData.ABI instead.
+var ExchangeABI = ExchangeMetaData.ABI
 
 // Exchange is an auto generated Go binding around an Ethereum contract.
 type Exchange struct {
@@ -147,7 +154,7 @@ func ParseExchangeABI() (*abi.ABI, error) {
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Exchange *ExchangeRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+func (_Exchange *ExchangeRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
 	return _Exchange.Contract.ExchangeCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -166,7 +173,7 @@ func (_Exchange *ExchangeRaw) Transact(opts *bind.TransactOpts, method string, p
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Exchange *ExchangeCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+func (_Exchange *ExchangeCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
 	return _Exchange.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -185,16 +192,18 @@ func (_Exchange *ExchangeTransactorRaw) Transact(opts *bind.TransactOpts, method
 //
 // Solidity: function getBuyAndSellBuckets(bool sellGold) view returns(uint256, uint256)
 func (_Exchange *ExchangeCaller) GetBuyAndSellBuckets(opts *bind.CallOpts, sellGold bool) (*big.Int, *big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-		ret1 = new(*big.Int)
-	)
-	out := &[]interface{}{
-		ret0,
-		ret1,
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "getBuyAndSellBuckets", sellGold)
+
+	if err != nil {
+		return *new(*big.Int), *new(*big.Int), err
 	}
-	err := _Exchange.contract.Call(opts, out, "getBuyAndSellBuckets", sellGold)
-	return *ret0, *ret1, err
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	out1 := *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+
+	return out0, out1, err
+
 }
 
 // GetBuyAndSellBuckets is a free data retrieval call binding the contract method 0x78ba9cfd.
@@ -215,12 +224,17 @@ func (_Exchange *ExchangeCallerSession) GetBuyAndSellBuckets(sellGold bool) (*bi
 //
 // Solidity: function getBuyTokenAmount(uint256 sellAmount, bool sellGold) view returns(uint256)
 func (_Exchange *ExchangeCaller) GetBuyTokenAmount(opts *bind.CallOpts, sellAmount *big.Int, sellGold bool) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "getBuyTokenAmount", sellAmount, sellGold)
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "getBuyTokenAmount", sellAmount, sellGold)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GetBuyTokenAmount is a free data retrieval call binding the contract method 0x9ed02b58.
@@ -241,12 +255,17 @@ func (_Exchange *ExchangeCallerSession) GetBuyTokenAmount(sellAmount *big.Int, s
 //
 // Solidity: function getSellTokenAmount(uint256 buyAmount, bool sellGold) view returns(uint256)
 func (_Exchange *ExchangeCaller) GetSellTokenAmount(opts *bind.CallOpts, buyAmount *big.Int, sellGold bool) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "getSellTokenAmount", buyAmount, sellGold)
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "getSellTokenAmount", buyAmount, sellGold)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GetSellTokenAmount is a free data retrieval call binding the contract method 0x4c0226a2.
@@ -267,20 +286,20 @@ func (_Exchange *ExchangeCallerSession) GetSellTokenAmount(buyAmount *big.Int, s
 //
 // Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Exchange *ExchangeCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-		ret1 = new(*big.Int)
-		ret2 = new(*big.Int)
-		ret3 = new(*big.Int)
-	)
-	out := &[]interface{}{
-		ret0,
-		ret1,
-		ret2,
-		ret3,
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "getVersionNumber")
+
+	if err != nil {
+		return *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(*big.Int), err
 	}
-	err := _Exchange.contract.Call(opts, out, "getVersionNumber")
-	return *ret0, *ret1, *ret2, *ret3, err
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	out1 := *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+	out2 := *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
+	out3 := *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
+
+	return out0, out1, out2, out3, err
+
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
@@ -301,12 +320,17 @@ func (_Exchange *ExchangeCallerSession) GetVersionNumber() (*big.Int, *big.Int, 
 //
 // Solidity: function goldBucket() view returns(uint256)
 func (_Exchange *ExchangeCaller) GoldBucket(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "goldBucket")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "goldBucket")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GoldBucket is a free data retrieval call binding the contract method 0x62f09084.
@@ -327,12 +351,17 @@ func (_Exchange *ExchangeCallerSession) GoldBucket() (*big.Int, error) {
 //
 // Solidity: function initialized() view returns(bool)
 func (_Exchange *ExchangeCaller) Initialized(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "initialized")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "initialized")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
@@ -353,12 +382,17 @@ func (_Exchange *ExchangeCallerSession) Initialized() (bool, error) {
 //
 // Solidity: function isOwner() view returns(bool)
 func (_Exchange *ExchangeCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "isOwner")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "isOwner")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
@@ -379,12 +413,17 @@ func (_Exchange *ExchangeCallerSession) IsOwner() (bool, error) {
 //
 // Solidity: function lastBucketUpdate() view returns(uint256)
 func (_Exchange *ExchangeCaller) LastBucketUpdate(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "lastBucketUpdate")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "lastBucketUpdate")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // LastBucketUpdate is a free data retrieval call binding the contract method 0xe0c8b50a.
@@ -405,12 +444,17 @@ func (_Exchange *ExchangeCallerSession) LastBucketUpdate() (*big.Int, error) {
 //
 // Solidity: function minimumReports() view returns(uint256)
 func (_Exchange *ExchangeCaller) MinimumReports(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "minimumReports")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "minimumReports")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // MinimumReports is a free data retrieval call binding the contract method 0x22503ce5.
@@ -431,12 +475,17 @@ func (_Exchange *ExchangeCallerSession) MinimumReports() (*big.Int, error) {
 //
 // Solidity: function owner() view returns(address)
 func (_Exchange *ExchangeCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "owner")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "owner")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
@@ -457,12 +506,17 @@ func (_Exchange *ExchangeCallerSession) Owner() (common.Address, error) {
 //
 // Solidity: function registry() view returns(address)
 func (_Exchange *ExchangeCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "registry")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "registry")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
@@ -483,12 +537,17 @@ func (_Exchange *ExchangeCallerSession) Registry() (common.Address, error) {
 //
 // Solidity: function reserveFraction() view returns(uint256 value)
 func (_Exchange *ExchangeCaller) ReserveFraction(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "reserveFraction")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "reserveFraction")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // ReserveFraction is a free data retrieval call binding the contract method 0xdda57b93.
@@ -509,12 +568,17 @@ func (_Exchange *ExchangeCallerSession) ReserveFraction() (*big.Int, error) {
 //
 // Solidity: function spread() view returns(uint256 value)
 func (_Exchange *ExchangeCaller) Spread(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "spread")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "spread")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // Spread is a free data retrieval call binding the contract method 0x5c25c76c.
@@ -535,12 +599,17 @@ func (_Exchange *ExchangeCallerSession) Spread() (*big.Int, error) {
 //
 // Solidity: function stable() view returns(address)
 func (_Exchange *ExchangeCaller) Stable(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "stable")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "stable")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Stable is a free data retrieval call binding the contract method 0x22be3de1.
@@ -561,12 +630,17 @@ func (_Exchange *ExchangeCallerSession) Stable() (common.Address, error) {
 //
 // Solidity: function stableBucket() view returns(uint256)
 func (_Exchange *ExchangeCaller) StableBucket(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "stableBucket")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "stableBucket")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // StableBucket is a free data retrieval call binding the contract method 0x25ac2de6.
@@ -587,12 +661,17 @@ func (_Exchange *ExchangeCallerSession) StableBucket() (*big.Int, error) {
 //
 // Solidity: function updateFrequency() view returns(uint256)
 func (_Exchange *ExchangeCaller) UpdateFrequency(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _Exchange.contract.Call(opts, out, "updateFrequency")
-	return *ret0, err
+	var out []interface{}
+	err := _Exchange.contract.Call(opts, &out, "updateFrequency")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // UpdateFrequency is a free data retrieval call binding the contract method 0x673ea086.
@@ -1026,6 +1105,7 @@ func (_Exchange *ExchangeFilterer) ParseBucketsUpdated(log types.Log) (*Exchange
 	if err := _Exchange.contract.UnpackLog(event, "BucketsUpdated", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1172,6 +1252,7 @@ func (_Exchange *ExchangeFilterer) ParseExchanged(log types.Log) (*ExchangeExcha
 	if err := _Exchange.contract.UnpackLog(event, "Exchanged", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1305,6 +1386,7 @@ func (_Exchange *ExchangeFilterer) ParseMinimumReportsSet(log types.Log) (*Excha
 	if err := _Exchange.contract.UnpackLog(event, "MinimumReportsSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1457,6 +1539,7 @@ func (_Exchange *ExchangeFilterer) ParseOwnershipTransferred(log types.Log) (*Ex
 	if err := _Exchange.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1600,6 +1683,7 @@ func (_Exchange *ExchangeFilterer) ParseRegistrySet(log types.Log) (*ExchangeReg
 	if err := _Exchange.contract.UnpackLog(event, "RegistrySet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1733,6 +1817,7 @@ func (_Exchange *ExchangeFilterer) ParseReserveFractionSet(log types.Log) (*Exch
 	if err := _Exchange.contract.UnpackLog(event, "ReserveFractionSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1866,6 +1951,7 @@ func (_Exchange *ExchangeFilterer) ParseSpreadSet(log types.Log) (*ExchangeSprea
 	if err := _Exchange.contract.UnpackLog(event, "SpreadSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2009,6 +2095,7 @@ func (_Exchange *ExchangeFilterer) ParseStableTokenSet(log types.Log) (*Exchange
 	if err := _Exchange.contract.UnpackLog(event, "StableTokenSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2142,5 +2229,6 @@ func (_Exchange *ExchangeFilterer) ParseUpdateFrequencySet(log types.Log) (*Exch
 	if err := _Exchange.contract.UnpackLog(event, "UpdateFrequencySet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }

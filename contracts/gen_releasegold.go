@@ -4,6 +4,7 @@
 package contracts
 
 import (
+	"errors"
 	"math/big"
 	"strings"
 
@@ -17,18 +18,24 @@ import (
 
 // Reference imports to suppress errors if they are not otherwise used.
 var (
+	_ = errors.New
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
-	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
 	_ = event.NewSubscription
 )
 
+// ReleaseGoldMetaData contains all meta data concerning the ReleaseGold contract.
+var ReleaseGoldMetaData = &bind.MetaData{
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"}],\"name\":\"BeneficiarySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"canExpire\",\"type\":\"bool\"}],\"name\":\"CanExpireSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"maxDistribution\",\"type\":\"uint256\"}],\"name\":\"DistributionLimitSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"}],\"name\":\"LiquidityProvisionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"atAddress\",\"type\":\"address\"}],\"name\":\"ReleaseGoldInstanceCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"atAddress\",\"type\":\"address\"}],\"name\":\"ReleaseGoldInstanceDestroyed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"revokeTimestamp\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"releasedBalanceAtRevoke\",\"type\":\"uint256\"}],\"name\":\"ReleaseScheduleRevoked\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":true,\"inputs\":[],\"name\":\"EXPIRATION_TIME\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"beneficiary\",\"outputs\":[{\"internalType\":\"addresspayable\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"canValidate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"canVote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"liquidityProvisionMet\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxDistribution\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"refundAddress\",\"outputs\":[{\"internalType\":\"addresspayable\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"releaseOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"releaseSchedule\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"releaseStartTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releaseCliff\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"numReleasePeriods\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releasePeriod\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountReleasedPerPeriod\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"revocationInfo\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"revocable\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"canExpire\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"releasedBalanceAtRevoke\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"revokeTime\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalWithdrawn\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isFunded\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"erc20\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"genericTransfer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"releaseStartTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releaseCliffTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"numReleasePeriods\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releasePeriod\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountReleasedPerPeriod\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"revocable\",\"type\":\"bool\"},{\"internalType\":\"addresspayable\",\"name\":\"_beneficiary\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_releaseOwner\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"_refundAddress\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"subjectToLiquidityProvision\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"initialDistributionRatio\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_canValidate\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"_canVote\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isRevoked\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"setLiquidityProvision\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bool\",\"name\":\"_canExpire\",\"type\":\"bool\"}],\"name\":\"setCanExpire\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"distributionRatio\",\"type\":\"uint256\"}],\"name\":\"setMaxDistribution\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"newBeneficiary\",\"type\":\"address\"}],\"name\":\"setBeneficiary\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"refundAndFinalize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"revoke\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"expire\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRemainingTotalBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRemainingUnlockedBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRemainingLockedBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCurrentReleasedTotalAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"lockGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"unlockGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"relockGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"withdrawLockedGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeVoteSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeValidatorSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithPublicKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithKeys\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeAttestationSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setAccount\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"createAccount\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"setAccountName\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setAccountWalletAddress\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"}],\"name\":\"setAccountDataEncryptionKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"metadataURL\",\"type\":\"string\"}],\"name\":\"setAccountMetadataURL\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokeActive\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokePending\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+}
+
 // ReleaseGoldABI is the input ABI used to generate the binding from.
-const ReleaseGoldABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"}],\"name\":\"BeneficiarySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"canExpire\",\"type\":\"bool\"}],\"name\":\"CanExpireSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"maxDistribution\",\"type\":\"uint256\"}],\"name\":\"DistributionLimitSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"}],\"name\":\"LiquidityProvisionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"atAddress\",\"type\":\"address\"}],\"name\":\"ReleaseGoldInstanceCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"atAddress\",\"type\":\"address\"}],\"name\":\"ReleaseGoldInstanceDestroyed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"revokeTimestamp\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"releasedBalanceAtRevoke\",\"type\":\"uint256\"}],\"name\":\"ReleaseScheduleRevoked\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":true,\"inputs\":[],\"name\":\"EXPIRATION_TIME\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"beneficiary\",\"outputs\":[{\"internalType\":\"addresspayable\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"canValidate\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"canVote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"liquidityProvisionMet\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maxDistribution\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"refundAddress\",\"outputs\":[{\"internalType\":\"addresspayable\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"releaseOwner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"releaseSchedule\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"releaseStartTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releaseCliff\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"numReleasePeriods\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releasePeriod\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountReleasedPerPeriod\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"revocationInfo\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"revocable\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"canExpire\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"releasedBalanceAtRevoke\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"revokeTime\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalWithdrawn\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"releaseStartTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releaseCliffTime\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"numReleasePeriods\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releasePeriod\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amountReleasedPerPeriod\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"revocable\",\"type\":\"bool\"},{\"internalType\":\"addresspayable\",\"name\":\"_beneficiary\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_releaseOwner\",\"type\":\"address\"},{\"internalType\":\"addresspayable\",\"name\":\"_refundAddress\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"subjectToLiquidityProvision\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"initialDistributionRatio\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_canValidate\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"_canVote\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isRevoked\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"setLiquidityProvision\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bool\",\"name\":\"_canExpire\",\"type\":\"bool\"}],\"name\":\"setCanExpire\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"distributionRatio\",\"type\":\"uint256\"}],\"name\":\"setMaxDistribution\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"newBeneficiary\",\"type\":\"address\"}],\"name\":\"setBeneficiary\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"refundAndFinalize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"revoke\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"expire\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getTotalBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRemainingTotalBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRemainingUnlockedBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getRemainingLockedBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getCurrentReleasedTotalAmount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"lockGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"unlockGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"relockGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"withdrawLockedGold\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeVoteSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeValidatorSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithPublicKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithKeys\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"addresspayable\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeAttestationSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setAccount\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"createAccount\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"setAccountName\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setAccountWalletAddress\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"}],\"name\":\"setAccountDataEncryptionKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"metadataURL\",\"type\":\"string\"}],\"name\":\"setAccountMetadataURL\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokeActive\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"group\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"lesser\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"greater\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"revokePending\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+// Deprecated: Use ReleaseGoldMetaData.ABI instead.
+var ReleaseGoldABI = ReleaseGoldMetaData.ABI
 
 // ReleaseGold is an auto generated Go binding around an Ethereum contract.
 type ReleaseGold struct {
@@ -147,7 +154,7 @@ func ParseReleaseGoldABI() (*abi.ABI, error) {
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ReleaseGold *ReleaseGoldRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+func (_ReleaseGold *ReleaseGoldRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
 	return _ReleaseGold.Contract.ReleaseGoldCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -166,7 +173,7 @@ func (_ReleaseGold *ReleaseGoldRaw) Transact(opts *bind.TransactOpts, method str
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_ReleaseGold *ReleaseGoldCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+func (_ReleaseGold *ReleaseGoldCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
 	return _ReleaseGold.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -185,12 +192,17 @@ func (_ReleaseGold *ReleaseGoldTransactorRaw) Transact(opts *bind.TransactOpts, 
 //
 // Solidity: function EXPIRATION_TIME() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) EXPIRATIONTIME(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "EXPIRATION_TIME")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "EXPIRATION_TIME")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // EXPIRATIONTIME is a free data retrieval call binding the contract method 0x4a5c7348.
@@ -211,12 +223,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) EXPIRATIONTIME() (*big.Int, error)
 //
 // Solidity: function beneficiary() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) Beneficiary(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "beneficiary")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "beneficiary")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Beneficiary is a free data retrieval call binding the contract method 0x38af3eed.
@@ -237,12 +254,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) Beneficiary() (common.Address, err
 //
 // Solidity: function canValidate() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) CanValidate(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "canValidate")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "canValidate")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // CanValidate is a free data retrieval call binding the contract method 0xd69c2463.
@@ -263,12 +285,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) CanValidate() (bool, error) {
 //
 // Solidity: function canVote() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) CanVote(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "canVote")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "canVote")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // CanVote is a free data retrieval call binding the contract method 0x159e7064.
@@ -289,12 +316,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) CanVote() (bool, error) {
 //
 // Solidity: function getCurrentReleasedTotalAmount() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetCurrentReleasedTotalAmount(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "getCurrentReleasedTotalAmount")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "getCurrentReleasedTotalAmount")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GetCurrentReleasedTotalAmount is a free data retrieval call binding the contract method 0x1689eac7.
@@ -315,12 +347,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) GetCurrentReleasedTotalAmount() (*
 //
 // Solidity: function getRemainingLockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetRemainingLockedBalance(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "getRemainingLockedBalance")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "getRemainingLockedBalance")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GetRemainingLockedBalance is a free data retrieval call binding the contract method 0xcf23c33a.
@@ -341,12 +378,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) GetRemainingLockedBalance() (*big.
 //
 // Solidity: function getRemainingTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetRemainingTotalBalance(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "getRemainingTotalBalance")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "getRemainingTotalBalance")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GetRemainingTotalBalance is a free data retrieval call binding the contract method 0x178f42e9.
@@ -367,12 +409,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) GetRemainingTotalBalance() (*big.I
 //
 // Solidity: function getRemainingUnlockedBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetRemainingUnlockedBalance(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "getRemainingUnlockedBalance")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "getRemainingUnlockedBalance")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GetRemainingUnlockedBalance is a free data retrieval call binding the contract method 0xd0484677.
@@ -393,12 +440,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) GetRemainingUnlockedBalance() (*bi
 //
 // Solidity: function getTotalBalance() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) GetTotalBalance(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "getTotalBalance")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "getTotalBalance")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // GetTotalBalance is a free data retrieval call binding the contract method 0x12b58349.
@@ -419,12 +471,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) GetTotalBalance() (*big.Int, error
 //
 // Solidity: function initialized() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) Initialized(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "initialized")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "initialized")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
@@ -441,16 +498,52 @@ func (_ReleaseGold *ReleaseGoldCallerSession) Initialized() (bool, error) {
 	return _ReleaseGold.Contract.Initialized(&_ReleaseGold.CallOpts)
 }
 
+// IsFunded is a free data retrieval call binding the contract method 0x7c654303.
+//
+// Solidity: function isFunded() view returns(bool)
+func (_ReleaseGold *ReleaseGoldCaller) IsFunded(opts *bind.CallOpts) (bool, error) {
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "isFunded")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsFunded is a free data retrieval call binding the contract method 0x7c654303.
+//
+// Solidity: function isFunded() view returns(bool)
+func (_ReleaseGold *ReleaseGoldSession) IsFunded() (bool, error) {
+	return _ReleaseGold.Contract.IsFunded(&_ReleaseGold.CallOpts)
+}
+
+// IsFunded is a free data retrieval call binding the contract method 0x7c654303.
+//
+// Solidity: function isFunded() view returns(bool)
+func (_ReleaseGold *ReleaseGoldCallerSession) IsFunded() (bool, error) {
+	return _ReleaseGold.Contract.IsFunded(&_ReleaseGold.CallOpts)
+}
+
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
 // Solidity: function isOwner() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "isOwner")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "isOwner")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
@@ -471,12 +564,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) IsOwner() (bool, error) {
 //
 // Solidity: function isRevoked() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) IsRevoked(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "isRevoked")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "isRevoked")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // IsRevoked is a free data retrieval call binding the contract method 0x2bc9ed02.
@@ -497,12 +595,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) IsRevoked() (bool, error) {
 //
 // Solidity: function liquidityProvisionMet() view returns(bool)
 func (_ReleaseGold *ReleaseGoldCaller) LiquidityProvisionMet(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "liquidityProvisionMet")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "liquidityProvisionMet")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // LiquidityProvisionMet is a free data retrieval call binding the contract method 0xbeb28d7c.
@@ -523,12 +626,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) LiquidityProvisionMet() (bool, err
 //
 // Solidity: function maxDistribution() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) MaxDistribution(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "maxDistribution")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "maxDistribution")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // MaxDistribution is a free data retrieval call binding the contract method 0x044e0ea2.
@@ -549,12 +657,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) MaxDistribution() (*big.Int, error
 //
 // Solidity: function owner() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "owner")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "owner")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
@@ -575,12 +688,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) Owner() (common.Address, error) {
 //
 // Solidity: function refundAddress() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) RefundAddress(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "refundAddress")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "refundAddress")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // RefundAddress is a free data retrieval call binding the contract method 0x0cb61f6c.
@@ -601,12 +719,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) RefundAddress() (common.Address, e
 //
 // Solidity: function registry() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "registry")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "registry")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
@@ -627,12 +750,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) Registry() (common.Address, error)
 //
 // Solidity: function releaseOwner() view returns(address)
 func (_ReleaseGold *ReleaseGoldCaller) ReleaseOwner(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "releaseOwner")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "releaseOwner")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // ReleaseOwner is a free data retrieval call binding the contract method 0x83d0aae9.
@@ -659,16 +787,28 @@ func (_ReleaseGold *ReleaseGoldCaller) ReleaseSchedule(opts *bind.CallOpts) (str
 	ReleasePeriod           *big.Int
 	AmountReleasedPerPeriod *big.Int
 }, error) {
-	ret := new(struct {
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "releaseSchedule")
+
+	outstruct := new(struct {
 		ReleaseStartTime        *big.Int
 		ReleaseCliff            *big.Int
 		NumReleasePeriods       *big.Int
 		ReleasePeriod           *big.Int
 		AmountReleasedPerPeriod *big.Int
 	})
-	out := ret
-	err := _ReleaseGold.contract.Call(opts, out, "releaseSchedule")
-	return *ret, err
+	if err != nil {
+		return *outstruct, err
+	}
+
+	outstruct.ReleaseStartTime = *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	outstruct.ReleaseCliff = *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+	outstruct.NumReleasePeriods = *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
+	outstruct.ReleasePeriod = *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
+	outstruct.AmountReleasedPerPeriod = *abi.ConvertType(out[4], new(*big.Int)).(**big.Int)
+
+	return *outstruct, err
+
 }
 
 // ReleaseSchedule is a free data retrieval call binding the contract method 0xfc9f3ef0.
@@ -706,15 +846,26 @@ func (_ReleaseGold *ReleaseGoldCaller) RevocationInfo(opts *bind.CallOpts) (stru
 	ReleasedBalanceAtRevoke *big.Int
 	RevokeTime              *big.Int
 }, error) {
-	ret := new(struct {
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "revocationInfo")
+
+	outstruct := new(struct {
 		Revocable               bool
 		CanExpire               bool
 		ReleasedBalanceAtRevoke *big.Int
 		RevokeTime              *big.Int
 	})
-	out := ret
-	err := _ReleaseGold.contract.Call(opts, out, "revocationInfo")
-	return *ret, err
+	if err != nil {
+		return *outstruct, err
+	}
+
+	outstruct.Revocable = *abi.ConvertType(out[0], new(bool)).(*bool)
+	outstruct.CanExpire = *abi.ConvertType(out[1], new(bool)).(*bool)
+	outstruct.ReleasedBalanceAtRevoke = *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
+	outstruct.RevokeTime = *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
+
+	return *outstruct, err
+
 }
 
 // RevocationInfo is a free data retrieval call binding the contract method 0x969e83af.
@@ -745,12 +896,17 @@ func (_ReleaseGold *ReleaseGoldCallerSession) RevocationInfo() (struct {
 //
 // Solidity: function totalWithdrawn() view returns(uint256)
 func (_ReleaseGold *ReleaseGoldCaller) TotalWithdrawn(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _ReleaseGold.contract.Call(opts, out, "totalWithdrawn")
-	return *ret0, err
+	var out []interface{}
+	err := _ReleaseGold.contract.Call(opts, &out, "totalWithdrawn")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
 }
 
 // TotalWithdrawn is a free data retrieval call binding the contract method 0x4b319713.
@@ -912,6 +1068,27 @@ func (_ReleaseGold *ReleaseGoldSession) Expire() (*types.Transaction, error) {
 // Solidity: function expire() returns()
 func (_ReleaseGold *ReleaseGoldTransactorSession) Expire() (*types.Transaction, error) {
 	return _ReleaseGold.Contract.Expire(&_ReleaseGold.TransactOpts)
+}
+
+// GenericTransfer is a paid mutator transaction binding the contract method 0xe5704175.
+//
+// Solidity: function genericTransfer(address erc20, address to, uint256 value) returns()
+func (_ReleaseGold *ReleaseGoldTransactor) GenericTransfer(opts *bind.TransactOpts, erc20 common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _ReleaseGold.contract.Transact(opts, "genericTransfer", erc20, to, value)
+}
+
+// GenericTransfer is a paid mutator transaction binding the contract method 0xe5704175.
+//
+// Solidity: function genericTransfer(address erc20, address to, uint256 value) returns()
+func (_ReleaseGold *ReleaseGoldSession) GenericTransfer(erc20 common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _ReleaseGold.Contract.GenericTransfer(&_ReleaseGold.TransactOpts, erc20, to, value)
+}
+
+// GenericTransfer is a paid mutator transaction binding the contract method 0xe5704175.
+//
+// Solidity: function genericTransfer(address erc20, address to, uint256 value) returns()
+func (_ReleaseGold *ReleaseGoldTransactorSession) GenericTransfer(erc20 common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _ReleaseGold.Contract.GenericTransfer(&_ReleaseGold.TransactOpts, erc20, to, value)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x064a2e68.
@@ -1592,6 +1769,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseBeneficiarySet(log types.Log) (*Re
 	if err := _ReleaseGold.contract.UnpackLog(event, "BeneficiarySet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1725,6 +1903,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseCanExpireSet(log types.Log) (*Rele
 	if err := _ReleaseGold.contract.UnpackLog(event, "CanExpireSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1869,6 +2048,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseDistributionLimitSet(log types.Log
 	if err := _ReleaseGold.contract.UnpackLog(event, "DistributionLimitSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2012,6 +2192,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseLiquidityProvisionSet(log types.Lo
 	if err := _ReleaseGold.contract.UnpackLog(event, "LiquidityProvisionSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2164,6 +2345,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseOwnershipTransferred(log types.Log
 	if err := _ReleaseGold.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2307,6 +2489,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseRegistrySet(log types.Log) (*Relea
 	if err := _ReleaseGold.contract.UnpackLog(event, "RegistrySet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2459,6 +2642,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseReleaseGoldInstanceCreated(log typ
 	if err := _ReleaseGold.contract.UnpackLog(event, "ReleaseGoldInstanceCreated", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2611,6 +2795,7 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseReleaseGoldInstanceDestroyed(log t
 	if err := _ReleaseGold.contract.UnpackLog(event, "ReleaseGoldInstanceDestroyed", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2745,5 +2930,6 @@ func (_ReleaseGold *ReleaseGoldFilterer) ParseReleaseScheduleRevoked(log types.L
 	if err := _ReleaseGold.contract.UnpackLog(event, "ReleaseScheduleRevoked", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }

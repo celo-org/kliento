@@ -19,7 +19,7 @@ import (
 	"io/ioutil"
 
 	"github.com/celo-org/celo-blockchain/common"
-	"github.com/celo-org/celo-blockchain/eth"
+	"github.com/celo-org/celo-blockchain/eth/tracers"
 	"github.com/celo-org/celo-blockchain/rpc"
 )
 
@@ -35,7 +35,7 @@ func NewClient(c *rpc.Client) *DebugClient {
 
 // TraceTransactions performs a tracer over a transaction. Can use a custom tracer or default one
 // result type depends on the tracer, and it's the caller reponsability to use the proper one
-func (dc *DebugClient) TraceTransaction(ctx context.Context, result interface{}, txhash common.Hash, traceConfig *eth.TraceConfig) error {
+func (dc *DebugClient) TraceTransaction(ctx context.Context, result interface{}, txhash common.Hash, traceConfig *tracers.TraceConfig) error {
 	return dc.c.CallContext(ctx, result, "debug_traceTransaction", txhash, traceConfig)
 }
 

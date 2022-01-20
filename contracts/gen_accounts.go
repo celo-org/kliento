@@ -4,6 +4,7 @@
 package contracts
 
 import (
+	"errors"
 	"math/big"
 	"strings"
 
@@ -17,18 +18,24 @@ import (
 
 // Reference imports to suppress errors if they are not otherwise used.
 var (
+	_ = errors.New
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
-	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
 	_ = event.NewSubscription
 )
 
+// AccountsMetaData contains all meta data concerning the Accounts contract.
+var AccountsMetaData = &bind.MetaData{
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AccountCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"}],\"name\":\"AccountDataEncryptionKeySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"metadataURL\",\"type\":\"string\"}],\"name\":\"AccountMetadataURLSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"AccountNameSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"}],\"name\":\"AccountWalletAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"AttestationSignerAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"}],\"name\":\"AttestationSignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"DefaultSignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"DefaultSignerSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"IndexedSignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"IndexedSignerSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"LegacySignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"LegacySignerSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"url\",\"type\":\"bytes\"}],\"name\":\"OffchainStorageRootAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"url\",\"type\":\"bytes\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"OffchainStorageRootRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"SignerAuthorizationCompleted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"SignerAuthorizationStarted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"SignerAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"SignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"ValidatorSignerAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"}],\"name\":\"ValidatorSignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"VoteSignerAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"}],\"name\":\"VoteSignerRemoved\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"EIP712_AUTHORIZE_SIGNER_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"authorizedBy\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"eip712DomainSeparator\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"offchainStorageRoots\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"setEip712DomainSeparator\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setAccount\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"createAccount\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"setName\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setWalletAddress\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"}],\"name\":\"setAccountDataEncryptionKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"metadataURL\",\"type\":\"string\"}],\"name\":\"setMetadataURL\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"url\",\"type\":\"bytes\"}],\"name\":\"addStorageRoot\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeStorageRoot\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getOffchainStorageRoots\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"setIndexedSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeSignerWithSignature\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeVoteSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeValidatorSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithPublicKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithKeys\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeAttestationSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"authorizeSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"completeSignerAuthorization\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"isLegacySigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"isDefaultSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"isIndexedSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"isSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"removeDefaultSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"removeIndexedSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"removeSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"removeVoteSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"removeValidatorSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"removeAttestationSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"attestationSignerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"validatorSignerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"voteSignerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"signerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"isLegacyRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getLegacySigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getDefaultSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getIndexedSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getVoteSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidatorSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getAttestationSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"hasLegacySigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"hasDefaultSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"hasIndexedSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"role\",\"type\":\"string\"}],\"name\":\"hasAuthorizedSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasAuthorizedVoteSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasAuthorizedValidatorSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasAuthorizedAttestationSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMetadataURL\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"accountsToQuery\",\"type\":\"address[]\"}],\"name\":\"batchGetMetadataURL\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getDataEncryptionKey\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getWalletAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAccount\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"isAuthorizedSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"getRoleAuthorizationSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
+}
+
 // AccountsABI is the input ABI used to generate the binding from.
-const AccountsABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AccountCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"}],\"name\":\"AccountDataEncryptionKeySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"metadataURL\",\"type\":\"string\"}],\"name\":\"AccountMetadataURLSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"AccountNameSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"}],\"name\":\"AccountWalletAddressSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"AttestationSignerAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"}],\"name\":\"AttestationSignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"ValidatorSignerAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"}],\"name\":\"ValidatorSignerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"VoteSignerAuthorized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldSigner\",\"type\":\"address\"}],\"name\":\"VoteSignerRemoved\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"authorizedBy\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setAccount\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"createAccount\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"setName\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"walletAddress\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"setWalletAddress\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"dataEncryptionKey\",\"type\":\"bytes\"}],\"name\":\"setAccountDataEncryptionKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"string\",\"name\":\"metadataURL\",\"type\":\"string\"}],\"name\":\"setMetadataURL\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeVoteSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeValidatorSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithPublicKey\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"},{\"internalType\":\"bytes\",\"name\":\"ecdsaPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPublicKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"authorizeValidatorSignerWithKeys\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"authorizeAttestationSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"removeVoteSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"removeValidatorSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"removeAttestationSigner\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"attestationSignerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"validatorSignerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"voteSignerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"signerToAccount\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getVoteSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getValidatorSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getAttestationSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasAuthorizedVoteSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasAuthorizedValidatorSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasAuthorizedAttestationSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getName\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMetadataURL\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"accountsToQuery\",\"type\":\"address[]\"}],\"name\":\"batchGetMetadataURL\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getDataEncryptionKey\",\"outputs\":[{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getWalletAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAccount\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"signer\",\"type\":\"address\"}],\"name\":\"isAuthorizedSigner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+// Deprecated: Use AccountsMetaData.ABI instead.
+var AccountsABI = AccountsMetaData.ABI
 
 // Accounts is an auto generated Go binding around an Ethereum contract.
 type Accounts struct {
@@ -147,7 +154,7 @@ func ParseAccountsABI() (*abi.ABI, error) {
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Accounts *AccountsRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+func (_Accounts *AccountsRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
 	return _Accounts.Contract.AccountsCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -166,7 +173,7 @@ func (_Accounts *AccountsRaw) Transact(opts *bind.TransactOpts, method string, p
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Accounts *AccountsCallerRaw) Call(opts *bind.CallOpts, result interface{}, method string, params ...interface{}) error {
+func (_Accounts *AccountsCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
 	return _Accounts.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -181,16 +188,52 @@ func (_Accounts *AccountsTransactorRaw) Transact(opts *bind.TransactOpts, method
 	return _Accounts.Contract.contract.Transact(opts, method, params...)
 }
 
+// EIP712AUTHORIZESIGNERTYPEHASH is a free data retrieval call binding the contract method 0xf0c56584.
+//
+// Solidity: function EIP712_AUTHORIZE_SIGNER_TYPEHASH() view returns(bytes32)
+func (_Accounts *AccountsCaller) EIP712AUTHORIZESIGNERTYPEHASH(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "EIP712_AUTHORIZE_SIGNER_TYPEHASH")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// EIP712AUTHORIZESIGNERTYPEHASH is a free data retrieval call binding the contract method 0xf0c56584.
+//
+// Solidity: function EIP712_AUTHORIZE_SIGNER_TYPEHASH() view returns(bytes32)
+func (_Accounts *AccountsSession) EIP712AUTHORIZESIGNERTYPEHASH() ([32]byte, error) {
+	return _Accounts.Contract.EIP712AUTHORIZESIGNERTYPEHASH(&_Accounts.CallOpts)
+}
+
+// EIP712AUTHORIZESIGNERTYPEHASH is a free data retrieval call binding the contract method 0xf0c56584.
+//
+// Solidity: function EIP712_AUTHORIZE_SIGNER_TYPEHASH() view returns(bytes32)
+func (_Accounts *AccountsCallerSession) EIP712AUTHORIZESIGNERTYPEHASH() ([32]byte, error) {
+	return _Accounts.Contract.EIP712AUTHORIZESIGNERTYPEHASH(&_Accounts.CallOpts)
+}
+
 // AttestationSignerToAccount is a free data retrieval call binding the contract method 0x7b2434cb.
 //
 // Solidity: function attestationSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) AttestationSignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "attestationSignerToAccount", signer)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "attestationSignerToAccount", signer)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // AttestationSignerToAccount is a free data retrieval call binding the contract method 0x7b2434cb.
@@ -211,12 +254,17 @@ func (_Accounts *AccountsCallerSession) AttestationSignerToAccount(signer common
 //
 // Solidity: function authorizedBy(address ) view returns(address)
 func (_Accounts *AccountsCaller) AuthorizedBy(opts *bind.CallOpts, arg0 common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "authorizedBy", arg0)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "authorizedBy", arg0)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // AuthorizedBy is a free data retrieval call binding the contract method 0xb5a664c2.
@@ -237,16 +285,18 @@ func (_Accounts *AccountsCallerSession) AuthorizedBy(arg0 common.Address) (commo
 //
 // Solidity: function batchGetMetadataURL(address[] accountsToQuery) view returns(uint256[], bytes)
 func (_Accounts *AccountsCaller) BatchGetMetadataURL(opts *bind.CallOpts, accountsToQuery []common.Address) ([]*big.Int, []byte, error) {
-	var (
-		ret0 = new([]*big.Int)
-		ret1 = new([]byte)
-	)
-	out := &[]interface{}{
-		ret0,
-		ret1,
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "batchGetMetadataURL", accountsToQuery)
+
+	if err != nil {
+		return *new([]*big.Int), *new([]byte), err
 	}
-	err := _Accounts.contract.Call(opts, out, "batchGetMetadataURL", accountsToQuery)
-	return *ret0, *ret1, err
+
+	out0 := *abi.ConvertType(out[0], new([]*big.Int)).(*[]*big.Int)
+	out1 := *abi.ConvertType(out[1], new([]byte)).(*[]byte)
+
+	return out0, out1, err
+
 }
 
 // BatchGetMetadataURL is a free data retrieval call binding the contract method 0x8adaf96f.
@@ -263,16 +313,52 @@ func (_Accounts *AccountsCallerSession) BatchGetMetadataURL(accountsToQuery []co
 	return _Accounts.Contract.BatchGetMetadataURL(&_Accounts.CallOpts, accountsToQuery)
 }
 
+// Eip712DomainSeparator is a free data retrieval call binding the contract method 0x5b07fdd8.
+//
+// Solidity: function eip712DomainSeparator() view returns(bytes32)
+func (_Accounts *AccountsCaller) Eip712DomainSeparator(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "eip712DomainSeparator")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// Eip712DomainSeparator is a free data retrieval call binding the contract method 0x5b07fdd8.
+//
+// Solidity: function eip712DomainSeparator() view returns(bytes32)
+func (_Accounts *AccountsSession) Eip712DomainSeparator() ([32]byte, error) {
+	return _Accounts.Contract.Eip712DomainSeparator(&_Accounts.CallOpts)
+}
+
+// Eip712DomainSeparator is a free data retrieval call binding the contract method 0x5b07fdd8.
+//
+// Solidity: function eip712DomainSeparator() view returns(bytes32)
+func (_Accounts *AccountsCallerSession) Eip712DomainSeparator() ([32]byte, error) {
+	return _Accounts.Contract.Eip712DomainSeparator(&_Accounts.CallOpts)
+}
+
 // GetAttestationSigner is a free data retrieval call binding the contract method 0x61bab1ae.
 //
 // Solidity: function getAttestationSigner(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetAttestationSigner(opts *bind.CallOpts, account common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "getAttestationSigner", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getAttestationSigner", account)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // GetAttestationSigner is a free data retrieval call binding the contract method 0x61bab1ae.
@@ -293,12 +379,17 @@ func (_Accounts *AccountsCallerSession) GetAttestationSigner(account common.Addr
 //
 // Solidity: function getDataEncryptionKey(address account) view returns(bytes)
 func (_Accounts *AccountsCaller) GetDataEncryptionKey(opts *bind.CallOpts, account common.Address) ([]byte, error) {
-	var (
-		ret0 = new([]byte)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "getDataEncryptionKey", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getDataEncryptionKey", account)
+
+	if err != nil {
+		return *new([]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
+
+	return out0, err
+
 }
 
 // GetDataEncryptionKey is a free data retrieval call binding the contract method 0xae32fa0e.
@@ -315,16 +406,114 @@ func (_Accounts *AccountsCallerSession) GetDataEncryptionKey(account common.Addr
 	return _Accounts.Contract.GetDataEncryptionKey(&_Accounts.CallOpts, account)
 }
 
+// GetDefaultSigner is a free data retrieval call binding the contract method 0x5b6d9004.
+//
+// Solidity: function getDefaultSigner(address account, bytes32 role) view returns(address)
+func (_Accounts *AccountsCaller) GetDefaultSigner(opts *bind.CallOpts, account common.Address, role [32]byte) (common.Address, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getDefaultSigner", account, role)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// GetDefaultSigner is a free data retrieval call binding the contract method 0x5b6d9004.
+//
+// Solidity: function getDefaultSigner(address account, bytes32 role) view returns(address)
+func (_Accounts *AccountsSession) GetDefaultSigner(account common.Address, role [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetDefaultSigner(&_Accounts.CallOpts, account, role)
+}
+
+// GetDefaultSigner is a free data retrieval call binding the contract method 0x5b6d9004.
+//
+// Solidity: function getDefaultSigner(address account, bytes32 role) view returns(address)
+func (_Accounts *AccountsCallerSession) GetDefaultSigner(account common.Address, role [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetDefaultSigner(&_Accounts.CallOpts, account, role)
+}
+
+// GetIndexedSigner is a free data retrieval call binding the contract method 0x87affe68.
+//
+// Solidity: function getIndexedSigner(address account, bytes32 role) view returns(address)
+func (_Accounts *AccountsCaller) GetIndexedSigner(opts *bind.CallOpts, account common.Address, role [32]byte) (common.Address, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getIndexedSigner", account, role)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// GetIndexedSigner is a free data retrieval call binding the contract method 0x87affe68.
+//
+// Solidity: function getIndexedSigner(address account, bytes32 role) view returns(address)
+func (_Accounts *AccountsSession) GetIndexedSigner(account common.Address, role [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetIndexedSigner(&_Accounts.CallOpts, account, role)
+}
+
+// GetIndexedSigner is a free data retrieval call binding the contract method 0x87affe68.
+//
+// Solidity: function getIndexedSigner(address account, bytes32 role) view returns(address)
+func (_Accounts *AccountsCallerSession) GetIndexedSigner(account common.Address, role [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetIndexedSigner(&_Accounts.CallOpts, account, role)
+}
+
+// GetLegacySigner is a free data retrieval call binding the contract method 0x8bceca58.
+//
+// Solidity: function getLegacySigner(address _account, bytes32 role) view returns(address)
+func (_Accounts *AccountsCaller) GetLegacySigner(opts *bind.CallOpts, _account common.Address, role [32]byte) (common.Address, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getLegacySigner", _account, role)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// GetLegacySigner is a free data retrieval call binding the contract method 0x8bceca58.
+//
+// Solidity: function getLegacySigner(address _account, bytes32 role) view returns(address)
+func (_Accounts *AccountsSession) GetLegacySigner(_account common.Address, role [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetLegacySigner(&_Accounts.CallOpts, _account, role)
+}
+
+// GetLegacySigner is a free data retrieval call binding the contract method 0x8bceca58.
+//
+// Solidity: function getLegacySigner(address _account, bytes32 role) view returns(address)
+func (_Accounts *AccountsCallerSession) GetLegacySigner(_account common.Address, role [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetLegacySigner(&_Accounts.CallOpts, _account, role)
+}
+
 // GetMetadataURL is a free data retrieval call binding the contract method 0xa8ae1a3d.
 //
 // Solidity: function getMetadataURL(address account) view returns(string)
 func (_Accounts *AccountsCaller) GetMetadataURL(opts *bind.CallOpts, account common.Address) (string, error) {
-	var (
-		ret0 = new(string)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "getMetadataURL", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getMetadataURL", account)
+
+	if err != nil {
+		return *new(string), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+
+	return out0, err
+
 }
 
 // GetMetadataURL is a free data retrieval call binding the contract method 0xa8ae1a3d.
@@ -345,12 +534,17 @@ func (_Accounts *AccountsCallerSession) GetMetadataURL(account common.Address) (
 //
 // Solidity: function getName(address account) view returns(string)
 func (_Accounts *AccountsCaller) GetName(opts *bind.CallOpts, account common.Address) (string, error) {
-	var (
-		ret0 = new(string)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "getName", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getName", account)
+
+	if err != nil {
+		return *new(string), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(string)).(*string)
+
+	return out0, err
+
 }
 
 // GetName is a free data retrieval call binding the contract method 0x5fd4b08a.
@@ -367,16 +561,84 @@ func (_Accounts *AccountsCallerSession) GetName(account common.Address) (string,
 	return _Accounts.Contract.GetName(&_Accounts.CallOpts, account)
 }
 
+// GetOffchainStorageRoots is a free data retrieval call binding the contract method 0x289a1318.
+//
+// Solidity: function getOffchainStorageRoots(address account) view returns(bytes, uint256[])
+func (_Accounts *AccountsCaller) GetOffchainStorageRoots(opts *bind.CallOpts, account common.Address) ([]byte, []*big.Int, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getOffchainStorageRoots", account)
+
+	if err != nil {
+		return *new([]byte), *new([]*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
+	out1 := *abi.ConvertType(out[1], new([]*big.Int)).(*[]*big.Int)
+
+	return out0, out1, err
+
+}
+
+// GetOffchainStorageRoots is a free data retrieval call binding the contract method 0x289a1318.
+//
+// Solidity: function getOffchainStorageRoots(address account) view returns(bytes, uint256[])
+func (_Accounts *AccountsSession) GetOffchainStorageRoots(account common.Address) ([]byte, []*big.Int, error) {
+	return _Accounts.Contract.GetOffchainStorageRoots(&_Accounts.CallOpts, account)
+}
+
+// GetOffchainStorageRoots is a free data retrieval call binding the contract method 0x289a1318.
+//
+// Solidity: function getOffchainStorageRoots(address account) view returns(bytes, uint256[])
+func (_Accounts *AccountsCallerSession) GetOffchainStorageRoots(account common.Address) ([]byte, []*big.Int, error) {
+	return _Accounts.Contract.GetOffchainStorageRoots(&_Accounts.CallOpts, account)
+}
+
+// GetRoleAuthorizationSigner is a free data retrieval call binding the contract method 0xb6c66625.
+//
+// Solidity: function getRoleAuthorizationSigner(address account, address signer, bytes32 role, uint8 v, bytes32 r, bytes32 s) view returns(address)
+func (_Accounts *AccountsCaller) GetRoleAuthorizationSigner(opts *bind.CallOpts, account common.Address, signer common.Address, role [32]byte, v uint8, r [32]byte, s [32]byte) (common.Address, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getRoleAuthorizationSigner", account, signer, role, v, r, s)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// GetRoleAuthorizationSigner is a free data retrieval call binding the contract method 0xb6c66625.
+//
+// Solidity: function getRoleAuthorizationSigner(address account, address signer, bytes32 role, uint8 v, bytes32 r, bytes32 s) view returns(address)
+func (_Accounts *AccountsSession) GetRoleAuthorizationSigner(account common.Address, signer common.Address, role [32]byte, v uint8, r [32]byte, s [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetRoleAuthorizationSigner(&_Accounts.CallOpts, account, signer, role, v, r, s)
+}
+
+// GetRoleAuthorizationSigner is a free data retrieval call binding the contract method 0xb6c66625.
+//
+// Solidity: function getRoleAuthorizationSigner(address account, address signer, bytes32 role, uint8 v, bytes32 r, bytes32 s) view returns(address)
+func (_Accounts *AccountsCallerSession) GetRoleAuthorizationSigner(account common.Address, signer common.Address, role [32]byte, v uint8, r [32]byte, s [32]byte) (common.Address, error) {
+	return _Accounts.Contract.GetRoleAuthorizationSigner(&_Accounts.CallOpts, account, signer, role, v, r, s)
+}
+
 // GetValidatorSigner is a free data retrieval call binding the contract method 0x4ce38b5f.
 //
 // Solidity: function getValidatorSigner(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetValidatorSigner(opts *bind.CallOpts, account common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "getValidatorSigner", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getValidatorSigner", account)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // GetValidatorSigner is a free data retrieval call binding the contract method 0x4ce38b5f.
@@ -397,20 +659,20 @@ func (_Accounts *AccountsCallerSession) GetValidatorSigner(account common.Addres
 //
 // Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
 func (_Accounts *AccountsCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-		ret1 = new(*big.Int)
-		ret2 = new(*big.Int)
-		ret3 = new(*big.Int)
-	)
-	out := &[]interface{}{
-		ret0,
-		ret1,
-		ret2,
-		ret3,
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getVersionNumber")
+
+	if err != nil {
+		return *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(*big.Int), err
 	}
-	err := _Accounts.contract.Call(opts, out, "getVersionNumber")
-	return *ret0, *ret1, *ret2, *ret3, err
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	out1 := *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+	out2 := *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
+	out3 := *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
+
+	return out0, out1, out2, out3, err
+
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
@@ -431,12 +693,17 @@ func (_Accounts *AccountsCallerSession) GetVersionNumber() (*big.Int, *big.Int, 
 //
 // Solidity: function getVoteSigner(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetVoteSigner(opts *bind.CallOpts, account common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "getVoteSigner", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getVoteSigner", account)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // GetVoteSigner is a free data retrieval call binding the contract method 0x41ddd880.
@@ -457,12 +724,17 @@ func (_Accounts *AccountsCallerSession) GetVoteSigner(account common.Address) (c
 //
 // Solidity: function getWalletAddress(address account) view returns(address)
 func (_Accounts *AccountsCaller) GetWalletAddress(opts *bind.CallOpts, account common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "getWalletAddress", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "getWalletAddress", account)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // GetWalletAddress is a free data retrieval call binding the contract method 0x1fd9afa5.
@@ -483,12 +755,17 @@ func (_Accounts *AccountsCallerSession) GetWalletAddress(account common.Address)
 //
 // Solidity: function hasAuthorizedAttestationSigner(address account) view returns(bool)
 func (_Accounts *AccountsCaller) HasAuthorizedAttestationSigner(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "hasAuthorizedAttestationSigner", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "hasAuthorizedAttestationSigner", account)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // HasAuthorizedAttestationSigner is a free data retrieval call binding the contract method 0xc2e0ee20.
@@ -505,16 +782,52 @@ func (_Accounts *AccountsCallerSession) HasAuthorizedAttestationSigner(account c
 	return _Accounts.Contract.HasAuthorizedAttestationSigner(&_Accounts.CallOpts, account)
 }
 
+// HasAuthorizedSigner is a free data retrieval call binding the contract method 0xba40e4f6.
+//
+// Solidity: function hasAuthorizedSigner(address account, string role) view returns(bool)
+func (_Accounts *AccountsCaller) HasAuthorizedSigner(opts *bind.CallOpts, account common.Address, role string) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "hasAuthorizedSigner", account, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// HasAuthorizedSigner is a free data retrieval call binding the contract method 0xba40e4f6.
+//
+// Solidity: function hasAuthorizedSigner(address account, string role) view returns(bool)
+func (_Accounts *AccountsSession) HasAuthorizedSigner(account common.Address, role string) (bool, error) {
+	return _Accounts.Contract.HasAuthorizedSigner(&_Accounts.CallOpts, account, role)
+}
+
+// HasAuthorizedSigner is a free data retrieval call binding the contract method 0xba40e4f6.
+//
+// Solidity: function hasAuthorizedSigner(address account, string role) view returns(bool)
+func (_Accounts *AccountsCallerSession) HasAuthorizedSigner(account common.Address, role string) (bool, error) {
+	return _Accounts.Contract.HasAuthorizedSigner(&_Accounts.CallOpts, account, role)
+}
+
 // HasAuthorizedValidatorSigner is a free data retrieval call binding the contract method 0x0127dbed.
 //
 // Solidity: function hasAuthorizedValidatorSigner(address account) view returns(bool)
 func (_Accounts *AccountsCaller) HasAuthorizedValidatorSigner(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "hasAuthorizedValidatorSigner", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "hasAuthorizedValidatorSigner", account)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // HasAuthorizedValidatorSigner is a free data retrieval call binding the contract method 0x0127dbed.
@@ -535,12 +848,17 @@ func (_Accounts *AccountsCallerSession) HasAuthorizedValidatorSigner(account com
 //
 // Solidity: function hasAuthorizedVoteSigner(address account) view returns(bool)
 func (_Accounts *AccountsCaller) HasAuthorizedVoteSigner(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "hasAuthorizedVoteSigner", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "hasAuthorizedVoteSigner", account)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // HasAuthorizedVoteSigner is a free data retrieval call binding the contract method 0x614ed493.
@@ -557,16 +875,114 @@ func (_Accounts *AccountsCallerSession) HasAuthorizedVoteSigner(account common.A
 	return _Accounts.Contract.HasAuthorizedVoteSigner(&_Accounts.CallOpts, account)
 }
 
+// HasDefaultSigner is a free data retrieval call binding the contract method 0x05be6229.
+//
+// Solidity: function hasDefaultSigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCaller) HasDefaultSigner(opts *bind.CallOpts, account common.Address, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "hasDefaultSigner", account, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// HasDefaultSigner is a free data retrieval call binding the contract method 0x05be6229.
+//
+// Solidity: function hasDefaultSigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsSession) HasDefaultSigner(account common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.HasDefaultSigner(&_Accounts.CallOpts, account, role)
+}
+
+// HasDefaultSigner is a free data retrieval call binding the contract method 0x05be6229.
+//
+// Solidity: function hasDefaultSigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCallerSession) HasDefaultSigner(account common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.HasDefaultSigner(&_Accounts.CallOpts, account, role)
+}
+
+// HasIndexedSigner is a free data retrieval call binding the contract method 0xff836d93.
+//
+// Solidity: function hasIndexedSigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCaller) HasIndexedSigner(opts *bind.CallOpts, account common.Address, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "hasIndexedSigner", account, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// HasIndexedSigner is a free data retrieval call binding the contract method 0xff836d93.
+//
+// Solidity: function hasIndexedSigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsSession) HasIndexedSigner(account common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.HasIndexedSigner(&_Accounts.CallOpts, account, role)
+}
+
+// HasIndexedSigner is a free data retrieval call binding the contract method 0xff836d93.
+//
+// Solidity: function hasIndexedSigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCallerSession) HasIndexedSigner(account common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.HasIndexedSigner(&_Accounts.CallOpts, account, role)
+}
+
+// HasLegacySigner is a free data retrieval call binding the contract method 0x1441ece7.
+//
+// Solidity: function hasLegacySigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCaller) HasLegacySigner(opts *bind.CallOpts, account common.Address, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "hasLegacySigner", account, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// HasLegacySigner is a free data retrieval call binding the contract method 0x1441ece7.
+//
+// Solidity: function hasLegacySigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsSession) HasLegacySigner(account common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.HasLegacySigner(&_Accounts.CallOpts, account, role)
+}
+
+// HasLegacySigner is a free data retrieval call binding the contract method 0x1441ece7.
+//
+// Solidity: function hasLegacySigner(address account, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCallerSession) HasLegacySigner(account common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.HasLegacySigner(&_Accounts.CallOpts, account, role)
+}
+
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
 //
 // Solidity: function initialized() view returns(bool)
 func (_Accounts *AccountsCaller) Initialized(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "initialized")
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "initialized")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // Initialized is a free data retrieval call binding the contract method 0x158ef93e.
@@ -587,12 +1003,17 @@ func (_Accounts *AccountsCallerSession) Initialized() (bool, error) {
 //
 // Solidity: function isAccount(address account) view returns(bool)
 func (_Accounts *AccountsCaller) IsAccount(opts *bind.CallOpts, account common.Address) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "isAccount", account)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isAccount", account)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // IsAccount is a free data retrieval call binding the contract method 0x25ca4c9c.
@@ -613,12 +1034,17 @@ func (_Accounts *AccountsCallerSession) IsAccount(account common.Address) (bool,
 //
 // Solidity: function isAuthorizedSigner(address signer) view returns(bool)
 func (_Accounts *AccountsCaller) IsAuthorizedSigner(opts *bind.CallOpts, signer common.Address) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "isAuthorizedSigner", signer)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isAuthorizedSigner", signer)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // IsAuthorizedSigner is a free data retrieval call binding the contract method 0x49045e16.
@@ -635,16 +1061,145 @@ func (_Accounts *AccountsCallerSession) IsAuthorizedSigner(signer common.Address
 	return _Accounts.Contract.IsAuthorizedSigner(&_Accounts.CallOpts, signer)
 }
 
+// IsDefaultSigner is a free data retrieval call binding the contract method 0x0b8e0562.
+//
+// Solidity: function isDefaultSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCaller) IsDefaultSigner(opts *bind.CallOpts, account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isDefaultSigner", account, signer, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsDefaultSigner is a free data retrieval call binding the contract method 0x0b8e0562.
+//
+// Solidity: function isDefaultSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsSession) IsDefaultSigner(account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsDefaultSigner(&_Accounts.CallOpts, account, signer, role)
+}
+
+// IsDefaultSigner is a free data retrieval call binding the contract method 0x0b8e0562.
+//
+// Solidity: function isDefaultSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCallerSession) IsDefaultSigner(account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsDefaultSigner(&_Accounts.CallOpts, account, signer, role)
+}
+
+// IsIndexedSigner is a free data retrieval call binding the contract method 0xc48830d9.
+//
+// Solidity: function isIndexedSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCaller) IsIndexedSigner(opts *bind.CallOpts, account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isIndexedSigner", account, signer, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsIndexedSigner is a free data retrieval call binding the contract method 0xc48830d9.
+//
+// Solidity: function isIndexedSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsSession) IsIndexedSigner(account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsIndexedSigner(&_Accounts.CallOpts, account, signer, role)
+}
+
+// IsIndexedSigner is a free data retrieval call binding the contract method 0xc48830d9.
+//
+// Solidity: function isIndexedSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCallerSession) IsIndexedSigner(account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsIndexedSigner(&_Accounts.CallOpts, account, signer, role)
+}
+
+// IsLegacyRole is a free data retrieval call binding the contract method 0xf333d836.
+//
+// Solidity: function isLegacyRole(bytes32 role) pure returns(bool)
+func (_Accounts *AccountsCaller) IsLegacyRole(opts *bind.CallOpts, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isLegacyRole", role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsLegacyRole is a free data retrieval call binding the contract method 0xf333d836.
+//
+// Solidity: function isLegacyRole(bytes32 role) pure returns(bool)
+func (_Accounts *AccountsSession) IsLegacyRole(role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsLegacyRole(&_Accounts.CallOpts, role)
+}
+
+// IsLegacyRole is a free data retrieval call binding the contract method 0xf333d836.
+//
+// Solidity: function isLegacyRole(bytes32 role) pure returns(bool)
+func (_Accounts *AccountsCallerSession) IsLegacyRole(role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsLegacyRole(&_Accounts.CallOpts, role)
+}
+
+// IsLegacySigner is a free data retrieval call binding the contract method 0x91cd074b.
+//
+// Solidity: function isLegacySigner(address _account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCaller) IsLegacySigner(opts *bind.CallOpts, _account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isLegacySigner", _account, signer, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsLegacySigner is a free data retrieval call binding the contract method 0x91cd074b.
+//
+// Solidity: function isLegacySigner(address _account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsSession) IsLegacySigner(_account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsLegacySigner(&_Accounts.CallOpts, _account, signer, role)
+}
+
+// IsLegacySigner is a free data retrieval call binding the contract method 0x91cd074b.
+//
+// Solidity: function isLegacySigner(address _account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCallerSession) IsLegacySigner(_account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsLegacySigner(&_Accounts.CallOpts, _account, signer, role)
+}
+
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
 //
 // Solidity: function isOwner() view returns(bool)
 func (_Accounts *AccountsCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
-	var (
-		ret0 = new(bool)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "isOwner")
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isOwner")
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
 }
 
 // IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
@@ -661,16 +1216,83 @@ func (_Accounts *AccountsCallerSession) IsOwner() (bool, error) {
 	return _Accounts.Contract.IsOwner(&_Accounts.CallOpts)
 }
 
+// IsSigner is a free data retrieval call binding the contract method 0x485a46d1.
+//
+// Solidity: function isSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCaller) IsSigner(opts *bind.CallOpts, account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "isSigner", account, signer, role)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsSigner is a free data retrieval call binding the contract method 0x485a46d1.
+//
+// Solidity: function isSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsSession) IsSigner(account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsSigner(&_Accounts.CallOpts, account, signer, role)
+}
+
+// IsSigner is a free data retrieval call binding the contract method 0x485a46d1.
+//
+// Solidity: function isSigner(address account, address signer, bytes32 role) view returns(bool)
+func (_Accounts *AccountsCallerSession) IsSigner(account common.Address, signer common.Address, role [32]byte) (bool, error) {
+	return _Accounts.Contract.IsSigner(&_Accounts.CallOpts, account, signer, role)
+}
+
+// OffchainStorageRoots is a free data retrieval call binding the contract method 0x76082c1f.
+//
+// Solidity: function offchainStorageRoots(address , uint256 ) view returns(bytes)
+func (_Accounts *AccountsCaller) OffchainStorageRoots(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int) ([]byte, error) {
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "offchainStorageRoots", arg0, arg1)
+
+	if err != nil {
+		return *new([]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]byte)).(*[]byte)
+
+	return out0, err
+
+}
+
+// OffchainStorageRoots is a free data retrieval call binding the contract method 0x76082c1f.
+//
+// Solidity: function offchainStorageRoots(address , uint256 ) view returns(bytes)
+func (_Accounts *AccountsSession) OffchainStorageRoots(arg0 common.Address, arg1 *big.Int) ([]byte, error) {
+	return _Accounts.Contract.OffchainStorageRoots(&_Accounts.CallOpts, arg0, arg1)
+}
+
+// OffchainStorageRoots is a free data retrieval call binding the contract method 0x76082c1f.
+//
+// Solidity: function offchainStorageRoots(address , uint256 ) view returns(bytes)
+func (_Accounts *AccountsCallerSession) OffchainStorageRoots(arg0 common.Address, arg1 *big.Int) ([]byte, error) {
+	return _Accounts.Contract.OffchainStorageRoots(&_Accounts.CallOpts, arg0, arg1)
+}
+
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
 // Solidity: function owner() view returns(address)
 func (_Accounts *AccountsCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "owner")
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "owner")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
@@ -691,12 +1313,17 @@ func (_Accounts *AccountsCallerSession) Owner() (common.Address, error) {
 //
 // Solidity: function registry() view returns(address)
 func (_Accounts *AccountsCaller) Registry(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "registry")
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "registry")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // Registry is a free data retrieval call binding the contract method 0x7b103999.
@@ -717,12 +1344,17 @@ func (_Accounts *AccountsCallerSession) Registry() (common.Address, error) {
 //
 // Solidity: function signerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) SignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "signerToAccount", signer)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "signerToAccount", signer)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // SignerToAccount is a free data retrieval call binding the contract method 0x93c5c487.
@@ -743,12 +1375,17 @@ func (_Accounts *AccountsCallerSession) SignerToAccount(signer common.Address) (
 //
 // Solidity: function validatorSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) ValidatorSignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "validatorSignerToAccount", signer)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "validatorSignerToAccount", signer)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // ValidatorSignerToAccount is a free data retrieval call binding the contract method 0x64439b43.
@@ -769,12 +1406,17 @@ func (_Accounts *AccountsCallerSession) ValidatorSignerToAccount(signer common.A
 //
 // Solidity: function voteSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCaller) VoteSignerToAccount(opts *bind.CallOpts, signer common.Address) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _Accounts.contract.Call(opts, out, "voteSignerToAccount", signer)
-	return *ret0, err
+	var out []interface{}
+	err := _Accounts.contract.Call(opts, &out, "voteSignerToAccount", signer)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
 // VoteSignerToAccount is a free data retrieval call binding the contract method 0x6642d594.
@@ -789,6 +1431,27 @@ func (_Accounts *AccountsSession) VoteSignerToAccount(signer common.Address) (co
 // Solidity: function voteSignerToAccount(address signer) view returns(address)
 func (_Accounts *AccountsCallerSession) VoteSignerToAccount(signer common.Address) (common.Address, error) {
 	return _Accounts.Contract.VoteSignerToAccount(&_Accounts.CallOpts, signer)
+}
+
+// AddStorageRoot is a paid mutator transaction binding the contract method 0xb062c843.
+//
+// Solidity: function addStorageRoot(bytes url) returns()
+func (_Accounts *AccountsTransactor) AddStorageRoot(opts *bind.TransactOpts, url []byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "addStorageRoot", url)
+}
+
+// AddStorageRoot is a paid mutator transaction binding the contract method 0xb062c843.
+//
+// Solidity: function addStorageRoot(bytes url) returns()
+func (_Accounts *AccountsSession) AddStorageRoot(url []byte) (*types.Transaction, error) {
+	return _Accounts.Contract.AddStorageRoot(&_Accounts.TransactOpts, url)
+}
+
+// AddStorageRoot is a paid mutator transaction binding the contract method 0xb062c843.
+//
+// Solidity: function addStorageRoot(bytes url) returns()
+func (_Accounts *AccountsTransactorSession) AddStorageRoot(url []byte) (*types.Transaction, error) {
+	return _Accounts.Contract.AddStorageRoot(&_Accounts.TransactOpts, url)
 }
 
 // AuthorizeAttestationSigner is a paid mutator transaction binding the contract method 0x76afa04c.
@@ -810,6 +1473,48 @@ func (_Accounts *AccountsSession) AuthorizeAttestationSigner(signer common.Addre
 // Solidity: function authorizeAttestationSigner(address signer, uint8 v, bytes32 r, bytes32 s) returns()
 func (_Accounts *AccountsTransactorSession) AuthorizeAttestationSigner(signer common.Address, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
 	return _Accounts.Contract.AuthorizeAttestationSigner(&_Accounts.TransactOpts, signer, v, r, s)
+}
+
+// AuthorizeSigner is a paid mutator transaction binding the contract method 0x58b81ea8.
+//
+// Solidity: function authorizeSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsTransactor) AuthorizeSigner(opts *bind.TransactOpts, signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "authorizeSigner", signer, role)
+}
+
+// AuthorizeSigner is a paid mutator transaction binding the contract method 0x58b81ea8.
+//
+// Solidity: function authorizeSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsSession) AuthorizeSigner(signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.AuthorizeSigner(&_Accounts.TransactOpts, signer, role)
+}
+
+// AuthorizeSigner is a paid mutator transaction binding the contract method 0x58b81ea8.
+//
+// Solidity: function authorizeSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsTransactorSession) AuthorizeSigner(signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.AuthorizeSigner(&_Accounts.TransactOpts, signer, role)
+}
+
+// AuthorizeSignerWithSignature is a paid mutator transaction binding the contract method 0x92f90fbf.
+//
+// Solidity: function authorizeSignerWithSignature(address signer, bytes32 role, uint8 v, bytes32 r, bytes32 s) returns()
+func (_Accounts *AccountsTransactor) AuthorizeSignerWithSignature(opts *bind.TransactOpts, signer common.Address, role [32]byte, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "authorizeSignerWithSignature", signer, role, v, r, s)
+}
+
+// AuthorizeSignerWithSignature is a paid mutator transaction binding the contract method 0x92f90fbf.
+//
+// Solidity: function authorizeSignerWithSignature(address signer, bytes32 role, uint8 v, bytes32 r, bytes32 s) returns()
+func (_Accounts *AccountsSession) AuthorizeSignerWithSignature(signer common.Address, role [32]byte, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.AuthorizeSignerWithSignature(&_Accounts.TransactOpts, signer, role, v, r, s)
+}
+
+// AuthorizeSignerWithSignature is a paid mutator transaction binding the contract method 0x92f90fbf.
+//
+// Solidity: function authorizeSignerWithSignature(address signer, bytes32 role, uint8 v, bytes32 r, bytes32 s) returns()
+func (_Accounts *AccountsTransactorSession) AuthorizeSignerWithSignature(signer common.Address, role [32]byte, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.AuthorizeSignerWithSignature(&_Accounts.TransactOpts, signer, role, v, r, s)
 }
 
 // AuthorizeValidatorSigner is a paid mutator transaction binding the contract method 0xbaf7ef0f.
@@ -896,6 +1601,27 @@ func (_Accounts *AccountsTransactorSession) AuthorizeVoteSigner(signer common.Ad
 	return _Accounts.Contract.AuthorizeVoteSigner(&_Accounts.TransactOpts, signer, v, r, s)
 }
 
+// CompleteSignerAuthorization is a paid mutator transaction binding the contract method 0x9f682976.
+//
+// Solidity: function completeSignerAuthorization(address account, bytes32 role) returns()
+func (_Accounts *AccountsTransactor) CompleteSignerAuthorization(opts *bind.TransactOpts, account common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "completeSignerAuthorization", account, role)
+}
+
+// CompleteSignerAuthorization is a paid mutator transaction binding the contract method 0x9f682976.
+//
+// Solidity: function completeSignerAuthorization(address account, bytes32 role) returns()
+func (_Accounts *AccountsSession) CompleteSignerAuthorization(account common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.CompleteSignerAuthorization(&_Accounts.TransactOpts, account, role)
+}
+
+// CompleteSignerAuthorization is a paid mutator transaction binding the contract method 0x9f682976.
+//
+// Solidity: function completeSignerAuthorization(address account, bytes32 role) returns()
+func (_Accounts *AccountsTransactorSession) CompleteSignerAuthorization(account common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.CompleteSignerAuthorization(&_Accounts.TransactOpts, account, role)
+}
+
 // CreateAccount is a paid mutator transaction binding the contract method 0x9dca362f.
 //
 // Solidity: function createAccount() returns(bool)
@@ -957,6 +1683,90 @@ func (_Accounts *AccountsSession) RemoveAttestationSigner() (*types.Transaction,
 // Solidity: function removeAttestationSigner() returns()
 func (_Accounts *AccountsTransactorSession) RemoveAttestationSigner() (*types.Transaction, error) {
 	return _Accounts.Contract.RemoveAttestationSigner(&_Accounts.TransactOpts)
+}
+
+// RemoveDefaultSigner is a paid mutator transaction binding the contract method 0xe7a16e6b.
+//
+// Solidity: function removeDefaultSigner(bytes32 role) returns()
+func (_Accounts *AccountsTransactor) RemoveDefaultSigner(opts *bind.TransactOpts, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "removeDefaultSigner", role)
+}
+
+// RemoveDefaultSigner is a paid mutator transaction binding the contract method 0xe7a16e6b.
+//
+// Solidity: function removeDefaultSigner(bytes32 role) returns()
+func (_Accounts *AccountsSession) RemoveDefaultSigner(role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveDefaultSigner(&_Accounts.TransactOpts, role)
+}
+
+// RemoveDefaultSigner is a paid mutator transaction binding the contract method 0xe7a16e6b.
+//
+// Solidity: function removeDefaultSigner(bytes32 role) returns()
+func (_Accounts *AccountsTransactorSession) RemoveDefaultSigner(role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveDefaultSigner(&_Accounts.TransactOpts, role)
+}
+
+// RemoveIndexedSigner is a paid mutator transaction binding the contract method 0x0185a232.
+//
+// Solidity: function removeIndexedSigner(bytes32 role) returns()
+func (_Accounts *AccountsTransactor) RemoveIndexedSigner(opts *bind.TransactOpts, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "removeIndexedSigner", role)
+}
+
+// RemoveIndexedSigner is a paid mutator transaction binding the contract method 0x0185a232.
+//
+// Solidity: function removeIndexedSigner(bytes32 role) returns()
+func (_Accounts *AccountsSession) RemoveIndexedSigner(role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveIndexedSigner(&_Accounts.TransactOpts, role)
+}
+
+// RemoveIndexedSigner is a paid mutator transaction binding the contract method 0x0185a232.
+//
+// Solidity: function removeIndexedSigner(bytes32 role) returns()
+func (_Accounts *AccountsTransactorSession) RemoveIndexedSigner(role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveIndexedSigner(&_Accounts.TransactOpts, role)
+}
+
+// RemoveSigner is a paid mutator transaction binding the contract method 0xfbe3c373.
+//
+// Solidity: function removeSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsTransactor) RemoveSigner(opts *bind.TransactOpts, signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "removeSigner", signer, role)
+}
+
+// RemoveSigner is a paid mutator transaction binding the contract method 0xfbe3c373.
+//
+// Solidity: function removeSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsSession) RemoveSigner(signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveSigner(&_Accounts.TransactOpts, signer, role)
+}
+
+// RemoveSigner is a paid mutator transaction binding the contract method 0xfbe3c373.
+//
+// Solidity: function removeSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsTransactorSession) RemoveSigner(signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveSigner(&_Accounts.TransactOpts, signer, role)
+}
+
+// RemoveStorageRoot is a paid mutator transaction binding the contract method 0xe8d787cb.
+//
+// Solidity: function removeStorageRoot(uint256 index) returns()
+func (_Accounts *AccountsTransactor) RemoveStorageRoot(opts *bind.TransactOpts, index *big.Int) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "removeStorageRoot", index)
+}
+
+// RemoveStorageRoot is a paid mutator transaction binding the contract method 0xe8d787cb.
+//
+// Solidity: function removeStorageRoot(uint256 index) returns()
+func (_Accounts *AccountsSession) RemoveStorageRoot(index *big.Int) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveStorageRoot(&_Accounts.TransactOpts, index)
+}
+
+// RemoveStorageRoot is a paid mutator transaction binding the contract method 0xe8d787cb.
+//
+// Solidity: function removeStorageRoot(uint256 index) returns()
+func (_Accounts *AccountsTransactorSession) RemoveStorageRoot(index *big.Int) (*types.Transaction, error) {
+	return _Accounts.Contract.RemoveStorageRoot(&_Accounts.TransactOpts, index)
 }
 
 // RemoveValidatorSigner is a paid mutator transaction binding the contract method 0xa5ec94f9.
@@ -1062,6 +1872,48 @@ func (_Accounts *AccountsSession) SetAccountDataEncryptionKey(dataEncryptionKey 
 // Solidity: function setAccountDataEncryptionKey(bytes dataEncryptionKey) returns()
 func (_Accounts *AccountsTransactorSession) SetAccountDataEncryptionKey(dataEncryptionKey []byte) (*types.Transaction, error) {
 	return _Accounts.Contract.SetAccountDataEncryptionKey(&_Accounts.TransactOpts, dataEncryptionKey)
+}
+
+// SetEip712DomainSeparator is a paid mutator transaction binding the contract method 0x3184b3c5.
+//
+// Solidity: function setEip712DomainSeparator() returns()
+func (_Accounts *AccountsTransactor) SetEip712DomainSeparator(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "setEip712DomainSeparator")
+}
+
+// SetEip712DomainSeparator is a paid mutator transaction binding the contract method 0x3184b3c5.
+//
+// Solidity: function setEip712DomainSeparator() returns()
+func (_Accounts *AccountsSession) SetEip712DomainSeparator() (*types.Transaction, error) {
+	return _Accounts.Contract.SetEip712DomainSeparator(&_Accounts.TransactOpts)
+}
+
+// SetEip712DomainSeparator is a paid mutator transaction binding the contract method 0x3184b3c5.
+//
+// Solidity: function setEip712DomainSeparator() returns()
+func (_Accounts *AccountsTransactorSession) SetEip712DomainSeparator() (*types.Transaction, error) {
+	return _Accounts.Contract.SetEip712DomainSeparator(&_Accounts.TransactOpts)
+}
+
+// SetIndexedSigner is a paid mutator transaction binding the contract method 0x727d079c.
+//
+// Solidity: function setIndexedSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsTransactor) SetIndexedSigner(opts *bind.TransactOpts, signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.contract.Transact(opts, "setIndexedSigner", signer, role)
+}
+
+// SetIndexedSigner is a paid mutator transaction binding the contract method 0x727d079c.
+//
+// Solidity: function setIndexedSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsSession) SetIndexedSigner(signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.SetIndexedSigner(&_Accounts.TransactOpts, signer, role)
+}
+
+// SetIndexedSigner is a paid mutator transaction binding the contract method 0x727d079c.
+//
+// Solidity: function setIndexedSigner(address signer, bytes32 role) returns()
+func (_Accounts *AccountsTransactorSession) SetIndexedSigner(signer common.Address, role [32]byte) (*types.Transaction, error) {
+	return _Accounts.Contract.SetIndexedSigner(&_Accounts.TransactOpts, signer, role)
 }
 
 // SetMetadataURL is a paid mutator transaction binding the contract method 0x747daec5.
@@ -1191,10 +2043,34 @@ func (_Accounts *AccountsFilterer) TryParseLog(log types.Log) (eventName string,
 		event, err = _Accounts.ParseAttestationSignerAuthorized(log)
 	case "AttestationSignerRemoved":
 		event, err = _Accounts.ParseAttestationSignerRemoved(log)
+	case "DefaultSignerRemoved":
+		event, err = _Accounts.ParseDefaultSignerRemoved(log)
+	case "DefaultSignerSet":
+		event, err = _Accounts.ParseDefaultSignerSet(log)
+	case "IndexedSignerRemoved":
+		event, err = _Accounts.ParseIndexedSignerRemoved(log)
+	case "IndexedSignerSet":
+		event, err = _Accounts.ParseIndexedSignerSet(log)
+	case "LegacySignerRemoved":
+		event, err = _Accounts.ParseLegacySignerRemoved(log)
+	case "LegacySignerSet":
+		event, err = _Accounts.ParseLegacySignerSet(log)
+	case "OffchainStorageRootAdded":
+		event, err = _Accounts.ParseOffchainStorageRootAdded(log)
+	case "OffchainStorageRootRemoved":
+		event, err = _Accounts.ParseOffchainStorageRootRemoved(log)
 	case "OwnershipTransferred":
 		event, err = _Accounts.ParseOwnershipTransferred(log)
 	case "RegistrySet":
 		event, err = _Accounts.ParseRegistrySet(log)
+	case "SignerAuthorizationCompleted":
+		event, err = _Accounts.ParseSignerAuthorizationCompleted(log)
+	case "SignerAuthorizationStarted":
+		event, err = _Accounts.ParseSignerAuthorizationStarted(log)
+	case "SignerAuthorized":
+		event, err = _Accounts.ParseSignerAuthorized(log)
+	case "SignerRemoved":
+		event, err = _Accounts.ParseSignerRemoved(log)
 	case "ValidatorSignerAuthorized":
 		event, err = _Accounts.ParseValidatorSignerAuthorized(log)
 	case "ValidatorSignerRemoved":
@@ -1351,6 +2227,7 @@ func (_Accounts *AccountsFilterer) ParseAccountCreated(log types.Log) (*Accounts
 	if err := _Accounts.contract.UnpackLog(event, "AccountCreated", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1495,6 +2372,7 @@ func (_Accounts *AccountsFilterer) ParseAccountDataEncryptionKeySet(log types.Lo
 	if err := _Accounts.contract.UnpackLog(event, "AccountDataEncryptionKeySet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1639,6 +2517,7 @@ func (_Accounts *AccountsFilterer) ParseAccountMetadataURLSet(log types.Log) (*A
 	if err := _Accounts.contract.UnpackLog(event, "AccountMetadataURLSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1783,6 +2662,7 @@ func (_Accounts *AccountsFilterer) ParseAccountNameSet(log types.Log) (*Accounts
 	if err := _Accounts.contract.UnpackLog(event, "AccountNameSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -1927,6 +2807,7 @@ func (_Accounts *AccountsFilterer) ParseAccountWalletAddressSet(log types.Log) (
 	if err := _Accounts.contract.UnpackLog(event, "AccountWalletAddressSet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2071,6 +2952,7 @@ func (_Accounts *AccountsFilterer) ParseAttestationSignerAuthorized(log types.Lo
 	if err := _Accounts.contract.UnpackLog(event, "AttestationSignerAuthorized", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2215,6 +3097,1174 @@ func (_Accounts *AccountsFilterer) ParseAttestationSignerRemoved(log types.Log) 
 	if err := _Accounts.contract.UnpackLog(event, "AttestationSignerRemoved", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsDefaultSignerRemovedIterator is returned from FilterDefaultSignerRemoved and is used to iterate over the raw logs and unpacked data for DefaultSignerRemoved events raised by the Accounts contract.
+type AccountsDefaultSignerRemovedIterator struct {
+	Event *AccountsDefaultSignerRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsDefaultSignerRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsDefaultSignerRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsDefaultSignerRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsDefaultSignerRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsDefaultSignerRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsDefaultSignerRemoved represents a DefaultSignerRemoved event raised by the Accounts contract.
+type AccountsDefaultSignerRemoved struct {
+	Account   common.Address
+	OldSigner common.Address
+	Role      [32]byte
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterDefaultSignerRemoved is a free log retrieval operation binding the contract event 0xe553a3065d5a77d4ec2a0e0c31d49be4bf4d9f4c45883b2d67f61ba9c1b89c5d.
+//
+// Solidity: event DefaultSignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) FilterDefaultSignerRemoved(opts *bind.FilterOpts, account []common.Address) (*AccountsDefaultSignerRemovedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "DefaultSignerRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsDefaultSignerRemovedIterator{contract: _Accounts.contract, event: "DefaultSignerRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchDefaultSignerRemoved is a free log subscription operation binding the contract event 0xe553a3065d5a77d4ec2a0e0c31d49be4bf4d9f4c45883b2d67f61ba9c1b89c5d.
+//
+// Solidity: event DefaultSignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) WatchDefaultSignerRemoved(opts *bind.WatchOpts, sink chan<- *AccountsDefaultSignerRemoved, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "DefaultSignerRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsDefaultSignerRemoved)
+				if err := _Accounts.contract.UnpackLog(event, "DefaultSignerRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDefaultSignerRemoved is a log parse operation binding the contract event 0xe553a3065d5a77d4ec2a0e0c31d49be4bf4d9f4c45883b2d67f61ba9c1b89c5d.
+//
+// Solidity: event DefaultSignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) ParseDefaultSignerRemoved(log types.Log) (*AccountsDefaultSignerRemoved, error) {
+	event := new(AccountsDefaultSignerRemoved)
+	if err := _Accounts.contract.UnpackLog(event, "DefaultSignerRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsDefaultSignerSetIterator is returned from FilterDefaultSignerSet and is used to iterate over the raw logs and unpacked data for DefaultSignerSet events raised by the Accounts contract.
+type AccountsDefaultSignerSetIterator struct {
+	Event *AccountsDefaultSignerSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsDefaultSignerSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsDefaultSignerSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsDefaultSignerSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsDefaultSignerSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsDefaultSignerSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsDefaultSignerSet represents a DefaultSignerSet event raised by the Accounts contract.
+type AccountsDefaultSignerSet struct {
+	Account common.Address
+	Signer  common.Address
+	Role    [32]byte
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterDefaultSignerSet is a free log retrieval operation binding the contract event 0x2613ed414d18d8152e86c896c04ccce344b75a2f06141f04d39ad069a3872523.
+//
+// Solidity: event DefaultSignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) FilterDefaultSignerSet(opts *bind.FilterOpts, account []common.Address) (*AccountsDefaultSignerSetIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "DefaultSignerSet", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsDefaultSignerSetIterator{contract: _Accounts.contract, event: "DefaultSignerSet", logs: logs, sub: sub}, nil
+}
+
+// WatchDefaultSignerSet is a free log subscription operation binding the contract event 0x2613ed414d18d8152e86c896c04ccce344b75a2f06141f04d39ad069a3872523.
+//
+// Solidity: event DefaultSignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) WatchDefaultSignerSet(opts *bind.WatchOpts, sink chan<- *AccountsDefaultSignerSet, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "DefaultSignerSet", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsDefaultSignerSet)
+				if err := _Accounts.contract.UnpackLog(event, "DefaultSignerSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDefaultSignerSet is a log parse operation binding the contract event 0x2613ed414d18d8152e86c896c04ccce344b75a2f06141f04d39ad069a3872523.
+//
+// Solidity: event DefaultSignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) ParseDefaultSignerSet(log types.Log) (*AccountsDefaultSignerSet, error) {
+	event := new(AccountsDefaultSignerSet)
+	if err := _Accounts.contract.UnpackLog(event, "DefaultSignerSet", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsIndexedSignerRemovedIterator is returned from FilterIndexedSignerRemoved and is used to iterate over the raw logs and unpacked data for IndexedSignerRemoved events raised by the Accounts contract.
+type AccountsIndexedSignerRemovedIterator struct {
+	Event *AccountsIndexedSignerRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsIndexedSignerRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsIndexedSignerRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsIndexedSignerRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsIndexedSignerRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsIndexedSignerRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsIndexedSignerRemoved represents a IndexedSignerRemoved event raised by the Accounts contract.
+type AccountsIndexedSignerRemoved struct {
+	Account   common.Address
+	OldSigner common.Address
+	Role      [32]byte
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterIndexedSignerRemoved is a free log retrieval operation binding the contract event 0xccc97b55d227538f487c521e1218ba74768b73d088310238027c2ae3b43e9c91.
+//
+// Solidity: event IndexedSignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) FilterIndexedSignerRemoved(opts *bind.FilterOpts, account []common.Address) (*AccountsIndexedSignerRemovedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "IndexedSignerRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsIndexedSignerRemovedIterator{contract: _Accounts.contract, event: "IndexedSignerRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchIndexedSignerRemoved is a free log subscription operation binding the contract event 0xccc97b55d227538f487c521e1218ba74768b73d088310238027c2ae3b43e9c91.
+//
+// Solidity: event IndexedSignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) WatchIndexedSignerRemoved(opts *bind.WatchOpts, sink chan<- *AccountsIndexedSignerRemoved, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "IndexedSignerRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsIndexedSignerRemoved)
+				if err := _Accounts.contract.UnpackLog(event, "IndexedSignerRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseIndexedSignerRemoved is a log parse operation binding the contract event 0xccc97b55d227538f487c521e1218ba74768b73d088310238027c2ae3b43e9c91.
+//
+// Solidity: event IndexedSignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) ParseIndexedSignerRemoved(log types.Log) (*AccountsIndexedSignerRemoved, error) {
+	event := new(AccountsIndexedSignerRemoved)
+	if err := _Accounts.contract.UnpackLog(event, "IndexedSignerRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsIndexedSignerSetIterator is returned from FilterIndexedSignerSet and is used to iterate over the raw logs and unpacked data for IndexedSignerSet events raised by the Accounts contract.
+type AccountsIndexedSignerSetIterator struct {
+	Event *AccountsIndexedSignerSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsIndexedSignerSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsIndexedSignerSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsIndexedSignerSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsIndexedSignerSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsIndexedSignerSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsIndexedSignerSet represents a IndexedSignerSet event raised by the Accounts contract.
+type AccountsIndexedSignerSet struct {
+	Account common.Address
+	Signer  common.Address
+	Role    [32]byte
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterIndexedSignerSet is a free log retrieval operation binding the contract event 0x8a00ae3e0722558391733230bfc96d425df2dd7b44f7ce506580785adcf171a2.
+//
+// Solidity: event IndexedSignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) FilterIndexedSignerSet(opts *bind.FilterOpts, account []common.Address) (*AccountsIndexedSignerSetIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "IndexedSignerSet", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsIndexedSignerSetIterator{contract: _Accounts.contract, event: "IndexedSignerSet", logs: logs, sub: sub}, nil
+}
+
+// WatchIndexedSignerSet is a free log subscription operation binding the contract event 0x8a00ae3e0722558391733230bfc96d425df2dd7b44f7ce506580785adcf171a2.
+//
+// Solidity: event IndexedSignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) WatchIndexedSignerSet(opts *bind.WatchOpts, sink chan<- *AccountsIndexedSignerSet, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "IndexedSignerSet", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsIndexedSignerSet)
+				if err := _Accounts.contract.UnpackLog(event, "IndexedSignerSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseIndexedSignerSet is a log parse operation binding the contract event 0x8a00ae3e0722558391733230bfc96d425df2dd7b44f7ce506580785adcf171a2.
+//
+// Solidity: event IndexedSignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) ParseIndexedSignerSet(log types.Log) (*AccountsIndexedSignerSet, error) {
+	event := new(AccountsIndexedSignerSet)
+	if err := _Accounts.contract.UnpackLog(event, "IndexedSignerSet", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsLegacySignerRemovedIterator is returned from FilterLegacySignerRemoved and is used to iterate over the raw logs and unpacked data for LegacySignerRemoved events raised by the Accounts contract.
+type AccountsLegacySignerRemovedIterator struct {
+	Event *AccountsLegacySignerRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsLegacySignerRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsLegacySignerRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsLegacySignerRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsLegacySignerRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsLegacySignerRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsLegacySignerRemoved represents a LegacySignerRemoved event raised by the Accounts contract.
+type AccountsLegacySignerRemoved struct {
+	Account   common.Address
+	OldSigner common.Address
+	Role      [32]byte
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterLegacySignerRemoved is a free log retrieval operation binding the contract event 0xdd0b0d959c29750e7bfabbb7543a56957699d07edc512d2523ffe7502901ac19.
+//
+// Solidity: event LegacySignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) FilterLegacySignerRemoved(opts *bind.FilterOpts, account []common.Address) (*AccountsLegacySignerRemovedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "LegacySignerRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsLegacySignerRemovedIterator{contract: _Accounts.contract, event: "LegacySignerRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchLegacySignerRemoved is a free log subscription operation binding the contract event 0xdd0b0d959c29750e7bfabbb7543a56957699d07edc512d2523ffe7502901ac19.
+//
+// Solidity: event LegacySignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) WatchLegacySignerRemoved(opts *bind.WatchOpts, sink chan<- *AccountsLegacySignerRemoved, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "LegacySignerRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsLegacySignerRemoved)
+				if err := _Accounts.contract.UnpackLog(event, "LegacySignerRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseLegacySignerRemoved is a log parse operation binding the contract event 0xdd0b0d959c29750e7bfabbb7543a56957699d07edc512d2523ffe7502901ac19.
+//
+// Solidity: event LegacySignerRemoved(address indexed account, address oldSigner, bytes32 role)
+func (_Accounts *AccountsFilterer) ParseLegacySignerRemoved(log types.Log) (*AccountsLegacySignerRemoved, error) {
+	event := new(AccountsLegacySignerRemoved)
+	if err := _Accounts.contract.UnpackLog(event, "LegacySignerRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsLegacySignerSetIterator is returned from FilterLegacySignerSet and is used to iterate over the raw logs and unpacked data for LegacySignerSet events raised by the Accounts contract.
+type AccountsLegacySignerSetIterator struct {
+	Event *AccountsLegacySignerSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsLegacySignerSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsLegacySignerSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsLegacySignerSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsLegacySignerSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsLegacySignerSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsLegacySignerSet represents a LegacySignerSet event raised by the Accounts contract.
+type AccountsLegacySignerSet struct {
+	Account common.Address
+	Signer  common.Address
+	Role    [32]byte
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterLegacySignerSet is a free log retrieval operation binding the contract event 0xc5cd67202a8095484f559b338b2b6fee0dd81af9f70c4814c6517fcf9a09564c.
+//
+// Solidity: event LegacySignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) FilterLegacySignerSet(opts *bind.FilterOpts, account []common.Address) (*AccountsLegacySignerSetIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "LegacySignerSet", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsLegacySignerSetIterator{contract: _Accounts.contract, event: "LegacySignerSet", logs: logs, sub: sub}, nil
+}
+
+// WatchLegacySignerSet is a free log subscription operation binding the contract event 0xc5cd67202a8095484f559b338b2b6fee0dd81af9f70c4814c6517fcf9a09564c.
+//
+// Solidity: event LegacySignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) WatchLegacySignerSet(opts *bind.WatchOpts, sink chan<- *AccountsLegacySignerSet, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "LegacySignerSet", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsLegacySignerSet)
+				if err := _Accounts.contract.UnpackLog(event, "LegacySignerSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseLegacySignerSet is a log parse operation binding the contract event 0xc5cd67202a8095484f559b338b2b6fee0dd81af9f70c4814c6517fcf9a09564c.
+//
+// Solidity: event LegacySignerSet(address indexed account, address signer, bytes32 role)
+func (_Accounts *AccountsFilterer) ParseLegacySignerSet(log types.Log) (*AccountsLegacySignerSet, error) {
+	event := new(AccountsLegacySignerSet)
+	if err := _Accounts.contract.UnpackLog(event, "LegacySignerSet", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsOffchainStorageRootAddedIterator is returned from FilterOffchainStorageRootAdded and is used to iterate over the raw logs and unpacked data for OffchainStorageRootAdded events raised by the Accounts contract.
+type AccountsOffchainStorageRootAddedIterator struct {
+	Event *AccountsOffchainStorageRootAdded // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsOffchainStorageRootAddedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsOffchainStorageRootAdded)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsOffchainStorageRootAdded)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsOffchainStorageRootAddedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsOffchainStorageRootAddedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsOffchainStorageRootAdded represents a OffchainStorageRootAdded event raised by the Accounts contract.
+type AccountsOffchainStorageRootAdded struct {
+	Account common.Address
+	Url     []byte
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterOffchainStorageRootAdded is a free log retrieval operation binding the contract event 0x15dfb3066a1bbbdaf9a7f62c47db990114058ae1739fd70a90361ea715bbf3c8.
+//
+// Solidity: event OffchainStorageRootAdded(address indexed account, bytes url)
+func (_Accounts *AccountsFilterer) FilterOffchainStorageRootAdded(opts *bind.FilterOpts, account []common.Address) (*AccountsOffchainStorageRootAddedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "OffchainStorageRootAdded", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsOffchainStorageRootAddedIterator{contract: _Accounts.contract, event: "OffchainStorageRootAdded", logs: logs, sub: sub}, nil
+}
+
+// WatchOffchainStorageRootAdded is a free log subscription operation binding the contract event 0x15dfb3066a1bbbdaf9a7f62c47db990114058ae1739fd70a90361ea715bbf3c8.
+//
+// Solidity: event OffchainStorageRootAdded(address indexed account, bytes url)
+func (_Accounts *AccountsFilterer) WatchOffchainStorageRootAdded(opts *bind.WatchOpts, sink chan<- *AccountsOffchainStorageRootAdded, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "OffchainStorageRootAdded", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsOffchainStorageRootAdded)
+				if err := _Accounts.contract.UnpackLog(event, "OffchainStorageRootAdded", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseOffchainStorageRootAdded is a log parse operation binding the contract event 0x15dfb3066a1bbbdaf9a7f62c47db990114058ae1739fd70a90361ea715bbf3c8.
+//
+// Solidity: event OffchainStorageRootAdded(address indexed account, bytes url)
+func (_Accounts *AccountsFilterer) ParseOffchainStorageRootAdded(log types.Log) (*AccountsOffchainStorageRootAdded, error) {
+	event := new(AccountsOffchainStorageRootAdded)
+	if err := _Accounts.contract.UnpackLog(event, "OffchainStorageRootAdded", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsOffchainStorageRootRemovedIterator is returned from FilterOffchainStorageRootRemoved and is used to iterate over the raw logs and unpacked data for OffchainStorageRootRemoved events raised by the Accounts contract.
+type AccountsOffchainStorageRootRemovedIterator struct {
+	Event *AccountsOffchainStorageRootRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsOffchainStorageRootRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsOffchainStorageRootRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsOffchainStorageRootRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsOffchainStorageRootRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsOffchainStorageRootRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsOffchainStorageRootRemoved represents a OffchainStorageRootRemoved event raised by the Accounts contract.
+type AccountsOffchainStorageRootRemoved struct {
+	Account common.Address
+	Url     []byte
+	Index   *big.Int
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterOffchainStorageRootRemoved is a free log retrieval operation binding the contract event 0xae0f2fa495a3eb65d46fe97b0baea8b6fd7edb243175c70f2455e6e83bc6fbaf.
+//
+// Solidity: event OffchainStorageRootRemoved(address indexed account, bytes url, uint256 index)
+func (_Accounts *AccountsFilterer) FilterOffchainStorageRootRemoved(opts *bind.FilterOpts, account []common.Address) (*AccountsOffchainStorageRootRemovedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "OffchainStorageRootRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsOffchainStorageRootRemovedIterator{contract: _Accounts.contract, event: "OffchainStorageRootRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchOffchainStorageRootRemoved is a free log subscription operation binding the contract event 0xae0f2fa495a3eb65d46fe97b0baea8b6fd7edb243175c70f2455e6e83bc6fbaf.
+//
+// Solidity: event OffchainStorageRootRemoved(address indexed account, bytes url, uint256 index)
+func (_Accounts *AccountsFilterer) WatchOffchainStorageRootRemoved(opts *bind.WatchOpts, sink chan<- *AccountsOffchainStorageRootRemoved, account []common.Address) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "OffchainStorageRootRemoved", accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsOffchainStorageRootRemoved)
+				if err := _Accounts.contract.UnpackLog(event, "OffchainStorageRootRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseOffchainStorageRootRemoved is a log parse operation binding the contract event 0xae0f2fa495a3eb65d46fe97b0baea8b6fd7edb243175c70f2455e6e83bc6fbaf.
+//
+// Solidity: event OffchainStorageRootRemoved(address indexed account, bytes url, uint256 index)
+func (_Accounts *AccountsFilterer) ParseOffchainStorageRootRemoved(log types.Log) (*AccountsOffchainStorageRootRemoved, error) {
+	event := new(AccountsOffchainStorageRootRemoved)
+	if err := _Accounts.contract.UnpackLog(event, "OffchainStorageRootRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2367,6 +4417,7 @@ func (_Accounts *AccountsFilterer) ParseOwnershipTransferred(log types.Log) (*Ac
 	if err := _Accounts.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2510,6 +4561,631 @@ func (_Accounts *AccountsFilterer) ParseRegistrySet(log types.Log) (*AccountsReg
 	if err := _Accounts.contract.UnpackLog(event, "RegistrySet", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsSignerAuthorizationCompletedIterator is returned from FilterSignerAuthorizationCompleted and is used to iterate over the raw logs and unpacked data for SignerAuthorizationCompleted events raised by the Accounts contract.
+type AccountsSignerAuthorizationCompletedIterator struct {
+	Event *AccountsSignerAuthorizationCompleted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsSignerAuthorizationCompletedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsSignerAuthorizationCompleted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsSignerAuthorizationCompleted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsSignerAuthorizationCompletedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsSignerAuthorizationCompletedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsSignerAuthorizationCompleted represents a SignerAuthorizationCompleted event raised by the Accounts contract.
+type AccountsSignerAuthorizationCompleted struct {
+	Account common.Address
+	Signer  common.Address
+	Role    [32]byte
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterSignerAuthorizationCompleted is a free log retrieval operation binding the contract event 0x9eeca140dda0bdb74fc9acfda0f1c0324e188a732bd48e078a96b16d97eb54e5.
+//
+// Solidity: event SignerAuthorizationCompleted(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) FilterSignerAuthorizationCompleted(opts *bind.FilterOpts, account []common.Address, role [][32]byte) (*AccountsSignerAuthorizationCompletedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "SignerAuthorizationCompleted", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsSignerAuthorizationCompletedIterator{contract: _Accounts.contract, event: "SignerAuthorizationCompleted", logs: logs, sub: sub}, nil
+}
+
+// WatchSignerAuthorizationCompleted is a free log subscription operation binding the contract event 0x9eeca140dda0bdb74fc9acfda0f1c0324e188a732bd48e078a96b16d97eb54e5.
+//
+// Solidity: event SignerAuthorizationCompleted(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) WatchSignerAuthorizationCompleted(opts *bind.WatchOpts, sink chan<- *AccountsSignerAuthorizationCompleted, account []common.Address, role [][32]byte) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "SignerAuthorizationCompleted", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsSignerAuthorizationCompleted)
+				if err := _Accounts.contract.UnpackLog(event, "SignerAuthorizationCompleted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseSignerAuthorizationCompleted is a log parse operation binding the contract event 0x9eeca140dda0bdb74fc9acfda0f1c0324e188a732bd48e078a96b16d97eb54e5.
+//
+// Solidity: event SignerAuthorizationCompleted(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) ParseSignerAuthorizationCompleted(log types.Log) (*AccountsSignerAuthorizationCompleted, error) {
+	event := new(AccountsSignerAuthorizationCompleted)
+	if err := _Accounts.contract.UnpackLog(event, "SignerAuthorizationCompleted", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsSignerAuthorizationStartedIterator is returned from FilterSignerAuthorizationStarted and is used to iterate over the raw logs and unpacked data for SignerAuthorizationStarted events raised by the Accounts contract.
+type AccountsSignerAuthorizationStartedIterator struct {
+	Event *AccountsSignerAuthorizationStarted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsSignerAuthorizationStartedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsSignerAuthorizationStarted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsSignerAuthorizationStarted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsSignerAuthorizationStartedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsSignerAuthorizationStartedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsSignerAuthorizationStarted represents a SignerAuthorizationStarted event raised by the Accounts contract.
+type AccountsSignerAuthorizationStarted struct {
+	Account common.Address
+	Signer  common.Address
+	Role    [32]byte
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterSignerAuthorizationStarted is a free log retrieval operation binding the contract event 0x7a162218a1b7bec7fb15b4bb95220fbf423fa3a49718133f5c50361ff1c85376.
+//
+// Solidity: event SignerAuthorizationStarted(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) FilterSignerAuthorizationStarted(opts *bind.FilterOpts, account []common.Address, role [][32]byte) (*AccountsSignerAuthorizationStartedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "SignerAuthorizationStarted", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsSignerAuthorizationStartedIterator{contract: _Accounts.contract, event: "SignerAuthorizationStarted", logs: logs, sub: sub}, nil
+}
+
+// WatchSignerAuthorizationStarted is a free log subscription operation binding the contract event 0x7a162218a1b7bec7fb15b4bb95220fbf423fa3a49718133f5c50361ff1c85376.
+//
+// Solidity: event SignerAuthorizationStarted(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) WatchSignerAuthorizationStarted(opts *bind.WatchOpts, sink chan<- *AccountsSignerAuthorizationStarted, account []common.Address, role [][32]byte) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "SignerAuthorizationStarted", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsSignerAuthorizationStarted)
+				if err := _Accounts.contract.UnpackLog(event, "SignerAuthorizationStarted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseSignerAuthorizationStarted is a log parse operation binding the contract event 0x7a162218a1b7bec7fb15b4bb95220fbf423fa3a49718133f5c50361ff1c85376.
+//
+// Solidity: event SignerAuthorizationStarted(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) ParseSignerAuthorizationStarted(log types.Log) (*AccountsSignerAuthorizationStarted, error) {
+	event := new(AccountsSignerAuthorizationStarted)
+	if err := _Accounts.contract.UnpackLog(event, "SignerAuthorizationStarted", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsSignerAuthorizedIterator is returned from FilterSignerAuthorized and is used to iterate over the raw logs and unpacked data for SignerAuthorized events raised by the Accounts contract.
+type AccountsSignerAuthorizedIterator struct {
+	Event *AccountsSignerAuthorized // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsSignerAuthorizedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsSignerAuthorized)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsSignerAuthorized)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsSignerAuthorizedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsSignerAuthorizedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsSignerAuthorized represents a SignerAuthorized event raised by the Accounts contract.
+type AccountsSignerAuthorized struct {
+	Account common.Address
+	Signer  common.Address
+	Role    [32]byte
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterSignerAuthorized is a free log retrieval operation binding the contract event 0x6cc56bd06daacce5b10fdf5ad1dc781941e14d7a71d29d33e7001e2956d14e07.
+//
+// Solidity: event SignerAuthorized(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) FilterSignerAuthorized(opts *bind.FilterOpts, account []common.Address, role [][32]byte) (*AccountsSignerAuthorizedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "SignerAuthorized", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsSignerAuthorizedIterator{contract: _Accounts.contract, event: "SignerAuthorized", logs: logs, sub: sub}, nil
+}
+
+// WatchSignerAuthorized is a free log subscription operation binding the contract event 0x6cc56bd06daacce5b10fdf5ad1dc781941e14d7a71d29d33e7001e2956d14e07.
+//
+// Solidity: event SignerAuthorized(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) WatchSignerAuthorized(opts *bind.WatchOpts, sink chan<- *AccountsSignerAuthorized, account []common.Address, role [][32]byte) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "SignerAuthorized", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsSignerAuthorized)
+				if err := _Accounts.contract.UnpackLog(event, "SignerAuthorized", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseSignerAuthorized is a log parse operation binding the contract event 0x6cc56bd06daacce5b10fdf5ad1dc781941e14d7a71d29d33e7001e2956d14e07.
+//
+// Solidity: event SignerAuthorized(address indexed account, address signer, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) ParseSignerAuthorized(log types.Log) (*AccountsSignerAuthorized, error) {
+	event := new(AccountsSignerAuthorized)
+	if err := _Accounts.contract.UnpackLog(event, "SignerAuthorized", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// AccountsSignerRemovedIterator is returned from FilterSignerRemoved and is used to iterate over the raw logs and unpacked data for SignerRemoved events raised by the Accounts contract.
+type AccountsSignerRemovedIterator struct {
+	Event *AccountsSignerRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *AccountsSignerRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(AccountsSignerRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(AccountsSignerRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *AccountsSignerRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *AccountsSignerRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// AccountsSignerRemoved represents a SignerRemoved event raised by the Accounts contract.
+type AccountsSignerRemoved struct {
+	Account   common.Address
+	OldSigner common.Address
+	Role      [32]byte
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterSignerRemoved is a free log retrieval operation binding the contract event 0xde9ce22cf1f8631ae2b668300f0493971114f40edd305173bd099ce7100fbe0b.
+//
+// Solidity: event SignerRemoved(address indexed account, address oldSigner, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) FilterSignerRemoved(opts *bind.FilterOpts, account []common.Address, role [][32]byte) (*AccountsSignerRemovedIterator, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.FilterLogs(opts, "SignerRemoved", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return &AccountsSignerRemovedIterator{contract: _Accounts.contract, event: "SignerRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchSignerRemoved is a free log subscription operation binding the contract event 0xde9ce22cf1f8631ae2b668300f0493971114f40edd305173bd099ce7100fbe0b.
+//
+// Solidity: event SignerRemoved(address indexed account, address oldSigner, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) WatchSignerRemoved(opts *bind.WatchOpts, sink chan<- *AccountsSignerRemoved, account []common.Address, role [][32]byte) (event.Subscription, error) {
+
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	var roleRule []interface{}
+	for _, roleItem := range role {
+		roleRule = append(roleRule, roleItem)
+	}
+
+	logs, sub, err := _Accounts.contract.WatchLogs(opts, "SignerRemoved", accountRule, roleRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(AccountsSignerRemoved)
+				if err := _Accounts.contract.UnpackLog(event, "SignerRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseSignerRemoved is a log parse operation binding the contract event 0xde9ce22cf1f8631ae2b668300f0493971114f40edd305173bd099ce7100fbe0b.
+//
+// Solidity: event SignerRemoved(address indexed account, address oldSigner, bytes32 indexed role)
+func (_Accounts *AccountsFilterer) ParseSignerRemoved(log types.Log) (*AccountsSignerRemoved, error) {
+	event := new(AccountsSignerRemoved)
+	if err := _Accounts.contract.UnpackLog(event, "SignerRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2654,6 +5330,7 @@ func (_Accounts *AccountsFilterer) ParseValidatorSignerAuthorized(log types.Log)
 	if err := _Accounts.contract.UnpackLog(event, "ValidatorSignerAuthorized", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2798,6 +5475,7 @@ func (_Accounts *AccountsFilterer) ParseValidatorSignerRemoved(log types.Log) (*
 	if err := _Accounts.contract.UnpackLog(event, "ValidatorSignerRemoved", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -2942,6 +5620,7 @@ func (_Accounts *AccountsFilterer) ParseVoteSignerAuthorized(log types.Log) (*Ac
 	if err := _Accounts.contract.UnpackLog(event, "VoteSignerAuthorized", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
 
@@ -3086,5 +5765,6 @@ func (_Accounts *AccountsFilterer) ParseVoteSignerRemoved(log types.Log) (*Accou
 	if err := _Accounts.contract.UnpackLog(event, "VoteSignerRemoved", log); err != nil {
 		return nil, err
 	}
+	event.Raw = log
 	return event, nil
 }
