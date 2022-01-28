@@ -278,8 +278,8 @@ func (t *Transfer) UnmarshalJSON(input []byte) error {
 //  conf := &eth.TraceConfig{Tracer: &TransferTracer, Timeout: &timeout}
 //  err := dc.TraceTransaction(ctx, &res, txhash, conf)
 func (dc *DebugClient) TransactionTransfers(ctx context.Context, txhash common.Hash) ([]Transfer, error) {
-	tracerConfig := &tracers.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &transferTracer}
-	var response transferTracerResponse
+	tracerConfig := &tracers.TraceConfig{Timeout: &transferTracerTimeout, Tracer: &TransferTracer}
+	var response TransferTracerResponse
 
 	err := dc.TraceTransaction(ctx, &response, txhash, tracerConfig)
 	if err != nil {
