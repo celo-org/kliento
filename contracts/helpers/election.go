@@ -199,7 +199,6 @@ func (e *Election) RevokeMetadata(opts *bind.CallOpts, account common.Address, g
 	}
 	voteMeta := &AddressLesserGreater{}
 	if groupIsEligible {
-		var err error
 		voteMeta, err = e.VoteMetadata(opts, group, bn.Neg(value))
 		if err != nil {
 			return nil, err
