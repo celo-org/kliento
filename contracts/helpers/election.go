@@ -184,9 +184,25 @@ func (e *Election) RevokeMetadata(opts *bind.CallOpts, account common.Address, g
 		return nil, err
 	}
 
-	voteMeta, err := e.VoteMetadata(opts, group, bn.Neg(value))
+	// Only provide lesser & greater indices if the group is eligible,
+	// since ineligible validators are excluded in total votes,
+	// but we need the correct indices in this list for eligible validators.
+	eligibleGroups, err := e.GetEligibleValidatorGroups(opts)
 	if err != nil {
 		return nil, err
+	}
+	groupIsEligible := false
+	for _, currGroup := range eligibleGroups {
+		if currGroup == group {
+			groupIsEligible = true
+		}
+	}
+	voteMeta := &AddressLesserGreater{}
+	if groupIsEligible {
+		voteMeta, err = e.VoteMetadata(opts, group, bn.Neg(value))
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	idx, err := addressIndexOf(groups, group)
