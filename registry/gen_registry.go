@@ -43,6 +43,9 @@ var ExchangeBRLContractID ContractID = "ExchangeBRL"
 // ExchangeEURContractID is the registry identifier for 'ExchangeEUR' contract
 var ExchangeEURContractID ContractID = "ExchangeEUR"
 
+// FeeHandlerContractID is the registry identifier for 'FeeHandler' contract
+var FeeHandlerContractID ContractID = "FeeHandler"
+
 // GasPriceMinimumContractID is the registry identifier for 'GasPriceMinimum' contract
 var GasPriceMinimumContractID ContractID = "GasPriceMinimum"
 
@@ -104,6 +107,8 @@ var RegisteredContractIDs = []ContractID{
 
 	ExchangeEURContractID,
 
+	FeeHandlerContractID,
+
 	GasPriceMinimumContractID,
 
 	GoldTokenContractID,
@@ -151,6 +156,8 @@ type boundContracts struct {
 	ExchangeBRLContract *contracts.Exchange
 
 	ExchangeEURContract *contracts.Exchange
+
+	FeeHandlerContract *contracts.FeeHandler
 
 	GasPriceMinimumContract *contracts.GasPriceMinimum
 
@@ -201,6 +208,8 @@ type generatedRegistry interface {
 	GetExchangeBRLContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error)
 
 	GetExchangeEURContract(ctx context.Context, blockNumber *big.Int) (*contracts.Exchange, error)
+
+	GetFeeHandlerContract(ctx context.Context, blockNumber *big.Int) (*contracts.FeeHandler, error)
 
 	GetGasPriceMinimumContract(ctx context.Context, blockNumber *big.Int) (*contracts.GasPriceMinimum, error)
 
@@ -262,6 +271,9 @@ func (r *registryImpl) GetContractByID(ctx context.Context, identifier string, b
 
 	case ExchangeEURContractID.String():
 		return r.GetExchangeEURContract(ctx, blockNumber)
+
+	case FeeHandlerContractID.String():
+		return r.GetFeeHandlerContract(ctx, blockNumber)
 
 	case GasPriceMinimumContractID.String():
 		return r.GetGasPriceMinimumContract(ctx, blockNumber)
@@ -477,6 +489,22 @@ func (r *registryImpl) GetExchangeEURContract(ctx context.Context, blockNumber *
 		r.ExchangeEURContract = contract
 	}
 	return r.ExchangeEURContract, nil
+}
+
+func (r *registryImpl) GetFeeHandlerContract(ctx context.Context, blockNumber *big.Int) (*contracts.FeeHandler, error) {
+	identifier := FeeHandlerContractID.String()
+	if r.FeeHandlerContract == nil || r.cache.isDirty(identifier) {
+		address, err := r.GetAddressFor(ctx, blockNumber, FeeHandlerContractID)
+		if err != nil {
+			return nil, err
+		}
+		contract, err := contracts.NewFeeHandler(address, r.cc.Eth)
+		if err != nil {
+			return nil, err
+		}
+		r.FeeHandlerContract = contract
+	}
+	return r.FeeHandlerContract, nil
 }
 
 func (r *registryImpl) GetGasPriceMinimumContract(ctx context.Context, blockNumber *big.Int) (*contracts.GasPriceMinimum, error) {
