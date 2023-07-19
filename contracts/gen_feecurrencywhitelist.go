@@ -30,7 +30,7 @@ var (
 
 // FeeCurrencyWhitelistMetaData contains all meta data concerning the FeeCurrencyWhitelist contract.
 var FeeCurrencyWhitelistMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"whitelist\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"addToken\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getWhitelist\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"FeeCurrencyWhitelistRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"FeeCurrencyWhitelisted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"whitelist\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeToken\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"addToken\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getWhitelist\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // FeeCurrencyWhitelistABI is the input ABI used to generate the binding from.
@@ -186,6 +186,40 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistTransactorRaw) Transfer(opts *b
 // Transact invokes the (paid) contract method with params as input values.
 func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
 	return _FeeCurrencyWhitelist.Contract.contract.Transact(opts, method, params...)
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCaller) GetVersionNumber(opts *bind.CallOpts) (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	var out []interface{}
+	err := _FeeCurrencyWhitelist.contract.Call(opts, &out, "getVersionNumber")
+
+	if err != nil {
+		return *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	out1 := *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
+	out2 := *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
+	out3 := *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
+
+	return out0, out1, out2, out3, err
+
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _FeeCurrencyWhitelist.Contract.GetVersionNumber(&_FeeCurrencyWhitelist.CallOpts)
+}
+
+// GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
+//
+// Solidity: function getVersionNumber() pure returns(uint256, uint256, uint256, uint256)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistCallerSession) GetVersionNumber() (*big.Int, *big.Int, *big.Int, *big.Int, error) {
+	return _FeeCurrencyWhitelist.Contract.GetVersionNumber(&_FeeCurrencyWhitelist.CallOpts)
 }
 
 // GetWhitelist is a free data retrieval call binding the contract method 0xd01f63f5.
@@ -385,6 +419,27 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistTransactorSession) Initialize()
 	return _FeeCurrencyWhitelist.Contract.Initialize(&_FeeCurrencyWhitelist.TransactOpts)
 }
 
+// RemoveToken is a paid mutator transaction binding the contract method 0x13baf1e6.
+//
+// Solidity: function removeToken(address tokenAddress, uint256 index) returns()
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistTransactor) RemoveToken(opts *bind.TransactOpts, tokenAddress common.Address, index *big.Int) (*types.Transaction, error) {
+	return _FeeCurrencyWhitelist.contract.Transact(opts, "removeToken", tokenAddress, index)
+}
+
+// RemoveToken is a paid mutator transaction binding the contract method 0x13baf1e6.
+//
+// Solidity: function removeToken(address tokenAddress, uint256 index) returns()
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistSession) RemoveToken(tokenAddress common.Address, index *big.Int) (*types.Transaction, error) {
+	return _FeeCurrencyWhitelist.Contract.RemoveToken(&_FeeCurrencyWhitelist.TransactOpts, tokenAddress, index)
+}
+
+// RemoveToken is a paid mutator transaction binding the contract method 0x13baf1e6.
+//
+// Solidity: function removeToken(address tokenAddress, uint256 index) returns()
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistTransactorSession) RemoveToken(tokenAddress common.Address, index *big.Int) (*types.Transaction, error) {
+	return _FeeCurrencyWhitelist.Contract.RemoveToken(&_FeeCurrencyWhitelist.TransactOpts, tokenAddress, index)
+}
+
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
 //
 // Solidity: function renounceOwnership() returns()
@@ -435,6 +490,10 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) TryParseLog(log types
 	}
 
 	switch eventName {
+	case "FeeCurrencyWhitelistRemoved":
+		event, err = _FeeCurrencyWhitelist.ParseFeeCurrencyWhitelistRemoved(log)
+	case "FeeCurrencyWhitelisted":
+		event, err = _FeeCurrencyWhitelist.ParseFeeCurrencyWhitelisted(log)
 	case "OwnershipTransferred":
 		event, err = _FeeCurrencyWhitelist.ParseOwnershipTransferred(log)
 	}
@@ -443,6 +502,274 @@ func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) TryParseLog(log types
 	}
 
 	return eventName, event, ok, nil
+}
+
+// FeeCurrencyWhitelistFeeCurrencyWhitelistRemovedIterator is returned from FilterFeeCurrencyWhitelistRemoved and is used to iterate over the raw logs and unpacked data for FeeCurrencyWhitelistRemoved events raised by the FeeCurrencyWhitelist contract.
+type FeeCurrencyWhitelistFeeCurrencyWhitelistRemovedIterator struct {
+	Event *FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *FeeCurrencyWhitelistFeeCurrencyWhitelistRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *FeeCurrencyWhitelistFeeCurrencyWhitelistRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *FeeCurrencyWhitelistFeeCurrencyWhitelistRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved represents a FeeCurrencyWhitelistRemoved event raised by the FeeCurrencyWhitelist contract.
+type FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved struct {
+	Token common.Address
+	Raw   types.Log // Blockchain specific contextual infos
+}
+
+// FilterFeeCurrencyWhitelistRemoved is a free log retrieval operation binding the contract event 0xc1f06ffbe5c19d22daa982fd4b3886ced05d83e2bfe7de3b67222728f5234e28.
+//
+// Solidity: event FeeCurrencyWhitelistRemoved(address token)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) FilterFeeCurrencyWhitelistRemoved(opts *bind.FilterOpts) (*FeeCurrencyWhitelistFeeCurrencyWhitelistRemovedIterator, error) {
+
+	logs, sub, err := _FeeCurrencyWhitelist.contract.FilterLogs(opts, "FeeCurrencyWhitelistRemoved")
+	if err != nil {
+		return nil, err
+	}
+	return &FeeCurrencyWhitelistFeeCurrencyWhitelistRemovedIterator{contract: _FeeCurrencyWhitelist.contract, event: "FeeCurrencyWhitelistRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchFeeCurrencyWhitelistRemoved is a free log subscription operation binding the contract event 0xc1f06ffbe5c19d22daa982fd4b3886ced05d83e2bfe7de3b67222728f5234e28.
+//
+// Solidity: event FeeCurrencyWhitelistRemoved(address token)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) WatchFeeCurrencyWhitelistRemoved(opts *bind.WatchOpts, sink chan<- *FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved) (event.Subscription, error) {
+
+	logs, sub, err := _FeeCurrencyWhitelist.contract.WatchLogs(opts, "FeeCurrencyWhitelistRemoved")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved)
+				if err := _FeeCurrencyWhitelist.contract.UnpackLog(event, "FeeCurrencyWhitelistRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseFeeCurrencyWhitelistRemoved is a log parse operation binding the contract event 0xc1f06ffbe5c19d22daa982fd4b3886ced05d83e2bfe7de3b67222728f5234e28.
+//
+// Solidity: event FeeCurrencyWhitelistRemoved(address token)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) ParseFeeCurrencyWhitelistRemoved(log types.Log) (*FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved, error) {
+	event := new(FeeCurrencyWhitelistFeeCurrencyWhitelistRemoved)
+	if err := _FeeCurrencyWhitelist.contract.UnpackLog(event, "FeeCurrencyWhitelistRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// FeeCurrencyWhitelistFeeCurrencyWhitelistedIterator is returned from FilterFeeCurrencyWhitelisted and is used to iterate over the raw logs and unpacked data for FeeCurrencyWhitelisted events raised by the FeeCurrencyWhitelist contract.
+type FeeCurrencyWhitelistFeeCurrencyWhitelistedIterator struct {
+	Event *FeeCurrencyWhitelistFeeCurrencyWhitelisted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *FeeCurrencyWhitelistFeeCurrencyWhitelistedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(FeeCurrencyWhitelistFeeCurrencyWhitelisted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(FeeCurrencyWhitelistFeeCurrencyWhitelisted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *FeeCurrencyWhitelistFeeCurrencyWhitelistedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *FeeCurrencyWhitelistFeeCurrencyWhitelistedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// FeeCurrencyWhitelistFeeCurrencyWhitelisted represents a FeeCurrencyWhitelisted event raised by the FeeCurrencyWhitelist contract.
+type FeeCurrencyWhitelistFeeCurrencyWhitelisted struct {
+	Token common.Address
+	Raw   types.Log // Blockchain specific contextual infos
+}
+
+// FilterFeeCurrencyWhitelisted is a free log retrieval operation binding the contract event 0xcf4fe1d1989a39011040b0c33ba1165fdeeca971a1ab2b0340b23550f93727e0.
+//
+// Solidity: event FeeCurrencyWhitelisted(address token)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) FilterFeeCurrencyWhitelisted(opts *bind.FilterOpts) (*FeeCurrencyWhitelistFeeCurrencyWhitelistedIterator, error) {
+
+	logs, sub, err := _FeeCurrencyWhitelist.contract.FilterLogs(opts, "FeeCurrencyWhitelisted")
+	if err != nil {
+		return nil, err
+	}
+	return &FeeCurrencyWhitelistFeeCurrencyWhitelistedIterator{contract: _FeeCurrencyWhitelist.contract, event: "FeeCurrencyWhitelisted", logs: logs, sub: sub}, nil
+}
+
+// WatchFeeCurrencyWhitelisted is a free log subscription operation binding the contract event 0xcf4fe1d1989a39011040b0c33ba1165fdeeca971a1ab2b0340b23550f93727e0.
+//
+// Solidity: event FeeCurrencyWhitelisted(address token)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) WatchFeeCurrencyWhitelisted(opts *bind.WatchOpts, sink chan<- *FeeCurrencyWhitelistFeeCurrencyWhitelisted) (event.Subscription, error) {
+
+	logs, sub, err := _FeeCurrencyWhitelist.contract.WatchLogs(opts, "FeeCurrencyWhitelisted")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(FeeCurrencyWhitelistFeeCurrencyWhitelisted)
+				if err := _FeeCurrencyWhitelist.contract.UnpackLog(event, "FeeCurrencyWhitelisted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseFeeCurrencyWhitelisted is a log parse operation binding the contract event 0xcf4fe1d1989a39011040b0c33ba1165fdeeca971a1ab2b0340b23550f93727e0.
+//
+// Solidity: event FeeCurrencyWhitelisted(address token)
+func (_FeeCurrencyWhitelist *FeeCurrencyWhitelistFilterer) ParseFeeCurrencyWhitelisted(log types.Log) (*FeeCurrencyWhitelistFeeCurrencyWhitelisted, error) {
+	event := new(FeeCurrencyWhitelistFeeCurrencyWhitelisted)
+	if err := _FeeCurrencyWhitelist.contract.UnpackLog(event, "FeeCurrencyWhitelisted", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }
 
 // FeeCurrencyWhitelistOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the FeeCurrencyWhitelist contract.

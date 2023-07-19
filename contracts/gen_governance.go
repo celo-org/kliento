@@ -30,7 +30,7 @@ var (
 
 // GovernanceMetaData contains all meta data concerning the Governance contract.
 var GovernanceMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"approvalStageDuration\",\"type\":\"uint256\"}],\"name\":\"ApprovalStageDurationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approver\",\"type\":\"address\"}],\"name\":\"ApproverSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"concurrentProposals\",\"type\":\"uint256\"}],\"name\":\"ConcurrentProposalsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes4\",\"name\":\"functionId\",\"type\":\"bytes4\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"ConstitutionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"dequeueFrequency\",\"type\":\"uint256\"}],\"name\":\"DequeueFrequencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"executionStageDuration\",\"type\":\"uint256\"}],\"name\":\"ExecutionStageDurationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"HotfixApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"HotfixExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"}],\"name\":\"HotfixPrepared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"whitelister\",\"type\":\"address\"}],\"name\":\"HotfixWhitelisted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minDeposit\",\"type\":\"uint256\"}],\"name\":\"MinDepositSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"baselineQuorumFactor\",\"type\":\"uint256\"}],\"name\":\"ParticipationBaselineQuorumFactorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"baselineUpdateFactor\",\"type\":\"uint256\"}],\"name\":\"ParticipationBaselineUpdateFactorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"participationBaseline\",\"type\":\"uint256\"}],\"name\":\"ParticipationBaselineUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"participationFloor\",\"type\":\"uint256\"}],\"name\":\"ParticipationFloorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"ProposalApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"ProposalDequeued\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"ProposalExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"ProposalExpired\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"proposer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"transactionCount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"deposit\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"ProposalQueued\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"revokedUpvotes\",\"type\":\"uint256\"}],\"name\":\"ProposalUpvoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"upvotes\",\"type\":\"uint256\"}],\"name\":\"ProposalUpvoted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"weight\",\"type\":\"uint256\"}],\"name\":\"ProposalVoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"weight\",\"type\":\"uint256\"}],\"name\":\"ProposalVoted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"queueExpiry\",\"type\":\"uint256\"}],\"name\":\"QueueExpirySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"referendumStageDuration\",\"type\":\"uint256\"}],\"name\":\"ReferendumStageDurationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":true,\"inputs\":[],\"name\":\"approver\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"concurrentProposals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"dequeueFrequency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"dequeued\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"emptyIndices\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"hotfixes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"executed\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"preparedEpoch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastDequeue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minDeposit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"proposalCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"queueExpiry\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"refundedDeposits\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stageDurations\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"approval\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referendum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"execution\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_approver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_concurrentProposals\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_minDeposit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_queueExpiry\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_dequeueFrequency\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"approvalStageDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referendumStageDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"executionStageDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"participationBaseline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"participationFloor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baselineUpdateFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baselineQuorumFactor\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_approver\",\"type\":\"address\"}],\"name\":\"setApprover\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_concurrentProposals\",\"type\":\"uint256\"}],\"name\":\"setConcurrentProposals\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_minDeposit\",\"type\":\"uint256\"}],\"name\":\"setMinDeposit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_queueExpiry\",\"type\":\"uint256\"}],\"name\":\"setQueueExpiry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_dequeueFrequency\",\"type\":\"uint256\"}],\"name\":\"setDequeueFrequency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"approvalStageDuration\",\"type\":\"uint256\"}],\"name\":\"setApprovalStageDuration\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"referendumStageDuration\",\"type\":\"uint256\"}],\"name\":\"setReferendumStageDuration\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"executionStageDuration\",\"type\":\"uint256\"}],\"name\":\"setExecutionStageDuration\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"participationBaseline\",\"type\":\"uint256\"}],\"name\":\"setParticipationBaseline\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"participationFloor\",\"type\":\"uint256\"}],\"name\":\"setParticipationFloor\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"baselineUpdateFactor\",\"type\":\"uint256\"}],\"name\":\"setBaselineUpdateFactor\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"baselineQuorumFactor\",\"type\":\"uint256\"}],\"name\":\"setBaselineQuorumFactor\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionId\",\"type\":\"bytes4\"},{\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"setConstitution\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"destinations\",\"type\":\"address[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"uint256[]\",\"name\":\"dataLengths\",\"type\":\"uint256[]\"},{\"internalType\":\"string\",\"name\":\"descriptionUrl\",\"type\":\"string\"}],\"name\":\"propose\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lesser\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"greater\",\"type\":\"uint256\"}],\"name\":\"upvote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getProposalStage\",\"outputs\":[{\"internalType\":\"enumProposals.Stage\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"lesser\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"greater\",\"type\":\"uint256\"}],\"name\":\"revokeUpvote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"enumProposals.VoteValue\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"revokeVotes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"execute\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"approveHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"whitelister\",\"type\":\"address\"}],\"name\":\"isHotfixWhitelistedBy\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"whitelistHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"prepareHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"destinations\",\"type\":\"address[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"uint256[]\",\"name\":\"dataLengths\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"name\":\"executeHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isVoting\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getApprovalStageDuration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getReferendumStageDuration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getExecutionStageDuration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getParticipationParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"proposalExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getProposal\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getProposalTransaction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isApproved\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getVoteTotals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getVoteRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getQueueLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getUpvotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getQueue\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getDequeue\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getUpvoteRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMostRecentReferendumProposal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"hotfixWhitelistValidatorTally\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"isHotfixPassing\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"getHotfixRecord\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"dequeueProposalsIfReady\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isQueued\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isProposalPassing\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"isDequeuedProposal\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isDequeuedProposalExpired\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isQueuedProposalExpired\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionId\",\"type\":\"bytes4\"}],\"name\":\"getConstitution\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approver\",\"type\":\"address\"}],\"name\":\"ApproverSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"concurrentProposals\",\"type\":\"uint256\"}],\"name\":\"ConcurrentProposalsSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes4\",\"name\":\"functionId\",\"type\":\"bytes4\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"ConstitutionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"dequeueFrequency\",\"type\":\"uint256\"}],\"name\":\"DequeueFrequencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"executionStageDuration\",\"type\":\"uint256\"}],\"name\":\"ExecutionStageDurationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"HotfixApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"HotfixExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"epoch\",\"type\":\"uint256\"}],\"name\":\"HotfixPrepared\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"whitelister\",\"type\":\"address\"}],\"name\":\"HotfixWhitelisted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minDeposit\",\"type\":\"uint256\"}],\"name\":\"MinDepositSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"baselineQuorumFactor\",\"type\":\"uint256\"}],\"name\":\"ParticipationBaselineQuorumFactorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"baselineUpdateFactor\",\"type\":\"uint256\"}],\"name\":\"ParticipationBaselineUpdateFactorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"participationBaseline\",\"type\":\"uint256\"}],\"name\":\"ParticipationBaselineUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"participationFloor\",\"type\":\"uint256\"}],\"name\":\"ParticipationFloorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"ProposalApproved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"ProposalDequeued\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"ProposalExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"ProposalExpired\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"proposer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"transactionCount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"deposit\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"ProposalQueued\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"revokedUpvotes\",\"type\":\"uint256\"}],\"name\":\"ProposalUpvoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"upvotes\",\"type\":\"uint256\"}],\"name\":\"ProposalUpvoted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"weight\",\"type\":\"uint256\"}],\"name\":\"ProposalVoteRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"yesVotes\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"noVotes\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"abstainVotes\",\"type\":\"uint256\"}],\"name\":\"ProposalVoteRevokedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"weight\",\"type\":\"uint256\"}],\"name\":\"ProposalVoted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"yesVotes\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"noVotes\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"abstainVotes\",\"type\":\"uint256\"}],\"name\":\"ProposalVotedV2\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"queueExpiry\",\"type\":\"uint256\"}],\"name\":\"QueueExpirySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"referendumStageDuration\",\"type\":\"uint256\"}],\"name\":\"ReferendumStageDurationSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"constant\":true,\"inputs\":[],\"name\":\"approver\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"concurrentProposals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"dequeueFrequency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"dequeued\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"emptyIndices\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"hotfixes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"executed\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"preparedEpoch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastDequeue\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minDeposit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"proposalCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"queueExpiry\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"refundedDeposits\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"stageDurations\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"approval\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referendum\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"execution\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_approver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_concurrentProposals\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_minDeposit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_queueExpiry\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_dequeueFrequency\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referendumStageDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"executionStageDuration\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"participationBaseline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"participationFloor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baselineUpdateFactor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"baselineQuorumFactor\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_approver\",\"type\":\"address\"}],\"name\":\"setApprover\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_concurrentProposals\",\"type\":\"uint256\"}],\"name\":\"setConcurrentProposals\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_minDeposit\",\"type\":\"uint256\"}],\"name\":\"setMinDeposit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_queueExpiry\",\"type\":\"uint256\"}],\"name\":\"setQueueExpiry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_dequeueFrequency\",\"type\":\"uint256\"}],\"name\":\"setDequeueFrequency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"referendumStageDuration\",\"type\":\"uint256\"}],\"name\":\"setReferendumStageDuration\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"executionStageDuration\",\"type\":\"uint256\"}],\"name\":\"setExecutionStageDuration\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"participationBaseline\",\"type\":\"uint256\"}],\"name\":\"setParticipationBaseline\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"participationFloor\",\"type\":\"uint256\"}],\"name\":\"setParticipationFloor\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"baselineUpdateFactor\",\"type\":\"uint256\"}],\"name\":\"setBaselineUpdateFactor\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"baselineQuorumFactor\",\"type\":\"uint256\"}],\"name\":\"setBaselineQuorumFactor\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionId\",\"type\":\"bytes4\"},{\"internalType\":\"uint256\",\"name\":\"threshold\",\"type\":\"uint256\"}],\"name\":\"setConstitution\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"destinations\",\"type\":\"address[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"uint256[]\",\"name\":\"dataLengths\",\"type\":\"uint256[]\"},{\"internalType\":\"string\",\"name\":\"descriptionUrl\",\"type\":\"string\"}],\"name\":\"propose\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lesser\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"greater\",\"type\":\"uint256\"}],\"name\":\"upvote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getProposalStage\",\"outputs\":[{\"internalType\":\"enumProposals.Stage\",\"name\":\"\",\"type\":\"uint8\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"lesser\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"greater\",\"type\":\"uint256\"}],\"name\":\"revokeUpvote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"enumProposals.VoteValue\",\"name\":\"value\",\"type\":\"uint8\"}],\"name\":\"vote\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"yesVotes\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"noVotes\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"abstainVotes\",\"type\":\"uint256\"}],\"name\":\"votePartially\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"revokeVotes\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"execute\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"approveHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"whitelister\",\"type\":\"address\"}],\"name\":\"isHotfixWhitelistedBy\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"whitelistHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"prepareHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"destinations\",\"type\":\"address[]\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"uint256[]\",\"name\":\"dataLengths\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes32\",\"name\":\"salt\",\"type\":\"bytes32\"}],\"name\":\"executeHotfix\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isVoting\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getReferendumStageDuration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getExecutionStageDuration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getParticipationParameters\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"proposalExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getProposal\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getProposalTransaction\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"\",\"type\":\"bytes\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isApproved\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getVoteTotals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getVoteRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getQueueLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"getUpvotes\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getQueue\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getDequeue\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getUpvoteRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getMostRecentReferendumProposal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"hotfixWhitelistValidatorTally\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"isHotfixPassing\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"hash\",\"type\":\"bytes32\"}],\"name\":\"getHotfixRecord\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"dequeueProposalsIfReady\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"dequeueProposalIfReady\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isProposalDequeued\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isQueued\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isProposalPassing\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"isDequeuedProposal\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isDequeuedProposalExpired\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"isQueuedProposalExpired\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"destination\",\"type\":\"address\"},{\"internalType\":\"bytes4\",\"name\":\"functionId\",\"type\":\"bytes4\"}],\"name\":\"getConstitution\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"getAmountOfGoldUsedForVoting\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // GovernanceABI is the input ABI used to generate the binding from.
@@ -406,12 +406,12 @@ func (_Governance *GovernanceCallerSession) FractionMulExp(aNumerator *big.Int, 
 	return _Governance.Contract.FractionMulExp(&_Governance.CallOpts, aNumerator, aDenominator, bNumerator, bDenominator, exponent, _decimals)
 }
 
-// GetApprovalStageDuration is a free data retrieval call binding the contract method 0xffea74c0.
+// GetAmountOfGoldUsedForVoting is a free data retrieval call binding the contract method 0x66547163.
 //
-// Solidity: function getApprovalStageDuration() view returns(uint256)
-func (_Governance *GovernanceCaller) GetApprovalStageDuration(opts *bind.CallOpts) (*big.Int, error) {
+// Solidity: function getAmountOfGoldUsedForVoting(address account) view returns(uint256)
+func (_Governance *GovernanceCaller) GetAmountOfGoldUsedForVoting(opts *bind.CallOpts, account common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _Governance.contract.Call(opts, &out, "getApprovalStageDuration")
+	err := _Governance.contract.Call(opts, &out, "getAmountOfGoldUsedForVoting", account)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -423,18 +423,18 @@ func (_Governance *GovernanceCaller) GetApprovalStageDuration(opts *bind.CallOpt
 
 }
 
-// GetApprovalStageDuration is a free data retrieval call binding the contract method 0xffea74c0.
+// GetAmountOfGoldUsedForVoting is a free data retrieval call binding the contract method 0x66547163.
 //
-// Solidity: function getApprovalStageDuration() view returns(uint256)
-func (_Governance *GovernanceSession) GetApprovalStageDuration() (*big.Int, error) {
-	return _Governance.Contract.GetApprovalStageDuration(&_Governance.CallOpts)
+// Solidity: function getAmountOfGoldUsedForVoting(address account) view returns(uint256)
+func (_Governance *GovernanceSession) GetAmountOfGoldUsedForVoting(account common.Address) (*big.Int, error) {
+	return _Governance.Contract.GetAmountOfGoldUsedForVoting(&_Governance.CallOpts, account)
 }
 
-// GetApprovalStageDuration is a free data retrieval call binding the contract method 0xffea74c0.
+// GetAmountOfGoldUsedForVoting is a free data retrieval call binding the contract method 0x66547163.
 //
-// Solidity: function getApprovalStageDuration() view returns(uint256)
-func (_Governance *GovernanceCallerSession) GetApprovalStageDuration() (*big.Int, error) {
-	return _Governance.Contract.GetApprovalStageDuration(&_Governance.CallOpts)
+// Solidity: function getAmountOfGoldUsedForVoting(address account) view returns(uint256)
+func (_Governance *GovernanceCallerSession) GetAmountOfGoldUsedForVoting(account common.Address) (*big.Int, error) {
+	return _Governance.Contract.GetAmountOfGoldUsedForVoting(&_Governance.CallOpts, account)
 }
 
 // GetBlockNumberFromHeader is a free data retrieval call binding the contract method 0x8a883626.
@@ -785,13 +785,13 @@ func (_Governance *GovernanceCallerSession) GetParticipationParameters() (*big.I
 
 // GetProposal is a free data retrieval call binding the contract method 0xc7f758a8.
 //
-// Solidity: function getProposal(uint256 proposalId) view returns(address, uint256, uint256, uint256, string)
-func (_Governance *GovernanceCaller) GetProposal(opts *bind.CallOpts, proposalId *big.Int) (common.Address, *big.Int, *big.Int, *big.Int, string, error) {
+// Solidity: function getProposal(uint256 proposalId) view returns(address, uint256, uint256, uint256, string, uint256, bool)
+func (_Governance *GovernanceCaller) GetProposal(opts *bind.CallOpts, proposalId *big.Int) (common.Address, *big.Int, *big.Int, *big.Int, string, *big.Int, bool, error) {
 	var out []interface{}
 	err := _Governance.contract.Call(opts, &out, "getProposal", proposalId)
 
 	if err != nil {
-		return *new(common.Address), *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(string), err
+		return *new(common.Address), *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(string), *new(*big.Int), *new(bool), err
 	}
 
 	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
@@ -799,22 +799,24 @@ func (_Governance *GovernanceCaller) GetProposal(opts *bind.CallOpts, proposalId
 	out2 := *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
 	out3 := *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
 	out4 := *abi.ConvertType(out[4], new(string)).(*string)
+	out5 := *abi.ConvertType(out[5], new(*big.Int)).(**big.Int)
+	out6 := *abi.ConvertType(out[6], new(bool)).(*bool)
 
-	return out0, out1, out2, out3, out4, err
+	return out0, out1, out2, out3, out4, out5, out6, err
 
 }
 
 // GetProposal is a free data retrieval call binding the contract method 0xc7f758a8.
 //
-// Solidity: function getProposal(uint256 proposalId) view returns(address, uint256, uint256, uint256, string)
-func (_Governance *GovernanceSession) GetProposal(proposalId *big.Int) (common.Address, *big.Int, *big.Int, *big.Int, string, error) {
+// Solidity: function getProposal(uint256 proposalId) view returns(address, uint256, uint256, uint256, string, uint256, bool)
+func (_Governance *GovernanceSession) GetProposal(proposalId *big.Int) (common.Address, *big.Int, *big.Int, *big.Int, string, *big.Int, bool, error) {
 	return _Governance.Contract.GetProposal(&_Governance.CallOpts, proposalId)
 }
 
 // GetProposal is a free data retrieval call binding the contract method 0xc7f758a8.
 //
-// Solidity: function getProposal(uint256 proposalId) view returns(address, uint256, uint256, uint256, string)
-func (_Governance *GovernanceCallerSession) GetProposal(proposalId *big.Int) (common.Address, *big.Int, *big.Int, *big.Int, string, error) {
+// Solidity: function getProposal(uint256 proposalId) view returns(address, uint256, uint256, uint256, string, uint256, bool)
+func (_Governance *GovernanceCallerSession) GetProposal(proposalId *big.Int) (common.Address, *big.Int, *big.Int, *big.Int, string, *big.Int, bool, error) {
 	return _Governance.Contract.GetProposal(&_Governance.CallOpts, proposalId)
 }
 
@@ -1106,34 +1108,37 @@ func (_Governance *GovernanceCallerSession) GetVersionNumber() (*big.Int, *big.I
 
 // GetVoteRecord is a free data retrieval call binding the contract method 0x5f115a85.
 //
-// Solidity: function getVoteRecord(address account, uint256 index) view returns(uint256, uint256, uint256)
-func (_Governance *GovernanceCaller) GetVoteRecord(opts *bind.CallOpts, account common.Address, index *big.Int) (*big.Int, *big.Int, *big.Int, error) {
+// Solidity: function getVoteRecord(address account, uint256 index) view returns(uint256, uint256, uint256, uint256, uint256, uint256)
+func (_Governance *GovernanceCaller) GetVoteRecord(opts *bind.CallOpts, account common.Address, index *big.Int) (*big.Int, *big.Int, *big.Int, *big.Int, *big.Int, *big.Int, error) {
 	var out []interface{}
 	err := _Governance.contract.Call(opts, &out, "getVoteRecord", account, index)
 
 	if err != nil {
-		return *new(*big.Int), *new(*big.Int), *new(*big.Int), err
+		return *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(*big.Int), *new(*big.Int), err
 	}
 
 	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
 	out1 := *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
 	out2 := *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
+	out3 := *abi.ConvertType(out[3], new(*big.Int)).(**big.Int)
+	out4 := *abi.ConvertType(out[4], new(*big.Int)).(**big.Int)
+	out5 := *abi.ConvertType(out[5], new(*big.Int)).(**big.Int)
 
-	return out0, out1, out2, err
+	return out0, out1, out2, out3, out4, out5, err
 
 }
 
 // GetVoteRecord is a free data retrieval call binding the contract method 0x5f115a85.
 //
-// Solidity: function getVoteRecord(address account, uint256 index) view returns(uint256, uint256, uint256)
-func (_Governance *GovernanceSession) GetVoteRecord(account common.Address, index *big.Int) (*big.Int, *big.Int, *big.Int, error) {
+// Solidity: function getVoteRecord(address account, uint256 index) view returns(uint256, uint256, uint256, uint256, uint256, uint256)
+func (_Governance *GovernanceSession) GetVoteRecord(account common.Address, index *big.Int) (*big.Int, *big.Int, *big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Governance.Contract.GetVoteRecord(&_Governance.CallOpts, account, index)
 }
 
 // GetVoteRecord is a free data retrieval call binding the contract method 0x5f115a85.
 //
-// Solidity: function getVoteRecord(address account, uint256 index) view returns(uint256, uint256, uint256)
-func (_Governance *GovernanceCallerSession) GetVoteRecord(account common.Address, index *big.Int) (*big.Int, *big.Int, *big.Int, error) {
+// Solidity: function getVoteRecord(address account, uint256 index) view returns(uint256, uint256, uint256, uint256, uint256, uint256)
+func (_Governance *GovernanceCallerSession) GetVoteRecord(account common.Address, index *big.Int) (*big.Int, *big.Int, *big.Int, *big.Int, *big.Int, *big.Int, error) {
 	return _Governance.Contract.GetVoteRecord(&_Governance.CallOpts, account, index)
 }
 
@@ -2149,6 +2154,27 @@ func (_Governance *GovernanceTransactorSession) ApproveHotfix(hash [32]byte) (*t
 	return _Governance.Contract.ApproveHotfix(&_Governance.TransactOpts, hash)
 }
 
+// DequeueProposalIfReady is a paid mutator transaction binding the contract method 0xbd3a7d0f.
+//
+// Solidity: function dequeueProposalIfReady(uint256 proposalId) returns(bool isProposalDequeued)
+func (_Governance *GovernanceTransactor) DequeueProposalIfReady(opts *bind.TransactOpts, proposalId *big.Int) (*types.Transaction, error) {
+	return _Governance.contract.Transact(opts, "dequeueProposalIfReady", proposalId)
+}
+
+// DequeueProposalIfReady is a paid mutator transaction binding the contract method 0xbd3a7d0f.
+//
+// Solidity: function dequeueProposalIfReady(uint256 proposalId) returns(bool isProposalDequeued)
+func (_Governance *GovernanceSession) DequeueProposalIfReady(proposalId *big.Int) (*types.Transaction, error) {
+	return _Governance.Contract.DequeueProposalIfReady(&_Governance.TransactOpts, proposalId)
+}
+
+// DequeueProposalIfReady is a paid mutator transaction binding the contract method 0xbd3a7d0f.
+//
+// Solidity: function dequeueProposalIfReady(uint256 proposalId) returns(bool isProposalDequeued)
+func (_Governance *GovernanceTransactorSession) DequeueProposalIfReady(proposalId *big.Int) (*types.Transaction, error) {
+	return _Governance.Contract.DequeueProposalIfReady(&_Governance.TransactOpts, proposalId)
+}
+
 // DequeueProposalsIfReady is a paid mutator transaction binding the contract method 0x3bb0ed2b.
 //
 // Solidity: function dequeueProposalsIfReady() returns()
@@ -2212,25 +2238,25 @@ func (_Governance *GovernanceTransactorSession) ExecuteHotfix(values []*big.Int,
 	return _Governance.Contract.ExecuteHotfix(&_Governance.TransactOpts, values, destinations, data, dataLengths, salt)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc1939b20.
+// Initialize is a paid mutator transaction binding the contract method 0xaf203110.
 //
-// Solidity: function initialize(address registryAddress, address _approver, uint256 _concurrentProposals, uint256 _minDeposit, uint256 _queueExpiry, uint256 _dequeueFrequency, uint256 approvalStageDuration, uint256 referendumStageDuration, uint256 executionStageDuration, uint256 participationBaseline, uint256 participationFloor, uint256 baselineUpdateFactor, uint256 baselineQuorumFactor) returns()
-func (_Governance *GovernanceTransactor) Initialize(opts *bind.TransactOpts, registryAddress common.Address, _approver common.Address, _concurrentProposals *big.Int, _minDeposit *big.Int, _queueExpiry *big.Int, _dequeueFrequency *big.Int, approvalStageDuration *big.Int, referendumStageDuration *big.Int, executionStageDuration *big.Int, participationBaseline *big.Int, participationFloor *big.Int, baselineUpdateFactor *big.Int, baselineQuorumFactor *big.Int) (*types.Transaction, error) {
-	return _Governance.contract.Transact(opts, "initialize", registryAddress, _approver, _concurrentProposals, _minDeposit, _queueExpiry, _dequeueFrequency, approvalStageDuration, referendumStageDuration, executionStageDuration, participationBaseline, participationFloor, baselineUpdateFactor, baselineQuorumFactor)
+// Solidity: function initialize(address registryAddress, address _approver, uint256 _concurrentProposals, uint256 _minDeposit, uint256 _queueExpiry, uint256 _dequeueFrequency, uint256 referendumStageDuration, uint256 executionStageDuration, uint256 participationBaseline, uint256 participationFloor, uint256 baselineUpdateFactor, uint256 baselineQuorumFactor) returns()
+func (_Governance *GovernanceTransactor) Initialize(opts *bind.TransactOpts, registryAddress common.Address, _approver common.Address, _concurrentProposals *big.Int, _minDeposit *big.Int, _queueExpiry *big.Int, _dequeueFrequency *big.Int, referendumStageDuration *big.Int, executionStageDuration *big.Int, participationBaseline *big.Int, participationFloor *big.Int, baselineUpdateFactor *big.Int, baselineQuorumFactor *big.Int) (*types.Transaction, error) {
+	return _Governance.contract.Transact(opts, "initialize", registryAddress, _approver, _concurrentProposals, _minDeposit, _queueExpiry, _dequeueFrequency, referendumStageDuration, executionStageDuration, participationBaseline, participationFloor, baselineUpdateFactor, baselineQuorumFactor)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc1939b20.
+// Initialize is a paid mutator transaction binding the contract method 0xaf203110.
 //
-// Solidity: function initialize(address registryAddress, address _approver, uint256 _concurrentProposals, uint256 _minDeposit, uint256 _queueExpiry, uint256 _dequeueFrequency, uint256 approvalStageDuration, uint256 referendumStageDuration, uint256 executionStageDuration, uint256 participationBaseline, uint256 participationFloor, uint256 baselineUpdateFactor, uint256 baselineQuorumFactor) returns()
-func (_Governance *GovernanceSession) Initialize(registryAddress common.Address, _approver common.Address, _concurrentProposals *big.Int, _minDeposit *big.Int, _queueExpiry *big.Int, _dequeueFrequency *big.Int, approvalStageDuration *big.Int, referendumStageDuration *big.Int, executionStageDuration *big.Int, participationBaseline *big.Int, participationFloor *big.Int, baselineUpdateFactor *big.Int, baselineQuorumFactor *big.Int) (*types.Transaction, error) {
-	return _Governance.Contract.Initialize(&_Governance.TransactOpts, registryAddress, _approver, _concurrentProposals, _minDeposit, _queueExpiry, _dequeueFrequency, approvalStageDuration, referendumStageDuration, executionStageDuration, participationBaseline, participationFloor, baselineUpdateFactor, baselineQuorumFactor)
+// Solidity: function initialize(address registryAddress, address _approver, uint256 _concurrentProposals, uint256 _minDeposit, uint256 _queueExpiry, uint256 _dequeueFrequency, uint256 referendumStageDuration, uint256 executionStageDuration, uint256 participationBaseline, uint256 participationFloor, uint256 baselineUpdateFactor, uint256 baselineQuorumFactor) returns()
+func (_Governance *GovernanceSession) Initialize(registryAddress common.Address, _approver common.Address, _concurrentProposals *big.Int, _minDeposit *big.Int, _queueExpiry *big.Int, _dequeueFrequency *big.Int, referendumStageDuration *big.Int, executionStageDuration *big.Int, participationBaseline *big.Int, participationFloor *big.Int, baselineUpdateFactor *big.Int, baselineQuorumFactor *big.Int) (*types.Transaction, error) {
+	return _Governance.Contract.Initialize(&_Governance.TransactOpts, registryAddress, _approver, _concurrentProposals, _minDeposit, _queueExpiry, _dequeueFrequency, referendumStageDuration, executionStageDuration, participationBaseline, participationFloor, baselineUpdateFactor, baselineQuorumFactor)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc1939b20.
+// Initialize is a paid mutator transaction binding the contract method 0xaf203110.
 //
-// Solidity: function initialize(address registryAddress, address _approver, uint256 _concurrentProposals, uint256 _minDeposit, uint256 _queueExpiry, uint256 _dequeueFrequency, uint256 approvalStageDuration, uint256 referendumStageDuration, uint256 executionStageDuration, uint256 participationBaseline, uint256 participationFloor, uint256 baselineUpdateFactor, uint256 baselineQuorumFactor) returns()
-func (_Governance *GovernanceTransactorSession) Initialize(registryAddress common.Address, _approver common.Address, _concurrentProposals *big.Int, _minDeposit *big.Int, _queueExpiry *big.Int, _dequeueFrequency *big.Int, approvalStageDuration *big.Int, referendumStageDuration *big.Int, executionStageDuration *big.Int, participationBaseline *big.Int, participationFloor *big.Int, baselineUpdateFactor *big.Int, baselineQuorumFactor *big.Int) (*types.Transaction, error) {
-	return _Governance.Contract.Initialize(&_Governance.TransactOpts, registryAddress, _approver, _concurrentProposals, _minDeposit, _queueExpiry, _dequeueFrequency, approvalStageDuration, referendumStageDuration, executionStageDuration, participationBaseline, participationFloor, baselineUpdateFactor, baselineQuorumFactor)
+// Solidity: function initialize(address registryAddress, address _approver, uint256 _concurrentProposals, uint256 _minDeposit, uint256 _queueExpiry, uint256 _dequeueFrequency, uint256 referendumStageDuration, uint256 executionStageDuration, uint256 participationBaseline, uint256 participationFloor, uint256 baselineUpdateFactor, uint256 baselineQuorumFactor) returns()
+func (_Governance *GovernanceTransactorSession) Initialize(registryAddress common.Address, _approver common.Address, _concurrentProposals *big.Int, _minDeposit *big.Int, _queueExpiry *big.Int, _dequeueFrequency *big.Int, referendumStageDuration *big.Int, executionStageDuration *big.Int, participationBaseline *big.Int, participationFloor *big.Int, baselineUpdateFactor *big.Int, baselineQuorumFactor *big.Int) (*types.Transaction, error) {
+	return _Governance.Contract.Initialize(&_Governance.TransactOpts, registryAddress, _approver, _concurrentProposals, _minDeposit, _queueExpiry, _dequeueFrequency, referendumStageDuration, executionStageDuration, participationBaseline, participationFloor, baselineUpdateFactor, baselineQuorumFactor)
 }
 
 // PrepareHotfix is a paid mutator transaction binding the contract method 0x9cb02dfc.
@@ -2336,27 +2362,6 @@ func (_Governance *GovernanceSession) RevokeVotes() (*types.Transaction, error) 
 // Solidity: function revokeVotes() returns(bool)
 func (_Governance *GovernanceTransactorSession) RevokeVotes() (*types.Transaction, error) {
 	return _Governance.Contract.RevokeVotes(&_Governance.TransactOpts)
-}
-
-// SetApprovalStageDuration is a paid mutator transaction binding the contract method 0x9a6c3d83.
-//
-// Solidity: function setApprovalStageDuration(uint256 approvalStageDuration) returns()
-func (_Governance *GovernanceTransactor) SetApprovalStageDuration(opts *bind.TransactOpts, approvalStageDuration *big.Int) (*types.Transaction, error) {
-	return _Governance.contract.Transact(opts, "setApprovalStageDuration", approvalStageDuration)
-}
-
-// SetApprovalStageDuration is a paid mutator transaction binding the contract method 0x9a6c3d83.
-//
-// Solidity: function setApprovalStageDuration(uint256 approvalStageDuration) returns()
-func (_Governance *GovernanceSession) SetApprovalStageDuration(approvalStageDuration *big.Int) (*types.Transaction, error) {
-	return _Governance.Contract.SetApprovalStageDuration(&_Governance.TransactOpts, approvalStageDuration)
-}
-
-// SetApprovalStageDuration is a paid mutator transaction binding the contract method 0x9a6c3d83.
-//
-// Solidity: function setApprovalStageDuration(uint256 approvalStageDuration) returns()
-func (_Governance *GovernanceTransactorSession) SetApprovalStageDuration(approvalStageDuration *big.Int) (*types.Transaction, error) {
-	return _Governance.Contract.SetApprovalStageDuration(&_Governance.TransactOpts, approvalStageDuration)
 }
 
 // SetApprover is a paid mutator transaction binding the contract method 0x3156560e.
@@ -2695,6 +2700,27 @@ func (_Governance *GovernanceTransactorSession) Vote(proposalId *big.Int, index 
 	return _Governance.Contract.Vote(&_Governance.TransactOpts, proposalId, index, value)
 }
 
+// VotePartially is a paid mutator transaction binding the contract method 0x2edfd12e.
+//
+// Solidity: function votePartially(uint256 proposalId, uint256 index, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes) returns(bool)
+func (_Governance *GovernanceTransactor) VotePartially(opts *bind.TransactOpts, proposalId *big.Int, index *big.Int, yesVotes *big.Int, noVotes *big.Int, abstainVotes *big.Int) (*types.Transaction, error) {
+	return _Governance.contract.Transact(opts, "votePartially", proposalId, index, yesVotes, noVotes, abstainVotes)
+}
+
+// VotePartially is a paid mutator transaction binding the contract method 0x2edfd12e.
+//
+// Solidity: function votePartially(uint256 proposalId, uint256 index, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes) returns(bool)
+func (_Governance *GovernanceSession) VotePartially(proposalId *big.Int, index *big.Int, yesVotes *big.Int, noVotes *big.Int, abstainVotes *big.Int) (*types.Transaction, error) {
+	return _Governance.Contract.VotePartially(&_Governance.TransactOpts, proposalId, index, yesVotes, noVotes, abstainVotes)
+}
+
+// VotePartially is a paid mutator transaction binding the contract method 0x2edfd12e.
+//
+// Solidity: function votePartially(uint256 proposalId, uint256 index, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes) returns(bool)
+func (_Governance *GovernanceTransactorSession) VotePartially(proposalId *big.Int, index *big.Int, yesVotes *big.Int, noVotes *big.Int, abstainVotes *big.Int) (*types.Transaction, error) {
+	return _Governance.Contract.VotePartially(&_Governance.TransactOpts, proposalId, index, yesVotes, noVotes, abstainVotes)
+}
+
 // WhitelistHotfix is a paid mutator transaction binding the contract method 0xb15f0f58.
 //
 // Solidity: function whitelistHotfix(bytes32 hash) returns()
@@ -2745,8 +2771,6 @@ func (_Governance *GovernanceFilterer) TryParseLog(log types.Log) (eventName str
 	}
 
 	switch eventName {
-	case "ApprovalStageDurationSet":
-		event, err = _Governance.ParseApprovalStageDurationSet(log)
 	case "ApproverSet":
 		event, err = _Governance.ParseApproverSet(log)
 	case "ConcurrentProposalsSet":
@@ -2793,8 +2817,12 @@ func (_Governance *GovernanceFilterer) TryParseLog(log types.Log) (eventName str
 		event, err = _Governance.ParseProposalUpvoted(log)
 	case "ProposalVoteRevoked":
 		event, err = _Governance.ParseProposalVoteRevoked(log)
+	case "ProposalVoteRevokedV2":
+		event, err = _Governance.ParseProposalVoteRevokedV2(log)
 	case "ProposalVoted":
 		event, err = _Governance.ParseProposalVoted(log)
+	case "ProposalVotedV2":
+		event, err = _Governance.ParseProposalVotedV2(log)
 	case "QueueExpirySet":
 		event, err = _Governance.ParseQueueExpirySet(log)
 	case "ReferendumStageDurationSet":
@@ -2828,140 +2856,6 @@ func (_Governance *GovernanceSession) Fallback(calldata []byte) (*types.Transact
 // Solidity: fallback() payable returns()
 func (_Governance *GovernanceTransactorSession) Fallback(calldata []byte) (*types.Transaction, error) {
 	return _Governance.Contract.Fallback(&_Governance.TransactOpts, calldata)
-}
-
-// GovernanceApprovalStageDurationSetIterator is returned from FilterApprovalStageDurationSet and is used to iterate over the raw logs and unpacked data for ApprovalStageDurationSet events raised by the Governance contract.
-type GovernanceApprovalStageDurationSetIterator struct {
-	Event *GovernanceApprovalStageDurationSet // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *GovernanceApprovalStageDurationSetIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(GovernanceApprovalStageDurationSet)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(GovernanceApprovalStageDurationSet)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *GovernanceApprovalStageDurationSetIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *GovernanceApprovalStageDurationSetIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// GovernanceApprovalStageDurationSet represents a ApprovalStageDurationSet event raised by the Governance contract.
-type GovernanceApprovalStageDurationSet struct {
-	ApprovalStageDuration *big.Int
-	Raw                   types.Log // Blockchain specific contextual infos
-}
-
-// FilterApprovalStageDurationSet is a free log retrieval operation binding the contract event 0xbc44c003a66b841b48c220869efb738b265af305649ac8bafe8efe0c8130e313.
-//
-// Solidity: event ApprovalStageDurationSet(uint256 approvalStageDuration)
-func (_Governance *GovernanceFilterer) FilterApprovalStageDurationSet(opts *bind.FilterOpts) (*GovernanceApprovalStageDurationSetIterator, error) {
-
-	logs, sub, err := _Governance.contract.FilterLogs(opts, "ApprovalStageDurationSet")
-	if err != nil {
-		return nil, err
-	}
-	return &GovernanceApprovalStageDurationSetIterator{contract: _Governance.contract, event: "ApprovalStageDurationSet", logs: logs, sub: sub}, nil
-}
-
-// WatchApprovalStageDurationSet is a free log subscription operation binding the contract event 0xbc44c003a66b841b48c220869efb738b265af305649ac8bafe8efe0c8130e313.
-//
-// Solidity: event ApprovalStageDurationSet(uint256 approvalStageDuration)
-func (_Governance *GovernanceFilterer) WatchApprovalStageDurationSet(opts *bind.WatchOpts, sink chan<- *GovernanceApprovalStageDurationSet) (event.Subscription, error) {
-
-	logs, sub, err := _Governance.contract.WatchLogs(opts, "ApprovalStageDurationSet")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(GovernanceApprovalStageDurationSet)
-				if err := _Governance.contract.UnpackLog(event, "ApprovalStageDurationSet", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseApprovalStageDurationSet is a log parse operation binding the contract event 0xbc44c003a66b841b48c220869efb738b265af305649ac8bafe8efe0c8130e313.
-//
-// Solidity: event ApprovalStageDurationSet(uint256 approvalStageDuration)
-func (_Governance *GovernanceFilterer) ParseApprovalStageDurationSet(log types.Log) (*GovernanceApprovalStageDurationSet, error) {
-	event := new(GovernanceApprovalStageDurationSet)
-	if err := _Governance.contract.UnpackLog(event, "ApprovalStageDurationSet", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
 }
 
 // GovernanceApproverSetIterator is returned from FilterApproverSet and is used to iterate over the raw logs and unpacked data for ApproverSet events raised by the Governance contract.
@@ -6269,6 +6163,162 @@ func (_Governance *GovernanceFilterer) ParseProposalVoteRevoked(log types.Log) (
 	return event, nil
 }
 
+// GovernanceProposalVoteRevokedV2Iterator is returned from FilterProposalVoteRevokedV2 and is used to iterate over the raw logs and unpacked data for ProposalVoteRevokedV2 events raised by the Governance contract.
+type GovernanceProposalVoteRevokedV2Iterator struct {
+	Event *GovernanceProposalVoteRevokedV2 // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *GovernanceProposalVoteRevokedV2Iterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(GovernanceProposalVoteRevokedV2)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(GovernanceProposalVoteRevokedV2)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *GovernanceProposalVoteRevokedV2Iterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *GovernanceProposalVoteRevokedV2Iterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// GovernanceProposalVoteRevokedV2 represents a ProposalVoteRevokedV2 event raised by the Governance contract.
+type GovernanceProposalVoteRevokedV2 struct {
+	ProposalId   *big.Int
+	Account      common.Address
+	YesVotes     *big.Int
+	NoVotes      *big.Int
+	AbstainVotes *big.Int
+	Raw          types.Log // Blockchain specific contextual infos
+}
+
+// FilterProposalVoteRevokedV2 is a free log retrieval operation binding the contract event 0x6791653c96b4863b3768c664e9a03e1094ae334ba9d35862627ceeebd1abcc1f.
+//
+// Solidity: event ProposalVoteRevokedV2(uint256 indexed proposalId, address indexed account, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes)
+func (_Governance *GovernanceFilterer) FilterProposalVoteRevokedV2(opts *bind.FilterOpts, proposalId []*big.Int, account []common.Address) (*GovernanceProposalVoteRevokedV2Iterator, error) {
+
+	var proposalIdRule []interface{}
+	for _, proposalIdItem := range proposalId {
+		proposalIdRule = append(proposalIdRule, proposalIdItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Governance.contract.FilterLogs(opts, "ProposalVoteRevokedV2", proposalIdRule, accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &GovernanceProposalVoteRevokedV2Iterator{contract: _Governance.contract, event: "ProposalVoteRevokedV2", logs: logs, sub: sub}, nil
+}
+
+// WatchProposalVoteRevokedV2 is a free log subscription operation binding the contract event 0x6791653c96b4863b3768c664e9a03e1094ae334ba9d35862627ceeebd1abcc1f.
+//
+// Solidity: event ProposalVoteRevokedV2(uint256 indexed proposalId, address indexed account, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes)
+func (_Governance *GovernanceFilterer) WatchProposalVoteRevokedV2(opts *bind.WatchOpts, sink chan<- *GovernanceProposalVoteRevokedV2, proposalId []*big.Int, account []common.Address) (event.Subscription, error) {
+
+	var proposalIdRule []interface{}
+	for _, proposalIdItem := range proposalId {
+		proposalIdRule = append(proposalIdRule, proposalIdItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Governance.contract.WatchLogs(opts, "ProposalVoteRevokedV2", proposalIdRule, accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(GovernanceProposalVoteRevokedV2)
+				if err := _Governance.contract.UnpackLog(event, "ProposalVoteRevokedV2", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseProposalVoteRevokedV2 is a log parse operation binding the contract event 0x6791653c96b4863b3768c664e9a03e1094ae334ba9d35862627ceeebd1abcc1f.
+//
+// Solidity: event ProposalVoteRevokedV2(uint256 indexed proposalId, address indexed account, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes)
+func (_Governance *GovernanceFilterer) ParseProposalVoteRevokedV2(log types.Log) (*GovernanceProposalVoteRevokedV2, error) {
+	event := new(GovernanceProposalVoteRevokedV2)
+	if err := _Governance.contract.UnpackLog(event, "ProposalVoteRevokedV2", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
 // GovernanceProposalVotedIterator is returned from FilterProposalVoted and is used to iterate over the raw logs and unpacked data for ProposalVoted events raised by the Governance contract.
 type GovernanceProposalVotedIterator struct {
 	Event *GovernanceProposalVoted // Event containing the contract specifics and raw log
@@ -6418,6 +6468,162 @@ func (_Governance *GovernanceFilterer) WatchProposalVoted(opts *bind.WatchOpts, 
 func (_Governance *GovernanceFilterer) ParseProposalVoted(log types.Log) (*GovernanceProposalVoted, error) {
 	event := new(GovernanceProposalVoted)
 	if err := _Governance.contract.UnpackLog(event, "ProposalVoted", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// GovernanceProposalVotedV2Iterator is returned from FilterProposalVotedV2 and is used to iterate over the raw logs and unpacked data for ProposalVotedV2 events raised by the Governance contract.
+type GovernanceProposalVotedV2Iterator struct {
+	Event *GovernanceProposalVotedV2 // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *GovernanceProposalVotedV2Iterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(GovernanceProposalVotedV2)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(GovernanceProposalVotedV2)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *GovernanceProposalVotedV2Iterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *GovernanceProposalVotedV2Iterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// GovernanceProposalVotedV2 represents a ProposalVotedV2 event raised by the Governance contract.
+type GovernanceProposalVotedV2 struct {
+	ProposalId   *big.Int
+	Account      common.Address
+	YesVotes     *big.Int
+	NoVotes      *big.Int
+	AbstainVotes *big.Int
+	Raw          types.Log // Blockchain specific contextual infos
+}
+
+// FilterProposalVotedV2 is a free log retrieval operation binding the contract event 0x683ebddc94b5b0a7dae3d1b6c168ad05684fcfd831b24ecb5ea9ecdf5524d028.
+//
+// Solidity: event ProposalVotedV2(uint256 indexed proposalId, address indexed account, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes)
+func (_Governance *GovernanceFilterer) FilterProposalVotedV2(opts *bind.FilterOpts, proposalId []*big.Int, account []common.Address) (*GovernanceProposalVotedV2Iterator, error) {
+
+	var proposalIdRule []interface{}
+	for _, proposalIdItem := range proposalId {
+		proposalIdRule = append(proposalIdRule, proposalIdItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Governance.contract.FilterLogs(opts, "ProposalVotedV2", proposalIdRule, accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &GovernanceProposalVotedV2Iterator{contract: _Governance.contract, event: "ProposalVotedV2", logs: logs, sub: sub}, nil
+}
+
+// WatchProposalVotedV2 is a free log subscription operation binding the contract event 0x683ebddc94b5b0a7dae3d1b6c168ad05684fcfd831b24ecb5ea9ecdf5524d028.
+//
+// Solidity: event ProposalVotedV2(uint256 indexed proposalId, address indexed account, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes)
+func (_Governance *GovernanceFilterer) WatchProposalVotedV2(opts *bind.WatchOpts, sink chan<- *GovernanceProposalVotedV2, proposalId []*big.Int, account []common.Address) (event.Subscription, error) {
+
+	var proposalIdRule []interface{}
+	for _, proposalIdItem := range proposalId {
+		proposalIdRule = append(proposalIdRule, proposalIdItem)
+	}
+	var accountRule []interface{}
+	for _, accountItem := range account {
+		accountRule = append(accountRule, accountItem)
+	}
+
+	logs, sub, err := _Governance.contract.WatchLogs(opts, "ProposalVotedV2", proposalIdRule, accountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(GovernanceProposalVotedV2)
+				if err := _Governance.contract.UnpackLog(event, "ProposalVotedV2", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseProposalVotedV2 is a log parse operation binding the contract event 0x683ebddc94b5b0a7dae3d1b6c168ad05684fcfd831b24ecb5ea9ecdf5524d028.
+//
+// Solidity: event ProposalVotedV2(uint256 indexed proposalId, address indexed account, uint256 yesVotes, uint256 noVotes, uint256 abstainVotes)
+func (_Governance *GovernanceFilterer) ParseProposalVotedV2(log types.Log) (*GovernanceProposalVotedV2, error) {
+	event := new(GovernanceProposalVotedV2)
+	if err := _Governance.contract.UnpackLog(event, "ProposalVotedV2", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

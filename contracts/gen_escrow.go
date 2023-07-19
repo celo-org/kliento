@@ -30,7 +30,7 @@ var (
 
 // EscrowMetaData contains all meta data concerning the Escrow contract.
 var EscrowMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"by\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"Revocation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minAttestations\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"Withdrawal\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"escrowedPayments\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"recipientIdentifier\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"sentIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expirySeconds\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minAttestations\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"receivedPaymentIds\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"sentPaymentIds\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expirySeconds\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minAttestations\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"revoke\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"}],\"name\":\"getReceivedPaymentIds\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"getSentPaymentIds\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trustedIssuer\",\"type\":\"address\"}],\"name\":\"DefaultTrustedIssuerAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"trustedIssuer\",\"type\":\"address\"}],\"name\":\"DefaultTrustedIssuerRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"by\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"Revocation\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minAttestations\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"trustedIssuers\",\"type\":\"address[]\"}],\"name\":\"TrustedIssuersSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"TrustedIssuersUnset\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"Withdrawal\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"MAX_TRUSTED_ISSUERS_PER_PAYMENT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"defaultTrustedIssuers\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"escrowedPayments\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"recipientIdentifier\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"sentIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"receivedIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expirySeconds\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minAttestations\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"receivedPaymentIds\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registryContract\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"sentPaymentIds\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"trustedIssuersPerPayment\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"trustedIssuer\",\"type\":\"address\"}],\"name\":\"addDefaultTrustedIssuer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"trustedIssuer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeDefaultTrustedIssuer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expirySeconds\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minAttestations\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"expirySeconds\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minAttestations\",\"type\":\"uint256\"},{\"internalType\":\"address[]\",\"name\":\"trustedIssuers\",\"type\":\"address[]\"}],\"name\":\"transferWithTrustedIssuers\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"withdraw\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"revoke\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"}],\"name\":\"getReceivedPaymentIds\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"getSentPaymentIds\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"paymentId\",\"type\":\"address\"}],\"name\":\"getTrustedIssuersPerPayment\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getDefaultTrustedIssuers\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // EscrowABI is the input ABI used to generate the binding from.
@@ -188,6 +188,68 @@ func (_Escrow *EscrowTransactorRaw) Transact(opts *bind.TransactOpts, method str
 	return _Escrow.Contract.contract.Transact(opts, method, params...)
 }
 
+// MAXTRUSTEDISSUERSPERPAYMENT is a free data retrieval call binding the contract method 0x5fb2076f.
+//
+// Solidity: function MAX_TRUSTED_ISSUERS_PER_PAYMENT() view returns(uint256)
+func (_Escrow *EscrowCaller) MAXTRUSTEDISSUERSPERPAYMENT(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _Escrow.contract.Call(opts, &out, "MAX_TRUSTED_ISSUERS_PER_PAYMENT")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// MAXTRUSTEDISSUERSPERPAYMENT is a free data retrieval call binding the contract method 0x5fb2076f.
+//
+// Solidity: function MAX_TRUSTED_ISSUERS_PER_PAYMENT() view returns(uint256)
+func (_Escrow *EscrowSession) MAXTRUSTEDISSUERSPERPAYMENT() (*big.Int, error) {
+	return _Escrow.Contract.MAXTRUSTEDISSUERSPERPAYMENT(&_Escrow.CallOpts)
+}
+
+// MAXTRUSTEDISSUERSPERPAYMENT is a free data retrieval call binding the contract method 0x5fb2076f.
+//
+// Solidity: function MAX_TRUSTED_ISSUERS_PER_PAYMENT() view returns(uint256)
+func (_Escrow *EscrowCallerSession) MAXTRUSTEDISSUERSPERPAYMENT() (*big.Int, error) {
+	return _Escrow.Contract.MAXTRUSTEDISSUERSPERPAYMENT(&_Escrow.CallOpts)
+}
+
+// DefaultTrustedIssuers is a free data retrieval call binding the contract method 0x71f7f6d4.
+//
+// Solidity: function defaultTrustedIssuers(uint256 ) view returns(address)
+func (_Escrow *EscrowCaller) DefaultTrustedIssuers(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
+	var out []interface{}
+	err := _Escrow.contract.Call(opts, &out, "defaultTrustedIssuers", arg0)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// DefaultTrustedIssuers is a free data retrieval call binding the contract method 0x71f7f6d4.
+//
+// Solidity: function defaultTrustedIssuers(uint256 ) view returns(address)
+func (_Escrow *EscrowSession) DefaultTrustedIssuers(arg0 *big.Int) (common.Address, error) {
+	return _Escrow.Contract.DefaultTrustedIssuers(&_Escrow.CallOpts, arg0)
+}
+
+// DefaultTrustedIssuers is a free data retrieval call binding the contract method 0x71f7f6d4.
+//
+// Solidity: function defaultTrustedIssuers(uint256 ) view returns(address)
+func (_Escrow *EscrowCallerSession) DefaultTrustedIssuers(arg0 *big.Int) (common.Address, error) {
+	return _Escrow.Contract.DefaultTrustedIssuers(&_Escrow.CallOpts, arg0)
+}
+
 // EscrowedPayments is a free data retrieval call binding the contract method 0x680d782c.
 //
 // Solidity: function escrowedPayments(address ) view returns(bytes32 recipientIdentifier, address sender, address token, uint256 value, uint256 sentIndex, uint256 receivedIndex, uint256 timestamp, uint256 expirySeconds, uint256 minAttestations)
@@ -268,6 +330,37 @@ func (_Escrow *EscrowCallerSession) EscrowedPayments(arg0 common.Address) (struc
 	return _Escrow.Contract.EscrowedPayments(&_Escrow.CallOpts, arg0)
 }
 
+// GetDefaultTrustedIssuers is a free data retrieval call binding the contract method 0x2c21c7f6.
+//
+// Solidity: function getDefaultTrustedIssuers() view returns(address[])
+func (_Escrow *EscrowCaller) GetDefaultTrustedIssuers(opts *bind.CallOpts) ([]common.Address, error) {
+	var out []interface{}
+	err := _Escrow.contract.Call(opts, &out, "getDefaultTrustedIssuers")
+
+	if err != nil {
+		return *new([]common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]common.Address)).(*[]common.Address)
+
+	return out0, err
+
+}
+
+// GetDefaultTrustedIssuers is a free data retrieval call binding the contract method 0x2c21c7f6.
+//
+// Solidity: function getDefaultTrustedIssuers() view returns(address[])
+func (_Escrow *EscrowSession) GetDefaultTrustedIssuers() ([]common.Address, error) {
+	return _Escrow.Contract.GetDefaultTrustedIssuers(&_Escrow.CallOpts)
+}
+
+// GetDefaultTrustedIssuers is a free data retrieval call binding the contract method 0x2c21c7f6.
+//
+// Solidity: function getDefaultTrustedIssuers() view returns(address[])
+func (_Escrow *EscrowCallerSession) GetDefaultTrustedIssuers() ([]common.Address, error) {
+	return _Escrow.Contract.GetDefaultTrustedIssuers(&_Escrow.CallOpts)
+}
+
 // GetReceivedPaymentIds is a free data retrieval call binding the contract method 0x5b57b65b.
 //
 // Solidity: function getReceivedPaymentIds(bytes32 identifier) view returns(address[])
@@ -328,6 +421,37 @@ func (_Escrow *EscrowSession) GetSentPaymentIds(sender common.Address) ([]common
 // Solidity: function getSentPaymentIds(address sender) view returns(address[])
 func (_Escrow *EscrowCallerSession) GetSentPaymentIds(sender common.Address) ([]common.Address, error) {
 	return _Escrow.Contract.GetSentPaymentIds(&_Escrow.CallOpts, sender)
+}
+
+// GetTrustedIssuersPerPayment is a free data retrieval call binding the contract method 0x60a2a152.
+//
+// Solidity: function getTrustedIssuersPerPayment(address paymentId) view returns(address[])
+func (_Escrow *EscrowCaller) GetTrustedIssuersPerPayment(opts *bind.CallOpts, paymentId common.Address) ([]common.Address, error) {
+	var out []interface{}
+	err := _Escrow.contract.Call(opts, &out, "getTrustedIssuersPerPayment", paymentId)
+
+	if err != nil {
+		return *new([]common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]common.Address)).(*[]common.Address)
+
+	return out0, err
+
+}
+
+// GetTrustedIssuersPerPayment is a free data retrieval call binding the contract method 0x60a2a152.
+//
+// Solidity: function getTrustedIssuersPerPayment(address paymentId) view returns(address[])
+func (_Escrow *EscrowSession) GetTrustedIssuersPerPayment(paymentId common.Address) ([]common.Address, error) {
+	return _Escrow.Contract.GetTrustedIssuersPerPayment(&_Escrow.CallOpts, paymentId)
+}
+
+// GetTrustedIssuersPerPayment is a free data retrieval call binding the contract method 0x60a2a152.
+//
+// Solidity: function getTrustedIssuersPerPayment(address paymentId) view returns(address[])
+func (_Escrow *EscrowCallerSession) GetTrustedIssuersPerPayment(paymentId common.Address) ([]common.Address, error) {
+	return _Escrow.Contract.GetTrustedIssuersPerPayment(&_Escrow.CallOpts, paymentId)
 }
 
 // GetVersionNumber is a free data retrieval call binding the contract method 0x54255be0.
@@ -519,6 +643,37 @@ func (_Escrow *EscrowCallerSession) Registry() (common.Address, error) {
 	return _Escrow.Contract.Registry(&_Escrow.CallOpts)
 }
 
+// RegistryContract is a free data retrieval call binding the contract method 0x28c1f99b.
+//
+// Solidity: function registryContract() view returns(address)
+func (_Escrow *EscrowCaller) RegistryContract(opts *bind.CallOpts) (common.Address, error) {
+	var out []interface{}
+	err := _Escrow.contract.Call(opts, &out, "registryContract")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// RegistryContract is a free data retrieval call binding the contract method 0x28c1f99b.
+//
+// Solidity: function registryContract() view returns(address)
+func (_Escrow *EscrowSession) RegistryContract() (common.Address, error) {
+	return _Escrow.Contract.RegistryContract(&_Escrow.CallOpts)
+}
+
+// RegistryContract is a free data retrieval call binding the contract method 0x28c1f99b.
+//
+// Solidity: function registryContract() view returns(address)
+func (_Escrow *EscrowCallerSession) RegistryContract() (common.Address, error) {
+	return _Escrow.Contract.RegistryContract(&_Escrow.CallOpts)
+}
+
 // SentPaymentIds is a free data retrieval call binding the contract method 0xe1d9a080.
 //
 // Solidity: function sentPaymentIds(address , uint256 ) view returns(address)
@@ -550,25 +705,98 @@ func (_Escrow *EscrowCallerSession) SentPaymentIds(arg0 common.Address, arg1 *bi
 	return _Escrow.Contract.SentPaymentIds(&_Escrow.CallOpts, arg0, arg1)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc4d66de8.
+// TrustedIssuersPerPayment is a free data retrieval call binding the contract method 0x5cb516e9.
 //
-// Solidity: function initialize(address registryAddress) returns()
-func (_Escrow *EscrowTransactor) Initialize(opts *bind.TransactOpts, registryAddress common.Address) (*types.Transaction, error) {
-	return _Escrow.contract.Transact(opts, "initialize", registryAddress)
+// Solidity: function trustedIssuersPerPayment(address , uint256 ) view returns(address)
+func (_Escrow *EscrowCaller) TrustedIssuersPerPayment(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int) (common.Address, error) {
+	var out []interface{}
+	err := _Escrow.contract.Call(opts, &out, "trustedIssuersPerPayment", arg0, arg1)
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc4d66de8.
+// TrustedIssuersPerPayment is a free data retrieval call binding the contract method 0x5cb516e9.
 //
-// Solidity: function initialize(address registryAddress) returns()
-func (_Escrow *EscrowSession) Initialize(registryAddress common.Address) (*types.Transaction, error) {
-	return _Escrow.Contract.Initialize(&_Escrow.TransactOpts, registryAddress)
+// Solidity: function trustedIssuersPerPayment(address , uint256 ) view returns(address)
+func (_Escrow *EscrowSession) TrustedIssuersPerPayment(arg0 common.Address, arg1 *big.Int) (common.Address, error) {
+	return _Escrow.Contract.TrustedIssuersPerPayment(&_Escrow.CallOpts, arg0, arg1)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0xc4d66de8.
+// TrustedIssuersPerPayment is a free data retrieval call binding the contract method 0x5cb516e9.
 //
-// Solidity: function initialize(address registryAddress) returns()
-func (_Escrow *EscrowTransactorSession) Initialize(registryAddress common.Address) (*types.Transaction, error) {
-	return _Escrow.Contract.Initialize(&_Escrow.TransactOpts, registryAddress)
+// Solidity: function trustedIssuersPerPayment(address , uint256 ) view returns(address)
+func (_Escrow *EscrowCallerSession) TrustedIssuersPerPayment(arg0 common.Address, arg1 *big.Int) (common.Address, error) {
+	return _Escrow.Contract.TrustedIssuersPerPayment(&_Escrow.CallOpts, arg0, arg1)
+}
+
+// AddDefaultTrustedIssuer is a paid mutator transaction binding the contract method 0x696e3fb1.
+//
+// Solidity: function addDefaultTrustedIssuer(address trustedIssuer) returns()
+func (_Escrow *EscrowTransactor) AddDefaultTrustedIssuer(opts *bind.TransactOpts, trustedIssuer common.Address) (*types.Transaction, error) {
+	return _Escrow.contract.Transact(opts, "addDefaultTrustedIssuer", trustedIssuer)
+}
+
+// AddDefaultTrustedIssuer is a paid mutator transaction binding the contract method 0x696e3fb1.
+//
+// Solidity: function addDefaultTrustedIssuer(address trustedIssuer) returns()
+func (_Escrow *EscrowSession) AddDefaultTrustedIssuer(trustedIssuer common.Address) (*types.Transaction, error) {
+	return _Escrow.Contract.AddDefaultTrustedIssuer(&_Escrow.TransactOpts, trustedIssuer)
+}
+
+// AddDefaultTrustedIssuer is a paid mutator transaction binding the contract method 0x696e3fb1.
+//
+// Solidity: function addDefaultTrustedIssuer(address trustedIssuer) returns()
+func (_Escrow *EscrowTransactorSession) AddDefaultTrustedIssuer(trustedIssuer common.Address) (*types.Transaction, error) {
+	return _Escrow.Contract.AddDefaultTrustedIssuer(&_Escrow.TransactOpts, trustedIssuer)
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
+//
+// Solidity: function initialize() returns()
+func (_Escrow *EscrowTransactor) Initialize(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _Escrow.contract.Transact(opts, "initialize")
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
+//
+// Solidity: function initialize() returns()
+func (_Escrow *EscrowSession) Initialize() (*types.Transaction, error) {
+	return _Escrow.Contract.Initialize(&_Escrow.TransactOpts)
+}
+
+// Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
+//
+// Solidity: function initialize() returns()
+func (_Escrow *EscrowTransactorSession) Initialize() (*types.Transaction, error) {
+	return _Escrow.Contract.Initialize(&_Escrow.TransactOpts)
+}
+
+// RemoveDefaultTrustedIssuer is a paid mutator transaction binding the contract method 0xf7828789.
+//
+// Solidity: function removeDefaultTrustedIssuer(address trustedIssuer, uint256 index) returns()
+func (_Escrow *EscrowTransactor) RemoveDefaultTrustedIssuer(opts *bind.TransactOpts, trustedIssuer common.Address, index *big.Int) (*types.Transaction, error) {
+	return _Escrow.contract.Transact(opts, "removeDefaultTrustedIssuer", trustedIssuer, index)
+}
+
+// RemoveDefaultTrustedIssuer is a paid mutator transaction binding the contract method 0xf7828789.
+//
+// Solidity: function removeDefaultTrustedIssuer(address trustedIssuer, uint256 index) returns()
+func (_Escrow *EscrowSession) RemoveDefaultTrustedIssuer(trustedIssuer common.Address, index *big.Int) (*types.Transaction, error) {
+	return _Escrow.Contract.RemoveDefaultTrustedIssuer(&_Escrow.TransactOpts, trustedIssuer, index)
+}
+
+// RemoveDefaultTrustedIssuer is a paid mutator transaction binding the contract method 0xf7828789.
+//
+// Solidity: function removeDefaultTrustedIssuer(address trustedIssuer, uint256 index) returns()
+func (_Escrow *EscrowTransactorSession) RemoveDefaultTrustedIssuer(trustedIssuer common.Address, index *big.Int) (*types.Transaction, error) {
+	return _Escrow.Contract.RemoveDefaultTrustedIssuer(&_Escrow.TransactOpts, trustedIssuer, index)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
@@ -613,27 +841,6 @@ func (_Escrow *EscrowTransactorSession) Revoke(paymentId common.Address) (*types
 	return _Escrow.Contract.Revoke(&_Escrow.TransactOpts, paymentId)
 }
 
-// SetRegistry is a paid mutator transaction binding the contract method 0xa91ee0dc.
-//
-// Solidity: function setRegistry(address registryAddress) returns()
-func (_Escrow *EscrowTransactor) SetRegistry(opts *bind.TransactOpts, registryAddress common.Address) (*types.Transaction, error) {
-	return _Escrow.contract.Transact(opts, "setRegistry", registryAddress)
-}
-
-// SetRegistry is a paid mutator transaction binding the contract method 0xa91ee0dc.
-//
-// Solidity: function setRegistry(address registryAddress) returns()
-func (_Escrow *EscrowSession) SetRegistry(registryAddress common.Address) (*types.Transaction, error) {
-	return _Escrow.Contract.SetRegistry(&_Escrow.TransactOpts, registryAddress)
-}
-
-// SetRegistry is a paid mutator transaction binding the contract method 0xa91ee0dc.
-//
-// Solidity: function setRegistry(address registryAddress) returns()
-func (_Escrow *EscrowTransactorSession) SetRegistry(registryAddress common.Address) (*types.Transaction, error) {
-	return _Escrow.Contract.SetRegistry(&_Escrow.TransactOpts, registryAddress)
-}
-
 // Transfer is a paid mutator transaction binding the contract method 0x702cb75d.
 //
 // Solidity: function transfer(bytes32 identifier, address token, uint256 value, uint256 expirySeconds, address paymentId, uint256 minAttestations) returns(bool)
@@ -676,6 +883,27 @@ func (_Escrow *EscrowTransactorSession) TransferOwnership(newOwner common.Addres
 	return _Escrow.Contract.TransferOwnership(&_Escrow.TransactOpts, newOwner)
 }
 
+// TransferWithTrustedIssuers is a paid mutator transaction binding the contract method 0x1ea153dd.
+//
+// Solidity: function transferWithTrustedIssuers(bytes32 identifier, address token, uint256 value, uint256 expirySeconds, address paymentId, uint256 minAttestations, address[] trustedIssuers) returns(bool)
+func (_Escrow *EscrowTransactor) TransferWithTrustedIssuers(opts *bind.TransactOpts, identifier [32]byte, token common.Address, value *big.Int, expirySeconds *big.Int, paymentId common.Address, minAttestations *big.Int, trustedIssuers []common.Address) (*types.Transaction, error) {
+	return _Escrow.contract.Transact(opts, "transferWithTrustedIssuers", identifier, token, value, expirySeconds, paymentId, minAttestations, trustedIssuers)
+}
+
+// TransferWithTrustedIssuers is a paid mutator transaction binding the contract method 0x1ea153dd.
+//
+// Solidity: function transferWithTrustedIssuers(bytes32 identifier, address token, uint256 value, uint256 expirySeconds, address paymentId, uint256 minAttestations, address[] trustedIssuers) returns(bool)
+func (_Escrow *EscrowSession) TransferWithTrustedIssuers(identifier [32]byte, token common.Address, value *big.Int, expirySeconds *big.Int, paymentId common.Address, minAttestations *big.Int, trustedIssuers []common.Address) (*types.Transaction, error) {
+	return _Escrow.Contract.TransferWithTrustedIssuers(&_Escrow.TransactOpts, identifier, token, value, expirySeconds, paymentId, minAttestations, trustedIssuers)
+}
+
+// TransferWithTrustedIssuers is a paid mutator transaction binding the contract method 0x1ea153dd.
+//
+// Solidity: function transferWithTrustedIssuers(bytes32 identifier, address token, uint256 value, uint256 expirySeconds, address paymentId, uint256 minAttestations, address[] trustedIssuers) returns(bool)
+func (_Escrow *EscrowTransactorSession) TransferWithTrustedIssuers(identifier [32]byte, token common.Address, value *big.Int, expirySeconds *big.Int, paymentId common.Address, minAttestations *big.Int, trustedIssuers []common.Address) (*types.Transaction, error) {
+	return _Escrow.Contract.TransferWithTrustedIssuers(&_Escrow.TransactOpts, identifier, token, value, expirySeconds, paymentId, minAttestations, trustedIssuers)
+}
+
 // Withdraw is a paid mutator transaction binding the contract method 0x3e68d5d7.
 //
 // Solidity: function withdraw(address paymentId, uint8 v, bytes32 r, bytes32 s) returns(bool)
@@ -705,14 +933,20 @@ func (_Escrow *EscrowFilterer) TryParseLog(log types.Log) (eventName string, eve
 	}
 
 	switch eventName {
+	case "DefaultTrustedIssuerAdded":
+		event, err = _Escrow.ParseDefaultTrustedIssuerAdded(log)
+	case "DefaultTrustedIssuerRemoved":
+		event, err = _Escrow.ParseDefaultTrustedIssuerRemoved(log)
 	case "OwnershipTransferred":
 		event, err = _Escrow.ParseOwnershipTransferred(log)
-	case "RegistrySet":
-		event, err = _Escrow.ParseRegistrySet(log)
 	case "Revocation":
 		event, err = _Escrow.ParseRevocation(log)
 	case "Transfer":
 		event, err = _Escrow.ParseTransfer(log)
+	case "TrustedIssuersSet":
+		event, err = _Escrow.ParseTrustedIssuersSet(log)
+	case "TrustedIssuersUnset":
+		event, err = _Escrow.ParseTrustedIssuersUnset(log)
 	case "Withdrawal":
 		event, err = _Escrow.ParseWithdrawal(log)
 	}
@@ -721,6 +955,294 @@ func (_Escrow *EscrowFilterer) TryParseLog(log types.Log) (eventName string, eve
 	}
 
 	return eventName, event, ok, nil
+}
+
+// EscrowDefaultTrustedIssuerAddedIterator is returned from FilterDefaultTrustedIssuerAdded and is used to iterate over the raw logs and unpacked data for DefaultTrustedIssuerAdded events raised by the Escrow contract.
+type EscrowDefaultTrustedIssuerAddedIterator struct {
+	Event *EscrowDefaultTrustedIssuerAdded // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *EscrowDefaultTrustedIssuerAddedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(EscrowDefaultTrustedIssuerAdded)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(EscrowDefaultTrustedIssuerAdded)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *EscrowDefaultTrustedIssuerAddedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *EscrowDefaultTrustedIssuerAddedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// EscrowDefaultTrustedIssuerAdded represents a DefaultTrustedIssuerAdded event raised by the Escrow contract.
+type EscrowDefaultTrustedIssuerAdded struct {
+	TrustedIssuer common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterDefaultTrustedIssuerAdded is a free log retrieval operation binding the contract event 0xad14c01336ff6a84f45f0edc75306d67694dbe035d43d40805d363bf42a1fcf9.
+//
+// Solidity: event DefaultTrustedIssuerAdded(address indexed trustedIssuer)
+func (_Escrow *EscrowFilterer) FilterDefaultTrustedIssuerAdded(opts *bind.FilterOpts, trustedIssuer []common.Address) (*EscrowDefaultTrustedIssuerAddedIterator, error) {
+
+	var trustedIssuerRule []interface{}
+	for _, trustedIssuerItem := range trustedIssuer {
+		trustedIssuerRule = append(trustedIssuerRule, trustedIssuerItem)
+	}
+
+	logs, sub, err := _Escrow.contract.FilterLogs(opts, "DefaultTrustedIssuerAdded", trustedIssuerRule)
+	if err != nil {
+		return nil, err
+	}
+	return &EscrowDefaultTrustedIssuerAddedIterator{contract: _Escrow.contract, event: "DefaultTrustedIssuerAdded", logs: logs, sub: sub}, nil
+}
+
+// WatchDefaultTrustedIssuerAdded is a free log subscription operation binding the contract event 0xad14c01336ff6a84f45f0edc75306d67694dbe035d43d40805d363bf42a1fcf9.
+//
+// Solidity: event DefaultTrustedIssuerAdded(address indexed trustedIssuer)
+func (_Escrow *EscrowFilterer) WatchDefaultTrustedIssuerAdded(opts *bind.WatchOpts, sink chan<- *EscrowDefaultTrustedIssuerAdded, trustedIssuer []common.Address) (event.Subscription, error) {
+
+	var trustedIssuerRule []interface{}
+	for _, trustedIssuerItem := range trustedIssuer {
+		trustedIssuerRule = append(trustedIssuerRule, trustedIssuerItem)
+	}
+
+	logs, sub, err := _Escrow.contract.WatchLogs(opts, "DefaultTrustedIssuerAdded", trustedIssuerRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(EscrowDefaultTrustedIssuerAdded)
+				if err := _Escrow.contract.UnpackLog(event, "DefaultTrustedIssuerAdded", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDefaultTrustedIssuerAdded is a log parse operation binding the contract event 0xad14c01336ff6a84f45f0edc75306d67694dbe035d43d40805d363bf42a1fcf9.
+//
+// Solidity: event DefaultTrustedIssuerAdded(address indexed trustedIssuer)
+func (_Escrow *EscrowFilterer) ParseDefaultTrustedIssuerAdded(log types.Log) (*EscrowDefaultTrustedIssuerAdded, error) {
+	event := new(EscrowDefaultTrustedIssuerAdded)
+	if err := _Escrow.contract.UnpackLog(event, "DefaultTrustedIssuerAdded", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// EscrowDefaultTrustedIssuerRemovedIterator is returned from FilterDefaultTrustedIssuerRemoved and is used to iterate over the raw logs and unpacked data for DefaultTrustedIssuerRemoved events raised by the Escrow contract.
+type EscrowDefaultTrustedIssuerRemovedIterator struct {
+	Event *EscrowDefaultTrustedIssuerRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *EscrowDefaultTrustedIssuerRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(EscrowDefaultTrustedIssuerRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(EscrowDefaultTrustedIssuerRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *EscrowDefaultTrustedIssuerRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *EscrowDefaultTrustedIssuerRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// EscrowDefaultTrustedIssuerRemoved represents a DefaultTrustedIssuerRemoved event raised by the Escrow contract.
+type EscrowDefaultTrustedIssuerRemoved struct {
+	TrustedIssuer common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterDefaultTrustedIssuerRemoved is a free log retrieval operation binding the contract event 0x73b0b5acdae4b4df2c8d85a2b1c23acc9e729494c0a1dab7f81e3d73f0c84c08.
+//
+// Solidity: event DefaultTrustedIssuerRemoved(address indexed trustedIssuer)
+func (_Escrow *EscrowFilterer) FilterDefaultTrustedIssuerRemoved(opts *bind.FilterOpts, trustedIssuer []common.Address) (*EscrowDefaultTrustedIssuerRemovedIterator, error) {
+
+	var trustedIssuerRule []interface{}
+	for _, trustedIssuerItem := range trustedIssuer {
+		trustedIssuerRule = append(trustedIssuerRule, trustedIssuerItem)
+	}
+
+	logs, sub, err := _Escrow.contract.FilterLogs(opts, "DefaultTrustedIssuerRemoved", trustedIssuerRule)
+	if err != nil {
+		return nil, err
+	}
+	return &EscrowDefaultTrustedIssuerRemovedIterator{contract: _Escrow.contract, event: "DefaultTrustedIssuerRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchDefaultTrustedIssuerRemoved is a free log subscription operation binding the contract event 0x73b0b5acdae4b4df2c8d85a2b1c23acc9e729494c0a1dab7f81e3d73f0c84c08.
+//
+// Solidity: event DefaultTrustedIssuerRemoved(address indexed trustedIssuer)
+func (_Escrow *EscrowFilterer) WatchDefaultTrustedIssuerRemoved(opts *bind.WatchOpts, sink chan<- *EscrowDefaultTrustedIssuerRemoved, trustedIssuer []common.Address) (event.Subscription, error) {
+
+	var trustedIssuerRule []interface{}
+	for _, trustedIssuerItem := range trustedIssuer {
+		trustedIssuerRule = append(trustedIssuerRule, trustedIssuerItem)
+	}
+
+	logs, sub, err := _Escrow.contract.WatchLogs(opts, "DefaultTrustedIssuerRemoved", trustedIssuerRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(EscrowDefaultTrustedIssuerRemoved)
+				if err := _Escrow.contract.UnpackLog(event, "DefaultTrustedIssuerRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseDefaultTrustedIssuerRemoved is a log parse operation binding the contract event 0x73b0b5acdae4b4df2c8d85a2b1c23acc9e729494c0a1dab7f81e3d73f0c84c08.
+//
+// Solidity: event DefaultTrustedIssuerRemoved(address indexed trustedIssuer)
+func (_Escrow *EscrowFilterer) ParseDefaultTrustedIssuerRemoved(log types.Log) (*EscrowDefaultTrustedIssuerRemoved, error) {
+	event := new(EscrowDefaultTrustedIssuerRemoved)
+	if err := _Escrow.contract.UnpackLog(event, "DefaultTrustedIssuerRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }
 
 // EscrowOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the Escrow contract.
@@ -870,150 +1392,6 @@ func (_Escrow *EscrowFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, s
 func (_Escrow *EscrowFilterer) ParseOwnershipTransferred(log types.Log) (*EscrowOwnershipTransferred, error) {
 	event := new(EscrowOwnershipTransferred)
 	if err := _Escrow.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// EscrowRegistrySetIterator is returned from FilterRegistrySet and is used to iterate over the raw logs and unpacked data for RegistrySet events raised by the Escrow contract.
-type EscrowRegistrySetIterator struct {
-	Event *EscrowRegistrySet // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *EscrowRegistrySetIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(EscrowRegistrySet)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(EscrowRegistrySet)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *EscrowRegistrySetIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *EscrowRegistrySetIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// EscrowRegistrySet represents a RegistrySet event raised by the Escrow contract.
-type EscrowRegistrySet struct {
-	RegistryAddress common.Address
-	Raw             types.Log // Blockchain specific contextual infos
-}
-
-// FilterRegistrySet is a free log retrieval operation binding the contract event 0x27fe5f0c1c3b1ed427cc63d0f05759ffdecf9aec9e18d31ef366fc8a6cb5dc3b.
-//
-// Solidity: event RegistrySet(address indexed registryAddress)
-func (_Escrow *EscrowFilterer) FilterRegistrySet(opts *bind.FilterOpts, registryAddress []common.Address) (*EscrowRegistrySetIterator, error) {
-
-	var registryAddressRule []interface{}
-	for _, registryAddressItem := range registryAddress {
-		registryAddressRule = append(registryAddressRule, registryAddressItem)
-	}
-
-	logs, sub, err := _Escrow.contract.FilterLogs(opts, "RegistrySet", registryAddressRule)
-	if err != nil {
-		return nil, err
-	}
-	return &EscrowRegistrySetIterator{contract: _Escrow.contract, event: "RegistrySet", logs: logs, sub: sub}, nil
-}
-
-// WatchRegistrySet is a free log subscription operation binding the contract event 0x27fe5f0c1c3b1ed427cc63d0f05759ffdecf9aec9e18d31ef366fc8a6cb5dc3b.
-//
-// Solidity: event RegistrySet(address indexed registryAddress)
-func (_Escrow *EscrowFilterer) WatchRegistrySet(opts *bind.WatchOpts, sink chan<- *EscrowRegistrySet, registryAddress []common.Address) (event.Subscription, error) {
-
-	var registryAddressRule []interface{}
-	for _, registryAddressItem := range registryAddress {
-		registryAddressRule = append(registryAddressRule, registryAddressItem)
-	}
-
-	logs, sub, err := _Escrow.contract.WatchLogs(opts, "RegistrySet", registryAddressRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(EscrowRegistrySet)
-				if err := _Escrow.contract.UnpackLog(event, "RegistrySet", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseRegistrySet is a log parse operation binding the contract event 0x27fe5f0c1c3b1ed427cc63d0f05759ffdecf9aec9e18d31ef366fc8a6cb5dc3b.
-//
-// Solidity: event RegistrySet(address indexed registryAddress)
-func (_Escrow *EscrowFilterer) ParseRegistrySet(log types.Log) (*EscrowRegistrySet, error) {
-	event := new(EscrowRegistrySet)
-	if err := _Escrow.contract.UnpackLog(event, "RegistrySet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
@@ -1343,6 +1721,295 @@ func (_Escrow *EscrowFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *
 func (_Escrow *EscrowFilterer) ParseTransfer(log types.Log) (*EscrowTransfer, error) {
 	event := new(EscrowTransfer)
 	if err := _Escrow.contract.UnpackLog(event, "Transfer", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// EscrowTrustedIssuersSetIterator is returned from FilterTrustedIssuersSet and is used to iterate over the raw logs and unpacked data for TrustedIssuersSet events raised by the Escrow contract.
+type EscrowTrustedIssuersSetIterator struct {
+	Event *EscrowTrustedIssuersSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *EscrowTrustedIssuersSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(EscrowTrustedIssuersSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(EscrowTrustedIssuersSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *EscrowTrustedIssuersSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *EscrowTrustedIssuersSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// EscrowTrustedIssuersSet represents a TrustedIssuersSet event raised by the Escrow contract.
+type EscrowTrustedIssuersSet struct {
+	PaymentId      common.Address
+	TrustedIssuers []common.Address
+	Raw            types.Log // Blockchain specific contextual infos
+}
+
+// FilterTrustedIssuersSet is a free log retrieval operation binding the contract event 0xcab1568169bf0442f60fe89e06961cd74fbb1630c0ef54cd00562ff0ded2c2c0.
+//
+// Solidity: event TrustedIssuersSet(address indexed paymentId, address[] trustedIssuers)
+func (_Escrow *EscrowFilterer) FilterTrustedIssuersSet(opts *bind.FilterOpts, paymentId []common.Address) (*EscrowTrustedIssuersSetIterator, error) {
+
+	var paymentIdRule []interface{}
+	for _, paymentIdItem := range paymentId {
+		paymentIdRule = append(paymentIdRule, paymentIdItem)
+	}
+
+	logs, sub, err := _Escrow.contract.FilterLogs(opts, "TrustedIssuersSet", paymentIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return &EscrowTrustedIssuersSetIterator{contract: _Escrow.contract, event: "TrustedIssuersSet", logs: logs, sub: sub}, nil
+}
+
+// WatchTrustedIssuersSet is a free log subscription operation binding the contract event 0xcab1568169bf0442f60fe89e06961cd74fbb1630c0ef54cd00562ff0ded2c2c0.
+//
+// Solidity: event TrustedIssuersSet(address indexed paymentId, address[] trustedIssuers)
+func (_Escrow *EscrowFilterer) WatchTrustedIssuersSet(opts *bind.WatchOpts, sink chan<- *EscrowTrustedIssuersSet, paymentId []common.Address) (event.Subscription, error) {
+
+	var paymentIdRule []interface{}
+	for _, paymentIdItem := range paymentId {
+		paymentIdRule = append(paymentIdRule, paymentIdItem)
+	}
+
+	logs, sub, err := _Escrow.contract.WatchLogs(opts, "TrustedIssuersSet", paymentIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(EscrowTrustedIssuersSet)
+				if err := _Escrow.contract.UnpackLog(event, "TrustedIssuersSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseTrustedIssuersSet is a log parse operation binding the contract event 0xcab1568169bf0442f60fe89e06961cd74fbb1630c0ef54cd00562ff0ded2c2c0.
+//
+// Solidity: event TrustedIssuersSet(address indexed paymentId, address[] trustedIssuers)
+func (_Escrow *EscrowFilterer) ParseTrustedIssuersSet(log types.Log) (*EscrowTrustedIssuersSet, error) {
+	event := new(EscrowTrustedIssuersSet)
+	if err := _Escrow.contract.UnpackLog(event, "TrustedIssuersSet", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// EscrowTrustedIssuersUnsetIterator is returned from FilterTrustedIssuersUnset and is used to iterate over the raw logs and unpacked data for TrustedIssuersUnset events raised by the Escrow contract.
+type EscrowTrustedIssuersUnsetIterator struct {
+	Event *EscrowTrustedIssuersUnset // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *EscrowTrustedIssuersUnsetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(EscrowTrustedIssuersUnset)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(EscrowTrustedIssuersUnset)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *EscrowTrustedIssuersUnsetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *EscrowTrustedIssuersUnsetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// EscrowTrustedIssuersUnset represents a TrustedIssuersUnset event raised by the Escrow contract.
+type EscrowTrustedIssuersUnset struct {
+	PaymentId common.Address
+	Raw       types.Log // Blockchain specific contextual infos
+}
+
+// FilterTrustedIssuersUnset is a free log retrieval operation binding the contract event 0xbe92782e8f0fc2eaba574c74ef88e93ee08abda36dd1889acb0065d4af631d88.
+//
+// Solidity: event TrustedIssuersUnset(address indexed paymentId)
+func (_Escrow *EscrowFilterer) FilterTrustedIssuersUnset(opts *bind.FilterOpts, paymentId []common.Address) (*EscrowTrustedIssuersUnsetIterator, error) {
+
+	var paymentIdRule []interface{}
+	for _, paymentIdItem := range paymentId {
+		paymentIdRule = append(paymentIdRule, paymentIdItem)
+	}
+
+	logs, sub, err := _Escrow.contract.FilterLogs(opts, "TrustedIssuersUnset", paymentIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return &EscrowTrustedIssuersUnsetIterator{contract: _Escrow.contract, event: "TrustedIssuersUnset", logs: logs, sub: sub}, nil
+}
+
+// WatchTrustedIssuersUnset is a free log subscription operation binding the contract event 0xbe92782e8f0fc2eaba574c74ef88e93ee08abda36dd1889acb0065d4af631d88.
+//
+// Solidity: event TrustedIssuersUnset(address indexed paymentId)
+func (_Escrow *EscrowFilterer) WatchTrustedIssuersUnset(opts *bind.WatchOpts, sink chan<- *EscrowTrustedIssuersUnset, paymentId []common.Address) (event.Subscription, error) {
+
+	var paymentIdRule []interface{}
+	for _, paymentIdItem := range paymentId {
+		paymentIdRule = append(paymentIdRule, paymentIdItem)
+	}
+
+	logs, sub, err := _Escrow.contract.WatchLogs(opts, "TrustedIssuersUnset", paymentIdRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(EscrowTrustedIssuersUnset)
+				if err := _Escrow.contract.UnpackLog(event, "TrustedIssuersUnset", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseTrustedIssuersUnset is a log parse operation binding the contract event 0xbe92782e8f0fc2eaba574c74ef88e93ee08abda36dd1889acb0065d4af631d88.
+//
+// Solidity: event TrustedIssuersUnset(address indexed paymentId)
+func (_Escrow *EscrowFilterer) ParseTrustedIssuersUnset(log types.Log) (*EscrowTrustedIssuersUnset, error) {
+	event := new(EscrowTrustedIssuersUnset)
+	if err := _Escrow.contract.UnpackLog(event, "TrustedIssuersUnset", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

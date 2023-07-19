@@ -30,7 +30,7 @@ var (
 
 // BlockchainParametersMetaData contains all meta data concerning the BlockchainParameters contract.
 var BlockchainParametersMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"BlockGasLimitSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"IntrinsicGasForAlternativeFeeCurrencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"name\":\"MinimumClientVersionSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationEpoch\",\"type\":\"uint256\"}],\"name\":\"UptimeLookbackWindowSet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"blockGasLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"intrinsicGasForAlternativeFeeCurrency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"uptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"oldValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValueActivationEpoch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_gasForNonGoldCurrencies\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"name\":\"setMinimumClientVersion\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"}],\"name\":\"setBlockGasLimit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"setIntrinsicGasForAlternativeFeeCurrency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"}],\"name\":\"setUptimeLookbackWindow\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getMinimumClientVersion\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"major\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"patch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"BlockGasLimitSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"IntrinsicGasForAlternativeFeeCurrencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"activationEpoch\",\"type\":\"uint256\"}],\"name\":\"UptimeLookbackWindowSet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"blockGasLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"blsKey\",\"type\":\"bytes\"},{\"internalType\":\"bytes\",\"name\":\"blsPop\",\"type\":\"bytes\"}],\"name\":\"checkProofOfPossession\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"aNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"aDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bNumerator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"bDenominator\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"exponent\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"fractionMulExp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getBlockNumberFromHeader\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getEpochNumberOfBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getEpochSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"getParentSealBitmap\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"getVerifiedSealBitmapFromHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"header\",\"type\":\"bytes\"}],\"name\":\"hashHeader\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"intrinsicGasForAlternativeFeeCurrency\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"minQuorumSize\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"minQuorumSizeInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numberValidatorsInCurrentSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"numberValidatorsInSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"uptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"oldValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValue\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextValueActivationEpoch\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromCurrentSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"name\":\"validatorSignerAddressFromSet\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_gasForNonGoldCurrencies\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gasLimit\",\"type\":\"uint256\"}],\"name\":\"setBlockGasLimit\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"gas\",\"type\":\"uint256\"}],\"name\":\"setIntrinsicGasForAlternativeFeeCurrency\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"window\",\"type\":\"uint256\"}],\"name\":\"setUptimeLookbackWindow\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getUptimeLookbackWindow\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"lookbackWindow\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // BlockchainParametersABI is the input ABI used to generate the binding from.
@@ -404,56 +404,6 @@ func (_BlockchainParameters *BlockchainParametersSession) GetEpochSize() (*big.I
 // Solidity: function getEpochSize() view returns(uint256)
 func (_BlockchainParameters *BlockchainParametersCallerSession) GetEpochSize() (*big.Int, error) {
 	return _BlockchainParameters.Contract.GetEpochSize(&_BlockchainParameters.CallOpts)
-}
-
-// GetMinimumClientVersion is a free data retrieval call binding the contract method 0x25eb315d.
-//
-// Solidity: function getMinimumClientVersion() view returns(uint256 major, uint256 minor, uint256 patch)
-func (_BlockchainParameters *BlockchainParametersCaller) GetMinimumClientVersion(opts *bind.CallOpts) (struct {
-	Major *big.Int
-	Minor *big.Int
-	Patch *big.Int
-}, error) {
-	var out []interface{}
-	err := _BlockchainParameters.contract.Call(opts, &out, "getMinimumClientVersion")
-
-	outstruct := new(struct {
-		Major *big.Int
-		Minor *big.Int
-		Patch *big.Int
-	})
-	if err != nil {
-		return *outstruct, err
-	}
-
-	outstruct.Major = *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-	outstruct.Minor = *abi.ConvertType(out[1], new(*big.Int)).(**big.Int)
-	outstruct.Patch = *abi.ConvertType(out[2], new(*big.Int)).(**big.Int)
-
-	return *outstruct, err
-
-}
-
-// GetMinimumClientVersion is a free data retrieval call binding the contract method 0x25eb315d.
-//
-// Solidity: function getMinimumClientVersion() view returns(uint256 major, uint256 minor, uint256 patch)
-func (_BlockchainParameters *BlockchainParametersSession) GetMinimumClientVersion() (struct {
-	Major *big.Int
-	Minor *big.Int
-	Patch *big.Int
-}, error) {
-	return _BlockchainParameters.Contract.GetMinimumClientVersion(&_BlockchainParameters.CallOpts)
-}
-
-// GetMinimumClientVersion is a free data retrieval call binding the contract method 0x25eb315d.
-//
-// Solidity: function getMinimumClientVersion() view returns(uint256 major, uint256 minor, uint256 patch)
-func (_BlockchainParameters *BlockchainParametersCallerSession) GetMinimumClientVersion() (struct {
-	Major *big.Int
-	Minor *big.Int
-	Patch *big.Int
-}, error) {
-	return _BlockchainParameters.Contract.GetMinimumClientVersion(&_BlockchainParameters.CallOpts)
 }
 
 // GetParentSealBitmap is a free data retrieval call binding the contract method 0xfae8db0a.
@@ -974,25 +924,25 @@ func (_BlockchainParameters *BlockchainParametersCallerSession) ValidatorSignerA
 	return _BlockchainParameters.Contract.ValidatorSignerAddressFromSet(&_BlockchainParameters.CallOpts, index, blockNumber)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x2d7aa82b.
+// Initialize is a paid mutator transaction binding the contract method 0x80d85911.
 //
-// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
-func (_BlockchainParameters *BlockchainParametersTransactor) Initialize(opts *bind.TransactOpts, major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.contract.Transact(opts, "initialize", major, minor, patch, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
+// Solidity: function initialize(uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
+func (_BlockchainParameters *BlockchainParametersTransactor) Initialize(opts *bind.TransactOpts, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.contract.Transact(opts, "initialize", _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x2d7aa82b.
+// Initialize is a paid mutator transaction binding the contract method 0x80d85911.
 //
-// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
-func (_BlockchainParameters *BlockchainParametersSession) Initialize(major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, major, minor, patch, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
+// Solidity: function initialize(uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
+func (_BlockchainParameters *BlockchainParametersSession) Initialize(_gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x2d7aa82b.
+// Initialize is a paid mutator transaction binding the contract method 0x80d85911.
 //
-// Solidity: function initialize(uint256 major, uint256 minor, uint256 patch, uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
-func (_BlockchainParameters *BlockchainParametersTransactorSession) Initialize(major *big.Int, minor *big.Int, patch *big.Int, _gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, major, minor, patch, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
+// Solidity: function initialize(uint256 _gasForNonGoldCurrencies, uint256 gasLimit, uint256 lookbackWindow) returns()
+func (_BlockchainParameters *BlockchainParametersTransactorSession) Initialize(_gasForNonGoldCurrencies *big.Int, gasLimit *big.Int, lookbackWindow *big.Int) (*types.Transaction, error) {
+	return _BlockchainParameters.Contract.Initialize(&_BlockchainParameters.TransactOpts, _gasForNonGoldCurrencies, gasLimit, lookbackWindow)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
@@ -1058,27 +1008,6 @@ func (_BlockchainParameters *BlockchainParametersTransactorSession) SetIntrinsic
 	return _BlockchainParameters.Contract.SetIntrinsicGasForAlternativeFeeCurrency(&_BlockchainParameters.TransactOpts, gas)
 }
 
-// SetMinimumClientVersion is a paid mutator transaction binding the contract method 0xbb3ff745.
-//
-// Solidity: function setMinimumClientVersion(uint256 major, uint256 minor, uint256 patch) returns()
-func (_BlockchainParameters *BlockchainParametersTransactor) SetMinimumClientVersion(opts *bind.TransactOpts, major *big.Int, minor *big.Int, patch *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.contract.Transact(opts, "setMinimumClientVersion", major, minor, patch)
-}
-
-// SetMinimumClientVersion is a paid mutator transaction binding the contract method 0xbb3ff745.
-//
-// Solidity: function setMinimumClientVersion(uint256 major, uint256 minor, uint256 patch) returns()
-func (_BlockchainParameters *BlockchainParametersSession) SetMinimumClientVersion(major *big.Int, minor *big.Int, patch *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.Contract.SetMinimumClientVersion(&_BlockchainParameters.TransactOpts, major, minor, patch)
-}
-
-// SetMinimumClientVersion is a paid mutator transaction binding the contract method 0xbb3ff745.
-//
-// Solidity: function setMinimumClientVersion(uint256 major, uint256 minor, uint256 patch) returns()
-func (_BlockchainParameters *BlockchainParametersTransactorSession) SetMinimumClientVersion(major *big.Int, minor *big.Int, patch *big.Int) (*types.Transaction, error) {
-	return _BlockchainParameters.Contract.SetMinimumClientVersion(&_BlockchainParameters.TransactOpts, major, minor, patch)
-}
-
 // SetUptimeLookbackWindow is a paid mutator transaction binding the contract method 0xe94fd109.
 //
 // Solidity: function setUptimeLookbackWindow(uint256 window) returns()
@@ -1133,8 +1062,6 @@ func (_BlockchainParameters *BlockchainParametersFilterer) TryParseLog(log types
 		event, err = _BlockchainParameters.ParseBlockGasLimitSet(log)
 	case "IntrinsicGasForAlternativeFeeCurrencySet":
 		event, err = _BlockchainParameters.ParseIntrinsicGasForAlternativeFeeCurrencySet(log)
-	case "MinimumClientVersionSet":
-		event, err = _BlockchainParameters.ParseMinimumClientVersionSet(log)
 	case "OwnershipTransferred":
 		event, err = _BlockchainParameters.ParseOwnershipTransferred(log)
 	case "UptimeLookbackWindowSet":
@@ -1409,142 +1336,6 @@ func (_BlockchainParameters *BlockchainParametersFilterer) WatchIntrinsicGasForA
 func (_BlockchainParameters *BlockchainParametersFilterer) ParseIntrinsicGasForAlternativeFeeCurrencySet(log types.Log) (*BlockchainParametersIntrinsicGasForAlternativeFeeCurrencySet, error) {
 	event := new(BlockchainParametersIntrinsicGasForAlternativeFeeCurrencySet)
 	if err := _BlockchainParameters.contract.UnpackLog(event, "IntrinsicGasForAlternativeFeeCurrencySet", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// BlockchainParametersMinimumClientVersionSetIterator is returned from FilterMinimumClientVersionSet and is used to iterate over the raw logs and unpacked data for MinimumClientVersionSet events raised by the BlockchainParameters contract.
-type BlockchainParametersMinimumClientVersionSetIterator struct {
-	Event *BlockchainParametersMinimumClientVersionSet // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *BlockchainParametersMinimumClientVersionSetIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(BlockchainParametersMinimumClientVersionSet)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(BlockchainParametersMinimumClientVersionSet)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *BlockchainParametersMinimumClientVersionSetIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *BlockchainParametersMinimumClientVersionSetIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// BlockchainParametersMinimumClientVersionSet represents a MinimumClientVersionSet event raised by the BlockchainParameters contract.
-type BlockchainParametersMinimumClientVersionSet struct {
-	Major *big.Int
-	Minor *big.Int
-	Patch *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterMinimumClientVersionSet is a free log retrieval operation binding the contract event 0x809db05bd174a70ede53d18fc046c5ceb86ebffbb7746a0c8605772c97ef0d52.
-//
-// Solidity: event MinimumClientVersionSet(uint256 major, uint256 minor, uint256 patch)
-func (_BlockchainParameters *BlockchainParametersFilterer) FilterMinimumClientVersionSet(opts *bind.FilterOpts) (*BlockchainParametersMinimumClientVersionSetIterator, error) {
-
-	logs, sub, err := _BlockchainParameters.contract.FilterLogs(opts, "MinimumClientVersionSet")
-	if err != nil {
-		return nil, err
-	}
-	return &BlockchainParametersMinimumClientVersionSetIterator{contract: _BlockchainParameters.contract, event: "MinimumClientVersionSet", logs: logs, sub: sub}, nil
-}
-
-// WatchMinimumClientVersionSet is a free log subscription operation binding the contract event 0x809db05bd174a70ede53d18fc046c5ceb86ebffbb7746a0c8605772c97ef0d52.
-//
-// Solidity: event MinimumClientVersionSet(uint256 major, uint256 minor, uint256 patch)
-func (_BlockchainParameters *BlockchainParametersFilterer) WatchMinimumClientVersionSet(opts *bind.WatchOpts, sink chan<- *BlockchainParametersMinimumClientVersionSet) (event.Subscription, error) {
-
-	logs, sub, err := _BlockchainParameters.contract.WatchLogs(opts, "MinimumClientVersionSet")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(BlockchainParametersMinimumClientVersionSet)
-				if err := _BlockchainParameters.contract.UnpackLog(event, "MinimumClientVersionSet", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseMinimumClientVersionSet is a log parse operation binding the contract event 0x809db05bd174a70ede53d18fc046c5ceb86ebffbb7746a0c8605772c97ef0d52.
-//
-// Solidity: event MinimumClientVersionSet(uint256 major, uint256 minor, uint256 patch)
-func (_BlockchainParameters *BlockchainParametersFilterer) ParseMinimumClientVersionSet(log types.Log) (*BlockchainParametersMinimumClientVersionSet, error) {
-	event := new(BlockchainParametersMinimumClientVersionSet)
-	if err := _BlockchainParameters.contract.UnpackLog(event, "MinimumClientVersionSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

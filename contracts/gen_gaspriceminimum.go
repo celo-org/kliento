@@ -30,7 +30,7 @@ var (
 
 // GasPriceMinimumMetaData contains all meta data concerning the GasPriceMinimum contract.
 var GasPriceMinimumMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"AdjustmentSpeedSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gasPriceMinimumFloor\",\"type\":\"uint256\"}],\"name\":\"GasPriceMinimumFloorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gasPriceMinimum\",\"type\":\"uint256\"}],\"name\":\"GasPriceMinimumUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"targetDensity\",\"type\":\"uint256\"}],\"name\":\"TargetDensitySet\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[],\"name\":\"adjustmentSpeed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"gasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"gasPriceMinimumFloor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"targetDensity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"address\",\"name\":\"_registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_gasPriceMinimumFloor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_targetDensity\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"setAdjustmentSpeed\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_targetDensity\",\"type\":\"uint256\"}],\"name\":\"setTargetDensity\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_gasPriceMinimumFloor\",\"type\":\"uint256\"}],\"name\":\"setGasPriceMinimumFloor\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"getGasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockGasTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockGasLimit\",\"type\":\"uint256\"}],\"name\":\"updateGasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockGasTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockGasLimit\",\"type\":\"uint256\"}],\"name\":\"getUpdatedGasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"test\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"AdjustmentSpeedSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"baseFeeOpCodeActivationBlock\",\"type\":\"uint256\"}],\"name\":\"BaseFeeOpCodeActivationBlockSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gasPriceMinimumFloor\",\"type\":\"uint256\"}],\"name\":\"GasPriceMinimumFloorSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"gasPriceMinimum\",\"type\":\"uint256\"}],\"name\":\"GasPriceMinimumUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"RegistrySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"targetDensity\",\"type\":\"uint256\"}],\"name\":\"TargetDensitySet\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"adjustmentSpeed\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"baseFeeOpCodeActivationBlock\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deprecated_gasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gasPriceMinimumFloor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registry\",\"outputs\":[{\"internalType\":\"contractIRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"registryAddress\",\"type\":\"address\"}],\"name\":\"setRegistry\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"targetDensity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getVersionNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_registryAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_gasPriceMinimumFloor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_targetDensity\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_adjustmentSpeed\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_baseFeeOpCodeActivationBlock\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_adjustmentSpeed\",\"type\":\"uint256\"}],\"name\":\"setAdjustmentSpeed\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_targetDensity\",\"type\":\"uint256\"}],\"name\":\"setTargetDensity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_gasPriceMinimumFloor\",\"type\":\"uint256\"}],\"name\":\"setGasPriceMinimumFloor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_baseFeeOpCodeActivationBlock\",\"type\":\"uint256\"}],\"name\":\"setBaseFeeOpCodeActivationBlock\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenAddress\",\"type\":\"address\"}],\"name\":\"getGasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockGasTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockGasLimit\",\"type\":\"uint256\"}],\"name\":\"updateGasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"blockGasTotal\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"blockGasLimit\",\"type\":\"uint256\"}],\"name\":\"getUpdatedGasPriceMinimum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // GasPriceMinimumABI is the input ABI used to generate the binding from.
@@ -217,6 +217,68 @@ func (_GasPriceMinimum *GasPriceMinimumSession) AdjustmentSpeed() (*big.Int, err
 // Solidity: function adjustmentSpeed() view returns(uint256 value)
 func (_GasPriceMinimum *GasPriceMinimumCallerSession) AdjustmentSpeed() (*big.Int, error) {
 	return _GasPriceMinimum.Contract.AdjustmentSpeed(&_GasPriceMinimum.CallOpts)
+}
+
+// BaseFeeOpCodeActivationBlock is a free data retrieval call binding the contract method 0x8efd92ca.
+//
+// Solidity: function baseFeeOpCodeActivationBlock() view returns(uint256)
+func (_GasPriceMinimum *GasPriceMinimumCaller) BaseFeeOpCodeActivationBlock(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _GasPriceMinimum.contract.Call(opts, &out, "baseFeeOpCodeActivationBlock")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// BaseFeeOpCodeActivationBlock is a free data retrieval call binding the contract method 0x8efd92ca.
+//
+// Solidity: function baseFeeOpCodeActivationBlock() view returns(uint256)
+func (_GasPriceMinimum *GasPriceMinimumSession) BaseFeeOpCodeActivationBlock() (*big.Int, error) {
+	return _GasPriceMinimum.Contract.BaseFeeOpCodeActivationBlock(&_GasPriceMinimum.CallOpts)
+}
+
+// BaseFeeOpCodeActivationBlock is a free data retrieval call binding the contract method 0x8efd92ca.
+//
+// Solidity: function baseFeeOpCodeActivationBlock() view returns(uint256)
+func (_GasPriceMinimum *GasPriceMinimumCallerSession) BaseFeeOpCodeActivationBlock() (*big.Int, error) {
+	return _GasPriceMinimum.Contract.BaseFeeOpCodeActivationBlock(&_GasPriceMinimum.CallOpts)
+}
+
+// DeprecatedGasPriceMinimum is a free data retrieval call binding the contract method 0xf8e2b062.
+//
+// Solidity: function deprecated_gasPriceMinimum() view returns(uint256)
+func (_GasPriceMinimum *GasPriceMinimumCaller) DeprecatedGasPriceMinimum(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _GasPriceMinimum.contract.Call(opts, &out, "deprecated_gasPriceMinimum")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// DeprecatedGasPriceMinimum is a free data retrieval call binding the contract method 0xf8e2b062.
+//
+// Solidity: function deprecated_gasPriceMinimum() view returns(uint256)
+func (_GasPriceMinimum *GasPriceMinimumSession) DeprecatedGasPriceMinimum() (*big.Int, error) {
+	return _GasPriceMinimum.Contract.DeprecatedGasPriceMinimum(&_GasPriceMinimum.CallOpts)
+}
+
+// DeprecatedGasPriceMinimum is a free data retrieval call binding the contract method 0xf8e2b062.
+//
+// Solidity: function deprecated_gasPriceMinimum() view returns(uint256)
+func (_GasPriceMinimum *GasPriceMinimumCallerSession) DeprecatedGasPriceMinimum() (*big.Int, error) {
+	return _GasPriceMinimum.Contract.DeprecatedGasPriceMinimum(&_GasPriceMinimum.CallOpts)
 }
 
 // GasPriceMinimum is a free data retrieval call binding the contract method 0x36945c2d.
@@ -408,37 +470,6 @@ func (_GasPriceMinimum *GasPriceMinimumCallerSession) Initialized() (bool, error
 	return _GasPriceMinimum.Contract.Initialized(&_GasPriceMinimum.CallOpts)
 }
 
-// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
-//
-// Solidity: function isOwner() view returns(bool)
-func (_GasPriceMinimum *GasPriceMinimumCaller) IsOwner(opts *bind.CallOpts) (bool, error) {
-	var out []interface{}
-	err := _GasPriceMinimum.contract.Call(opts, &out, "isOwner")
-
-	if err != nil {
-		return *new(bool), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
-
-	return out0, err
-
-}
-
-// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
-//
-// Solidity: function isOwner() view returns(bool)
-func (_GasPriceMinimum *GasPriceMinimumSession) IsOwner() (bool, error) {
-	return _GasPriceMinimum.Contract.IsOwner(&_GasPriceMinimum.CallOpts)
-}
-
-// IsOwner is a free data retrieval call binding the contract method 0x8f32d59b.
-//
-// Solidity: function isOwner() view returns(bool)
-func (_GasPriceMinimum *GasPriceMinimumCallerSession) IsOwner() (bool, error) {
-	return _GasPriceMinimum.Contract.IsOwner(&_GasPriceMinimum.CallOpts)
-}
-
 // Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
 // Solidity: function owner() view returns(address)
@@ -532,25 +563,25 @@ func (_GasPriceMinimum *GasPriceMinimumCallerSession) TargetDensity() (*big.Int,
 	return _GasPriceMinimum.Contract.TargetDensity(&_GasPriceMinimum.CallOpts)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x4ec81af1.
+// Initialize is a paid mutator transaction binding the contract method 0xf92ad219.
 //
-// Solidity: function initialize(address _registryAddress, uint256 _gasPriceMinimumFloor, uint256 _targetDensity, uint256 _adjustmentSpeed) returns()
-func (_GasPriceMinimum *GasPriceMinimumTransactor) Initialize(opts *bind.TransactOpts, _registryAddress common.Address, _gasPriceMinimumFloor *big.Int, _targetDensity *big.Int, _adjustmentSpeed *big.Int) (*types.Transaction, error) {
-	return _GasPriceMinimum.contract.Transact(opts, "initialize", _registryAddress, _gasPriceMinimumFloor, _targetDensity, _adjustmentSpeed)
+// Solidity: function initialize(address _registryAddress, uint256 _gasPriceMinimumFloor, uint256 _targetDensity, uint256 _adjustmentSpeed, uint256 _baseFeeOpCodeActivationBlock) returns()
+func (_GasPriceMinimum *GasPriceMinimumTransactor) Initialize(opts *bind.TransactOpts, _registryAddress common.Address, _gasPriceMinimumFloor *big.Int, _targetDensity *big.Int, _adjustmentSpeed *big.Int, _baseFeeOpCodeActivationBlock *big.Int) (*types.Transaction, error) {
+	return _GasPriceMinimum.contract.Transact(opts, "initialize", _registryAddress, _gasPriceMinimumFloor, _targetDensity, _adjustmentSpeed, _baseFeeOpCodeActivationBlock)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x4ec81af1.
+// Initialize is a paid mutator transaction binding the contract method 0xf92ad219.
 //
-// Solidity: function initialize(address _registryAddress, uint256 _gasPriceMinimumFloor, uint256 _targetDensity, uint256 _adjustmentSpeed) returns()
-func (_GasPriceMinimum *GasPriceMinimumSession) Initialize(_registryAddress common.Address, _gasPriceMinimumFloor *big.Int, _targetDensity *big.Int, _adjustmentSpeed *big.Int) (*types.Transaction, error) {
-	return _GasPriceMinimum.Contract.Initialize(&_GasPriceMinimum.TransactOpts, _registryAddress, _gasPriceMinimumFloor, _targetDensity, _adjustmentSpeed)
+// Solidity: function initialize(address _registryAddress, uint256 _gasPriceMinimumFloor, uint256 _targetDensity, uint256 _adjustmentSpeed, uint256 _baseFeeOpCodeActivationBlock) returns()
+func (_GasPriceMinimum *GasPriceMinimumSession) Initialize(_registryAddress common.Address, _gasPriceMinimumFloor *big.Int, _targetDensity *big.Int, _adjustmentSpeed *big.Int, _baseFeeOpCodeActivationBlock *big.Int) (*types.Transaction, error) {
+	return _GasPriceMinimum.Contract.Initialize(&_GasPriceMinimum.TransactOpts, _registryAddress, _gasPriceMinimumFloor, _targetDensity, _adjustmentSpeed, _baseFeeOpCodeActivationBlock)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x4ec81af1.
+// Initialize is a paid mutator transaction binding the contract method 0xf92ad219.
 //
-// Solidity: function initialize(address _registryAddress, uint256 _gasPriceMinimumFloor, uint256 _targetDensity, uint256 _adjustmentSpeed) returns()
-func (_GasPriceMinimum *GasPriceMinimumTransactorSession) Initialize(_registryAddress common.Address, _gasPriceMinimumFloor *big.Int, _targetDensity *big.Int, _adjustmentSpeed *big.Int) (*types.Transaction, error) {
-	return _GasPriceMinimum.Contract.Initialize(&_GasPriceMinimum.TransactOpts, _registryAddress, _gasPriceMinimumFloor, _targetDensity, _adjustmentSpeed)
+// Solidity: function initialize(address _registryAddress, uint256 _gasPriceMinimumFloor, uint256 _targetDensity, uint256 _adjustmentSpeed, uint256 _baseFeeOpCodeActivationBlock) returns()
+func (_GasPriceMinimum *GasPriceMinimumTransactorSession) Initialize(_registryAddress common.Address, _gasPriceMinimumFloor *big.Int, _targetDensity *big.Int, _adjustmentSpeed *big.Int, _baseFeeOpCodeActivationBlock *big.Int) (*types.Transaction, error) {
+	return _GasPriceMinimum.Contract.Initialize(&_GasPriceMinimum.TransactOpts, _registryAddress, _gasPriceMinimumFloor, _targetDensity, _adjustmentSpeed, _baseFeeOpCodeActivationBlock)
 }
 
 // RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
@@ -593,6 +624,27 @@ func (_GasPriceMinimum *GasPriceMinimumSession) SetAdjustmentSpeed(_adjustmentSp
 // Solidity: function setAdjustmentSpeed(uint256 _adjustmentSpeed) returns()
 func (_GasPriceMinimum *GasPriceMinimumTransactorSession) SetAdjustmentSpeed(_adjustmentSpeed *big.Int) (*types.Transaction, error) {
 	return _GasPriceMinimum.Contract.SetAdjustmentSpeed(&_GasPriceMinimum.TransactOpts, _adjustmentSpeed)
+}
+
+// SetBaseFeeOpCodeActivationBlock is a paid mutator transaction binding the contract method 0x4b930e5a.
+//
+// Solidity: function setBaseFeeOpCodeActivationBlock(uint256 _baseFeeOpCodeActivationBlock) returns()
+func (_GasPriceMinimum *GasPriceMinimumTransactor) SetBaseFeeOpCodeActivationBlock(opts *bind.TransactOpts, _baseFeeOpCodeActivationBlock *big.Int) (*types.Transaction, error) {
+	return _GasPriceMinimum.contract.Transact(opts, "setBaseFeeOpCodeActivationBlock", _baseFeeOpCodeActivationBlock)
+}
+
+// SetBaseFeeOpCodeActivationBlock is a paid mutator transaction binding the contract method 0x4b930e5a.
+//
+// Solidity: function setBaseFeeOpCodeActivationBlock(uint256 _baseFeeOpCodeActivationBlock) returns()
+func (_GasPriceMinimum *GasPriceMinimumSession) SetBaseFeeOpCodeActivationBlock(_baseFeeOpCodeActivationBlock *big.Int) (*types.Transaction, error) {
+	return _GasPriceMinimum.Contract.SetBaseFeeOpCodeActivationBlock(&_GasPriceMinimum.TransactOpts, _baseFeeOpCodeActivationBlock)
+}
+
+// SetBaseFeeOpCodeActivationBlock is a paid mutator transaction binding the contract method 0x4b930e5a.
+//
+// Solidity: function setBaseFeeOpCodeActivationBlock(uint256 _baseFeeOpCodeActivationBlock) returns()
+func (_GasPriceMinimum *GasPriceMinimumTransactorSession) SetBaseFeeOpCodeActivationBlock(_baseFeeOpCodeActivationBlock *big.Int) (*types.Transaction, error) {
+	return _GasPriceMinimum.Contract.SetBaseFeeOpCodeActivationBlock(&_GasPriceMinimum.TransactOpts, _baseFeeOpCodeActivationBlock)
 }
 
 // SetGasPriceMinimumFloor is a paid mutator transaction binding the contract method 0xb830f4a4.
@@ -710,6 +762,8 @@ func (_GasPriceMinimum *GasPriceMinimumFilterer) TryParseLog(log types.Log) (eve
 	switch eventName {
 	case "AdjustmentSpeedSet":
 		event, err = _GasPriceMinimum.ParseAdjustmentSpeedSet(log)
+	case "BaseFeeOpCodeActivationBlockSet":
+		event, err = _GasPriceMinimum.ParseBaseFeeOpCodeActivationBlockSet(log)
 	case "GasPriceMinimumFloorSet":
 		event, err = _GasPriceMinimum.ParseGasPriceMinimumFloorSet(log)
 	case "GasPriceMinimumUpdated":
@@ -856,6 +910,140 @@ func (_GasPriceMinimum *GasPriceMinimumFilterer) WatchAdjustmentSpeedSet(opts *b
 func (_GasPriceMinimum *GasPriceMinimumFilterer) ParseAdjustmentSpeedSet(log types.Log) (*GasPriceMinimumAdjustmentSpeedSet, error) {
 	event := new(GasPriceMinimumAdjustmentSpeedSet)
 	if err := _GasPriceMinimum.contract.UnpackLog(event, "AdjustmentSpeedSet", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// GasPriceMinimumBaseFeeOpCodeActivationBlockSetIterator is returned from FilterBaseFeeOpCodeActivationBlockSet and is used to iterate over the raw logs and unpacked data for BaseFeeOpCodeActivationBlockSet events raised by the GasPriceMinimum contract.
+type GasPriceMinimumBaseFeeOpCodeActivationBlockSetIterator struct {
+	Event *GasPriceMinimumBaseFeeOpCodeActivationBlockSet // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *GasPriceMinimumBaseFeeOpCodeActivationBlockSetIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(GasPriceMinimumBaseFeeOpCodeActivationBlockSet)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(GasPriceMinimumBaseFeeOpCodeActivationBlockSet)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *GasPriceMinimumBaseFeeOpCodeActivationBlockSetIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *GasPriceMinimumBaseFeeOpCodeActivationBlockSetIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// GasPriceMinimumBaseFeeOpCodeActivationBlockSet represents a BaseFeeOpCodeActivationBlockSet event raised by the GasPriceMinimum contract.
+type GasPriceMinimumBaseFeeOpCodeActivationBlockSet struct {
+	BaseFeeOpCodeActivationBlock *big.Int
+	Raw                          types.Log // Blockchain specific contextual infos
+}
+
+// FilterBaseFeeOpCodeActivationBlockSet is a free log retrieval operation binding the contract event 0xc74fe30765574b78669fcec5cea6b0dcaacd907890a49fc756a40235d01b09fc.
+//
+// Solidity: event BaseFeeOpCodeActivationBlockSet(uint256 baseFeeOpCodeActivationBlock)
+func (_GasPriceMinimum *GasPriceMinimumFilterer) FilterBaseFeeOpCodeActivationBlockSet(opts *bind.FilterOpts) (*GasPriceMinimumBaseFeeOpCodeActivationBlockSetIterator, error) {
+
+	logs, sub, err := _GasPriceMinimum.contract.FilterLogs(opts, "BaseFeeOpCodeActivationBlockSet")
+	if err != nil {
+		return nil, err
+	}
+	return &GasPriceMinimumBaseFeeOpCodeActivationBlockSetIterator{contract: _GasPriceMinimum.contract, event: "BaseFeeOpCodeActivationBlockSet", logs: logs, sub: sub}, nil
+}
+
+// WatchBaseFeeOpCodeActivationBlockSet is a free log subscription operation binding the contract event 0xc74fe30765574b78669fcec5cea6b0dcaacd907890a49fc756a40235d01b09fc.
+//
+// Solidity: event BaseFeeOpCodeActivationBlockSet(uint256 baseFeeOpCodeActivationBlock)
+func (_GasPriceMinimum *GasPriceMinimumFilterer) WatchBaseFeeOpCodeActivationBlockSet(opts *bind.WatchOpts, sink chan<- *GasPriceMinimumBaseFeeOpCodeActivationBlockSet) (event.Subscription, error) {
+
+	logs, sub, err := _GasPriceMinimum.contract.WatchLogs(opts, "BaseFeeOpCodeActivationBlockSet")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(GasPriceMinimumBaseFeeOpCodeActivationBlockSet)
+				if err := _GasPriceMinimum.contract.UnpackLog(event, "BaseFeeOpCodeActivationBlockSet", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseBaseFeeOpCodeActivationBlockSet is a log parse operation binding the contract event 0xc74fe30765574b78669fcec5cea6b0dcaacd907890a49fc756a40235d01b09fc.
+//
+// Solidity: event BaseFeeOpCodeActivationBlockSet(uint256 baseFeeOpCodeActivationBlock)
+func (_GasPriceMinimum *GasPriceMinimumFilterer) ParseBaseFeeOpCodeActivationBlockSet(log types.Log) (*GasPriceMinimumBaseFeeOpCodeActivationBlockSet, error) {
+	event := new(GasPriceMinimumBaseFeeOpCodeActivationBlockSet)
+	if err := _GasPriceMinimum.contract.UnpackLog(event, "BaseFeeOpCodeActivationBlockSet", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
