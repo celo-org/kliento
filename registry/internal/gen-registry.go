@@ -22,6 +22,7 @@ var contractIDToGeneratedContractType = map[string]string{
 	"Exchange":             "Exchange",
 	"ExchangeEUR":          "Exchange",
 	"ExchangeBRL":          "Exchange",
+	"FeeHandler": 			"FeeHandler",
 	"GasPriceMinimum":      "GasPriceMinimum",
 	"GoldToken":            "GoldToken",
 	"Governance":           "Governance",
