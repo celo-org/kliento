@@ -23,8 +23,9 @@ import (
 	"github.com/celo-org/celo-blockchain/accounts/abi/bind"
 	"github.com/celo-org/celo-blockchain/common"
 	blockchainErrors "github.com/celo-org/celo-blockchain/contracts"
+	"github.com/celo-org/celo-blockchain/contracts/config"
 	"github.com/celo-org/celo-blockchain/core/types"
-	"github.com/celo-org/celo-blockchain/params"
+
 	"github.com/celo-org/kliento/client"
 	"github.com/celo-org/kliento/contracts"
 )
@@ -35,7 +36,7 @@ type ContractID string
 func (cid ContractID) String() string { return string(cid) }
 
 // RegistryAddress is the address of the registry which is the same on any celo network
-var RegistryAddress = params.RegistrySmartContractAddress
+var RegistryAddress = config.RegistrySmartContractAddress
 
 // Registry defines an interface to access all Celo core Contracts
 type Registry interface {
@@ -156,7 +157,7 @@ func (r *registryImpl) TryParseLog(ctx context.Context, log types.Log, blockNumb
 	var parseError error
 
 	// determine contract identifier and parse log if address is known
-	if log.Address == params.RegistrySmartContractAddress {
+	if log.Address == config.RegistrySmartContractAddress {
 		id = "Registry"
 		eventName, event, _, parseError = r.RegistryContract.TryParseLog(log)
 
