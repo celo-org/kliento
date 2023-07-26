@@ -91,6 +91,8 @@ github.com/buraksezer/consistent v0.0.0-20191006190839-693edf70fd72/go.mod h1:OE
 github.com/c-bata/go-prompt v0.2.2/go.mod h1:VzqtzE2ksDBcdln8G7mk2RX9QyGjH+OVqOCSiVIqS34=
 github.com/celo-org/celo-blockchain v0.0.0-20230713152423-4a1e3fc3b943 h1:JZOokFwdzHoL+Rsd5AAWGfTj5ETsXDE6H+Y/InFdcDg=
 github.com/celo-org/celo-blockchain v0.0.0-20230713152423-4a1e3fc3b943/go.mod h1:Xwrl4Up8aP/p6TolAiHSTVSlsGtu1N6JZADaJaENYYY=
+github.com/celo-org/celo-blockchain v0.0.0-20230726091059-cc4fc1a2e529 h1:dYbcbYQJ0mN44lkZPSpb+B+bAZdVcU+iBd54Rqop8ew=
+github.com/celo-org/celo-blockchain v0.0.0-20230726091059-cc4fc1a2e529/go.mod h1:Xwrl4Up8aP/p6TolAiHSTVSlsGtu1N6JZADaJaENYYY=
 github.com/celo-org/celo-blockchain v1.6.1 h1:Kv+OXLXwdORDz3aIrGY1oCuw0aYSlK4KH7o8cGxO8FU=
 github.com/celo-org/celo-blockchain v1.6.1/go.mod h1:NdcP5idffWajmOP79Q0PCRfaFNTmTdSKBMbngLDxjpQ=
 github.com/celo-org/celo-bls-go v0.2.4 h1:V1y92kM5IRJWQZ6DCwqiKLW7swmUA5y/dPJ9YbU4HfA=
