@@ -28,10 +28,9 @@ import (
 const contractsPath = "contracts"
 
 const baseBuildPathMonorepo = "packages/protocol/build/"
-const coreContractsBuildDir ="contracts"
+const coreContractsBuildDir = "contracts"
 const mentoContractsBuildDir = "contracts-mento"
 
-// TODO EN: do we want to bother including new core contracts (FederatedAttestations)?
 var coreContractsToGenerate = []string{
 	"Accounts",
 	"Attestations",
@@ -55,7 +54,6 @@ var coreContractsToGenerate = []string{
 	"Random",
 	"Registry",
 	"ReleaseGold",
-	// "TransferWhitelist",
 	"Validators",
 }
 
@@ -65,14 +63,7 @@ var mentoContractsToGenerate = []string{
 	"ReserveSpenderMultiSig",
 	"SortedOracles",
 	"StableToken",
-	// ExchangeBRL
-	// ExchangeEUR
-	// GrandaMento
-	// StableTokenBRL
-	// StableTokenEUR
-	// StableTokenRegistry
 }
-
 
 func main() {
 	monorepoPath := flag.String("monorepo", "", "Path to celo-monorepo")
@@ -106,9 +97,7 @@ func main() {
 	}
 
 	abigen := path.Join(*celoBlockchainPath, "build/bin", "abigen")
-	// const contractsBuildPath = path.Join(baseBuildPathMonorepo, "contracts")
-	// const mentoContractsBuildPath = path.Join(baseBuildPathMonorepo, "contracts-mento")
-	
+
 	for i, contract := range append(coreContractsToGenerate, mentoContractsToGenerate...) {
 		buildDir := coreContractsBuildDir
 		if i >= len(coreContractsToGenerate) {
@@ -120,14 +109,6 @@ func main() {
 			"--pkg", "contracts", "--type", contract,
 			"--out", path.Join(contractsPath, "gen_"+strings.ToLower(contract)+".go"))
 	}
-
-	// for _, contract := range coreContractsToGenerate {
-	// 	contractTrufflePath := path.Join(*monorepoPath, "packages/protocol/build/contracts/", contract+".json")
-	// 	validatePathExists(contractTrufflePath)
-	// 	mustRunCommand(abigen, "--truffle", contractTrufflePath,
-	// 		"--pkg", "contracts", "--type", contract,
-	// 		"--out", path.Join(contractsPath, "gen_"+strings.ToLower(contract)+".go"))
-	// }
 }
 
 func pathExists(path string) bool {
