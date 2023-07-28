@@ -98,17 +98,8 @@ func main() {
 
 	abigen := path.Join(*celoBlockchainPath, "build/bin", "abigen")
 
-	for i, contract := range append(coreContractsToGenerate, mentoContractsToGenerate...) {
-		buildDir := coreContractsBuildDir
-		if i >= len(coreContractsToGenerate) {
-			buildDir = mentoContractsBuildDir
-		}
-		contractTrufflePath := path.Join(*monorepoPath, baseBuildPathMonorepo, buildDir, contract+".json")
-		validatePathExists(contractTrufflePath)
-		mustRunCommand(abigen, "--truffle", contractTrufflePath,
-			"--pkg", "contracts", "--type", contract,
-			"--out", path.Join(contractsPath, "gen_"+strings.ToLower(contract)+".go"))
-	}
+	buildMonorepoContracts(abigen, *monorepoPath, coreContractsBuildDir, coreContractsToGenerate)
+	buildMonorepoContracts(abigen, *monorepoPath, mentoContractsBuildDir, mentoContractsToGenerate)
 }
 
 func pathExists(path string) bool {
@@ -151,4 +142,19 @@ func mustRun(cmd *exec.Cmd) {
 
 func mustRunCommand(cmd string, args ...string) {
 	mustRun(exec.Command(cmd, args...))
+}
+
+func buildContract(abigenPath, contractBuildDir, contractName string) {
+	contractTrufflePath := path.Join(contractBuildDir, contractName+".json")
+	validatePathExists(contractTrufflePath)
+	mustRunCommand(abigenPath, "--truffle", contractTrufflePath,
+		"--pkg", "contracts", "--type", contractName,
+		"--out", path.Join(contractsPath, "gen_"+strings.ToLower(contractName)+".go"))
+}
+
+func buildMonorepoContracts(abigenPath, monorepoPath, contractBuildDir string, contractNames []string) {
+	fullContractDirPath := path.Join(monorepoPath, baseBuildPathMonorepo, contractBuildDir)
+	for _, contract := range contractNames {
+		buildContract(abigenPath, fullContractDirPath, contract)
+	}
 }
