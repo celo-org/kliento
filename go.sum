@@ -90,6 +90,8 @@ github.com/buraksezer/consistent v0.0.0-20191006190839-693edf70fd72/go.mod h1:OE
 github.com/c-bata/go-prompt v0.2.2/go.mod h1:VzqtzE2ksDBcdln8G7mk2RX9QyGjH+OVqOCSiVIqS34=
 github.com/celo-org/celo-blockchain v1.8.0-beta.2 h1:eX5PvqpJ47dg/A6UzpDVBN99P2XAXUOuYh66umUGiqo=
 github.com/celo-org/celo-blockchain v1.8.0-beta.2/go.mod h1:Xwrl4Up8aP/p6TolAiHSTVSlsGtu1N6JZADaJaENYYY=
+github.com/celo-org/celo-blockchain v1.8.0 h1:LJ+BQG1v9Wmy9TsLb/LchPhpFKz8c4rDCEz6iZf6y1M=
+github.com/celo-org/celo-blockchain v1.8.0/go.mod h1:Xwrl4Up8aP/p6TolAiHSTVSlsGtu1N6JZADaJaENYYY=
 github.com/celo-org/celo-bls-go v0.3.4 h1:slNePT/gVjgUi7f8M4KTwBz/YYgv3JWU6XqyY0xKN84=
 github.com/celo-org/celo-bls-go v0.3.4/go.mod h1:qDZHMC3bBqOw5qle28cRtKlEyJhslZtckcc2Tomqdks=
 github.com/celo-org/celo-bls-go-android v0.3.3 h1:iZ2Gragn3JItkptmppeq1SENmNVc1f1W25UE4u231HY=
